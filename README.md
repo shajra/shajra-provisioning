@@ -3,6 +3,9 @@
   - [Getting Nix](#sec-2-1)
   - [Setting up the cache](#sec-2-2)
   - [Installing the programs](#sec-2-3)
+- [Release](#sec-3)
+- [License](#sec-4)
+- [Contribution](#sec-5)
 
 [![img](https://github.com/shajra/shajra-nix-packages/workflows/CI/badge.svg)](https://github.com/shajra/shajra-nix-packages/actions)
 
@@ -64,3 +67,23 @@ You can layer my programs on top of previously installed programs with the follo
 ```shell
 nix-env --install --file .
 ```
+
+# Release<a id="sec-3"></a>
+
+The "master" branch of the repository on GitHub has the latest released version of this code. There is currently no commitment to either forward or backward compatibility.
+
+"user/shajra" branches are personal branches that may be force-pushed to. The "master" branch should not experience force-pushes and is recommended for general use.
+
+# License<a id="sec-4"></a>
+
+All files in this "shajra-nix-packages" project are licensed under the terms of GPLv3 or (at your option) any later version.
+
+Please see the [./COPYING.md](./COPYING.md) file for more details.
+
+# Contribution<a id="sec-5"></a>
+
+Feel free to file issues and submit pull requests with GitHub.
+
+There is only one author to date, so the following copyright covers all files in this project:
+
+Copyright © 2020 Sukant Hajra

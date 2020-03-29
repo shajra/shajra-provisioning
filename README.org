@@ -84,3 +84,29 @@
    #+BEGIN_SRC shell :eval no
      nix-env --install --file .
    #+END_SRC
+
+* Release
+
+  The "master" branch of the repository on GitHub has the latest released
+  version of this code. There is currently no commitment to either forward or
+  backward compatibility.
+
+  "user/shajra" branches are personal branches that may be force-pushed to. The
+  "master" branch should not experience force-pushes and is recommended for
+  general use.
+
+* License
+
+  All files in this "shajra-nix-packages" project are licensed under the terms
+  of GPLv3 or (at your option) any later version.
+
+  Please see the [[./COPYING.md][./COPYING.md]] file for more details.
+
+* Contribution
+
+  Feel free to file issues and submit pull requests with GitHub.
+
+  There is only one author to date, so the following copyright covers all files
+  in this project:
+
+  Copyright © 2020 Sukant Hajra
