@@ -11,8 +11,8 @@
 
         # Auxiliary packages for Nixpkgs build
         cabal-helper = "1.0.0.0";
-        haskell-lsp = "0.20.0.1";
-        haskell-lsp-types = "0.20.0.0";
+        haskell-lsp = "0.21.0.0";
+        haskell-lsp-types = "0.21.0.0";
         hie-bios = "0.4.0";
     };
     haskell-nix.hackage.index = {
