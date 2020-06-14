@@ -1,7 +1,7 @@
 - [About this project](#sec-1)
 - [Using the project](#sec-2)
-  - [Getting Nix](#sec-2-1)
-  - [Setting up the cache](#sec-2-2)
+  - [Nix package manager setup](#sec-2-1)
+  - [Cache setup](#sec-2-2)
   - [Installing the programs](#sec-2-3)
 - [Release](#sec-3)
 - [License](#sec-4)
@@ -11,28 +11,21 @@
 
 # About this project<a id="sec-1"></a>
 
-This project has a [Nix](https://nixos.org/nix) expression for the packages I use on my personal laptop. Later on it may have packages for more machines. For now, the expression evaluates to an attribute set of package derivations.
+This project has a [Nix](https://nixos.org/nix) expression for the Nix packages I install on my personal laptop. Later on it may have packages for more machines. For now, the expression evaluates to an attribute set of package derivations.
 
 The likelihood that anyone else will want the exact packages I use is slim. Still, you can look at this project to see how I manage my expressions.
 
 If I build something you like, you can import my expression into your own and select the packages of your choosing, benefiting from the cached build in my personal [Cachix](https://cachix.org/) instance.
 
+See [the provided documentation on Nix](doc/nix.md) for more on what Nix is, why we're motivated to use it, and how to get set up with it for this project.
+
 # Using the project<a id="sec-2"></a>
 
-There are two primary requirements:
-
--   You need to be running a GNU/Linux OS
--   You need to have the Nix package manager installed
-    
-    Optionally, you'll probably want to configure your Nix instance to pull pre-built binaries from my Cachix instance.
-
-## Getting Nix<a id="sec-2-1"></a>
+## Nix package manager setup<a id="sec-2-1"></a>
 
 > **<span class="underline">NOTE:</span>** You don't need this step if you're running NixOS, which comes with Nix baked in.
 
-> **<span class="underline">NOTE:</span>** Even though the Nix package manager can be installed on Macs, this project is not tested or supported for Macs.
-
-If you don't already have Nix, the official installation script should work on a variety of GNU/Linux distributions. The easiest way to run this installation script is to execute the following shell command as a user other than root:
+If you don't already have Nix, the official installation script should work on a variety of UNIX-like operating systems. The easiest way to run this installation script is to execute the following shell command as a user other than root:
 
 ```shell
 curl https://nixos.org/nix/install | sh
@@ -40,25 +33,24 @@ curl https://nixos.org/nix/install | sh
 
 This script will download a distribution-independent binary tarball containing Nix and its dependencies, and unpack it in `/nix`.
 
-If you prefer to install Nix another way, reference the [Nix manual](https://nixos.org/nix/manual/#chap-installation)
+The Nix manual describes [other methods of installing Nix](https://nixos.org/nix/manual/#chap-installation) that may suit you more.
 
-## Setting up the cache<a id="sec-2-2"></a>
+## Cache setup<a id="sec-2-2"></a>
 
-Nix package derivations are deterministic recipes on how to build software packages, but these packages can sometimes take a while build. Nix *substituters* can point to a cache of pre-built Nix packages so you can download them instead of build them from scratch.
+It's recommended to configure Nix to use shajra.cachix.org as a Nix *substituter*. This project pushes built Nix packages to [Cachix](https://cachix.org/) as part of its continuous integration. Once configured, Nix will pull down these pre-built packages instead of building them locally.
 
-Cachix is a service to host Nix caches. I use it to cache all my Nix builds (using GitHub Actions and [cachix-action](https://github.com/marketplace/actions/cachix)). Cachix distributes a command-line utility to configure a Nix substituter for a Cachix cache.
-
-Here's a quick way to get the Cachix binary:
+You can configure shajra.cachix.org as a substituter with the following command:
 
 ```shell
-nix-env -iA cachix -f https://cachix.org/api/v1/install
+nix run \
+    --file https://cachix.org/api/v1/install \
+    cachix \
+    --command cachix use shajra
 ```
 
-You can then use it to point to my "shajra" Cachix cache:
+This will perform user-local configuration of Nix at `~/.config/nix/nix.conf`. This configuration will be available immediately, and any subsequent invocation of Nix commands will take advantage of the Cachix cache.
 
-```shell
-cachix use shajra
-```
+If you're running NixOS, you can configure Cachix globally by running the above command as a root user. The command will then configure `/etc/nixos/cachix/shajra.nix`, and the output will explain how to tie this configuration into your normal NixOS configuration.
 
 ## Installing the programs<a id="sec-2-3"></a>
 
@@ -66,6 +58,12 @@ You can layer my programs on top of previously installed programs with the follo
 
 ```shell
 nix-env --install --file .
+```
+
+`nix-env` maintains a symlink tree of all installed packages at `~/.nix-profile`, so set your `PATH` variable accordingly if it's not already set from your Nix installation:
+
+```shell
+export PATH="$HOME/.nix-profile/bin:$PATH"
 ```
 
 # Release<a id="sec-3"></a>

@@ -7,7 +7,16 @@ cd "$(dirname "$0")/.."
 # package you like.
 nix run \
     --ignore-environment \
+    --keep LANG \
+    --keep LOCALE_ARCHIVE \
     --file support \
     nix-project-org2gfm \
+    pkgs.ansifilter \
     pkgs.coreutils \
-    --command org2gfm --evaluate --ignore support "$@"
+    pkgs.tree \
+    --command \
+    org2gfm \
+    --ignore support \
+    --nix "$(command -v nix)" \
+    --evaluate \
+    "$@"
