@@ -1,0 +1,40 @@
+name: "CI"
+on:
+  push:
+  pull_request:
+jobs:
+  build:
+    strategy:
+      matrix:
+        infra: ["nixpkgs", "haskell-nix"]
+    name: build ${{ matrix.infra }}
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v10
+    - uses: cachix/cachix-action@v6
+      with:
+        name: shajra
+        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
+    - run: |
+        mkdir -p ~/.config/nix
+        touch ~/.config/nix/nix.conf
+        echo "substituters = https://hydra.iohk.io" \
+            >> ~/.config/nix/nix.conf
+        echo "trusted-public-keys = hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=" \
+            >> ~/.config/nix/nix.conf
+    - uses: cachix/cachix-action@v6
+      with:
+        name: iohk
+    - uses: cachix/cachix-action@v6
+      with:
+        name: all-hies
+    - run: cat ~/.config/nix/nix.conf
+    - run: |
+        nix --print-build-logs build \
+            --argstr buildSet build \
+            --argstr buildInfrastructure ${{ matrix.infra }}
+    - run: |
+        nix --print-build-logs path-info \
+            --argstr buildSet build \
+            --argstr buildInfrastructure ${{ matrix.infra }}
