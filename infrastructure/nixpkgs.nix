@@ -39,23 +39,13 @@ let
 
     v = config.hackage.version;
 
-    # DESIGN: None of these Nixpkgs builds are used, but keeping around in case
+    # DESIGN: These Nixpkgs builds aren't used, but keeping around in case
     # useful later.
     hsPkgs.ghc865 = hs: hs.packages.ghc865.override {
         overrides = hSelf: hSuper: {
 
             # IDEA: are doJailbreaks/dontChecks still needed?
             # DESIGN: not updating libraries globally to minimize cache misses
-
-            haskell-ci = hSuper.callHackage "haskell-ci" v.haskell-ci {
-                cabal-install-parsers =
-                    hSuper.callCabal2nix "cabal-install-parsers" "${sources.haskell-ci}/cabal-install-parsers" {
-                };
-            };
-
-            haskell-code-explorer = hSuper.callCabal2nix "haskell-code-explorer" sources.haskell-code-explorer {
-                cabal-helper = hSuper.callHackage "cabal-helper" v.cabal-helper {};
-            };
 
             ghcide = hs.lib.dontCheck (
                 hSuper.callCabal2nix "ghcide" sources.ghcide {
@@ -93,6 +83,8 @@ let
                     laxBuild hSuper.cabal-install-parsers;
             };
         };
+
+    hsPkgs.ghc8101 = hs: hs.packages.ghc8101;
 
 in rec {
 

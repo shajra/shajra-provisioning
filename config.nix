@@ -1,25 +1,25 @@
 {
     hackage.version = {
-        # DESIGN: apply-refact 0.7 is only for GHC 8.8.x
-        # DESIGN: apply-refact 0.7 won't build until Cabal 3.0.1.0 on Hackage
-        apply-refact = "0.6.0.0";
-        ghcid = "0.8.5";
-        ghcide = "0.1.0";
-        haskell-ci = "0.8";
-        hlint = "2.2.11";
+        # DESIGN: apply-refact 0.7 only for GHC 8.8.x
+        # DESIGN: apply-refact 0.8 only for GHC 8.10.x, not in haskell.nix
+        apply-refact = "0.7.0.0";
+        ghcid = "0.8.7";
+        ghcide = "0.2.0";
+        haskell-ci = "0.10.2";
+        hlint = "3.1.4";
         stylish-haskell = "0.11.0.0";
 
-        # Auxiliary packages for Nixpkgs build
-        cabal-helper = "1.0.0.0";
-        haskell-lsp = "0.21.0.0";
-        haskell-lsp-types = "0.21.0.0";
-        hie-bios = "0.4.0";
+        # transitive dependencies for Nixpkgs infrastructure
+        cabal-helper = "1.1.0.0";
+        haskell-lsp = "0.22.0.0";
+        haskell-lsp-types = "0.22.0.0";
+        hie-bios = "0.5.0";
     };
     haskell-nix.hackage.index = {
-        state = "2020-03-21T00:00:00Z";
-        sha256 = "0z5yp7p2671y87801m1ilia0f8i8vwx400yhw2xr4ljfv4ybx17d";
+        state = "2020-06-06T16:00:00Z";
+        sha256 = "065rl49gjw2q98ggcsc52262i5741kcj7dx5y773r7n97ivjz7gi";
     };
-    haskell-nix.nixpkgs-pin = "release-19.09";
+    haskell-nix.nixpkgs-pin = "nixpkgs-2003";
     haskell-nix.plan = {
         # DESIGN: a "<packagename>.sha256" property will set the plan's hash
         # DESIGN: a "<packagename>.check" property will check materialization
@@ -33,9 +33,8 @@
             enablePepperFlash = false;
         };
         firefox = {
-            enableGoogleTalkPlugin = false;
             enableAdobeFlash = false;
         };
     };
-    stackage.resolver = "lts-15.3";  # DESIGN: not used currently
+    stackage.resolver = "lts-15.15";  # DESIGN: not used currently
 }

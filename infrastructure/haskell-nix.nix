@@ -5,19 +5,17 @@
 }:
 
 let
-
     haskell-nix =
-        let hnSrc = sources."haskell.nix";
-            pinnedPkgs = import "${hnSrc}/nixpkgs";
-            origHn = import hnSrc;
-            withHn = origHn // {
-                nixpkgs-pin = "${config.haskell-nix.nixpkgs-pin}";
-                overlays = origHn.overlays ++ [(self: super: {
+        let hn = import sources."haskell.nix" {};
+            nixpkgsSrc = hn.sources."${config.haskell-nix.nixpkgs-pin}";
+            nixpkgsOrigArgs = hn.nixpkgsArgs;
+            nixpkgsArgs = nixpkgsOrigArgs // {
+                overlays = nixpkgsOrigArgs.overlays ++ [(self: super: {
                     alex = super.haskellPackages.alex;
                     happy = super.haskellPackages.happy;
                 })];
             };
-        in (pinnedPkgs withHn).haskell-nix;
+        in (import nixpkgsSrc nixpkgsArgs).haskell-nix;
 
     allExes = pkg: pkg.components.exes;
 
@@ -30,7 +28,7 @@ let
                 or checkMaterialization;
         in {
             inherit name modules;
-            ghc = haskell-nix.compiler.${ghcVersion};
+            compiler-nix-name = ghcVersion;
             index-state = config.haskell-nix.hackage.index.state;
             index-sha256 = config.haskell-nix.hackage.index.sha256;
             ${if plan-sha256 != null then "plan-sha256" else null} =
