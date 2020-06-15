@@ -68,6 +68,7 @@
         which
         whipper
         xclip
+        libreoffice
         zathura;
         grip = python38Packages.grip;
         texlive = nixpkgs.texlive.combine {
@@ -77,9 +78,8 @@
 
     # DESIGN: occaisionally unstable is actually unstable
     prebuilt.nixos = with nixos; {
-        inherit
-        libreoffice  # didn't build in unstable, 20-6-6
-        ;
+        #inherit
+        #;
     };
 
     prebuilt.haskell-nix = with haskell-nix; {
@@ -88,7 +88,6 @@
 
     build.nixpkgs = {}
 
-        // (hs.np.fromPackages "unstable" "ghc883" "apply-refact")
         // (hs.np.fromPackages "unstable" "ghc883" "djinn")
         // (hs.np.fromPackages "unstable" "ghc883" "fast-tags")
         // (hs.np.fromPackages "unstable" "ghc883" "ghc-events")
@@ -98,17 +97,18 @@
         // (hs.np.fromPackages "unstable" "ghc883" "hp2pretty")
         // (hs.np.fromPackages "unstable" "ghc883" "threadscope")
 
-        // (hs.np.fromPackages "unstable" "ghc865" "pointfree")  # broken in ghc883, 20-6-6
+        // (hs.np.fromPackages "unstable" "ghc865" "pointfree")  # broken for 8.8.3 & 8.10.1, 20-6-14
 
-        #// (hs.np.fromPackages "unstable" "ghc883" "pointful")            # marked broken, 20-6-6
-        #// (hs.np.fromPackages "unstable" "ghc883" "ghc-events-analyze")  # marked broken, 20-6-6
+        #// (hs.np.fromPackages "unstable" "ghc883" "pointful")            # marked broken, 20-6-14
+        #// (hs.np.fromPackages "unstable" "ghc883" "ghc-events-analyze")  # marked broken, 20-6-14
         ;
 
     build.haskell-nix = {}
-        // (hs.hn.fromHackage "ghc883" "ghcid")
-        // (hs.hn.fromHackage "ghc883" "hlint")
-        // (hs.hn.fromHackage "ghc883" "stylish-haskell")
-        // (hs.hn.fromSource  "ghc883" "codex")
+        // (hs.hn.fromHackage "ghc8101" "apply-refact")
+        // (hs.hn.fromHackage "ghc8101" "ghcid")
+        // (hs.hn.fromHackage "ghc8101" "hlint")
+        // (hs.hn.fromHackage "ghc8101" "stylish-haskell")
+        // (hs.hn.fromSource  "ghc8101" "codex")
         ;
 
 }
