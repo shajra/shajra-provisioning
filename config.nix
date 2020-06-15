@@ -36,5 +36,5 @@
             enableAdobeFlash = false;
         };
     };
-    stackage.resolver = "lts-15.15";  # DESIGN: not used currently
+    stackage.resolver = "lts-16.0";  # DESIGN: not used currently
 }
