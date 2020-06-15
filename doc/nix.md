@@ -87,14 +87,14 @@ Once you learn the Nix language, you can read these files to see what kind of va
 nix search --file default.nix --no-cache
 ```
 
-    * apply-refact (apply-refact)
-      Perform refactorings specified by the refact library
-    
     * autojump (autojump)
       A `cd' command that learns
     
     * binutils-unwrapped (binutils)
       Tools for manipulating binaries (linker, assembler, etc.)
+    
+    * cabal-install (cabal-install)
+      The command-line interface for Cabal and Hackage
     
     …
 
@@ -141,7 +141,7 @@ After a successful call of `nix build`, you'll see some symlinks for each packag
 readlink result*
 ```
 
-    /nix/store/0x8pbk0578knfpxf9gbl0lhmpynh2947-binutils-2.31.1
+    /nix/store/ivmds12g88jbjf8famgwkj36a4rrfcy6-binutils-2.31.1
 
 Following these symlinks, we can see the files the project provides:
 

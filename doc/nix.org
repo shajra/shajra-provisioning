@@ -208,14 +208,14 @@
 
    #+RESULTS:
    #+begin_example
-   ,* apply-refact (apply-refact)
-     Perform refactorings specified by the refact library
-
    ,* autojump (autojump)
      A `cd' command that learns
 
    ,* binutils-unwrapped (binutils)
      Tools for manipulating binaries (linker, assembler, etc.)
+
+   ,* cabal-install (cabal-install)
+     The command-line interface for Cabal and Hackage
 
    …
    #+end_example
@@ -287,7 +287,7 @@
    #+END_SRC
 
    #+RESULTS:
-   : /nix/store/0x8pbk0578knfpxf9gbl0lhmpynh2947-binutils-2.31.1
+   : /nix/store/ivmds12g88jbjf8famgwkj36a4rrfcy6-binutils-2.31.1
 
    Following these symlinks, we can see the files the project provides:
 
