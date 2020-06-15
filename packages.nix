@@ -35,6 +35,7 @@
         inkscape
         ispell
         jq
+        libreoffice
         mpc_cli
         niv
         nix-diff
@@ -68,7 +69,6 @@
         which
         whipper
         xclip
-        libreoffice
         zathura;
         grip = python38Packages.grip;
         texlive = nixpkgs.texlive.combine {
