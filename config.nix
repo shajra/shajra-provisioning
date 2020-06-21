@@ -4,7 +4,7 @@
         ghcid = "0.8.7";
         ghcide = "0.2.0";
         haskell-ci = "0.10.2";
-        hlint = "3.1.4";
+        hlint = "3.1.5";
         stylish-haskell = "0.11.0.0";
 
         # transitive dependencies for Nixpkgs infrastructure
@@ -14,8 +14,8 @@
         hie-bios = "0.5.0";
     };
     haskell-nix.hackage.index = {
-        state = "2020-06-14T00:00:00Z";
-        sha256 = "1h3q2r205f9lzd4xxh5ikjfd32298ca4z4wh9gspk8dnvkc99b46";
+        state = "2020-06-20T00:00:00Z";
+        sha256 = "1a5cfcysv4l5sv79vizn0pc8hfj2y00nsq4nvdkn6zgfk4z48fnq";
     };
     haskell-nix.nixpkgs-pin = "nixpkgs-2003";
     haskell-nix.plan = {
@@ -34,5 +34,5 @@
             enableAdobeFlash = false;
         };
     };
-    stackage.resolver = "lts-16.0";  # DESIGN: not used currently
+    stackage.resolver = "lts-16.1";  # DESIGN: not used currently
 }
