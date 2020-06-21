@@ -1,5 +1,5 @@
 #+TITLE: Personal Nix Expression of Packages
-#+SETUPFILE: ./support/setup.org
+#+SETUPFILE: ./doc/links.org
 
 [[https://github.com/shajra/shajra-nix-packages/actions][https://github.com/shajra/shajra-nix-packages/workflows/CI/badge.svg]]
 

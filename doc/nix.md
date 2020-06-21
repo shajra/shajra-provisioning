@@ -4,11 +4,13 @@
   - [Nix package manager setup](#sec-3-1)
   - [Cache setup](#sec-3-2)
 - [Working with Nix](#sec-4)
-  - [Understanding Nix files](#sec-4-1)
+  - [Searching Nix files](#sec-4-1)
   - [Building Nix expressions](#sec-4-2)
   - [Running commands](#sec-4-3)
   - [Installing and uninstalling programs](#sec-4-4)
   - [Garbage collection](#sec-4-5)
+  - [Understanding derivations](#nix-drv)
+  - [Lazy evaluation](#sec-4-7)
 - [Next Steps](#sec-5)
 
 
@@ -73,7 +75,7 @@ If you're running NixOS, you can configure Cachix globally by running the above 
 
 Though covering Nix comprehensively is beyond the scope of this document, we'll go over a few commands illustrating using Nix with this project.
 
-## Understanding Nix files<a id="sec-4-1"></a>
+## Searching Nix files<a id="sec-4-1"></a>
 
 Each of the Nix files in this project (ones with a ".nix" extension) contains exactly one Nix expression. This expression evaluates to one of the following values:
 
@@ -97,6 +99,8 @@ nix search --file default.nix --no-cache
       The command-line interface for Cabal and Hackage
     
     …
+
+If you don't get the results above, see the [section on understanding derivations](#nix-drv) for an explanation of the likely problem and a workaround.
 
 Note that because for extremely large Nix expressions, searching can be slow, `nix search` by defaults uses an indexed cache. This cache can be explicitly updated. However, because small local projects rarely have that many package derivations, the `--no-cache` switch is used above to bypass the cache. This guarantees accurate results that are fast enough. Otherwise, you will only get hits for the last Nix expression cached, which may be surprising.
 
@@ -125,12 +129,6 @@ We can build this package with `nix build` from the top-level:
 nix build --file . binutils-unwrapped
 ```
 
-Because `nix build` by default builds `default.nix`, you don't need the `--file .` argument. So our invocation could be even more simple:
-
-```shell
-nix build binutils-unwrapped
-```
-
 The positional arguments to `nix build` are attribute names. If you supply none then all attributes are built by default.
 
 All packages built by Nix are stored in `/nix/store`. Nix won't rebuild packages found there. Once a package is built, its directory in `/nix/store` is read-only (until the package is deleted).
@@ -141,7 +139,7 @@ After a successful call of `nix build`, you'll see some symlinks for each packag
 readlink result*
 ```
 
-    /nix/store/ivmds12g88jbjf8famgwkj36a4rrfcy6-binutils-2.31.1
+    /nix/store/klg7ribk7f834yb0hn1fxs6653wzlncb-binutils-2.31.1
 
 Following these symlinks, we can see the files the project provides:
 
@@ -163,6 +161,14 @@ tree -l result*
 
 It's common to configure these "result" symlinks as ignored in source control tools (for instance, within a Git `.gitignore` file).
 
+`nix build` has a `--no-link` switch in case you want to build packages without creating "result" symlinks. To get the paths where your packages are located, you can use `nix path-info` after a successful build:
+
+```shell
+nix path-info --file . binutils-unwrapped
+```
+
+    /nix/store/klg7ribk7f834yb0hn1fxs6653wzlncb-binutils-2.31.1
+
 ## Running commands<a id="sec-4-3"></a>
 
 You can run a command from a package in a Nix expression with `nix run`. For instance, to get the help message for the `addr2line` executable provided by the "binutils" package selected by the "binutils-unwrapped" attribute name, we can call the following:
@@ -183,13 +189,11 @@ nix run \
 
 You don't even have to build the package first with `nix build` or mess around with the "result" symlinks. `nix run` will build the project if it's not yet been built.
 
-Note that unlike `nix build` the `--file .` argument is needed in this case. The default expression for `nix run` is different than `default.nix` in the current working directory.
-
-Again, as with `nix build` attribute names are specified as positional argument to select packages.
+Again, as with `nix build` attribute names are specified as positional arguments to select packages.
 
 The command to run is specified after the `--command` switch. `nix run` runs the command in a shell set up with a `PATH` environment variable including all the `bin` directories provided by the selected packages.
 
-`nux run` also supports an `--ignore-environment` flag that restricts `PATH` to only packages selected, rather than extending the `PATH` of the outside environment. With `--ignore-environment`, the invocation is more sandboxed.
+`nix run` also supports an `--ignore-environment` flag that restricts `PATH` to only packages selected, rather than extending the `PATH` of the outside environment. With `--ignore-environment`, the invocation is more sandboxed.
 
 ## Installing and uninstalling programs<a id="sec-4-4"></a>
 
@@ -245,12 +249,33 @@ These symlinks prevent packages built by `nix build` from being garbage collecte
 
 Also, it's good to know that `nix-collect-garbage` won't delete packages referenced by any running processes. In the case of `nix run` no garbage collection root symlink is created under `/nix/var/nix/gcroots`, but while `nix run` is running a `nix-collect-garbage` won't delete packages needed by the invocation. However, once the `nix run` call exits, any packages pulled from a substituter or built locally are candidates for deletion by `nix-collect-garbage`. If you called `nix run` again after garbage collecting, those packages might be pulled or built again.
 
+## Understanding derivations<a id="nix-drv"></a>
+
+We haven't detailed what happens when we build a Nix expression that evaluates to a package derivation. There are two important steps:
+
+1.  *instantiating* the derivation
+2.  *realizing* the instantiated derivation, which builds the final package.
+
+An instantiated derivation is effectively a script stored in `/nix/store` that Nix can run to build the final package (which also ends up in `/nix/store`). These instantiated derivations have a ".drv" extension, and if you look in `/nix/store` you may find some. Instantiated derivations have references to all necessary build dependencies, also in `/nix/store`, which means that everything is physically in place in `/nix/store` to build the package. No further evaluation of a Nix expression is needed once we have an instantiated derivation to build the final package. Note that both `nix build` and `nix run` perform both instantiation and realization of a derivation, so for the most part, we don't have to worry about the difference between instantiating and realizing a derivation.
+
+However, you may encounter a Nix expression where `nix search` returns nothing, though you're sure that there are derivations to select out. In this case, the Nix expression is using an advanced technique that unfortunately hides attributes from `nix search` until some derivations are instantiated into `/nix/store`. We can force the instantiation of these derivations without realizing their packages with the following command:
+
+```shell
+nix show-derivation --file default.nix
+```
+
+Once these derivations are instantiated, you may get more results with `nix search` for the occasional Nix expression that uses some advanced techniques.
+
+## Lazy evaluation<a id="sec-4-7"></a>
+
+We haven't made a big deal of it, but the Nix language is *lazily evaluated*. This allows a single Nix expression to refer to several thousand packages, but without requiring us to evaluate everything when selecting out packages by attribute names. In fact, the entire NixOS operating system is based heavily on a single single expression managed in a Git repository called [Nixpkgs](https://github.com/NixOS/nixpkgs).
+
 # Next Steps<a id="sec-5"></a>
 
 This document has covered a fraction of Nix usage, hopefully enough to introduce Nix in the context of [this project](../README.md).
 
 An obvious place to start learn more about Nix is [the official documentation](https://nixos.org/learn.html). The author of this project also maintains another project with [a small tutorial on Nix](https://github.com/shajra/example-nix/tree/master/tutorials/0-nix-intro). This tutorial covers the Nix expression language in more detail.
 
-All the commands we've covered have more switches and options. See the respective man-pages for more. Also, we didn't cover `nix-shell`, which can be used for setting up development environments. And we didn't cover [Nixpkgs](https://github.com/NixOS/nixpkgs), a gigantic repository of community-curated Nix expressions.
+All the commands we've covered have more switches and options. See the respective man-pages for more. Also, we didn't cover `nix-shell`, which can be used for setting up development environments. And we didn't cover much of [Nixpkgs](https://github.com/NixOS/nixpkgs), the gigantic repository of community-curated Nix expressions.
 
 The Nix ecosystem is vast. This project and documentation illustrates just a small example of what Nix can do.

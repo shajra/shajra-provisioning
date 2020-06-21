@@ -20,31 +20,23 @@
    These are some references that need to be changed to use this document in
    other projects.
 
-   #+MACRO: package-attr "binutils-unwrapped"
-   #+MACRO: package-name "binutils"
-   #+MACRO: package-exe =addr2line=
+   #+MACRO: get (eval (concat $2 (alist-get '$1 (car (read-from-string (f-read "nix.org.el")))) $2))
+   #+MACRO: package-attr {{{get(package-attr, "\"")}}}
+   #+MACRO: package-name {{{get(package-name, "\"")}}}
+   #+MACRO: package-exe {{{get(package-exe, "=")}}}
 
-   #+NAME: package-attr
-   #+BEGIN_SRC text :eval no
-     binutils-unwrapped
-   #+END_SRC
-
-   #+NAME: package-name
-   #+BEGIN_SRC text :eval no
-     binutils
-   #+END_SRC
-
-   #+NAME: package-exe
-   #+BEGIN_SRC text :eval no
-     addr2line
+   #+NAME: get
+   #+BEGIN_SRC emacs-lisp :var arg="" :eval yes :results silent
+     (alist-get (intern arg) (car (read-from-string (f-read "nix.org.el"))))
    #+END_SRC
 
 ** Formatting help
 
-   This snippet is just used by Emacs's org-mode to crop down results.
+   This snippet is used to crop down results of evaluating source code blocks
+   as a post-processing step.
 
    #+NAME: crop
-   #+BEGIN_SRC emacs-lisp :var text="" :var first-n=5 :var last-n=5 :results silent :exports none
+   #+BEGIN_SRC emacs-lisp :var text="" :var first-n=5 :var last-n=5 :results silent
      (let* ((ls         (split-string text "\n"))
             (first-ls   (-take first-n ls))
             (rest-first (-drop first-n ls))
@@ -59,7 +51,8 @@
 
 ** Setup action
 
-   #+BEGIN_SRC shell :dir .. :results silent
+   #+NAME: cleanup
+   #+BEGIN_SRC shell :dir .. :results output silent
      rm -rf result* || true
      rm -rf nix-profile || true
    #+END_SRC
@@ -182,7 +175,7 @@
   Though covering Nix comprehensively is beyond the scope of this document,
   we'll go over a few commands illustrating using Nix with this project.
 
-** Understanding Nix files
+** Searching Nix files
 
    Each of the Nix files in this project (ones with a ".nix" extension)
    contains exactly one Nix expression. This expression evaluates to one of the
@@ -197,6 +190,10 @@
    of values they build. We can use the =nix search= command to see what
    package derivations a Nix expression contains. For example from the
    top-level of this project, we can execute:
+
+   #+BEGIN_SRC shell :dir .. :results output silent :exports none
+     nix show-derivation --file default.nix >/dev/null 2>&1
+   #+END_SRC
 
    #+BEGIN_SRC shell :eval no
      nix search --file default.nix --no-cache
@@ -219,6 +216,9 @@
 
    …
    #+end_example
+
+   If you don't get the results above, see the [[#nix-drv][section on understanding
+   derivations]] for an explanation of the likely problem and a workaround.
 
    Note that because for extremely large Nix expressions, searching can be
    slow, =nix search= by defaults uses an indexed cache. This cache can be
@@ -259,15 +259,8 @@
 
    We can build this package with =nix build= from the top-level:
 
-   #+BEGIN_SRC shell :dir .. :results silent :noweb yes
-     nix build --file . <<package-attr>>
-   #+END_SRC
-
-   Because =nix build= by default builds =default.nix=, you don't need the
-   =--file .= argument. So our invocation could be even more simple:
-
-   #+BEGIN_SRC shell :dir .. :results silent :noweb yes
-     nix build <<package-attr>>
+   #+BEGIN_SRC shell :dir .. :results output silent :noweb yes
+     nix build --file . <<get("package-attr")>>
    #+END_SRC
 
    The positional arguments to =nix build= are attribute
@@ -287,7 +280,7 @@
    #+END_SRC
 
    #+RESULTS:
-   : /nix/store/ivmds12g88jbjf8famgwkj36a4rrfcy6-binutils-2.31.1
+   : /nix/store/klg7ribk7f834yb0hn1fxs6653wzlncb-binutils-2.31.1
 
    Following these symlinks, we can see the files the project provides:
 
@@ -313,6 +306,17 @@
    It's common to configure these "result" symlinks as ignored in source
    control tools (for instance, within a Git =.gitignore= file).
 
+   =nix build= has a =--no-link= switch in case you want to build packages
+   without creating "result" symlinks. To get the paths where your packages are
+   located, you can use =nix path-info= after a successful build:
+
+   #+BEGIN_SRC shell :dir .. :results output :exports both :noweb yes
+     nix path-info --file . <<get("package-attr")>>
+   #+END_SRC
+
+   #+RESULTS:
+   : /nix/store/klg7ribk7f834yb0hn1fxs6653wzlncb-binutils-2.31.1
+
 ** Running commands
 
    You can run a command from a package in a Nix expression with =nix run=. For
@@ -320,11 +324,11 @@
    provided by the {{{package-name}}} package selected by the
    {{{package-attr}}} attribute name, we can call the following:
 
-   #+BEGIN_SRC shell :noweb yes :dir .. :results output :exports both :post crop(text=*this*, first-n=5, last-n=0)
+   #+BEGIN_SRC shell :dir .. :results output :exports both :noweb yes :post crop(text=*this*, first-n=5, last-n=0)
      nix run \
          --file . \
-         <<package-attr>> \
-         --command <<package-exe>> --help
+         <<get("package-attr")>> \
+         --command <<get("package-exe")>> --help
    #+END_SRC
 
    #+RESULTS:
@@ -339,18 +343,14 @@
    around with the "result" symlinks. =nix run= will build the project if it's
    not yet been built.
 
-   Note that unlike =nix build= the =--file .= argument is needed in this case.
-   The default expression for =nix run= is different than =default.nix= in the
-   current working directory.
-
    Again, as with =nix build= attribute names are specified as positional
-   argument to select packages.
+   arguments to select packages.
 
    The command to run is specified after the =--command= switch. =nix run= runs
    the command in a shell set up with a =PATH= environment variable including
    all the =bin= directories provided by the selected packages.
 
-   =nux run= also supports an =--ignore-environment= flag that restricts =PATH=
+   =nix run= also supports an =--ignore-environment= flag that restricts =PATH=
    to only packages selected, rather than extending the =PATH= of the outside
    environment. With =--ignore-environment=, the invocation is more sandboxed.
 
@@ -389,12 +389,12 @@
    following:
 
    #+BEGIN_SRC shell :eval no :noweb yes
-     nix-env --install --file . --attr <<package-attr>>
+     nix-env --install --file . --attr <<get("package-attr")>>
    #+END_SRC
 
-   #+BEGIN_SRC shell :dir .. :results silent :exports none :noweb yes
+   #+BEGIN_SRC shell :dir .. :results output silent :exports none :noweb yes
      mkdir nix-profile
-     nix-env --profile nix-profile/doc --install --file . --attr <<package-attr>>
+     nix-env --profile nix-profile/doc --install --file . --attr <<get("package-attr")>>
    #+END_SRC
 
    We can see this installation by querying what's been installed:
@@ -414,12 +414,12 @@
    its name, in this case {{{package-name}}}:
 
    #+BEGIN_SRC shell :eval no :noweb yes
-     nix-env --uninstall <<package-name>>
+     nix-env --uninstall <<get("package-name")>>
    #+END_SRC
 
-   #+BEGIN_SRC shell :dir .. :results silent :exports none :noweb yes
+   #+BEGIN_SRC shell :dir .. :results output silent :exports none :noweb yes
      mkdir nix-profile
-     nix-env --profile nix-profile/doc --uninstall <<package-name>>
+     nix-env --profile nix-profile/doc --uninstall <<get("package-name")>>
    #+END_SRC
 
    Note that we've installed our package using its attribute name
@@ -466,6 +466,53 @@
    =nix-collect-garbage=. If you called =nix run= again after garbage
    collecting, those packages might be pulled or built again.
 
+** Understanding derivations
+   :PROPERTIES:
+   :CUSTOM_ID: nix-drv
+   :END:
+
+   We haven't detailed what happens when we build a Nix expression that
+   evaluates to a package derivation. There are two important steps:
+
+   1. /instantiating/ the derivation
+   2. /realizing/ the instantiated derivation, which builds the final package.
+
+   An instantiated derivation is effectively a script stored in =/nix/store=
+   that Nix can run to build the final package (which also ends up in
+   =/nix/store=). These instantiated derivations have a ".drv" extension, and
+   if you look in =/nix/store= you may find some. Instantiated derivations have
+   references to all necessary build dependencies, also in =/nix/store=, which
+   means that everything is physically in place in =/nix/store= to build the
+   package. No further evaluation of a Nix expression is needed once we have an
+   instantiated derivation to build the final package. Note that both =nix
+   build= and =nix run= perform both instantiation and realization of a
+   derivation, so for the most part, we don't have to worry about the
+   difference between instantiating and realizing a derivation.
+
+   However, you may encounter a Nix expression where =nix search= returns
+   nothing, though you're sure that there are derivations to select out. In
+   this case, the Nix expression is using an advanced technique that
+   unfortunately hides attributes from =nix search= until some derivations are
+   instantiated into =/nix/store=. We can force the instantiation of these
+   derivations without realizing their packages with the following command:
+
+   #+BEGIN_SRC shell :dir .. :results output silent
+     nix show-derivation --file default.nix
+   #+END_SRC
+
+   Once these derivations are instantiated, you may get more results with =nix
+   search= for the occasional Nix expression that uses some advanced
+   techniques.
+
+** Lazy evaluation
+
+   We haven't made a big deal of it, but the Nix language is /lazily
+   evaluated/. This allows a single Nix expression to refer to several thousand
+   packages, but without requiring us to evaluate everything when selecting out
+   packages by attribute names. In fact, the entire NixOS operating system is
+   based heavily on a single single expression managed in a Git repository
+   called [[nixpkgs][Nixpkgs]].
+
 * Next Steps
 
   This document has covered a fraction of Nix usage, hopefully enough to
@@ -478,15 +525,12 @@
 
   All the commands we've covered have more switches and options. See the
   respective man-pages for more. Also, we didn't cover =nix-shell=, which can
-  be used for setting up development environments. And we didn't cover [[nixpkgs][Nixpkgs]],
-  a gigantic repository of community-curated Nix expressions.
+  be used for setting up development environments. And we didn't cover much of
+  [[nixpkgs][Nixpkgs]], the gigantic repository of community-curated Nix expressions.
 
   The Nix ecosystem is vast. This project and documentation illustrates just a
   small example of what Nix can do.
 
 * Org-mode Teardown :noexport:
 
-   #+BEGIN_SRC shell :dir .. :results silent
-     rm -rf result* || true
-     rm -rf nix-profile || true
-   #+END_SRC
+  #+CALL: cleanup()

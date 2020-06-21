@@ -13,10 +13,12 @@ nix run \
     nix-project-org2gfm \
     pkgs.ansifilter \
     pkgs.coreutils \
+    pkgs.gnutar \
+    pkgs.gzip \
     pkgs.tree \
     --command \
     org2gfm \
-    --ignore support \
+    --ignore links.org \
     --nix "$(command -v nix)" \
     --evaluate \
     "$@"
