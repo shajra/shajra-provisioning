@@ -1,11 +1,65 @@
-{ nixos
-, nixpkgs
+{ nixpkgs-stable
+, nixpkgs-unstable
 , haskell-nix
 , hs
 }:
 
-{
-    prebuilt.nixpkgs = with nixpkgs; {
+let
+
+    nixpkgsDarwin = with nixpkgs-stable; {
+        inherit
+        nodejs-10_x
+        autojump
+        bzip2
+        cabal-install
+        cabal2nix
+        cachix
+        cloc
+        coreutils
+        dfu-programmer
+        dfu-util
+        dhall
+        direnv
+        fswatch
+        ghc
+        git
+        global
+        gnugrep
+        gnupg
+        graphviz
+        hlint
+        htop
+        imagemagick
+        ispell
+        jq
+        jre
+        mpc_cli
+        mongodb
+        mongodb-tools
+        nix-diff
+        nix-index
+        oh-my-zsh
+        pandoc
+        patchelf
+        postgresql
+        procps
+        ripgrep
+        rsync
+        sbt-extras
+        schemaspy
+        shellcheck
+        silver-searcher
+        sqlint
+        teensy-loader-cli
+        tree
+        unison
+        unzip
+        vim
+        wget
+        ;
+    };
+
+    nixpkgsLinux = with nixpkgs-unstable; {
         inherit
         autojump
         binutils-unwrapped
@@ -76,11 +130,13 @@
         };
     };
 
-    # DESIGN: occaisionally unstable is actually unstable
-    prebuilt.nixos = with nixos; {
-        #inherit
-        #;
-    };
+in
+
+{
+    prebuilt.nixpkgs =
+        if builtins.currentSystem == "x86_64-darwin"
+        then nixpkgsDarwin
+        else nixpkgsLinux;
 
     prebuilt.haskell-nix = with haskell-nix; {
         inherit nix-tools;

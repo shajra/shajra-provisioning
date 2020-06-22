@@ -16,8 +16,8 @@ let
 
 in {
 
-    nixos = np.nixos;
-    nixpkgs = np.nixpkgs;
+    nixpkgs-stable = np.nixpkgs-stable;
+    nixpkgs-unstable = np.nixpkgs-unstable;
     haskell-nix = hn.haskell-nix;
     hs.np.fromPackages = np.hs.fromPackages;
     hs.np.fromNixpkgs = np.hs.fromNixpkgs;

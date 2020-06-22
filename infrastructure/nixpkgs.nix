@@ -25,17 +25,22 @@ let
 
     };
 
-    nixos = import sources."nixos-stable" {
+    mkNixpkgs = s: import s {
         config = config.nixpkgs;
         overlays = [overlay];
     };
 
-    nixpkgs = import sources.nixpkgs-unstable {
-        config = config.nixpkgs;
-        overlays = [overlay];
-    };
+    nixpkgs-stable =
+       if builtins.currentSystem == "x86_64-darwin"
+       then mkNixpkgs sources."nixpkgs-stable-darwin"
+       else mkNixpkgs sources."nixpkgs-stable-linux";
 
-    pickPkgs = pkgs: if pkgs == "stable" then nixos else nixpkgs;
+    nixpkgs-unstable = mkNixpkgs sources.nixpkgs-unstable;
+
+    pickPkgs = pkgs:
+        if pkgs == "stable"
+        then nixpkgs-stable
+        else nixpkgs-unstable;
 
     v = config.hackage.version;
 
@@ -86,9 +91,9 @@ let
 
     hsPkgs.ghc8101 = hs: hs.packages.ghc8101;
 
-in rec {
+in {
 
-    inherit nixos nixpkgs;
+    inherit nixpkgs-stable nixpkgs-unstable;
 
     hs.fromTopLevel = nixpkgsName: hsPkgName:
         let pkgs = pickPkgs nixpkgsName;

@@ -53,10 +53,10 @@
         "homepage": "https://input-output-hk.github.io/haskell.nix",
         "owner": "input-output-hk",
         "repo": "haskell.nix",
-        "rev": "4cf7a55a2a917155a7a22f806392c834ebedb9b0",
-        "sha256": "1d56d71wy1zmg42dxw8dlpz6v47ip2a5i47qawj4bphkjchkdg30",
+        "rev": "dc7acfeb7628032d5109747a8b330d58817b953f",
+        "sha256": "1k3dvwfdv4ddsdvcb1x7p7952qpkcwkmd39gfic23d4s0g45frwz",
         "type": "tarball",
-        "url": "https://github.com/input-output-hk/haskell.nix/archive/4cf7a55a2a917155a7a22f806392c834ebedb9b0.tar.gz",
+        "url": "https://github.com/input-output-hk/haskell.nix/archive/dc7acfeb7628032d5109747a8b330d58817b953f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "hie-bios": {
@@ -95,7 +95,7 @@
         "url": "https://github.com/shajra/nix-project/archive/9dc7b83f459f4ddb6f246bf15fb7fd5cd8620c99.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "nixos-stable": {
+    "nixpkgs": {
         "branch": "nixos-20.03",
         "description": "A read-only mirror of NixOS/nixpkgs tracking the released channels. Send issues and PRs to",
         "homepage": "https://github.com/NixOS/nixpkgs",
@@ -107,7 +107,19 @@
         "url": "https://github.com/NixOS/nixpkgs-channels/archive/2b417708c282d84316366f4125b00b29c49df10f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "nixpkgs": {
+    "nixpkgs-stable-darwin": {
+        "branch": "nixpkgs-20.03-darwin",
+        "description": "A read-only mirror of NixOS/nixpkgs tracking the released channels. Send issues and PRs to",
+        "homepage": "https://github.com/NixOS/nixpkgs",
+        "owner": "NixOS",
+        "repo": "nixpkgs-channels",
+        "rev": "cdd1ecea80de3dc813fc86c6827af2c9a6bb50e7",
+        "sha256": "1nfk40fbgvrahhzrwriivfrciggjdmha9fsh5yrpzp6yqd8drns0",
+        "type": "tarball",
+        "url": "https://github.com/NixOS/nixpkgs-channels/archive/cdd1ecea80de3dc813fc86c6827af2c9a6bb50e7.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nixpkgs-stable-linux": {
         "branch": "nixos-20.03",
         "description": "A read-only mirror of NixOS/nixpkgs tracking the released channels. Send issues and PRs to",
         "homepage": "https://github.com/NixOS/nixpkgs",

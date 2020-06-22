@@ -20,8 +20,7 @@ let
         if includeSet bs && includeInfra i then pkgs else {};
 
 in
-    (include "prebuilt" "nixpkgs"
-        (pkgs.prebuilt.nixpkgs // pkgs.prebuilt.nixos))
+    (   include "prebuilt" "nixpkgs"     pkgs.prebuilt.nixpkgs)
     // (include "prebuilt" "haskell-nix" pkgs.prebuilt.haskell-nix)
-    // (include "build" "nixpkgs" pkgs.build.nixpkgs)
-    // (include "build" "haskell-nix" pkgs.build.haskell-nix)
+    // (include "build"    "nixpkgs"     pkgs.build.nixpkgs)
+    // (include "build"    "haskell-nix" pkgs.build.haskell-nix)

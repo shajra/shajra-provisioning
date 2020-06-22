@@ -6,9 +6,10 @@ jobs:
   build:
     strategy:
       matrix:
+        os: [ubuntu-latest, macos-latest]
         infra: ["nixpkgs", "haskell-nix"]
-    name: build ${{ matrix.infra }}
-    runs-on: ubuntu-latest
+    name: ${{ matrix.infra }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v2
     - uses: cachix/install-nix-action@v10
