@@ -139,7 +139,7 @@ After a successful call of `nix build`, you'll see some symlinks for each packag
 readlink result*
 ```
 
-    /nix/store/klg7ribk7f834yb0hn1fxs6653wzlncb-binutils-2.31.1
+    /nix/store/bh3r88sv8wckwmfyhjxbqmxcha0hrm8h-binutils-2.31.1
 
 Following these symlinks, we can see the files the project provides:
 
@@ -167,7 +167,7 @@ It's common to configure these "result" symlinks as ignored in source control to
 nix path-info --file . binutils-unwrapped
 ```
 
-    /nix/store/klg7ribk7f834yb0hn1fxs6653wzlncb-binutils-2.31.1
+    /nix/store/bh3r88sv8wckwmfyhjxbqmxcha0hrm8h-binutils-2.31.1
 
 ## Running commands<a id="sec-4-3"></a>
 
