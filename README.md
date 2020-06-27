@@ -11,7 +11,7 @@
 
 # About this project<a id="sec-1"></a>
 
-This project has a [Nix](https://nixos.org/nix) expression for the Nix packages I install on my personal laptop. Later on it may have packages for more machines. For now, the expression evaluates to an attribute set of package derivations.
+This project has a [Nix](https://nixos.org/nix) expression for the Nix packages I install on my personal laptops (one NixOS, another MacOS). Later on it may have packages for more machines. For now, the expression evaluates to an attribute set of package derivations. The package sets are different depending on the detected operating system.
 
 The likelihood that anyone else will want the exact packages I use is slim. Still, you can look at this project to see how I manage my expressions.
 
