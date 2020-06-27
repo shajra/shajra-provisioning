@@ -51,6 +51,7 @@ let
         shellcheck
         silver-searcher
         sqlint
+        sqlite
         teensy-loader-cli
         tree
         unison
@@ -113,6 +114,7 @@ let
         silver-searcher
         slack
         slack-term
+        sqlite
         stack
         travis
         tree
