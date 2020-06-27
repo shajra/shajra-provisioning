@@ -35,18 +35,6 @@
         "url": "https://github.com/digital-asset/ghcide/archive/21161389842a3141f82c82a6757d6eadfb264e8b.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "haskell-ci": {
-        "branch": "v0.8",
-        "description": "Scripts and instructions for using CI services (e.g. Travis CI or Appveyor) with multiple GHC configurations",
-        "homepage": "",
-        "owner": "haskell-CI",
-        "repo": "haskell-ci",
-        "rev": "dc8c66ca7a733936fe01afa0c00cd7e4473e7463",
-        "sha256": "0asa0bzw4bjb9l2wdgw21ahwpsqyra5fyvdj5nakb4xw91zjkxmn",
-        "type": "tarball",
-        "url": "https://github.com/haskell-CI/haskell-ci/archive/dc8c66ca7a733936fe01afa0c00cd7e4473e7463.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "haskell.nix": {
         "branch": "master",
         "description": "Alternative Haskell Infrastructure for Nixpkgs",

@@ -84,7 +84,6 @@ let
         gnumake
         gnupg
         graphviz
-        haskell-ci
         htop
         imagemagick
         inkscape

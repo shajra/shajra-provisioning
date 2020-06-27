@@ -79,7 +79,6 @@ let
                 (hs.lib.dontCheck unbrokenDrv);
         in hs.packages.ghc883.override {
             overrides = hSelf: hSuper: {
-                haskell-ci = laxBuild hSuper.haskell-ci;
                 cabal-install-parsers =
                     laxBuild hSuper.cabal-install-parsers;
             };
