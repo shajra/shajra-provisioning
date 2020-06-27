@@ -2,6 +2,7 @@
 , nixpkgs-unstable
 , haskell-nix
 , hs
+, isDarwin
 }:
 
 let
@@ -125,18 +126,15 @@ let
         xclip
         zathura;
         grip = python38Packages.grip;
-        texlive = nixpkgs.texlive.combine {
-            inherit (nixpkgs.texlive) scheme-medium;
+        texlive = texlive.combine {
+            inherit (texlive) scheme-medium;
         };
     };
 
 in
 
 {
-    prebuilt.nixpkgs =
-        if builtins.currentSystem == "x86_64-darwin"
-        then nixpkgsDarwin
-        else nixpkgsLinux;
+    prebuilt.nixpkgs = if isDarwin then nixpkgsDarwin else nixpkgsLinux;
 
     prebuilt.haskell-nix = with haskell-nix; {
         inherit nix-tools;

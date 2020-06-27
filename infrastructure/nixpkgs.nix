@@ -30,11 +30,7 @@ let
         overlays = [overlay];
     };
 
-    nixpkgs-stable =
-       if builtins.currentSystem == "x86_64-darwin"
-       then mkNixpkgs sources."nixpkgs-stable-darwin"
-       else mkNixpkgs sources."nixpkgs-stable-linux";
-
+    nixpkgs-stable   = mkNixpkgs sources.nixpkgs-stable;
     nixpkgs-unstable = mkNixpkgs sources.nixpkgs-unstable;
 
     pickPkgs = pkgs:

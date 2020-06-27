@@ -10,6 +10,7 @@ let
             nixpkgsSrc = hn.sources."${config.haskell-nix.nixpkgs-pin}";
             nixpkgsOrigArgs = hn.nixpkgsArgs;
             nixpkgsArgs = nixpkgsOrigArgs // {
+                config = {};
                 overlays = nixpkgsOrigArgs.overlays ++ [(self: super: {
                     alex = super.haskellPackages.alex;
                     happy = super.haskellPackages.happy;
