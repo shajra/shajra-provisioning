@@ -2,7 +2,7 @@ let
 
     srcs = import ./sources.nix;
 
-    lib = (import srcs.nixpkgs { config = {}; }).lib;
+    lib = (import srcs.nixpkgs { config = {}; overlays = []; }).lib;
 
     isDarwin = builtins.elem builtins.currentSystem lib.systems.doubles.darwin;
 

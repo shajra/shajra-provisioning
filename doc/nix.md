@@ -92,11 +92,11 @@ nix search --file default.nix --no-cache
     * autojump (autojump)
       A `cd' command that learns
     
-    * binutils-unwrapped (binutils)
-      Tools for manipulating binaries (linker, assembler, etc.)
+    * binutils (binutils-wrapper)
+      Tools for manipulating binaries (linker, assembler, etc.) (wrapper script)
     
-    * cabal-install (cabal-install)
-      The command-line interface for Cabal and Hackage
+    * bzip2 (bzip2)
+      High-quality data compression program
     
     …
 
@@ -121,12 +121,12 @@ In the remainder of this document, we'll use `.` instead of `default.nix` since 
 
 ## Building Nix expressions<a id="sec-4-2"></a>
 
-From our execution of `nix search` we can see that a package named "binutils" can be accessed with the "binutils-unwrapped" attribute name in the Nix expression in the top-level `default.nix`.
+From our execution of `nix search` we can see that a package named "binutils-wrapper" can be accessed with the "binutils" attribute name in the Nix expression in the top-level `default.nix`.
 
 We can build this package with `nix build` from the top-level:
 
 ```shell
-nix build --file . binutils-unwrapped
+nix build --file . binutils
 ```
 
 The positional arguments to `nix build` are attribute names. If you supply none then all attributes are built by default.
@@ -139,7 +139,7 @@ After a successful call of `nix build`, you'll see some symlinks for each packag
 readlink result*
 ```
 
-    /nix/store/bh3r88sv8wckwmfyhjxbqmxcha0hrm8h-binutils-2.31.1
+    /nix/store/czlk0dv83mmcpjbsm3vgnpqqfac17dvh-binutils-wrapper-2.31.1
 
 Following these symlinks, we can see the files the project provides:
 
@@ -149,14 +149,14 @@ tree -l result*
 
     result
     ├── bin
-    │   ├── addr2line
-    │   ├── ar
-    │   ├── as
-    │   ├── c++filt
-    │   ├── dwp
-    │   ├── elfedit
-    │   ├── gprof
-    │   ├── ld -> ld.bfd
+    │   ├── as -> /nix/store/bh3r88sv8wckwmfyhjxbqmxcha0hrm8h-binutils-2.31.1/bin/as
+    │   ├── ld
+    │   ├── ld.bfd
+    │   └── ld.gold
+    └── nix-support
+        ├── add-flags.sh
+        ├── add-hardening.sh
+        ├── dynamic-linker
     …
 
 It's common to configure these "result" symlinks as ignored in source control tools (for instance, within a Git `.gitignore` file).
@@ -164,27 +164,27 @@ It's common to configure these "result" symlinks as ignored in source control to
 `nix build` has a `--no-link` switch in case you want to build packages without creating "result" symlinks. To get the paths where your packages are located, you can use `nix path-info` after a successful build:
 
 ```shell
-nix path-info --file . binutils-unwrapped
+nix path-info --file . binutils
 ```
 
-    /nix/store/bh3r88sv8wckwmfyhjxbqmxcha0hrm8h-binutils-2.31.1
+    /nix/store/czlk0dv83mmcpjbsm3vgnpqqfac17dvh-binutils-wrapper-2.31.1
 
 ## Running commands<a id="sec-4-3"></a>
 
-You can run a command from a package in a Nix expression with `nix run`. For instance, to get the help message for the `addr2line` executable provided by the "binutils" package selected by the "binutils-unwrapped" attribute name, we can call the following:
+You can run a command from a package in a Nix expression with `nix run`. For instance, to get the help message for the `ld` executable provided by the "binutils-wrapper" package selected by the "binutils" attribute name, we can call the following:
 
 ```shell
 nix run \
     --file . \
-    binutils-unwrapped \
-    --command addr2line --help
+    binutils \
+    --command ld --help
 ```
 
-    Usage: addr2line [option(s)] [addr(s)]
-     Convert addresses into line number/file name pairs.
-     If no addresses are specified on the command line, they will be read from stdin
-     The options are:
-      @<file>                Read options from <file>
+    Usage: ld [options] file...
+    Options:
+      -a KEYWORD                  Shared library control for HP/UX compatibility
+      -A ARCH, --architecture ARCH
+                                  Set architecture
     …
 
 You don't even have to build the package first with `nix build` or mess around with the "result" symlinks. `nix run` will build the project if it's not yet been built.
@@ -213,11 +213,14 @@ We can query what's installed in the active profile with the `--query` switch:
 nix-env --query
 ```
 
-To install the `addr2line` executable, which is accessed by the "binutils-unwrapped" in our top-level `default.nix` file, we'd run the following:
+To install the `ld` executable, which is accessed by the "binutils" in our top-level `default.nix` file, we'd run the following:
 
 ```shell
-nix-env --install --file . --attr binutils-unwrapped
+nix-env --install --file . --attr binutils 2>&1
 ```
+
+    …
+    installing 'binutils-wrapper-2.31.1'
 
 We can see this installation by querying what's been installed:
 
@@ -225,15 +228,17 @@ We can see this installation by querying what's been installed:
 nix-env --query
 ```
 
-    binutils-2.31.1
+    binutils-wrapper-2.31.1
 
-And if we want to uninstall a program from our active profile, we do so by its name, in this case "binutils":
+And if we want to uninstall a program from our active profile, we do so by its name, in this case "binutils-wrapper":
 
 ```shell
-nix-env --uninstall binutils
+nix-env --uninstall binutils-wrapper 2>&1
 ```
 
-Note that we've installed our package using its attribute name ("binutils-unwrapped") within the referenced Nix expression. But we uninstall it using the package name ("binutils"), which may or may not be the same as the attribute name. When a package is installed, Nix keeps no reference to the expression that evaluated to the derivation of the installed package. The attribute name is only relevant to this expression. In fact, two different expressions could evaluate to the exact same derivation, but use different attribute names. This is why we uninstall packages by their package name.
+    uninstalling 'binutils-wrapper-2.31.1'
+
+Note that we've installed our package using its attribute name ("binutils") within the referenced Nix expression. But we uninstall it using the package name ("binutils-wrapper"), which may or may not be the same as the attribute name. When a package is installed, Nix keeps no reference to the expression that evaluated to the derivation of the installed package. The attribute name is only relevant to this expression. In fact, two different expressions could evaluate to the exact same derivation, but use different attribute names. This is why we uninstall packages by their package name.
 
 See the [documentation for `nix-env`](https://nixos.org/nix/manual/#sec-nix-env) for more details.
 

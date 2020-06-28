@@ -208,11 +208,11 @@
    ,* autojump (autojump)
      A `cd' command that learns
 
-   ,* binutils-unwrapped (binutils)
-     Tools for manipulating binaries (linker, assembler, etc.)
+   ,* binutils (binutils-wrapper)
+     Tools for manipulating binaries (linker, assembler, etc.) (wrapper script)
 
-   ,* cabal-install (cabal-install)
-     The command-line interface for Cabal and Hackage
+   ,* bzip2 (bzip2)
+     High-quality data compression program
 
    …
    #+end_example
@@ -280,7 +280,7 @@
    #+END_SRC
 
    #+RESULTS:
-   : /nix/store/bh3r88sv8wckwmfyhjxbqmxcha0hrm8h-binutils-2.31.1
+   : /nix/store/czlk0dv83mmcpjbsm3vgnpqqfac17dvh-binutils-wrapper-2.31.1
 
    Following these symlinks, we can see the files the project provides:
 
@@ -292,14 +292,14 @@
    #+begin_example
    result
    ├── bin
-   │   ├── addr2line
-   │   ├── ar
-   │   ├── as
-   │   ├── c++filt
-   │   ├── dwp
-   │   ├── elfedit
-   │   ├── gprof
-   │   ├── ld -> ld.bfd
+   │   ├── as -> /nix/store/bh3r88sv8wckwmfyhjxbqmxcha0hrm8h-binutils-2.31.1/bin/as
+   │   ├── ld
+   │   ├── ld.bfd
+   │   └── ld.gold
+   └── nix-support
+       ├── add-flags.sh
+       ├── add-hardening.sh
+       ├── dynamic-linker
    …
    #+end_example
 
@@ -315,7 +315,7 @@
    #+END_SRC
 
    #+RESULTS:
-   : /nix/store/bh3r88sv8wckwmfyhjxbqmxcha0hrm8h-binutils-2.31.1
+   : /nix/store/czlk0dv83mmcpjbsm3vgnpqqfac17dvh-binutils-wrapper-2.31.1
 
 ** Running commands
 
@@ -332,11 +332,11 @@
    #+END_SRC
 
    #+RESULTS:
-   : Usage: addr2line [option(s)] [addr(s)]
-   :  Convert addresses into line number/file name pairs.
-   :  If no addresses are specified on the command line, they will be read from stdin
-   :  The options are:
-   :   @<file>                Read options from <file>
+   : Usage: ld [options] file...
+   : Options:
+   :   -a KEYWORD                  Shared library control for HP/UX compatibility
+   :   -A ARCH, --architecture ARCH
+   :                               Set architecture
    : …
 
    You don't even have to build the package first with =nix build= or mess
@@ -389,13 +389,17 @@
    following:
 
    #+BEGIN_SRC shell :eval no :noweb yes
-     nix-env --install --file . --attr <<get("package-attr")>>
+     nix-env --install --file . --attr <<get("package-attr")>> 2>&1
    #+END_SRC
 
-   #+BEGIN_SRC shell :dir .. :results output silent :exports none :noweb yes
+   #+BEGIN_SRC shell :dir .. :results output :exports results :noweb yes :post crop(text=*this*, first-n=0, last-n=1)
      mkdir nix-profile
-     nix-env --profile nix-profile/doc --install --file . --attr <<get("package-attr")>>
+     nix-env --profile nix-profile/doc --install --file . --attr <<get("package-attr")>> 2>&1
    #+END_SRC
+
+   #+RESULTS:
+   : …
+   : installing 'binutils-wrapper-2.31.1'
 
    We can see this installation by querying what's been installed:
 
@@ -408,19 +412,21 @@
    #+END_SRC
 
    #+RESULTS:
-   : binutils-2.31.1
+   : binutils-wrapper-2.31.1
 
    And if we want to uninstall a program from our active profile, we do so by
    its name, in this case {{{package-name}}}:
 
    #+BEGIN_SRC shell :eval no :noweb yes
-     nix-env --uninstall <<get("package-name")>>
+     nix-env --uninstall <<get("package-name")>> 2>&1
    #+END_SRC
 
-   #+BEGIN_SRC shell :dir .. :results output silent :exports none :noweb yes
-     mkdir nix-profile
-     nix-env --profile nix-profile/doc --uninstall <<get("package-name")>>
+   #+BEGIN_SRC shell :dir .. :results output :exports results :noweb yes
+     nix-env --profile nix-profile/doc --uninstall <<get("package-name")>> 2>&1
    #+END_SRC
+
+   #+RESULTS:
+   : uninstalling 'binutils-wrapper-2.31.1'
 
    Note that we've installed our package using its attribute name
    ({{{package-attr}}}) within the referenced Nix expression. But we uninstall

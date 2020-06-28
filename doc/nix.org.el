@@ -1,3 +1,3 @@
-((package-attr . "binutils-wrapper")
- (package-name . "binutils")
- (package-exe  . "addr2line"))
+((package-attr . "binutils")
+ (package-name . "binutils-wrapper")
+ (package-exe  . "ld"))
