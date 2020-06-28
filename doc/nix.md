@@ -220,6 +220,7 @@ nix-env --install --file . --attr binutils 2>&1
 ```
 
     …
+    trace: To materialize the output entirely, pass a writable path as the `materialized` argument and pass that path to /nix/store/4xy6bnnkhvg2cs0a9gj34zv2qpdjqgvc-generateMaterialized
     installing 'binutils-wrapper-2.31.1'
 
 We can see this installation by querying what's been installed:

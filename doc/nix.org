@@ -392,13 +392,14 @@
      nix-env --install --file . --attr <<get("package-attr")>> 2>&1
    #+END_SRC
 
-   #+BEGIN_SRC shell :dir .. :results output :exports results :noweb yes :post crop(text=*this*, first-n=0, last-n=1)
+   #+BEGIN_SRC shell :dir .. :results output :exports results :noweb yes :post crop(text=*this*, first-n=0, last-n=2)
      mkdir nix-profile
      nix-env --profile nix-profile/doc --install --file . --attr <<get("package-attr")>> 2>&1
    #+END_SRC
 
    #+RESULTS:
    : …
+   : trace: To materialize the output entirely, pass a writable path as the `materialized` argument and pass that path to /nix/store/4xy6bnnkhvg2cs0a9gj34zv2qpdjqgvc-generateMaterialized
    : installing 'binutils-wrapper-2.31.1'
 
    We can see this installation by querying what's been installed:
