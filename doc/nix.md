@@ -220,6 +220,7 @@ nix-env --install --file . --attr binutils 2>&1
 ```
 
     …
+    trace: To make this a fixed-output derivation but not materialized, set `plan-sha256` to the output of /nix/store/das0mr5qd2j8lnz7qjs3gigvkvgpzghc-calculateSha
     trace: To materialize the output entirely, pass a writable path as the `materialized` argument and pass that path to /nix/store/4xy6bnnkhvg2cs0a9gj34zv2qpdjqgvc-generateMaterialized
     installing 'binutils-wrapper-2.31.1'
 
