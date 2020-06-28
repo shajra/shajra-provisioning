@@ -8,6 +8,6 @@
 #+LINK: nix https://nixos.org/nix
 #+LINK: nix-install https://nixos.org/nix/manual/#chap-installation
 #+LINK: nix-manual https://nixos.org/nix/manual
-#+LINK: nixpkgs https://nixos.org/nixpkgs
+#+LINK: nixpkgs https://github.com/NixOS/nixpkgs
 #+LINK: nixpkgs-manual https://nixos.org/nixpkgs/manual
 #+LINK: org https://www.gnu.org/software/emacs/manual/html_node/emacs/Org-Mode.html

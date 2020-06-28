@@ -81,6 +81,7 @@ let
         "rxvt_unicode-with-plugins"
         "slack"
         "stack"
+        "usbutils"
         "vimHugeX"
         "whipper"
         "xclip"
