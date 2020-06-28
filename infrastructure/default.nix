@@ -15,12 +15,7 @@ let
     };
 
 in {
+    inherit hn np;
     isDarwin = builtins.elem builtins.currentSystem
         np.nixpkgs-stable.lib.systems.doubles.darwin;
-    nixpkgs-stable = np.nixpkgs-stable;
-    nixpkgs-unstable = np.nixpkgs-unstable;
-    haskell-nix = hn.haskell-nix;
-    hs.np.fromPackages = np.hs.fromPackages;
-    hs.np.fromNixpkgs = np.hs.fromNixpkgs;
-    hs.hn = hn;
 }

@@ -33,6 +33,8 @@ let
     nixpkgs-stable   = mkNixpkgs sources.nixpkgs-stable;
     nixpkgs-unstable = mkNixpkgs sources.nixpkgs-unstable;
 
+    lib = nixpkgs-stable.lib;
+
     pickPkgs = pkgs:
         if pkgs == "stable"
         then nixpkgs-stable
@@ -89,6 +91,15 @@ let
 in {
 
     inherit nixpkgs-stable nixpkgs-unstable;
+
+    pick = nixpkgsName: paths:
+        let pkgs = pickPkgs nixpkgsName;
+            pick' = p:
+                let path = lib.splitString "." p;
+	            attrName = lib.concatStrings (lib.intersperse "-" path);
+                    pkg = lib.getAttrFromPath path pkgs;
+                in { "${attrName}" = pkg; };
+        in lib.fold (a: b: a // b) {} (map pick' paths);
 
     hs.fromTopLevel = nixpkgsName: hsPkgName:
         let pkgs = pickPkgs nixpkgsName;
