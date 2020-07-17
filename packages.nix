@@ -7,7 +7,6 @@ let
 
     attrPaths.common = [
         "autojump"
-        "binutils"
         "bzip2"
         "cabal2nix"
         "cabal-install"
@@ -35,7 +34,6 @@ let
         "oh-my-zsh"
         "pandoc"
         "patchelf"
-        "postgresql"
         "procps"
         "pstree"
         "python38Packages.grip"
@@ -59,10 +57,12 @@ let
     attrPaths.darwin = [
         "mongodb"
         "mongodb-tools"
+        "postgresql_9_5"
         "vim"
     ];
 
     attrPaths.linux = [
+        "binutils"
         "chromium"
         "dfu-programmer"
         "dfu-util"
@@ -76,7 +76,9 @@ let
         "libreoffice"
         "pciutils"
         "playerctl"
+        "postgresql"
         "powertop"
+        "python3"
         "rofi-unwrapped"
         "rxvt_unicode-with-plugins"
         "slack"
