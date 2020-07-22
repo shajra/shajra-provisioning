@@ -90,37 +90,11 @@ let
         "zathura"
     ];
 
-    nixpkgs.linux.extra = with np.nixpkgs-unstable; {
-        texlive = texlive.combine {
-            inherit (texlive) scheme-medium;
-        };
-    };
+    nixpkgs.common.prebuilt = np.pick "unstable" attrPaths.common;
+    nixpkgs.darwin.prebuilt = np.pick "stable" attrPaths.darwin;
+    nixpkgs.linux.prebuilt = np.pick "unstable" attrPaths.linux;
 
-    nixpkgs.darwin.all = {}
-        // (np.pick "stable" attrPaths.common)
-        // (np.pick "stable" attrPaths.darwin)
-        ;
-
-    nixpkgs.linux.all = {}
-        // (np.pick "unstable" attrPaths.common)
-        // (np.pick "unstable" attrPaths.linux)
-        // nixpkgs.linux.extra
-        ;
-
-in
-
-{
-    prebuilt.nixpkgs =
-        if isDarwin
-        then nixpkgs.darwin.all
-        else nixpkgs.linux.all;
-
-    prebuilt.haskell-nix = with hn.haskell-nix; {
-        inherit nix-tools;
-    };
-
-    build.nixpkgs = {}
-
+    nixpkgs.common.build = {}
         // (np.hs.fromPackages "unstable" "ghc883" "djinn")
         // (np.hs.fromPackages "unstable" "ghc883" "fast-tags")
         // (np.hs.fromPackages "unstable" "ghc883" "ghc-events")
@@ -136,6 +110,31 @@ in
         #// (np.hs.fromPackages "unstable" "ghc883" "ghc-events-analyze")  # marked broken, 20-7-22
         ;
 
+    nixpkgs.linux.build = with np.nixpkgs-unstable; {
+        texlive = texlive.combine {
+            inherit (texlive) scheme-medium;
+        };
+    };
+
+    nixpkgs.darwin.build = {};
+
+in
+
+{
+    prebuilt.nixpkgs = nixpkgs.common.prebuilt //
+        (if isDarwin
+        then nixpkgs.darwin.prebuilt
+        else nixpkgs.linux.prebuilt);
+
+    build.nixpkgs = nixpkgs.common.build //
+        (if isDarwin
+        then nixpkgs.darwin.build
+        else nixpkgs.linux.build);
+
+    prebuilt.haskell-nix = with hn.haskell-nix; {
+        inherit nix-tools;
+    };
+
     build.haskell-nix = {}
         // (hn.fromHackage "ghc8101" "apply-refact")
         // (hn.fromHackage "ghc8101" "ghcid")
@@ -143,5 +142,4 @@ in
         // (hn.fromHackage "ghc8101" "stylish-haskell")
         // (hn.fromSource  "ghc8101" "codex")
         ;
-
 }
