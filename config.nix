@@ -10,11 +10,11 @@
         cabal-helper = "1.1.0.0";
         haskell-lsp = "0.22.0.0";
         haskell-lsp-types = "0.22.0.0";
-        hie-bios = "0.5.1";
+        hie-bios = "0.6.1";
     };
     haskell-nix.hackage.index = {
-        state = "2020-06-27T00:00:00Z";
-        sha256 = "0vrfpwh9d1gh5qgjzf9wxiqlb8ahij85v1h675fs47asl4zg3ydl";
+        state = "2020-07-22T00:00:00Z";
+        sha256 = "07zp5r2raha4j239xwjxg3mzzvl3j94lalx45dx6959vbvqddjjx";
     };
     haskell-nix.nixpkgs-pin = "nixpkgs-2003";
     haskell-nix.plan = {
@@ -33,5 +33,5 @@
             enableAdobeFlash = false;
         };
     };
-    stackage.resolver = "lts-16.2";  # DESIGN: not used currently
+    stackage.resolver = "lts-16.6";  # DESIGN: not used currently
 }

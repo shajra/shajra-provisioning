@@ -130,10 +130,10 @@ in
         // (np.hs.fromPackages "unstable" "ghc883" "hp2pretty")
         // (np.hs.fromPackages "unstable" "ghc883" "threadscope")
 
-        // (np.hs.fromPackages "unstable" "ghc865" "pointfree")  # broken for 8.8.3 & 8.10.1, 20-6-14
+        // (np.hs.fromPackages "unstable" "ghc865" "pointfree")  # broken for 8.8.3 & 8.10.1, 20-7-22
 
-        #// (hs.np.fromPackages "unstable" "ghc883" "pointful")            # marked broken, 20-6-14
-        #// (hs.np.fromPackages "unstable" "ghc883" "ghc-events-analyze")  # marked broken, 20-6-14
+        #// (np.hs.fromPackages "unstable" "ghc883" "pointful")            # marked broken, 20-7-22
+        #// (np.hs.fromPackages "unstable" "ghc883" "ghc-events-analyze")  # marked broken, 20-7-22
         ;
 
     build.haskell-nix = {}
