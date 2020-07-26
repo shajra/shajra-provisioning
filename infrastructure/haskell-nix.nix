@@ -40,6 +40,8 @@ let
                 check;
         };
 
+    defaultModules = [{ enableSeparateDataOutput = true; }];
+
 in rec {
 
     inherit haskell-nix;
@@ -51,12 +53,12 @@ in rec {
         in allExes (haskell-nix.hackage-package planConfig);
 
     fromHackage = ghcVersion: name:
-        fromHackageWithModules ghcVersion name [];
+        fromHackageWithModules ghcVersion name defaultModules;
 
     fromHackageReinstallableLibGhc = ghcVersion: name:
-        fromHackageWithModules ghcVersion name [{
+        fromHackageWithModules ghcVersion name (defaultModules ++ [{
             reinstallableLibGhc = true;
-        }];
+        }]);
 
     fromStackage = name: allExes
         haskell-nix.snapshots."${config.stackage.resolver}"."${name}";
@@ -67,11 +69,12 @@ in rec {
             };
         in allExes (haskell-nix.cabalProject planConfig)."${name}";
 
-    fromSource = ghcVersion: name: fromSourceWithModules ghcVersion name [];
+    fromSource = ghcVersion: name:
+        fromSourceWithModules ghcVersion name defaultModules;
 
     fromSourceReinstallableLibGhc = ghcVersion: name:
-        fromSourceWithModules ghcVersion name [{
+        fromSourceWithModules ghcVersion name (defaultModules ++ [{
             reinstallableLibGhc = true;
-        }];
+        }]);
 
 }
