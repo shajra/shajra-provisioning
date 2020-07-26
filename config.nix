@@ -1,6 +1,6 @@
 {
     hackage.version = {
-        apply-refact = "0.8.1.0";
+        apply-refact = "0.8.2.0";
         ghcid = "0.8.7";
         ghcide = "0.2.0";
         hlint = "3.1.6";
@@ -13,8 +13,8 @@
         hie-bios = "0.6.1";
     };
     haskell-nix.hackage.index = {
-        state = "2020-07-22T00:00:00Z";
-        sha256 = "07zp5r2raha4j239xwjxg3mzzvl3j94lalx45dx6959vbvqddjjx";
+        state = "2020-07-26T00:00:00Z";
+        sha256 = "07mk4c7bbqfn47yw5ffaijbrfcza5fvw813vf3i4mr00m3vjjmc8";
     };
     haskell-nix.nixpkgs-pin = "nixpkgs-2003";
     haskell-nix.plan = {
