@@ -76,6 +76,7 @@ let
         "freemind"
         "fswatch"
         "inkscape"
+        "irccloud"
         "libreoffice"
         "pciutils"
         "playerctl"
