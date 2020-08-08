@@ -99,19 +99,21 @@ let
     ];
 
     nixpkgs.common.build.haskell = {}
-        // (np.hs.fromPackages "unstable" "ghc883" "djinn")
-        // (np.hs.fromPackages "unstable" "ghc883" "fast-tags")
-        // (np.hs.fromPackages "unstable" "ghc883" "ghc-events")
-        // (np.hs.fromPackages "unstable" "ghc883" "haskdogs")
-        // (np.hs.fromPackages "unstable" "ghc883" "hasktags")
-        // (np.hs.fromPackages "unstable" "ghc883" "hoogle")
-        // (np.hs.fromPackages "unstable" "ghc883" "hp2pretty")
-        // (np.hs.fromPackages "unstable" "ghc883" "threadscope")
+        // (np.hs.fromPackages "unstable" "ghc884" "djinn")
+        // (np.hs.fromPackages "unstable" "ghc884" "fast-tags")
+        // (np.hs.fromPackages "unstable" "ghc884" "ghc-events")
+        // (np.hs.fromPackages "unstable" "ghc884" "haskdogs")
+        // (np.hs.fromPackages "unstable" "ghc884" "hasktags")
+        // (np.hs.fromPackages "unstable" "ghc884" "hoogle")
+        // (np.hs.fromPackages "unstable" "ghc884" "hp2pretty")
+        // (np.hs.fromPackages "unstable" "ghc884" "threadscope")
 
-        // (np.hs.fromPackages "unstable" "ghc865" "pointfree")  # broken for 8.8.3 & 8.10.1, 20-7-22
+        # DESIGN: broken for 8.8.4 & 8.10.1, 20-8-8
+        // (np.hs.fromPackages "unstable" "ghc865" "pointfree")
 
-        #// (np.hs.fromPackages "unstable" "ghc883" "pointful")            # marked broken, 20-7-22
-        #// (np.hs.fromPackages "unstable" "ghc883" "ghc-events-analyze")  # marked broken, 20-7-22
+        # DESIGN: marked broken, 20-8-8
+        #// (np.hs.fromPackages "unstable" "ghc884" "pointful")
+        #// (np.hs.fromPackages "unstable" "ghc884" "ghc-events-analyze")
         ;
 
     nixpkgs.ifLinux.build.topLevel =

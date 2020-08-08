@@ -44,7 +44,7 @@ let
 
     # DESIGN: These Nixpkgs builds aren't used, but keeping around in case
     # useful later.
-    hsPkgs.ghc865 = hs: hs.packages.ghc865.override {
+    hsOverrides.ghc865 = hs: hs.packages.ghc865.override {
         overrides = hSelf: hSuper: {
 
             # IDEA: are doJailbreaks/dontChecks still needed?
@@ -71,7 +71,9 @@ let
         };
     };
 
-    hsPkgs.ghc883 = hs:
+    # DESIGN: These Nixpkgs builds aren't used, but keeping around in case
+    # useful later.
+    hsOverrides.ghc883 = hs:
         let laxBuild = drv:
             let unbrokenDrv = drv.overrideAttrs (old: {
                 broken = false;
@@ -85,8 +87,6 @@ let
                     laxBuild hSuper.cabal-install-parsers;
             };
         };
-
-    hsPkgs.ghc8101 = hs: hs.packages.ghc8101;
 
 in {
 
@@ -110,9 +110,11 @@ in {
 
     hs.fromPackages = nixpkgsName: ghcVersion: hsPkgName:
         let hs = (pickPkgs nixpkgsName).haskell;
+            hsOverridesDefault = hs: hs.packages.${ghcVersion};
+            hsPkgs = (hsOverrides."${ghcVersion}" or hsOverridesDefault) hs;
         in {
-            ${hsPkgName} = hs.lib.justStaticExecutables
-                (hsPkgs."${ghcVersion}" hs)."${hsPkgName}";
+            ${hsPkgName} =
+                hs.lib.justStaticExecutables hsPkgs."${hsPkgName}";
         };
 
 }
