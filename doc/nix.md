@@ -139,7 +139,7 @@ After a successful call of `nix build`, you'll see some symlinks for each packag
 readlink result*
 ```
 
-    /nix/store/6j585c9pab3lglrxqq1g9c2pa8qjgvj0-binutils-wrapper-2.31.1
+    /nix/store/m3gc6wqnfnkl857g93njga9jkmm9ahf3-binutils-wrapper-2.31.1
 
 Following these symlinks, we can see the files the project provides:
 
@@ -149,7 +149,7 @@ tree -l result*
 
     result
     ├── bin
-    │   ├── as -> /nix/store/h4v5qdxlmnh7xfpl7pwzrs8js7220bz2-binutils-2.31.1/bin/as
+    │   ├── as -> /nix/store/a759kbr0kgccsxl6lfx0xv5i3c9x9bw9-binutils-2.31.1/bin/as
     │   ├── ld
     │   ├── ld.bfd
     │   └── ld.gold
@@ -167,7 +167,7 @@ It's common to configure these "result" symlinks as ignored in source control to
 nix path-info --file . binutils
 ```
 
-    /nix/store/6j585c9pab3lglrxqq1g9c2pa8qjgvj0-binutils-wrapper-2.31.1
+    /nix/store/m3gc6wqnfnkl857g93njga9jkmm9ahf3-binutils-wrapper-2.31.1
 
 ## Running commands<a id="sec-4-3"></a>
 
@@ -220,9 +220,9 @@ nix-env --install --file . --attr binutils 2>&1
 ```
 
     …
+    trace: To make this a fixed-output derivation but not materialized, set `plan-sha256` to the output of /nix/store/kvx7s7ds3dan8ad2chw917p8sgc6dlx1-calculateSha
+    trace: To materialize the output entirely, pass a writable path as the `materialized` argument and pass that path to /nix/store/cj06isv586a7b9ip354d6xbf0j2m9r46-generateMaterialized
     installing 'binutils-wrapper-2.31.1'
-    building '/nix/store/hyba75nds9rff1ap033lbchs39anqqh3-user-environment.drv'...
-    created 48 symlinks in user environment
 
 We can see this installation by querying what's been installed:
 
