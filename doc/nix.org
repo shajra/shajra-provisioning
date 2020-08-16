@@ -205,14 +205,14 @@
 
    #+RESULTS:
    #+begin_example
+   ,* ansifilter (ansifilter)
+     Tool to convert ANSI to other formats
+
    ,* autojump (autojump)
      A `cd' command that learns
 
    ,* binutils (binutils-wrapper)
      Tools for manipulating binaries (linker, assembler, etc.) (wrapper script)
-
-   ,* bzip2 (bzip2)
-     High-quality data compression program
 
    …
    #+end_example
@@ -280,7 +280,7 @@
    #+END_SRC
 
    #+RESULTS:
-   : /nix/store/m3gc6wqnfnkl857g93njga9jkmm9ahf3-binutils-wrapper-2.31.1
+   : /nix/store/yi7jnpnh588bq8bpf0gxigzzw1qk5dqj-binutils-wrapper-2.31.1
 
    Following these symlinks, we can see the files the project provides:
 
@@ -292,7 +292,7 @@
    #+begin_example
    result
    ├── bin
-   │   ├── as -> /nix/store/a759kbr0kgccsxl6lfx0xv5i3c9x9bw9-binutils-2.31.1/bin/as
+   │   ├── as -> /nix/store/1ar9gcmvikdk1wij0cw4fnwvl5i07ag1-binutils-2.31.1/bin/as
    │   ├── ld
    │   ├── ld.bfd
    │   └── ld.gold
@@ -315,7 +315,7 @@
    #+END_SRC
 
    #+RESULTS:
-   : /nix/store/m3gc6wqnfnkl857g93njga9jkmm9ahf3-binutils-wrapper-2.31.1
+   : /nix/store/yi7jnpnh588bq8bpf0gxigzzw1qk5dqj-binutils-wrapper-2.31.1
 
 ** Running commands
 
@@ -399,8 +399,8 @@
 
    #+RESULTS:
    : …
-   : trace: To make this a fixed-output derivation but not materialized, set `plan-sha256` to the output of /nix/store/kvx7s7ds3dan8ad2chw917p8sgc6dlx1-calculateSha
-   : trace: To materialize the output entirely, pass a writable path as the `materialized` argument and pass that path to /nix/store/cj06isv586a7b9ip354d6xbf0j2m9r46-generateMaterialized
+   : trace: To make this a fixed-output derivation but not materialized, set `plan-sha256` to the output of /nix/store/3jlmwzffl88q785dyrr5vdwqxlhqiqlg-calculateSha
+   : trace: To materialize the output entirely, pass a writable path as the `materialized` argument and pass that path to /nix/store/9fh19g7xld4mba1x9miclynyx9zd44jn-generateMaterialized
    : installing 'binutils-wrapper-2.31.1'
 
    We can see this installation by querying what's been installed:
