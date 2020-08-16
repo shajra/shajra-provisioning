@@ -65,11 +65,12 @@ let
     ];
 
     nixpkgs.ifLinux.prebuilt = pickIfLinux [
+        "ansifilter"
         "binutils"
         "chromium"
         "dfu-programmer"
         "dfu-util"
-        "emacs"
+        "emacs26"
         "escrotum"
         "feh"
         "firefoxWrapper"
@@ -119,7 +120,7 @@ let
     nixpkgs.ifLinux.build.topLevel =
         let pkgs = with np.nixpkgs-unstable; {
                 texlive = texlive.combine {
-                    inherit (texlive) scheme-medium;
+                    inherit (texlive) capt-of scheme-medium wrapfig;
                 };
             };
         in if isDarwin then {} else pkgs;
