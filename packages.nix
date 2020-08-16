@@ -6,8 +6,9 @@
 let
 
     pick = np.pick (if isDarwin then "stable" else "unstable");
-    pickIfDarwin = if isDarwin then pick else (attrNames: {});
-    pickIfLinux = if isDarwin then (attrNames: {}) else pick;
+    pickIfDarwin = if isDarwin then (np.pick "stable") else (attrNames: {});
+    pickUnstableIfLinux = if isDarwin then (attrNames: {}) else (np.pick "unstable");
+    pickStableIfLinux = if isDarwin then (attrNames: {}) else (np.pick "stable");
 
     nixpkgs.common.prebuilt = pick [
         "autojump"
@@ -65,13 +66,12 @@ let
         "vim"
     ];
 
-    nixpkgs.ifLinux.prebuilt = pickIfLinux [
+    nixpkgs.ifLinux.prebuilt = pickUnstableIfLinux [
         "ansifilter"
         "binutils"
         "chromium"
         "dfu-programmer"
         "dfu-util"
-        "emacs26"
         "escrotum"
         "feh"
         "firefoxWrapper"
@@ -94,6 +94,8 @@ let
         "whipper"
         "xclip"
         "zathura"
+    ] // pickStableIfLinux [
+        "emacs"
     ];
 
     nixpkgs.common.build.topLevel = pick [
