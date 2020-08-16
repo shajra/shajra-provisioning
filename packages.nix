@@ -58,6 +58,7 @@ let
     ];
 
     nixpkgs.ifDarwin.prebuilt = pickIfDarwin [
+        "emacsMacport"
         "mongodb"
         "mongodb-tools"
         "postgresql_9_5"
