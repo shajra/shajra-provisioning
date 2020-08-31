@@ -133,11 +133,11 @@ let
     };
 
     haskell-nix.build = {}
-        // (hn.fromHackage "ghc8101" "apply-refact")
-        // (hn.fromHackage "ghc8101" "ghcid")
-        // (hn.fromHackage "ghc8101" "hlint")
-        // (hn.fromHackage "ghc8101" "stylish-haskell")
-        // (hn.fromSource  "ghc8101" "codex")
+        // (hn.fromHackage "ghc8102" "apply-refact")
+        // (hn.fromHackage "ghc8102" "ghcid")
+        // (hn.fromHackage "ghc8102" "hlint")
+        // (hn.fromHackage "ghc8102" "stylish-haskell")
+        // (hn.fromSource  "ghc8102" "codex")
         ;
 
 in
