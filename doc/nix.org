@@ -399,8 +399,8 @@
 
    #+RESULTS:
    : …
-   : trace: To make this a fixed-output derivation but not materialized, set `plan-sha256` to the output of /nix/store/z6jiixrsp5h0wb7kbkzf54qybvcsmmr4-calculateSha
-   : trace: To materialize the output entirely, pass a writable path as the `materialized` argument and pass that path to /nix/store/jpm1q9pm64bv672wwhadx6adnvx7pd01-generateMaterialized
+   : trace: To make this a fixed-output derivation but not materialized, set `plan-sha256` to the output of /nix/store/n5zh5hxfmsg5p2hadzf3hdd2h469pkk9-calculateSha
+   : trace: To materialize the output entirely, pass a writable path as the `materialized` argument and pass that path to /nix/store/dlzwclmdb8fyysv8lh5i3q1lkmp9953q-generateMaterialized
    : installing 'binutils-wrapper-2.31.1'
 
    We can see this installation by querying what's been installed:
