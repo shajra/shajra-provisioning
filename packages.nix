@@ -32,6 +32,7 @@ let
         "jq"
         "jre"
         "mpc_cli"
+        "ncmpcpp"
         "niv"
         "nix-diff"
         "nix-index"
