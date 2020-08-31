@@ -10,7 +10,7 @@
         cabal-helper = "1.1.0.0";
         haskell-lsp = "0.22.0.0";
         haskell-lsp-types = "0.22.0.0";
-        hie-bios = "0.6.1";
+        hie-bios = "0.7.0";
     };
     haskell-nix.hackage.index = {
         state = "2020-08-08T00:00:00Z";
@@ -33,5 +33,5 @@
             enableAdobeFlash = false;
         };
     };
-    stackage.resolver = "lts-16.9";  # DESIGN: not used currently
+    stackage.resolver = "lts-16.12";  # DESIGN: not used currently
 }

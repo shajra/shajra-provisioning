@@ -280,7 +280,7 @@
    #+END_SRC
 
    #+RESULTS:
-   : /nix/store/yi7jnpnh588bq8bpf0gxigzzw1qk5dqj-binutils-wrapper-2.31.1
+   : /nix/store/dmnnqr6j7kqgcr357b5qwiwvjvg2yyhd-binutils-wrapper-2.31.1
 
    Following these symlinks, we can see the files the project provides:
 
@@ -292,7 +292,7 @@
    #+begin_example
    result
    ├── bin
-   │   ├── as -> /nix/store/1ar9gcmvikdk1wij0cw4fnwvl5i07ag1-binutils-2.31.1/bin/as
+   │   ├── as -> /nix/store/gmi6xrkl95h6iypv00dvdpm3f4md9i6i-binutils-2.31.1/bin/as
    │   ├── ld
    │   ├── ld.bfd
    │   └── ld.gold
@@ -315,7 +315,7 @@
    #+END_SRC
 
    #+RESULTS:
-   : /nix/store/yi7jnpnh588bq8bpf0gxigzzw1qk5dqj-binutils-wrapper-2.31.1
+   : /nix/store/dmnnqr6j7kqgcr357b5qwiwvjvg2yyhd-binutils-wrapper-2.31.1
 
 ** Running commands
 
@@ -399,8 +399,8 @@
 
    #+RESULTS:
    : …
-   : trace: To make this a fixed-output derivation but not materialized, set `plan-sha256` to the output of /nix/store/3jlmwzffl88q785dyrr5vdwqxlhqiqlg-calculateSha
-   : trace: To materialize the output entirely, pass a writable path as the `materialized` argument and pass that path to /nix/store/9fh19g7xld4mba1x9miclynyx9zd44jn-generateMaterialized
+   : trace: To make this a fixed-output derivation but not materialized, set `plan-sha256` to the output of /nix/store/z6jiixrsp5h0wb7kbkzf54qybvcsmmr4-calculateSha
+   : trace: To materialize the output entirely, pass a writable path as the `materialized` argument and pass that path to /nix/store/jpm1q9pm64bv672wwhadx6adnvx7pd01-generateMaterialized
    : installing 'binutils-wrapper-2.31.1'
 
    We can see this installation by querying what's been installed:
