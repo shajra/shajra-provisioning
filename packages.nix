@@ -112,13 +112,6 @@ let
         // (np.hs.fromPackages "unstable" "ghc884" "hoogle")
         // (np.hs.fromPackages "unstable" "ghc884" "hp2pretty")
         // (np.hs.fromPackages "unstable" "ghc884" "threadscope")
-
-        # DESIGN: broken for 8.8.4 & 8.10.1, 20-8-8
-        // (np.hs.fromPackages "unstable" "ghc865" "pointfree")
-
-        # DESIGN: marked broken, 20-8-8
-        #// (np.hs.fromPackages "unstable" "ghc884" "pointful")
-        #// (np.hs.fromPackages "unstable" "ghc884" "ghc-events-analyze")
         ;
 
     nixpkgs.ifLinux.build.topLevel =
@@ -139,6 +132,10 @@ let
         // (hn.fromHackage "ghc8102" "hlint")
         // (hn.fromHackage "ghc8102" "stylish-haskell")
         // (hn.fromSource  "ghc8102" "codex")
+
+	# DESIGN: marked broken in Nixpkgs, doesn't seem to build with
+	# Haskell.nix either
+        #// (hn.fromHackage "ghc884" "ghc-events-analyze")
         ;
 
 in
