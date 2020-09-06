@@ -2,7 +2,7 @@
     hackage.version = {
         apply-refact = "0.8.2.1";
         ghcid = "0.8.7";
-        ghcide = "0.2.0";
+        ghcide = "0.3.0";
         hlint = "3.1.6";
         stylish-haskell = "0.11.0.3";
 
@@ -10,7 +10,7 @@
         cabal-helper = "1.1.0.0";
         haskell-lsp = "0.22.0.0";
         haskell-lsp-types = "0.22.0.0";
-        hie-bios = "0.7.0";
+        hie-bios = "0.7.1";
     };
     haskell-nix.hackage.index = {
         state = "2020-08-08T00:00:00Z";

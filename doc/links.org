@@ -2,12 +2,17 @@
 #+LINK: cachix-shajra https://shajra.cachix.org/
 #+LINK: cachix-action https://github.com/marketplace/actions/cachix
 #+LINK: gfm https://github.github.com/gfm/
+#+LINK: github-actions https://github.com/shajra/shajra-nix-packages/actions
 #+LINK: github-token https://github.com/settings/tokens
 #+LINK: litprog https://en.wikipedia.org/wiki/Literate_programming
 #+LINK: niv https://github.com/nmattia/niv
 #+LINK: nix https://nixos.org/nix
+#+LINK: nix-env https://nixos.org/nix/manual/#sec-nix-env
+#+LINK: nix-expr https://nixos.org/nix/manual/#ch-expression-language
 #+LINK: nix-install https://nixos.org/nix/manual/#chap-installation
+#+LINK: nix-learn https://nixos.org/learn.html
 #+LINK: nix-manual https://nixos.org/nix/manual
+#+LINK: nix-tutorial https://github.com/shajra/example-nix/tree/master/tutorials/0-nix-intro
 #+LINK: nixpkgs https://github.com/NixOS/nixpkgs
 #+LINK: nixpkgs-manual https://nixos.org/nixpkgs/manual
 #+LINK: org https://www.gnu.org/software/emacs/manual/html_node/emacs/Org-Mode.html
