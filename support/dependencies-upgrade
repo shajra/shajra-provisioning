@@ -9,6 +9,6 @@ nix run \
     --command \
     nix-project \
     --upgrade \
-    --source-dir '.' \
+    --source-dir sources \
     --nix "$(command -v nix)" \
     "$@"

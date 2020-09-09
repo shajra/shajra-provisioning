@@ -9,7 +9,7 @@ let
     infra = import ./infrastructure {
         inherit checkMaterialization useMaterialization;
         config = import ./config.nix;
-        sources = import ./sources-unified.nix;
+        sources = import ./sources;
     };
 
     pkgs = import ./packages.nix infra;
