@@ -50,7 +50,6 @@ let
         "sbt-extras"
         "schemaspy"
         "shellcheck"
-        "silver-searcher"
         "slack-term"
         "sqlint"
         "sqlite"
