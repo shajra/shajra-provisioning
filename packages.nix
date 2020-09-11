@@ -36,6 +36,7 @@ let
         "mpc_cli"
         "ncmpcpp"
         "niv"
+        "nixfmt"
         "nix-diff"
         "nix-index"
         "oh-my-zsh"
