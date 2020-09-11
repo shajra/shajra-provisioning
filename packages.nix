@@ -11,6 +11,7 @@ let
     pickStableIfLinux = if isDarwin then (attrNames: {}) else (np.pick "stable");
 
     nixpkgs.common.prebuilt = pick [
+        "aspell"
         "autojump"
         "bzip2"
         "cabal2nix"
@@ -30,7 +31,6 @@ let
         "graphviz"
         "htop"
         "imagemagick"
-        "ispell"
         "jq"
         "jre"
         "mpc_cli"
