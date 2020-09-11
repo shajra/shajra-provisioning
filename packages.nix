@@ -17,6 +17,7 @@ let
         "cabal-install"
         "cachix"
         "cloc"
+        "cmake"
         "coreutils"
         "dhall"
         "direnv"
