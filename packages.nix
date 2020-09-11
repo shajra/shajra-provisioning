@@ -20,6 +20,7 @@ let
         "coreutils"
         "dhall"
         "direnv"
+        "fd"
         "ghc"
         "gitFull"
         "gnugrep"
@@ -69,10 +70,11 @@ let
 
     nixpkgs.ifLinux.prebuilt = pickUnstableIfLinux [
         "ansifilter"
-        "binutils"
         "chromium"
+        "clang"
         "dfu-programmer"
         "dfu-util"
+        "discord"
         "escrotum"
         "feh"
         "firefoxWrapper"
