@@ -12,6 +12,9 @@ let
 
     nixpkgs.common.prebuilt = pick [
         "aspell"
+        "aspellDicts.en"
+        "aspellDicts.en-computers"
+        "aspellDicts.en-science"
         "autojump"
         "bzip2"
         "cabal2nix"
@@ -62,7 +65,6 @@ let
     ];
 
     nixpkgs.ifDarwin.prebuilt = pickIfDarwin [
-        "emacsMacport"
         "mongodb"
         "mongodb-tools"
         "postgresql_9_5"
@@ -72,7 +74,6 @@ let
     nixpkgs.ifLinux.prebuilt = pickUnstableIfLinux [
         "ansifilter"
         "chromium"
-        "clang"
         "dfu-programmer"
         "dfu-util"
         "discord"
@@ -98,13 +99,15 @@ let
         "whipper"
         "xclip"
         "zathura"
-    ] // pickStableIfLinux [
-        "emacs"
     ];
 
-    nixpkgs.common.build.topLevel = pick [
-        "global"
-    ];
+    nixpkgs.common.build.topLevel = pick [ "global" ] // { emacs =
+        let nixpkgs = if isDarwin then np.nixpkgs-stable else np.nixpkgs-unstable;
+            raw = if isDarwin then nixpkgs.emacsMacport else nixpkgs.emacs;
+        in (nixpkgs.emacsPackagesFor raw).emacsWithPackages (epkgs: with epkgs.melpaPackages; [
+            vterm emacsql emacsql-sqlite
+        ]);
+    };
 
     nixpkgs.common.build.haskell = {}
         // (np.hs.fromPackages "unstable" "ghc884" "djinn")
