@@ -219,11 +219,11 @@
    ,* ansifilter (ansifilter)
      Tool to convert ANSI to other formats
 
-   ,* autojump (autojump)
-     A `cd' command that learns
+   ,* aspell (aspell)
+     Spell checker for many languages
 
-   ,* binutils (binutils-wrapper)
-     Tools for manipulating binaries (linker, assembler, etc.) (wrapper script)
+   ,* aspellDicts-en (aspell-dict-en)
+     Aspell dictionary for English
 
    …
    #+end_example
@@ -272,9 +272,21 @@
 
 ** Building Nix expressions
 
-   From our execution of =nix search= above we can see that a package named
-   {{{package-name}}} can be accessed with the {{{package-attr}}} attribute
-   path in the Nix expression in the project root's =default.nix=.
+   The following result is returned by our prior execution of ~nix search
+   --no-cache --file .~:
+
+   #+BEGIN_SRC shell :dir .. :results output :exports results :noweb yes
+     nix search --no-cache --file . | ansifilter \
+         | grep --color=never --after-context=1 '* <<get("package-attr")>> ('
+   #+END_SRC
+
+   #+RESULTS:
+   : * python38Packages-grip (python3.8-grip)
+   :   Preview GitHub Markdown files like Readme locally before committing them
+
+   We can see that a package named {{{package-name}}} can be accessed with the
+   {{{package-attr}}} attribute path in the Nix expression in the project root's
+   =default.nix=.  This package provides the executable {{{package-exe}}}.
 
    We can build this package with =nix build= from the project root:
 
@@ -300,7 +312,7 @@
    #+END_SRC
 
    #+RESULTS:
-   : /nix/store/r6wg5hrz4kxcdjmjsbxn9xr55zxzpr07-binutils-wrapper-2.31.1
+   : /nix/store/2k4vvkscd1r5qcng38qkchsyj0rc3bmj-python3.8-grip-4.5.2
 
    Following these symlinks, we can see the files the project provides:
 
@@ -312,14 +324,14 @@
    #+begin_example
    result
    ├── bin
-   │   ├── as -> /nix/store/zp4vhfn31ky68xy0s6mssxh4c90z9v9a-binutils-2.31.1/bin/as
-   │   ├── ld
-   │   ├── ld.bfd
-   │   └── ld.gold
-   └── nix-support
-       ├── add-flags.sh
-       ├── add-hardening.sh
-       ├── dynamic-linker
+   │   └── grip
+   ├── lib
+   │   └── python3.8
+   │       └── site-packages
+   │           ├── grip
+   │           │   ├── api.py
+   │           │   ├── app.py
+   │           │   ├── assets.py
    …
    #+end_example
 
@@ -335,7 +347,7 @@
    #+END_SRC
 
    #+RESULTS:
-   : /nix/store/r6wg5hrz4kxcdjmjsbxn9xr55zxzpr07-binutils-wrapper-2.31.1
+   : /nix/store/2k4vvkscd1r5qcng38qkchsyj0rc3bmj-python3.8-grip-4.5.2
 
 ** Running commands
 
@@ -352,11 +364,11 @@
    #+END_SRC
 
    #+RESULTS:
-   : Usage: ld [options] file...
-   : Options:
-   :   -a KEYWORD                  Shared library control for HP/UX compatibility
-   :   -A ARCH, --architecture ARCH
-   :                               Set architecture
+   : Usage:
+   :   grip [options] [<path>] [<address>]
+   :   grip -V | --version
+   :   grip -h | --help
+   : 
    : …
 
    You don't even have to build the package first with =nix build= or mess
@@ -412,16 +424,17 @@
    {{{package-attr}}} in our top-level =default.nix= file, we'd run the
    following:
 
-   #+BEGIN_SRC shell :session env :dir .. :results output :exports both :noweb yes :post crop(text=*this*, first-n=0, last-n=3)
+   #+BEGIN_SRC shell :session env :dir .. :results output :exports both :noweb yes :post crop(text=*this*, first-n=1, last-n=3)
      nix-env --install --file . --attr <<get("package-attr")>> 2>&1
    #+END_SRC
 
    #+RESULTS:
+   : trace: Using index-state: 2020-08-08T00:00:00Z for apply-refact
    : …
    : trace: Using index-state: 2020-08-08T00:00:00Z for codex
    : trace: To make this a fixed-output derivation but not materialized, set `plan-sha256` to the output of /nix/store/2qbhbpvnk21i0n2df5a74mis37fn0gn4-calculateSha
    : trace: To materialize the output entirely, pass a writable path as the `materialized` argument and pass that path to /nix/store/hy83nivndmgwp40ychhkn9jkfckdlm5y-generateMaterialized
-   : installing 'binutils-wrapper-2.31.1'
+   : installing 'python3.8-grip-4.5.2'
 
    We can see this installation by querying what's been installed:
 
@@ -430,7 +443,7 @@
    #+END_SRC
 
    #+RESULTS:
-   : binutils-wrapper-2.31.1
+   : python3.8-grip-4.5.2
 
    And if we want to uninstall a program from our active profile, we do so by
    its name, in this case {{{package-name}}}:
@@ -440,7 +453,7 @@
    #+END_SRC
 
    #+RESULTS:
-   : uninstalling 'binutils-wrapper-2.31.1'
+   : uninstalling 'python3.8-grip-4.5.2'
 
    Note that we've installed our package using its attribute path
    ({{{package-attr}}}) within the referenced Nix expression. But we uninstall
