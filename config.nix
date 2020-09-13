@@ -4,6 +4,7 @@
         ghcid = "0.8.7";
         ghcide = "0.3.0";
         hlint = "3.1.6";
+        implicit-hie = "0.1.1.0";
         stylish-haskell = "0.11.0.3";
 
         # transitive dependencies for Nixpkgs infrastructure

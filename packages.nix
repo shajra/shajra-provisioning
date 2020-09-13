@@ -136,6 +136,7 @@ let
         // (hn.fromHackage "ghc8102" "apply-refact")
         // (hn.fromHackage "ghc8102" "ghcid")
         // (hn.fromHackage "ghc8102" "hlint")
+        // (hn.fromHackage "ghc8102" "implicit-hie")
         // (hn.fromHackage "ghc8102" "stylish-haskell")
         // (hn.fromSource  "ghc8102" "codex")
 
