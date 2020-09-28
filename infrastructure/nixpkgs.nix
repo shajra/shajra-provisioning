@@ -42,51 +42,11 @@ let
 
     v = config.hackage.version;
 
-    # DESIGN: These Nixpkgs builds aren't used, but keeping around in case
-    # useful later.
+    # DESIGN: not used any more, but maybe later
     hsOverrides.ghc865 = hs: hs.packages.ghc865.override {
         overrides = hSelf: hSuper: {
-
-            # IDEA: are doJailbreaks/dontChecks still needed?
-            # DESIGN: not updating libraries globally to minimize cache misses
-
-            ghcide = hs.lib.dontCheck (
-                hSuper.callCabal2nix "ghcide" sources.ghcide {
-                    haskell-lsp = hs.lib.dontCheck (
-                        hSuper.callHackage "haskell-lsp" v.haskell-lsp {
-                            haskell-lsp-types = hs.lib.dontCheck (
-                                hSuper.callHackage "haskell-lsp-types" v.haskell-lsp-types {}
-                            );
-                        }
-                    );
-                    hie-bios = hs.lib.dontCheck (
-                        hSuper.callCabal2nix "hie-bios" sources.hie-bios {}
-                    );
-                 }
-            );
-
-            hie-bios = hs.lib.dontCheck (
-                hSuper.callCabal2nix "hie-bios" sources.hie-bios {}
-            );
         };
     };
-
-    # DESIGN: These Nixpkgs builds aren't used, but keeping around in case
-    # useful later.
-    hsOverrides.ghc883 = hs:
-        let laxBuild = drv:
-            let unbrokenDrv = drv.overrideAttrs (old: {
-                broken = false;
-                meta = {};
-            });
-            in hs.lib.doJailbreak
-                (hs.lib.dontCheck unbrokenDrv);
-        in hs.packages.ghc883.override {
-            overrides = hSelf: hSuper: {
-                cabal-install-parsers =
-                    laxBuild hSuper.cabal-install-parsers;
-            };
-        };
 
 in {
 

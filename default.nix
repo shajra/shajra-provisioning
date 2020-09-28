@@ -24,3 +24,4 @@ in
     // (include "prebuilt" "haskell-nix" pkgs.prebuilt.haskell-nix)
     // (include "build"    "nixpkgs"     pkgs.build.nixpkgs)
     // (include "build"    "haskell-nix" pkgs.build.haskell-nix)
+    // (include "build"    "shajra"      pkgs.build.shajra)

@@ -7,7 +7,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        infra: ["nixpkgs", "haskell-nix"]
+        infra: ["nixpkgs", "haskell-nix", "shajra"]
     name: "prebuilt: ${{ matrix.infra }}: ${{ matrix.os }}"
     runs-on: ${{ matrix.os }}
     steps:
@@ -42,7 +42,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        infra: ["nixpkgs", "haskell-nix"]
+        infra: ["nixpkgs", "haskell-nix", "shajra"]
     name: "build: ${{ matrix.infra }}: ${{ matrix.os }}"
     runs-on: ${{ matrix.os }}
     steps:

@@ -224,12 +224,12 @@ To install the `grip` executable, which is accessed by the "python38Packages-gri
 nix-env --install --file . --attr python38Packages-grip 2>&1
 ```
 
-    trace: Using index-state: 2020-08-08T00:00:00Z for apply-refact
+    trace: Using index-state: 2020-09-27T00:00:00Z for apply-refact
     …
-    trace: Using index-state: 2020-08-08T00:00:00Z for codex
-    trace: To make this a fixed-output derivation but not materialized, set `plan-sha256` to the output of /nix/store/2qbhbpvnk21i0n2df5a74mis37fn0gn4-calculateSha
-    trace: To materialize the output entirely, pass a writable path as the `materialized` argument and pass that path to /nix/store/hy83nivndmgwp40ychhkn9jkfckdlm5y-generateMaterialized
+    trace: To materialize the output entirely, pass a writable path as the `materialized` argument and pass that path to /nix/store/702bqs8qr7k4sb7iaq881z5d1cd5p72z-generateMaterialized
     installing 'python3.8-grip-4.5.2'
+    building '/nix/store/cz51l6156xjv950ng9yfrv44xfdwlkk8-user-environment.drv'...
+    created 2 symlinks in user environment
 
 We can see this installation by querying what's been installed:
 
@@ -246,6 +246,8 @@ nix-env --uninstall python3.8-grip 2>&1
 ```
 
     uninstalling 'python3.8-grip-4.5.2'
+    building '/nix/store/xsk9wjy0dpp7w7d3r3bkzxzaklqdzq6q-user-environment.drv'...
+    created 0 symlinks in user environment
 
 Note that we've installed our package using its attribute path ("python38Packages-grip") within the referenced Nix expression. But we uninstall it using the package name ("python3.8-grip"), which may or may not be the same as the attribute path. When a package is installed, Nix keeps no reference to the expression that evaluated to the derivation of the installed package. The attribute path is only relevant to this expression. In fact, two different expressions could evaluate to the exact same derivation, but use different attribute paths. This is why we uninstall packages by their package name.
 

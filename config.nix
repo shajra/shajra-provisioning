@@ -2,20 +2,13 @@
     hackage.version = {
         apply-refact = "0.8.2.1";
         ghcid = "0.8.7";
-        ghcide = "0.3.0";
-        hlint = "3.1.6";
+        hlint = "3.2";
         implicit-hie = "0.1.1.0";
         stylish-haskell = "0.11.0.3";
-
-        # transitive dependencies for Nixpkgs infrastructure
-        cabal-helper = "1.1.0.0";
-        haskell-lsp = "0.22.0.0";
-        haskell-lsp-types = "0.22.0.0";
-        hie-bios = "0.7.1";
     };
     haskell-nix.hackage.index = {
-        state = "2020-08-08T00:00:00Z";
-        sha256 = "0ikr39gh3l4r4d26227p69akg78ckml464jcz0p0c257ivbyzppw";
+        state = "2020-09-27T00:00:00Z";
+        sha256 = "0f1llfnmbsd5x1c45imc7sx0hj03j6j3g1a23m9b6f74barx4pw2";
     };
     haskell-nix.nixpkgs-pin = "nixpkgs-2003";
     haskell-nix.plan = {
@@ -34,5 +27,5 @@
             enableAdobeFlash = false;
         };
     };
-    stackage.resolver = "lts-16.12";  # DESIGN: not used currently
+    stackage.resolver = "lts-16.16";  # DESIGN: not used currently
 }

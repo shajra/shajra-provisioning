@@ -1,5 +1,6 @@
 { np
 , hn
+, sources
 , isDarwin
 }:
 
@@ -138,12 +139,26 @@ let
         // (hn.fromHackage "ghc8102" "hlint")
         // (hn.fromHackage "ghc8102" "implicit-hie")
         // (hn.fromHackage "ghc8102" "stylish-haskell")
-        // (hn.fromSource  "ghc8102" "codex")
 
 	# DESIGN: marked broken in Nixpkgs, doesn't seem to build with
 	# Haskell.nix either
         #// (hn.fromHackage "ghc884" "ghc-events-analyze")
         ;
+
+    shajra.build =
+        let hls = ghcVersion:
+                import sources.nix-haskell-hls {
+                    inherit ghcVersion;
+                    unstable = true;
+                };
+            tags = import sources.nix-haskell-tags;
+        in {
+            haskell-hls-wrapper = (hls "ghc8102").hls-wrapper;
+            haskell-hls-ghc8102 = (hls "ghc8102").hls-renamed;
+            haskell-hls-ghc884  = (hls "ghc884").hls-renamed;
+            haskell-hls-ghc865  = (hls "ghc865").hls-renamed;
+            haskell-hls-tags    = tags.nix-haskell-tags-exe;
+        };
 
 in
 
@@ -161,4 +176,7 @@ in
     prebuilt.haskell-nix = haskell-nix.prebuilt;
 
     build.haskell-nix = haskell-nix.build;
+
+    build.shajra = shajra.build;
+
 }

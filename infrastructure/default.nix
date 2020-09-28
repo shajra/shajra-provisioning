@@ -15,7 +15,7 @@ let
     };
 
 in {
-    inherit hn np;
+    inherit hn np sources;
     isDarwin = builtins.elem builtins.currentSystem
         np.nixpkgs-stable.lib.systems.doubles.darwin;
 }
