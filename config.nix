@@ -4,11 +4,11 @@
         ghcid = "0.8.7";
         hlint = "3.2";
         implicit-hie = "0.1.1.0";
-        stylish-haskell = "0.11.0.3";
+        stylish-haskell = "0.12.1.0";
     };
     haskell-nix.hackage.index = {
-        state = "2020-09-27T00:00:00Z";
-        sha256 = "0f1llfnmbsd5x1c45imc7sx0hj03j6j3g1a23m9b6f74barx4pw2";
+        state = "2020-10-05T00:00:00Z";
+        sha256 = "1sazxknvajhyb6v8xhmi0ajgnz5jz300iww75gh5x8xnaf7lhfvw";
     };
     haskell-nix.nixpkgs-pin = "nixpkgs-2003";
     haskell-nix.plan = {
@@ -27,5 +27,5 @@
             enableAdobeFlash = false;
         };
     };
-    stackage.resolver = "lts-16.16";  # DESIGN: not used currently
+    stackage.resolver = "lts-16.17";  # DESIGN: not used currently
 }

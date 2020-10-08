@@ -144,7 +144,7 @@ After a successful call of `nix build`, you'll see some symlinks for each packag
 readlink result*
 ```
 
-    /nix/store/2k4vvkscd1r5qcng38qkchsyj0rc3bmj-python3.8-grip-4.5.2
+    /nix/store/zngzkl0ky1px5xczyq3pmzjp7wkqzml2-python3.8-grip-4.5.2
 
 Following these symlinks, we can see the files the project provides:
 
@@ -172,7 +172,7 @@ It's common to configure these "result" symlinks as ignored in source control to
 nix path-info --file . python38Packages-grip
 ```
 
-    /nix/store/2k4vvkscd1r5qcng38qkchsyj0rc3bmj-python3.8-grip-4.5.2
+    /nix/store/zngzkl0ky1px5xczyq3pmzjp7wkqzml2-python3.8-grip-4.5.2
 
 ## Running commands<a id="sec-4-3"></a>
 
@@ -224,12 +224,12 @@ To install the `grip` executable, which is accessed by the "python38Packages-gri
 nix-env --install --file . --attr python38Packages-grip 2>&1
 ```
 
-    trace: Using index-state: 2020-09-27T00:00:00Z for apply-refact
+    trace: Using index-state: 2020-10-05T00:00:00Z for apply-refact
     …
-    trace: To materialize the output entirely, pass a writable path as the `materialized` argument and pass that path to /nix/store/702bqs8qr7k4sb7iaq881z5d1cd5p72z-generateMaterialized
+    trace: Using index-state: 2020-10-05T00:00:00Z for stylish-haskell
+    trace: To make this a fixed-output derivation but not materialized, set `plan-sha256` to the output of /nix/store/6hj772ss8fvpvjpgpg2wbbcvnng9rf0b-calculateSha
+    trace: To materialize the output entirely, pass a writable path as the `materialized` argument and pass that path to /nix/store/sdc7rll6kiq55aww1y4gmaqrw40ssj6b-generateMaterialized
     installing 'python3.8-grip-4.5.2'
-    building '/nix/store/cz51l6156xjv950ng9yfrv44xfdwlkk8-user-environment.drv'...
-    created 2 symlinks in user environment
 
 We can see this installation by querying what's been installed:
 
@@ -246,8 +246,6 @@ nix-env --uninstall python3.8-grip 2>&1
 ```
 
     uninstalling 'python3.8-grip-4.5.2'
-    building '/nix/store/xsk9wjy0dpp7w7d3r3bkzxzaklqdzq6q-user-environment.drv'...
-    created 0 symlinks in user environment
 
 Note that we've installed our package using its attribute path ("python38Packages-grip") within the referenced Nix expression. But we uninstall it using the package name ("python3.8-grip"), which may or may not be the same as the attribute path. When a package is installed, Nix keeps no reference to the expression that evaluated to the derivation of the installed package. The attribute path is only relevant to this expression. In fact, two different expressions could evaluate to the exact same derivation, but use different attribute paths. This is why we uninstall packages by their package name.
 

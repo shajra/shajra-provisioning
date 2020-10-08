@@ -178,5 +178,4 @@ in
     build.haskell-nix = haskell-nix.build;
 
     build.shajra = shajra.build;
-
 }
