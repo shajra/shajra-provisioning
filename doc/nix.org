@@ -432,8 +432,8 @@
    : trace: Using index-state: 2020-10-05T00:00:00Z for apply-refact
    : …
    : trace: Using index-state: 2020-10-05T00:00:00Z for stylish-haskell
-   : trace: To make this a fixed-output derivation but not materialized, set `plan-sha256` to the output of /nix/store/6hj772ss8fvpvjpgpg2wbbcvnng9rf0b-calculateSha
-   : trace: To materialize the output entirely, pass a writable path as the `materialized` argument and pass that path to /nix/store/sdc7rll6kiq55aww1y4gmaqrw40ssj6b-generateMaterialized
+   : trace: To make this a fixed-output derivation but not materialized, set `plan-sha256` to the output of /nix/store/npf0nszv8m8773zgdz8sq97x34f89cly-calculateSha
+   : trace: To materialize the output entirely, pass a writable path as the `materialized` argument and pass that path to /nix/store/7106wpnqzpyyd2xcpqpymm202nynhz72-generateMaterialized
    : installing 'python3.8-grip-4.5.2'
 
    We can see this installation by querying what's been installed:
