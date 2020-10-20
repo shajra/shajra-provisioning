@@ -224,11 +224,11 @@ To install the `grip` executable, which is accessed by the "python38Packages-gri
 nix-env --install --file . --attr python38Packages-grip 2>&1
 ```
 
-    trace: Using index-state: 2020-10-05T00:00:00Z for apply-refact
+    trace: Using index-state: 2020-10-19T00:00:00Z for apply-refact
     …
-    trace: Using index-state: 2020-10-05T00:00:00Z for stylish-haskell
-    trace: To make this a fixed-output derivation but not materialized, set `plan-sha256` to the output of /nix/store/npf0nszv8m8773zgdz8sq97x34f89cly-calculateSha
-    trace: To materialize the output entirely, pass a writable path as the `materialized` argument and pass that path to /nix/store/7106wpnqzpyyd2xcpqpymm202nynhz72-generateMaterialized
+    trace: Using index-state: 2020-10-19T00:00:00Z for stylish-haskell
+    trace: To make this a fixed-output derivation but not materialized, set `plan-sha256` to the output of /nix/store/vhl1p4g39c59hbrf7f9qhzhq20mb43jh-calculateSha
+    trace: To materialize the output entirely, pass a writable path as the `materialized` argument and pass that path to /nix/store/wha4wwcwklv1qvgnhw36ln95ks1wi342-generateMaterialized
     installing 'python3.8-grip-4.5.2'
 
 We can see this installation by querying what's been installed:
