@@ -87,14 +87,14 @@ Once you learn the Nix language, you can read these files to see what kind of va
 nix search --file default.nix --no-cache
 ```
 
+    * alacritty (alacritty)
+      A cross-platform, GPU-accelerated terminal emulator
+    
     * ansifilter (ansifilter)
       Tool to convert ANSI to other formats
     
     * aspell (aspell)
       Spell checker for many languages
-    
-    * aspellDicts-en (aspell-dict-en)
-      Aspell dictionary for English
     
     …
 
@@ -126,7 +126,7 @@ The following result is returned by our prior execution of `nix search --no-cach
     * python38Packages-grip (python3.8-grip)
       Preview GitHub Markdown files like Readme locally before committing them
 
-We can see that a package named "python3.8-grip" can be accessed with the "python38Packages-grip" attribute path in the Nix expression in the project root's `default.nix`. This package provides the executable `grip`.
+We can see that a package named "python3.8-grip" can be accessed with the `python38Packages-grip` attribute path in the Nix expression in the project root's `default.nix`. This package provides the executable `grip`.
 
 We can build this package with `nix build` from the project root:
 
@@ -144,7 +144,7 @@ After a successful call of `nix build`, you'll see some symlinks for each packag
 readlink result*
 ```
 
-    /nix/store/zngzkl0ky1px5xczyq3pmzjp7wkqzml2-python3.8-grip-4.5.2
+    /nix/store/y1lscgi5af42gqh6yzbvv0syyg63pyji-python3.8-grip-4.5.2
 
 Following these symlinks, we can see the files the project provides:
 
@@ -172,11 +172,11 @@ It's common to configure these "result" symlinks as ignored in source control to
 nix path-info --file . python38Packages-grip
 ```
 
-    /nix/store/zngzkl0ky1px5xczyq3pmzjp7wkqzml2-python3.8-grip-4.5.2
+    /nix/store/y1lscgi5af42gqh6yzbvv0syyg63pyji-python3.8-grip-4.5.2
 
 ## Running commands<a id="sec-4-3"></a>
 
-You can run a command from a package in a Nix expression with `nix run`. For instance, to get the help message for the `grip` executable provided by the "python3.8-grip" package selected by the "python38Packages-grip" attribute path, we can call the following:
+You can run a command from a package in a Nix expression with `nix run`. For instance, to get the help message for the `grip` executable provided by the "python3.8-grip" package selected by the `python38Packages-grip` attribute path, we can call the following:
 
 ```shell
 nix run \
@@ -218,17 +218,12 @@ We can query what's installed in the active profile with the `--query` switch:
 nix-env --query
 ```
 
-To install the `grip` executable, which is accessed by the "python38Packages-grip" in our top-level `default.nix` file, we'd run the following:
+To install the `grip` executable, which is accessed by the `python38Packages-grip` in our top-level `default.nix` file, we'd run the following:
 
 ```shell
 nix-env --install --file . --attr python38Packages-grip 2>&1
 ```
 
-    trace: Using index-state: 2020-10-19T00:00:00Z for apply-refact
-    …
-    trace: Using index-state: 2020-10-19T00:00:00Z for stylish-haskell
-    trace: To make this a fixed-output derivation but not materialized, set `plan-sha256` to the output of /nix/store/vhl1p4g39c59hbrf7f9qhzhq20mb43jh-calculateSha
-    trace: To materialize the output entirely, pass a writable path as the `materialized` argument and pass that path to /nix/store/wha4wwcwklv1qvgnhw36ln95ks1wi342-generateMaterialized
     installing 'python3.8-grip-4.5.2'
 
 We can see this installation by querying what's been installed:
@@ -247,7 +242,7 @@ nix-env --uninstall python3.8-grip 2>&1
 
     uninstalling 'python3.8-grip-4.5.2'
 
-Note that we've installed our package using its attribute path ("python38Packages-grip") within the referenced Nix expression. But we uninstall it using the package name ("python3.8-grip"), which may or may not be the same as the attribute path. When a package is installed, Nix keeps no reference to the expression that evaluated to the derivation of the installed package. The attribute path is only relevant to this expression. In fact, two different expressions could evaluate to the exact same derivation, but use different attribute paths. This is why we uninstall packages by their package name.
+Note that we've installed our package using its attribute path (`python38Packages-grip`) within the referenced Nix expression. But we uninstall it using the package name ("python3.8-grip"), which may or may not be the same as the attribute path. When a package is installed, Nix keeps no reference to the expression that evaluated to the derivation of the installed package. The attribute path is only relevant to this expression. In fact, two different expressions could evaluate to the exact same derivation, but use different attribute paths. This is why we uninstall packages by their package name.
 
 See the [documentation for `nix-env`](https://nixos.org/nix/manual/#sec-nix-env) for more details.
 

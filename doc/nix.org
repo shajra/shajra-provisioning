@@ -12,15 +12,16 @@
    We set variables in =nix.org.el= and access those settings with the
    following macros and source code blocks (using Noweb).
 
+
    #+NAME: get
    #+BEGIN_SRC emacs-lisp :var arg="" :eval yes :results silent
      (alist-get (intern arg) (car (read-from-string (f-read "nix.org.el"))))
    #+END_SRC
 
-   #+MACRO: get (eval (concat $2 (alist-get '$1 (car (read-from-string (f-read "nix.org.el")))) $2))
-   #+MACRO: package-attr {{{get(package-attr, "\"")}}}
-   #+MACRO: package-name {{{get(package-name, "\"")}}}
-   #+MACRO: package-exe {{{get(package-exe, "=")}}}
+   #+MACRO: get (eval (concat $2 (alist-get (intern $1) (car (read-from-string (f-read "nix.org.el")))) $2))
+   #+MACRO: package-attr {{{get(package-attr,=)}}}
+   #+MACRO: package-name {{{get(package-name,")}}}
+   #+MACRO: package-exe {{{get(package-exe,=)}}}
 
 ** Formatting help
 
@@ -216,14 +217,14 @@
 
    #+RESULTS:
    #+begin_example
+   ,* alacritty (alacritty)
+     A cross-platform, GPU-accelerated terminal emulator
+
    ,* ansifilter (ansifilter)
      Tool to convert ANSI to other formats
 
    ,* aspell (aspell)
      Spell checker for many languages
-
-   ,* aspellDicts-en (aspell-dict-en)
-     Aspell dictionary for English
 
    …
    #+end_example
@@ -312,7 +313,7 @@
    #+END_SRC
 
    #+RESULTS:
-   : /nix/store/zngzkl0ky1px5xczyq3pmzjp7wkqzml2-python3.8-grip-4.5.2
+   : /nix/store/y1lscgi5af42gqh6yzbvv0syyg63pyji-python3.8-grip-4.5.2
 
    Following these symlinks, we can see the files the project provides:
 
@@ -347,7 +348,7 @@
    #+END_SRC
 
    #+RESULTS:
-   : /nix/store/zngzkl0ky1px5xczyq3pmzjp7wkqzml2-python3.8-grip-4.5.2
+   : /nix/store/y1lscgi5af42gqh6yzbvv0syyg63pyji-python3.8-grip-4.5.2
 
 ** Running commands
 
@@ -429,11 +430,6 @@
    #+END_SRC
 
    #+RESULTS:
-   : trace: Using index-state: 2020-10-19T00:00:00Z for apply-refact
-   : …
-   : trace: Using index-state: 2020-10-19T00:00:00Z for stylish-haskell
-   : trace: To make this a fixed-output derivation but not materialized, set `plan-sha256` to the output of /nix/store/vhl1p4g39c59hbrf7f9qhzhq20mb43jh-calculateSha
-   : trace: To materialize the output entirely, pass a writable path as the `materialized` argument and pass that path to /nix/store/wha4wwcwklv1qvgnhw36ln95ks1wi342-generateMaterialized
    : installing 'python3.8-grip-4.5.2'
 
    We can see this installation by querying what's been installed:
