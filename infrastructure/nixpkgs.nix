@@ -4,7 +4,7 @@
 
 let
 
-    overlay = self: super: {
+    overlay.global = self: super: {
 
         # DESIGN: downloading the latest hashes is time-consuming
         #all-cabal-hashes = sources.all-cabal-hashes;
@@ -25,9 +25,12 @@ let
 
     };
 
+    # DESIGN: Doom Emacs isn't ready yet for GCC Emacs
+    overlay.emacs = import sources.emacs-overlay;
+
     mkNixpkgs = s: import s {
         config = config.nixpkgs;
-        overlays = [overlay];
+        overlays = with overlay; [global];
     };
 
     nixpkgs-stable   = mkNixpkgs sources.nixpkgs-stable;

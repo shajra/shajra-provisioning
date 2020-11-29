@@ -106,7 +106,10 @@ let
 
     nixpkgs.common.build.topLevel = pick [ "global" ] // { emacs =
         let nixpkgs = if isDarwin then np.nixpkgs-stable else np.nixpkgs-unstable;
-            raw = if isDarwin then nixpkgs.emacsMacport else nixpkgs.emacs;
+            raw =
+                if isDarwin
+                then nixpkgs.emacsMacport
+                else nixpkgs.emacs;  # eventually: nixpkgs.emacsGcc;
         in (nixpkgs.emacsPackagesFor raw).emacsWithPackages (epkgs: with epkgs.melpaPackages; [
             vterm emacsql emacsql-sqlite
         ]);
