@@ -73,6 +73,7 @@ let
     ];
 
     nixpkgs.ifLinux.prebuilt = pickUnstableIfLinux [
+        "alacritty"
         "ansifilter"
         "chromium"
         "dfu-programmer"
@@ -98,6 +99,7 @@ let
         "usbutils"
         "vimHugeX"
         "whipper"
+        "wirelesstools"
         "xclip"
         "zathura"
     ];
@@ -118,7 +120,9 @@ let
         // (np.hs.fromPackages "unstable" "ghc884" "hasktags")
         // (np.hs.fromPackages "unstable" "ghc884" "hoogle")
         // (np.hs.fromPackages "unstable" "ghc884" "hp2pretty")
-        // (np.hs.fromPackages "unstable" "ghc884" "threadscope")
+
+        # DESIGN: marked broken, 2020-11-28
+        #// (np.hs.fromPackages "unstable" "ghc884" "threadscope")
         ;
 
     nixpkgs.ifLinux.build.topLevel =
@@ -153,10 +157,10 @@ let
                 };
             tags = import sources.nix-haskell-tags;
         in {
-            haskell-hls-wrapper = (hls "ghc8102").hls-wrapper;
-            haskell-hls-ghc8102 = (hls "ghc8102").hls-renamed;
-            haskell-hls-ghc884  = (hls "ghc884").hls-renamed;
-            haskell-hls-ghc865  = (hls "ghc865").hls-renamed;
+            #haskell-hls-wrapper = (hls "ghc8102").hls-wrapper;
+            #haskell-hls-ghc8102 = (hls "ghc8102").hls-renamed;
+            #haskell-hls-ghc884  = (hls "ghc884").hls-renamed;
+            #haskell-hls-ghc865  = (hls "ghc865").hls-renamed;
             haskell-hls-tags    = tags.nix-haskell-tags-exe;
         };
 

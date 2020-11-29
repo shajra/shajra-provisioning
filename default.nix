@@ -1,7 +1,10 @@
-{ buildSet ? "all"
-, buildInfrastructure ? "all"
-, useMaterialization ? false
-, checkMaterialization ? false
+let config = import ./config.nix;
+in
+
+{ buildSet ? config.buildSet
+, buildInfrastructure ? config.buildInfrastructure
+, useMaterialization ? config.haskell-nix.useMaterialization
+, checkMaterialization ? config.haskell-nix.checkMaterialization
 }:
 
 let

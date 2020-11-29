@@ -23,8 +23,7 @@ let
     planConfigFor = ghcVersion: name: modules:
         let plan-sha256 = config.haskell-nix.plan."${name}".sha256 or null;
             materialized = haskell-nix/materialized + "/${name}";
-            isMaterialized = builtins.pathExists materialized
-                && useMaterialization;
+            isMaterialized = useMaterialization;
             check = config.haskell-nix.plan."${name}".check
                 or checkMaterialization;
         in {
@@ -32,6 +31,8 @@ let
             compiler-nix-name = ghcVersion;
             index-state = config.haskell-nix.hackage.index.state;
             index-sha256 = config.haskell-nix.hackage.index.sha256;
+            lookupSha256 = {location, ...}:
+                config.haskell-nix.lookupSha256."${location}" or null;
             ${if plan-sha256 != null then "plan-sha256" else null} =
                 plan-sha256;
             ${if isMaterialized then "materialized" else null} =
