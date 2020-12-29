@@ -5,7 +5,7 @@
         "exceptions".revision = (((hackage."exceptions")."0.10.4").revisions).default;
         "binary".revision = (((hackage."binary")."0.8.8.0").revisions).default;
         "ghc-prim".revision = (((hackage."ghc-prim")."0.6.1").revisions).default;
-        "extra".revision = (((hackage."extra")."1.7.8").revisions).default;
+        "extra".revision = (((hackage."extra")."1.7.9").revisions).default;
         "stm".revision = (((hackage."stm")."2.5.0.0").revisions).default;
         "unix".revision = (((hackage."unix")."2.7.2.2").revisions).default;
         "mtl".revision = (((hackage."mtl")."2.2.2").revisions).default;
@@ -17,7 +17,8 @@
         "clock".revision = (((hackage."clock")."0.8").revisions).default;
         "clock".flags.llvm = false;
         "enclosed-exceptions".revision = (((hackage."enclosed-exceptions")."1.0.3").revisions).default;
-        "tasty".revision = (((hackage."tasty")."1.4").revisions).default;
+        "tasty".revision = (((hackage."tasty")."1.4.0.1").revisions).default;
+        "tasty".flags.unix = true;
         "tasty".flags.clock = true;
         "deepseq".revision = (((hackage."deepseq")."1.4.4.0").revisions).default;
         "optparse-applicative".revision = (((hackage."optparse-applicative")."0.16.1.0").revisions).default;
@@ -72,7 +73,7 @@
         "text".revision = (((hackage."text")."1.2.3.2").revisions).default;
         "base".revision = (((hackage."base")."4.14.1.0").revisions).default;
         "time".revision = (((hackage."time")."1.9.3").revisions).default;
-        "tasty-hunit".revision = (((hackage."tasty-hunit")."0.10.0.2").revisions).default;
+        "tasty-hunit".revision = (((hackage."tasty-hunit")."0.10.0.3").revisions).default;
         "transformers".revision = (((hackage."transformers")."0.5.6.2").revisions).default;
         "hashable".revision = (((hackage."hashable")."1.3.0.0").revisions).default;
         "hashable".flags.sse2 = true;
@@ -91,7 +92,7 @@
         "fsnotify".revision = (((hackage."fsnotify")."0.3.0.1").revisions).default;
         "pretty".revision = (((hackage."pretty")."1.1.3.6").revisions).default;
         "ghc-boot-th".revision = (((hackage."ghc-boot-th")."8.10.2").revisions).default;
-        "base-orphans".revision = (((hackage."base-orphans")."0.8.3").revisions).default;
+        "base-orphans".revision = (((hackage."base-orphans")."0.8.4").revisions).default;
         "array".revision = (((hackage."array")."0.5.4.0").revisions).default;
         "integer-gmp".revision = (((hackage."integer-gmp")."1.0.3.0").revisions).default;
         };

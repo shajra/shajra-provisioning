@@ -10,7 +10,7 @@
         "semigroupoids".flags.tagged = true;
         "semigroupoids".flags.containers = true;
         "semigroupoids".flags.contravariant = true;
-        "free".revision = (((hackage."free")."5.1.4").revisions).default;
+        "free".revision = (((hackage."free")."5.1.5").revisions).default;
         "ghc".revision = (((hackage."ghc")."8.10.2").revisions).default;
         "exceptions".revision = (((hackage."exceptions")."0.10.4").revisions).default;
         "refact".revision = (((hackage."refact")."0.3.0.2").revisions).default;
@@ -21,7 +21,7 @@
         "bifunctors".revision = (((hackage."bifunctors")."5.5.8").revisions).default;
         "bifunctors".flags.semigroups = true;
         "bifunctors".flags.tagged = true;
-        "extra".revision = (((hackage."extra")."1.7.8").revisions).default;
+        "extra".revision = (((hackage."extra")."1.7.9").revisions).default;
         "stm".revision = (((hackage."stm")."2.5.0.0").revisions).default;
         "unix".revision = (((hackage."unix")."2.7.2.2").revisions).default;
         "ghc-heap".revision = (((hackage."ghc-heap")."8.10.2").revisions).default;
@@ -34,7 +34,8 @@
         "distributive".revision = (((hackage."distributive")."0.6.2").revisions).default;
         "distributive".flags.semigroups = true;
         "distributive".flags.tagged = true;
-        "tasty".revision = (((hackage."tasty")."1.4").revisions).default;
+        "tasty".revision = (((hackage."tasty")."1.4.0.1").revisions).default;
+        "tasty".flags.unix = true;
         "tasty".flags.clock = true;
         "deepseq".revision = (((hackage."deepseq")."1.4.4.0").revisions).default;
         "random".revision = (((hackage."random")."1.2.0").revisions).default;
@@ -76,6 +77,7 @@
         "contravariant".flags.tagged = true;
         "contravariant".flags.statevar = true;
         "filemanip".revision = (((hackage."filemanip")."0.3.6.3").revisions).default;
+        "indexed-traversable".revision = (((hackage."indexed-traversable")."0.1.1").revisions).default;
         "tasty-golden".revision = (((hackage."tasty-golden")."2.3.4").revisions).default;
         "tasty-golden".flags.build-example = false;
         "tasty-expected-failure".revision = (((hackage."tasty-expected-failure")."0.12.1").revisions).default;
@@ -84,7 +86,8 @@
         "unordered-containers".revision = (((hackage."unordered-containers")."0.2.13.0").revisions).default;
         "unordered-containers".flags.debug = false;
         "base".revision = (((hackage."base")."4.14.1.0").revisions).default;
-        "comonad".revision = (((hackage."comonad")."5.0.6").revisions).default;
+        "comonad".revision = (((hackage."comonad")."5.0.7").revisions).default;
+        "comonad".flags.indexed-traversable = true;
         "comonad".flags.distributive = true;
         "comonad".flags.test-doctests = true;
         "comonad".flags.containers = true;
@@ -111,8 +114,8 @@
         "pretty".revision = (((hackage."pretty")."1.1.3.6").revisions).default;
         "cabal-doctest".revision = (((hackage."cabal-doctest")."1.0.8").revisions).default;
         "ghc-boot-th".revision = (((hackage."ghc-boot-th")."8.10.2").revisions).default;
-        "base-orphans".revision = (((hackage."base-orphans")."0.8.3").revisions).default;
-        "th-abstraction".revision = (((hackage."th-abstraction")."0.4.0.0").revisions).default;
+        "base-orphans".revision = (((hackage."base-orphans")."0.8.4").revisions).default;
+        "th-abstraction".revision = (((hackage."th-abstraction")."0.4.1.0").revisions).default;
         "array".revision = (((hackage."array")."0.5.4.0").revisions).default;
         "integer-gmp".revision = (((hackage."integer-gmp")."1.0.3.0").revisions).default;
         };

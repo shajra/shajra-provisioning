@@ -32,10 +32,12 @@ jobs:
     - run: cat ~/.config/nix/nix.conf
     - run: |
         nix --print-build-logs build \
+            --arg checkMaterialization true \
             --argstr buildSet prebuilt \
             --argstr buildInfrastructure ${{ matrix.infra }}
     - run: |
         nix --print-build-logs path-info \
+            --arg checkMaterialization true \
             --argstr buildSet prebuilt \
             --argstr buildInfrastructure ${{ matrix.infra }}
   build:
@@ -68,9 +70,11 @@ jobs:
     - run: cat ~/.config/nix/nix.conf
     - run: |
         nix --print-build-logs build \
+            --arg checkMaterialization true \
             --argstr buildSet build \
             --argstr buildInfrastructure ${{ matrix.infra }}
     - run: |
         nix --print-build-logs path-info \
+            --arg checkMaterialization true \
             --argstr buildSet build \
             --argstr buildInfrastructure ${{ matrix.infra }}
