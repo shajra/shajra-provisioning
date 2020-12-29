@@ -6,8 +6,11 @@
 
 let
 
+    isDarwin = builtins.elem builtins.currentSystem
+        np.nixpkgs-stable.lib.systems.doubles.darwin;
+
     hn = import ./haskell-nix.nix {
-        inherit checkMaterialization useMaterialization config sources;
+        inherit checkMaterialization useMaterialization config sources isDarwin;
     };
 
     np = import ./nixpkgs.nix {
@@ -15,7 +18,5 @@ let
     };
 
 in {
-    inherit hn np sources;
-    isDarwin = builtins.elem builtins.currentSystem
-        np.nixpkgs-stable.lib.systems.doubles.darwin;
+    inherit hn np sources isDarwin;
 }

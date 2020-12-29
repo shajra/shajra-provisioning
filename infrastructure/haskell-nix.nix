@@ -2,6 +2,7 @@
 , useMaterialization
 , config
 , sources
+, isDarwin
 }:
 
 let
@@ -22,7 +23,11 @@ let
 
     planConfigFor = ghcVersion: name: modules:
         let plan-sha256 = config.haskell-nix.plan."${name}".sha256 or null;
-            materialized = haskell-nix/materialized + "/${name}";
+            materializedBase =
+                if isDarwin
+                then haskell-nix/materialized-darwin
+                else haskell-nix/materialized-linux;
+            materialized = materializedBase + "/${name}";
             isMaterialized = useMaterialization;
             check = config.haskell-nix.plan."${name}".check
                 or checkMaterialization;
