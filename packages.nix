@@ -27,12 +27,12 @@ let
         "dhall"
         "direnv"
         "fd"
-        "ghc"
         "gitFull"
         "gnugrep"
         "gnumake"
         "gnupg"
         "graphviz"
+        "haskell.compiler.ghc8102"
         "htop"
         "imagemagick"
         "jq"
@@ -144,7 +144,6 @@ let
         // (hn.fromHackage "ghc8102" "apply-refact")
         // (hn.fromHackage "ghc8102" "ghcid")
         // (hn.fromHackage "ghc8102" "hlint")
-        // (hn.fromHackage "ghc8102" "implicit-hie")
         // (hn.fromHackage "ghc8102" "stylish-haskell")
 
 	# DESIGN: marked broken in Nixpkgs, doesn't seem to build with
@@ -156,15 +155,18 @@ let
         let hls = ghcVersion:
                 import sources.nix-haskell-hls {
                     inherit ghcVersion;
-                    unstable = true;
+                    hlsUnstable = false;
                 };
+            lorelei = import sources.direnv-nix-lorelei;
             tags = import sources.nix-haskell-tags;
         in {
-            #haskell-hls-wrapper = (hls "ghc8102").hls-wrapper;
-            #haskell-hls-ghc8102 = (hls "ghc8102").hls-renamed;
-            #haskell-hls-ghc884  = (hls "ghc884").hls-renamed;
-            #haskell-hls-ghc865  = (hls "ghc865").hls-renamed;
+            implicit-hie = (hls "ghc8102").implicit-hie;
+            haskell-hls-wrapper = (hls "ghc8102").hls-wrapper;
+            haskell-hls-ghc8102 = (hls "ghc8102").hls-renamed;
+            haskell-hls-ghc884  = (hls "ghc884").hls-renamed;
+            haskell-hls-ghc865  = (hls "ghc865").hls-renamed;
             haskell-hls-tags    = tags.nix-haskell-tags-exe;
+            direnv-nix-lorelei  = lorelei.direnv-nix-lorelei;
         };
 
 in
