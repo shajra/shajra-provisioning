@@ -6,12 +6,12 @@
 
 let
 
-    pick = np.pick (if isDarwin then "stable" else "unstable");
-    pickIfDarwin = if isDarwin then (np.pick "stable") else (attrNames: {});
-    pickUnstableIfLinux = if isDarwin then (attrNames: {}) else (np.pick "unstable");
-    pickStableIfLinux = if isDarwin then (attrNames: {}) else (np.pick "stable");
+    pickDefault = np.pick {
+        linux  = "unstable";
+        darwin = "stable";
+    };
 
-    nixpkgs.common.prebuilt = pick [
+    nixpkgs.common.prebuilt = pickDefault [
         "aspell"
         "aspellDicts.en"
         "aspellDicts.en-computers"
@@ -32,7 +32,6 @@ let
         "gnumake"
         "gnupg"
         "graphviz"
-        "haskell.compiler.ghc8102"
         "htop"
         "imagemagick"
         "jq"
@@ -65,14 +64,25 @@ let
         "which"
     ];
 
-    nixpkgs.ifDarwin.prebuilt = pickIfDarwin [
+    nixpkgs.unstable.prebuilt = np.pick {
+        linux  = "unstable";
+        darwin = "unstable";
+    } [
+        "haskell.compiler.ghc8103"
+    ];
+
+    nixpkgs.ifDarwin.prebuilt = np.pick {
+        darwin = "stable";
+    } [
         "mongodb"
         "mongodb-tools"
         "postgresql_9_5"
         "vim"
     ];
 
-    nixpkgs.ifLinux.prebuilt = pickUnstableIfLinux [
+    nixpkgs.ifLinux.prebuilt = np.pick {
+        linux = "unstable";
+    } [
         "alacritty"
         "ansifilter"
         "chromium"
@@ -104,28 +114,33 @@ let
         "zathura"
     ];
 
-    nixpkgs.common.build.topLevel = pick [ "global" ] // { emacs =
-        let nixpkgs = if isDarwin then np.nixpkgs-stable else np.nixpkgs-unstable;
-            raw =
-                if isDarwin
-                then nixpkgs.emacsMacport
-                else nixpkgs.emacs;  # eventually: nixpkgs.emacsGcc;
-        in (nixpkgs.emacsPackagesFor raw).emacsWithPackages (epkgs: with epkgs.melpaPackages; [
-            vterm emacsql emacsql-sqlite
-        ]);
+    nixpkgs.common.build.topLevel = pickDefault [ "global" ] // {
+        emacs =
+            let nixpkgs =
+                    if isDarwin
+                    then np.nixpkgs-stable
+                    else np.nixpkgs-unstable;
+                raw =
+                    if isDarwin
+                    then nixpkgs.emacsMacport
+                    else nixpkgs.emacs;  # eventually: nixpkgs.emacsGcc;
+            in (nixpkgs.emacsPackagesFor raw).emacsWithPackages
+                (epkgs: with epkgs.melpaPackages; [
+                    vterm emacsql emacsql-sqlite
+                ]);
     };
 
     nixpkgs.common.build.haskell = {}
-        // (np.hs.fromPackages "unstable" "ghc884" "djinn")
-        // (np.hs.fromPackages "unstable" "ghc884" "fast-tags")
-        // (np.hs.fromPackages "unstable" "ghc884" "ghc-events")
-        // (np.hs.fromPackages "unstable" "ghc884" "haskdogs")
-        // (np.hs.fromPackages "unstable" "ghc884" "hasktags")
-        // (np.hs.fromPackages "unstable" "ghc884" "hoogle")
-        // (np.hs.fromPackages "unstable" "ghc884" "hp2pretty")
+        // (np.hs.fromPackages "unstable" "ghc8103" "djinn")
+        // (np.hs.fromPackages "unstable" "ghc8103" "fast-tags")
+        // (np.hs.fromPackages "unstable" "ghc8103" "ghc-events")
+        // (np.hs.fromPackages "unstable" "ghc8103" "haskdogs")
+        // (np.hs.fromPackages "unstable" "ghc8103" "hasktags")
+        // (np.hs.fromPackages "unstable" "ghc8103" "hoogle")
+        // (np.hs.fromPackages "unstable" "ghc8103" "hp2pretty")
 
         # DESIGN: marked broken, 2020-11-28
-        #// (np.hs.fromPackages "unstable" "ghc884" "threadscope")
+        #// (np.hs.fromPackages "unstable" "ghc8103" "threadscope")
         ;
 
     nixpkgs.ifLinux.build.topLevel =
@@ -141,14 +156,14 @@ let
     };
 
     haskell-nix.build = {}
-        // (hn.fromHackage "ghc8102" "apply-refact")
-        // (hn.fromHackage "ghc8102" "ghcid")
-        // (hn.fromHackage "ghc8102" "hlint")
-        // (hn.fromHackage "ghc8102" "stylish-haskell")
+        // (hn.fromHackage "ghc8103" "apply-refact")
+        // (hn.fromHackage "ghc8103" "ghcid")
+        // (hn.fromHackage "ghc8103" "hlint")
+        // (hn.fromHackage "ghc8103" "stylish-haskell")
 
 	# DESIGN: marked broken in Nixpkgs, doesn't seem to build with
 	# Haskell.nix either
-        #// (hn.fromHackage "ghc884" "ghc-events-analyze")
+        #// (hn.fromHackage "ghc8103" "ghc-events-analyze")
         ;
 
     shajra.build =
@@ -160,9 +175,9 @@ let
             lorelei = import sources.direnv-nix-lorelei;
             tags = import sources.nix-haskell-tags;
         in {
-            implicit-hie = (hls "ghc8102").implicit-hie;
-            haskell-hls-wrapper = (hls "ghc8102").hls-wrapper;
-            haskell-hls-ghc8102 = (hls "ghc8102").hls-renamed;
+            implicit-hie = (hls "ghc8103").implicit-hie;
+            haskell-hls-wrapper = (hls "ghc8103").hls-wrapper;
+            haskell-hls-ghc8103 = (hls "ghc8103").hls-renamed;
             haskell-hls-ghc884  = (hls "ghc884").hls-renamed;
             haskell-hls-ghc865  = (hls "ghc865").hls-renamed;
             haskell-hls-tags    = tags.nix-haskell-tags-exe;
@@ -174,6 +189,7 @@ in
 {
     prebuilt.nixpkgs = {}
         // nixpkgs.common.prebuilt
+        // nixpkgs.unstable.prebuilt
         // nixpkgs.ifDarwin.prebuilt
         // nixpkgs.ifLinux.prebuilt;
 

@@ -1,5 +1,6 @@
 { config
 , sources
+, isDarwin
 }:
 
 let
@@ -55,14 +56,24 @@ in {
 
     inherit nixpkgs-stable nixpkgs-unstable;
 
-    pick = nixpkgsName: paths:
-        let pkgs = pickPkgs nixpkgsName;
+    pick = {linux ? null, darwin ? null}: paths:
+        let pkgs =
+                if (isDarwin && ! builtins.isNull darwin)
+                then pickPkgs darwin
+                else if (! isDarwin && ! builtins.isNull linux)
+                then pickPkgs linux
+                else {};
             pick' = p:
                 let path = lib.splitString "." p;
 	            attrName = lib.concatStrings (lib.intersperse "-" path);
                     pkg = lib.getAttrFromPath path pkgs;
                 in { "${attrName}" = pkg; };
-        in lib.fold (a: b: a // b) {} (map pick' paths);
+            paths' =
+                if (isDarwin && ! builtins.isNull darwin)
+                    || (! isDarwin && ! builtins.isNull linux)
+                then paths
+                else [];
+        in lib.fold (a: b: a // b) {} (map pick' paths');
 
     hs.fromTopLevel = nixpkgsName: hsPkgName:
         let pkgs = pickPkgs nixpkgsName;

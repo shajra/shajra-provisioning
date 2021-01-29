@@ -10,13 +10,13 @@
   {
     flags = {};
     package = {
-      specVersion = "1.10";
-      identifier = { name = "apply-refact"; version = "0.8.2.1"; };
+      specVersion = "2.4";
+      identifier = { name = "apply-refact"; version = "0.9.0.0"; };
       license = "BSD-3-Clause";
       copyright = "";
       maintainer = "matthewtpickering@gmail.com";
       author = "Matthew Pickering";
-      homepage = "";
+      homepage = "https://github.com/mpickering/apply-refact";
       url = "";
       synopsis = "Perform refactorings specified by the refact library.";
       description = "Perform refactorings specified by the refact library. It is primarily used with HLint's --refactor flag.";
@@ -24,7 +24,7 @@
       isLocal = true;
       detailLevel = "FullDetails";
       licenseFiles = [ "LICENSE" ];
-      dataDir = "";
+      dataDir = ".";
       dataFiles = [];
       extraSrcFiles = [
         "CHANGELOG"
@@ -43,21 +43,24 @@
           (hsPkgs."refact" or (errorHandler.buildDepError "refact"))
           (hsPkgs."ghc-exactprint" or (errorHandler.buildDepError "ghc-exactprint"))
           (hsPkgs."ghc" or (errorHandler.buildDepError "ghc"))
+          (hsPkgs."ghc-boot-th" or (errorHandler.buildDepError "ghc-boot-th"))
           (hsPkgs."containers" or (errorHandler.buildDepError "containers"))
           (hsPkgs."extra" or (errorHandler.buildDepError "extra"))
           (hsPkgs."syb" or (errorHandler.buildDepError "syb"))
           (hsPkgs."process" or (errorHandler.buildDepError "process"))
           (hsPkgs."transformers" or (errorHandler.buildDepError "transformers"))
           (hsPkgs."filemanip" or (errorHandler.buildDepError "filemanip"))
+          (hsPkgs."uniplate" or (errorHandler.buildDepError "uniplate"))
           (hsPkgs."unix-compat" or (errorHandler.buildDepError "unix-compat"))
           (hsPkgs."directory" or (errorHandler.buildDepError "directory"))
+          (hsPkgs."uniplate" or (errorHandler.buildDepError "uniplate"))
           ];
         buildable = true;
         modules = [
-          "Refact/Internal"
           "Refact/Utils"
           "Refact/Apply"
           "Refact/Fixity"
+          "Refact/Internal"
           ];
         hsSourceDirs = [ "src" ];
         };
@@ -79,6 +82,7 @@
             (hsPkgs."unix-compat" or (errorHandler.buildDepError "unix-compat"))
             (hsPkgs."filepath" or (errorHandler.buildDepError "filepath"))
             (hsPkgs."transformers" or (errorHandler.buildDepError "transformers"))
+            (hsPkgs."uniplate" or (errorHandler.buildDepError "uniplate"))
             ];
           buildable = true;
           modules = [
@@ -86,8 +90,9 @@
             "Refact/Apply"
             "Refact/Fixity"
             "Refact/Internal"
-            "Refact/Utils"
+            "Refact/Options"
             "Refact/Run"
+            "Refact/Utils"
             ];
           hsSourceDirs = [ "src" ];
           mainPath = [ "Main.hs" ];
@@ -115,16 +120,16 @@
             (hsPkgs."filepath" or (errorHandler.buildDepError "filepath"))
             (hsPkgs."silently" or (errorHandler.buildDepError "silently"))
             (hsPkgs."transformers" or (errorHandler.buildDepError "transformers"))
+            (hsPkgs."uniplate" or (errorHandler.buildDepError "uniplate"))
             ];
-          buildable = if compiler.isGhc && (compiler.version).lt "7.10"
-            then false
-            else true;
+          buildable = true;
           modules = [
             "Paths_apply_refact"
-            "Refact/Run"
             "Refact/Apply"
             "Refact/Fixity"
             "Refact/Internal"
+            "Refact/Options"
+            "Refact/Run"
             "Refact/Utils"
             ];
           hsSourceDirs = [ "tests" "src" ];

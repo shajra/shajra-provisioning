@@ -7,7 +7,7 @@
         "test-framework-hunit".flags.base3 = false;
         "binary".revision = (((hackage."binary")."0.8.8.0").revisions).default;
         "ghc-prim".revision = (((hackage."ghc-prim")."0.6.1").revisions).default;
-        "bifunctors".revision = (((hackage."bifunctors")."5.5.8").revisions).default;
+        "bifunctors".revision = (((hackage."bifunctors")."5.5.9").revisions).default;
         "bifunctors".flags.semigroups = true;
         "bifunctors".flags.tagged = true;
         "data-fix".revision = (((hackage."data-fix")."0.3.0").revisions).default;
@@ -22,7 +22,7 @@
         "alex".revision = (((hackage."alex")."3.2.6").revisions).default;
         "alex".flags.small_base = true;
         "syb".revision = (((hackage."syb")."0.7.1").revisions).default;
-        "distributive".revision = (((hackage."distributive")."0.6.2").revisions).default;
+        "distributive".revision = (((hackage."distributive")."0.6.2.1").revisions).default;
         "distributive".flags.semigroups = true;
         "distributive".flags.tagged = true;
         "scientific".revision = (((hackage."scientific")."0.3.6.2").revisions).default;
@@ -58,7 +58,7 @@
         "time-compat".flags.old-locale = false;
         "ansi-terminal".revision = (((hackage."ansi-terminal")."0.10.3").revisions).default;
         "ansi-terminal".flags.example = false;
-        "tagged".revision = (((hackage."tagged")."0.8.6").revisions).default;
+        "tagged".revision = (((hackage."tagged")."0.8.6.1").revisions).default;
         "tagged".flags.transformers = true;
         "tagged".flags.deepseq = true;
         "ghc-lib-parser".revision = (((hackage."ghc-lib-parser")."8.10.3.20201220").revisions).default;
@@ -68,7 +68,7 @@
         "integer-logarithms".flags.integer-gmp = true;
         "these".revision = (((hackage."these")."1.1.1.1").revisions).default;
         "these".flags.assoc = true;
-        "bytestring".revision = (((hackage."bytestring")."0.10.10.0").revisions).default;
+        "bytestring".revision = (((hackage."bytestring")."0.10.12.0").revisions).default;
         "ansi-wl-pprint".revision = (((hackage."ansi-wl-pprint")."0.6.9").revisions).default;
         "ansi-wl-pprint".flags.example = false;
         "test-framework".revision = (((hackage."test-framework")."0.8.2.0").revisions).default;
@@ -77,16 +77,15 @@
         "HsYAML".revision = (((hackage."HsYAML")."0.2.1.0").revisions).default;
         "HsYAML".flags.exe = false;
         "indexed-traversable".revision = (((hackage."indexed-traversable")."0.1.1").revisions).default;
-        "text".revision = (((hackage."text")."1.2.3.2").revisions).default;
-        "Cabal".revision = (((hackage."Cabal")."3.2.0.0").revisions).default;
+        "text".revision = (((hackage."text")."1.2.4.1").revisions).default;
+        "Cabal".revision = (((hackage."Cabal")."3.2.1.0").revisions).default;
         "assoc".revision = (((hackage."assoc")."1.0.2").revisions).default;
         "unordered-containers".revision = (((hackage."unordered-containers")."0.2.13.0").revisions).default;
         "unordered-containers".flags.debug = false;
         "base".revision = (((hackage."base")."4.14.1.0").revisions).default;
-        "comonad".revision = (((hackage."comonad")."5.0.7").revisions).default;
+        "comonad".revision = (((hackage."comonad")."5.0.8").revisions).default;
         "comonad".flags.indexed-traversable = true;
         "comonad".flags.distributive = true;
-        "comonad".flags.test-doctests = true;
         "comonad".flags.containers = true;
         "time".revision = (((hackage."time")."1.9.3").revisions).default;
         "transformers".revision = (((hackage."transformers")."0.5.6.2").revisions).default;
@@ -106,23 +105,22 @@
         "filepath".revision = (((hackage."filepath")."1.4.2.1").revisions).default;
         "process".revision = (((hackage."process")."1.6.9.0").revisions).default;
         "pretty".revision = (((hackage."pretty")."1.1.3.6").revisions).default;
-        "cabal-doctest".revision = (((hackage."cabal-doctest")."1.0.8").revisions).default;
-        "aeson".revision = (((hackage."aeson")."1.5.4.1").revisions).default;
+        "aeson".revision = (((hackage."aeson")."1.5.5.1").revisions).default;
         "aeson".flags.cffi = false;
         "aeson".flags.fast = false;
         "aeson".flags.bytestring-builder = false;
         "aeson".flags.developer = false;
-        "ghc-boot-th".revision = (((hackage."ghc-boot-th")."8.10.2").revisions).default;
+        "ghc-boot-th".revision = (((hackage."ghc-boot-th")."8.10.3").revisions).default;
         "base-orphans".revision = (((hackage."base-orphans")."0.8.4").revisions).default;
         "HsYAML-aeson".revision = (((hackage."HsYAML-aeson")."0.2.0.0").revisions).default;
-        "th-abstraction".revision = (((hackage."th-abstraction")."0.4.1.0").revisions).default;
+        "th-abstraction".revision = (((hackage."th-abstraction")."0.4.2.0").revisions).default;
         "array".revision = (((hackage."array")."0.5.4.0").revisions).default;
         "xml".revision = (((hackage."xml")."1.3.14").revisions).default;
         "integer-gmp".revision = (((hackage."integer-gmp")."1.0.3.0").revisions).default;
         };
       compiler = {
-        version = "8.10.2";
-        nix-name = "ghc8102";
+        version = "8.10.3";
+        nix-name = "ghc8103";
         packages = {
           "binary" = "0.8.8.0";
           "ghc-prim" = "0.6.1";
@@ -134,9 +132,9 @@
           "directory" = "1.3.6.0";
           "template-haskell" = "2.16.0.0";
           "containers" = "0.6.2.1";
-          "bytestring" = "0.10.10.0";
-          "text" = "1.2.3.2";
-          "Cabal" = "3.2.0.0";
+          "bytestring" = "0.10.12.0";
+          "text" = "1.2.4.1";
+          "Cabal" = "3.2.1.0";
           "base" = "4.14.1.0";
           "time" = "1.9.3";
           "transformers" = "0.5.6.2";
@@ -144,7 +142,7 @@
           "filepath" = "1.4.2.1";
           "process" = "1.6.9.0";
           "pretty" = "1.1.3.6";
-          "ghc-boot-th" = "8.10.2";
+          "ghc-boot-th" = "8.10.3";
           "array" = "0.5.4.0";
           "integer-gmp" = "1.0.3.0";
           };

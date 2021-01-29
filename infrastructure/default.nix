@@ -14,7 +14,7 @@ let
     };
 
     np = import ./nixpkgs.nix {
-        inherit config sources;
+        inherit config sources isDarwin;
     };
 
 in {
