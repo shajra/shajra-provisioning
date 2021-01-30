@@ -13,7 +13,7 @@
         "ghc-prim".revision = (((hackage."ghc-prim")."0.6.1").revisions).default;
         "utf8-string".revision = (((hackage."utf8-string")."1.0.2").revisions).default;
         "polyparse".revision = (((hackage."polyparse")."1.13").revisions).default;
-        "bifunctors".revision = (((hackage."bifunctors")."5.5.9").revisions).default;
+        "bifunctors".revision = (((hackage."bifunctors")."5.5.10").revisions).default;
         "bifunctors".flags.semigroups = true;
         "bifunctors".flags.tagged = true;
         "extra".revision = (((hackage."extra")."1.7.9").revisions).default;
@@ -29,9 +29,9 @@
         "cmdargs".flags.testprog = false;
         "cmdargs".flags.quotation = true;
         "ghci".revision = (((hackage."ghci")."8.10.3").revisions).default;
-        "clock".revision = (((hackage."clock")."0.8").revisions).default;
+        "clock".revision = (((hackage."clock")."0.8.2").revisions).default;
         "clock".flags.llvm = false;
-        "syb".revision = (((hackage."syb")."0.7.1").revisions).default;
+        "syb".revision = (((hackage."syb")."0.7.2.1").revisions).default;
         "distributive".revision = (((hackage."distributive")."0.6.2.1").revisions).default;
         "distributive".flags.semigroups = true;
         "distributive".flags.tagged = true;
@@ -64,7 +64,7 @@
         "transformers-compat".flags.three = false;
         "template-haskell".revision = (((hackage."template-haskell")."2.16.0.0").revisions).default;
         "mono-traversable".revision = (((hackage."mono-traversable")."1.0.15.1").revisions).default;
-        "vector".revision = (((hackage."vector")."0.12.1.2").revisions).default;
+        "vector".revision = (((hackage."vector")."0.12.2.0").revisions).default;
         "vector".flags.unsafechecks = false;
         "vector".flags.internalchecks = false;
         "vector".flags.wall = false;

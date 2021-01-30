@@ -17,7 +17,7 @@
         "binary".revision = (((hackage."binary")."0.8.8.0").revisions).default;
         "ghc-boot".revision = (((hackage."ghc-boot")."8.10.3").revisions).default;
         "ghc-prim".revision = (((hackage."ghc-prim")."0.6.1").revisions).default;
-        "bifunctors".revision = (((hackage."bifunctors")."5.5.9").revisions).default;
+        "bifunctors".revision = (((hackage."bifunctors")."5.5.10").revisions).default;
         "bifunctors".flags.semigroups = true;
         "bifunctors".flags.tagged = true;
         "extra".revision = (((hackage."extra")."1.7.9").revisions).default;
@@ -27,9 +27,9 @@
         "mtl".revision = (((hackage."mtl")."2.2.2").revisions).default;
         "rts".revision = (((hackage."rts")."1.0").revisions).default;
         "ghci".revision = (((hackage."ghci")."8.10.3").revisions).default;
-        "clock".revision = (((hackage."clock")."0.8").revisions).default;
+        "clock".revision = (((hackage."clock")."0.8.2").revisions).default;
         "clock".flags.llvm = false;
-        "syb".revision = (((hackage."syb")."0.7.1").revisions).default;
+        "syb".revision = (((hackage."syb")."0.7.2.1").revisions).default;
         "distributive".revision = (((hackage."distributive")."0.6.2.1").revisions).default;
         "distributive".flags.semigroups = true;
         "distributive".flags.tagged = true;
@@ -107,7 +107,7 @@
         "ghc-exactprint".flags.roundtrip = false;
         "ghc-exactprint".flags.dev = false;
         "unbounded-delays".revision = (((hackage."unbounded-delays")."0.1.1.1").revisions).default;
-        "unix-compat".revision = (((hackage."unix-compat")."0.5.2").revisions).default;
+        "unix-compat".revision = (((hackage."unix-compat")."0.5.3").revisions).default;
         "unix-compat".flags.old-time = false;
         "process".revision = (((hackage."process")."1.6.9.0").revisions).default;
         "pretty".revision = (((hackage."pretty")."1.1.3.6").revisions).default;

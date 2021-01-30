@@ -7,7 +7,7 @@
         "test-framework-hunit".flags.base3 = false;
         "binary".revision = (((hackage."binary")."0.8.8.0").revisions).default;
         "ghc-prim".revision = (((hackage."ghc-prim")."0.6.1").revisions).default;
-        "bifunctors".revision = (((hackage."bifunctors")."5.5.9").revisions).default;
+        "bifunctors".revision = (((hackage."bifunctors")."5.5.10").revisions).default;
         "bifunctors".flags.semigroups = true;
         "bifunctors".flags.tagged = true;
         "data-fix".revision = (((hackage."data-fix")."0.3.0").revisions).default;
@@ -21,7 +21,7 @@
         "regex-posix".flags._regex-posix-clib = false;
         "alex".revision = (((hackage."alex")."3.2.6").revisions).default;
         "alex".flags.small_base = true;
-        "syb".revision = (((hackage."syb")."0.7.1").revisions).default;
+        "syb".revision = (((hackage."syb")."0.7.2.1").revisions).default;
         "distributive".revision = (((hackage."distributive")."0.6.2.1").revisions).default;
         "distributive".flags.semigroups = true;
         "distributive".flags.tagged = true;
@@ -34,7 +34,7 @@
         "optparse-applicative".revision = (((hackage."optparse-applicative")."0.15.1.0").revisions).default;
         "dlist".revision = (((hackage."dlist")."1.0").revisions).default;
         "dlist".flags.werror = false;
-        "HUnit".revision = (((hackage."HUnit")."1.6.1.0").revisions).default;
+        "HUnit".revision = (((hackage."HUnit")."1.6.2.0").revisions).default;
         "parsec".revision = (((hackage."parsec")."3.1.14.0").revisions).default;
         "directory".revision = (((hackage."directory")."1.3.6.0").revisions).default;
         "transformers-compat".revision = (((hackage."transformers-compat")."0.6.6").revisions).default;
@@ -46,12 +46,12 @@
         "transformers-compat".flags.four = false;
         "transformers-compat".flags.three = false;
         "template-haskell".revision = (((hackage."template-haskell")."2.16.0.0").revisions).default;
-        "vector".revision = (((hackage."vector")."0.12.1.2").revisions).default;
+        "vector".revision = (((hackage."vector")."0.12.2.0").revisions).default;
         "vector".flags.unsafechecks = false;
         "vector".flags.internalchecks = false;
         "vector".flags.wall = false;
         "vector".flags.boundschecks = true;
-        "call-stack".revision = (((hackage."call-stack")."0.2.0").revisions).default;
+        "call-stack".revision = (((hackage."call-stack")."0.3.0").revisions).default;
         "primitive".revision = (((hackage."primitive")."0.7.1.0").revisions).default;
         "base-compat".revision = (((hackage."base-compat")."0.11.2").revisions).default;
         "time-compat".revision = (((hackage."time-compat")."1.9.5").revisions).default;

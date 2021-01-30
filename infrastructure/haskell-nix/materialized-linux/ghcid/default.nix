@@ -14,7 +14,7 @@
         "cmdargs".revision = (((hackage."cmdargs")."0.10.20").revisions).default;
         "cmdargs".flags.testprog = false;
         "cmdargs".flags.quotation = true;
-        "clock".revision = (((hackage."clock")."0.8").revisions).default;
+        "clock".revision = (((hackage."clock")."0.8.2").revisions).default;
         "clock".flags.llvm = false;
         "enclosed-exceptions".revision = (((hackage."enclosed-exceptions")."1.0.3").revisions).default;
         "tasty".revision = (((hackage."tasty")."1.4.0.3").revisions).default;
@@ -51,7 +51,7 @@
         "transformers-compat".flags.four = false;
         "transformers-compat".flags.three = false;
         "template-haskell".revision = (((hackage."template-haskell")."2.16.0.0").revisions).default;
-        "call-stack".revision = (((hackage."call-stack")."0.2.0").revisions).default;
+        "call-stack".revision = (((hackage."call-stack")."0.3.0").revisions).default;
         "terminal-size".revision = (((hackage."terminal-size")."0.3.2.1").revisions).default;
         "ansi-terminal".revision = (((hackage."ansi-terminal")."0.11").revisions).default;
         "ansi-terminal".flags.example = false;
@@ -85,7 +85,7 @@
         "transformers-base".flags.orphaninstances = true;
         "filepath".revision = (((hackage."filepath")."1.4.2.1").revisions).default;
         "unbounded-delays".revision = (((hackage."unbounded-delays")."0.1.1.1").revisions).default;
-        "unix-compat".revision = (((hackage."unix-compat")."0.5.2").revisions).default;
+        "unix-compat".revision = (((hackage."unix-compat")."0.5.3").revisions).default;
         "unix-compat".flags.old-time = false;
         "monad-control".revision = (((hackage."monad-control")."1.0.2.3").revisions).default;
         "process".revision = (((hackage."process")."1.6.9.0").revisions).default;
