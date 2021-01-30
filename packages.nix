@@ -32,6 +32,7 @@ let
         "gnumake"
         "gnupg"
         "graphviz"
+        "home-manager"
         "htop"
         "imagemagick"
         "jq"
