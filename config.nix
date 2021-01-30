@@ -10,6 +10,9 @@
 
     haskell-nix.useMaterialization = true;
     haskell-nix.checkMaterialization = false;
+    haskell-nix.platformSensitive = [
+        "ghcid"
+    ];
     # DESIGN: https://github.com/input-output-hk/hackage.nix/blob/master/index-state-hashes.nix
     haskell-nix.hackage.index = {
         state = "2021-01-14T00:00:00Z";

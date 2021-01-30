@@ -175,7 +175,7 @@ let
             lorelei = import sources.direnv-nix-lorelei;
             tags = import sources.nix-haskell-tags;
         in {
-            implicit-hie = (hls "ghc8103").implicit-hie;
+            implicit-hie        = (hls "ghc8103").implicit-hie;
             haskell-hls-wrapper = (hls "ghc8103").hls-wrapper;
             haskell-hls-ghc8103 = (hls "ghc8103").hls-renamed;
             haskell-hls-ghc884  = (hls "ghc884").hls-renamed;
