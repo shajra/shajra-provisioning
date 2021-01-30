@@ -8,7 +8,6 @@
         stylish-haskell = "0.12.2.0";
     };
 
-    haskell-nix.useMaterialization = true;
     haskell-nix.checkMaterialization = false;
     haskell-nix.platformSensitive = [
         "ghcid"

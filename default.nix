@@ -3,14 +3,13 @@ in
 
 { buildSet ? config.buildSet
 , buildInfrastructure ? config.buildInfrastructure
-, useMaterialization ? config.haskell-nix.useMaterialization
 , checkMaterialization ? config.haskell-nix.checkMaterialization
 }:
 
 let
 
     infra = import ./infrastructure {
-        inherit checkMaterialization useMaterialization;
+        inherit checkMaterialization;
         config = import ./config.nix;
         sources = import ./sources;
     };

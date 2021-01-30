@@ -1,5 +1,4 @@
 { checkMaterialization
-, useMaterialization
 , config
 , sources
 , isDarwin
@@ -22,8 +21,7 @@ let
     allExes = pkg: pkg.components.exes;
 
     planConfigFor = ghcVersion: name: modules:
-        let plan-sha256 = config.haskell-nix.plan."${name}".sha256 or null;
-            materializedBase =
+        let materializedBase =
                 if builtins.elem name config.haskell-nix.platformSensitive
                 then
                     if isDarwin
@@ -31,22 +29,15 @@ let
                     else haskell-nix/materialized-linux
                 else haskell-nix/materialized-common;
             materialized = materializedBase + "/${name}";
-            isMaterialized = useMaterialization;
             check = config.haskell-nix.plan."${name}".check
                 or checkMaterialization;
         in {
-            inherit name modules;
+            inherit name modules materialized checkMaterialization;
             compiler-nix-name = ghcVersion;
             index-state = config.haskell-nix.hackage.index.state;
             index-sha256 = config.haskell-nix.hackage.index.sha256;
             lookupSha256 = {location, ...}:
                 config.haskell-nix.lookupSha256."${location}" or null;
-            ${if plan-sha256 != null then "plan-sha256" else null} =
-                plan-sha256;
-            ${if isMaterialized then "materialized" else null} =
-                materialized;
-            ${if isMaterialized then "checkMaterialization" else null} =
-                check;
         };
 
     defaultModules = [{ enableSeparateDataOutput = true; }];
