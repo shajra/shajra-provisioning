@@ -2,10 +2,10 @@
     buildSet = "all";
     buildInfrastructure = "all";
     hackage.version = {
-        apply-refact = "0.9.0.0";
-        ghcid = "0.8.7";
-        hlint = "3.2.7";
-        stylish-haskell = "0.12.2.0";
+        apply-refact = "latest";
+        ghcid = "latest";
+        hlint = "latest";
+        stylish-haskell = "latest";
     };
 
     haskell-nix.checkMaterialization = false;
@@ -14,18 +14,14 @@
     ];
     # DESIGN: https://github.com/input-output-hk/hackage.nix/blob/master/index-state-hashes.nix
     haskell-nix.hackage.index = {
-        state = "2021-01-30T00:00:00Z";
-        sha256 = "fa890b301aa2e30eed8a0a62e87210eeb3179d97f184e5aaa338516cc07a8e4a";
+        state = "2021-02-20T00:00:00Z";
+        sha256 = "74b361a53bd41e1378fceb274b76a461b2e9791fec8bc61aa0b5768d5c930360";
     };
     haskell-nix.nixpkgs-pin = "nixpkgs-2009";
     nixpkgs = {
         allowUnfree = true;
-        chromium = {
+        ungoogled-chromium = {
             enablePepperFlash = false;
         };
-        firefox = {
-            enableAdobeFlash = false;
-        };
     };
-    stackage.resolver = "lts-17.0";  # DESIGN: not used currently
 }

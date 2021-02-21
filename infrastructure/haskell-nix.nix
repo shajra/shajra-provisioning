@@ -60,9 +60,6 @@ in rec {
             reinstallableLibGhc = true;
         }]);
 
-    fromStackage = name: allExes
-        haskell-nix.snapshots."${config.stackage.resolver}"."${name}";
-
     fromSourceWithModules = ghcVersion: name: modules:
         let planConfig = planConfigFor ghcVersion name modules // {
                 src = sources."${name}";

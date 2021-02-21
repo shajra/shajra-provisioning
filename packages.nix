@@ -69,7 +69,7 @@ let
         linux  = "unstable";
         darwin = "unstable";
     } [
-        "haskell.compiler.ghc8103"
+        "haskell.compiler.ghc8104"
     ];
 
     nixpkgs.ifDarwin.prebuilt = np.pick {
@@ -77,7 +77,6 @@ let
     } [
         "mongodb"
         "mongodb-tools"
-        "postgresql_9_5"
         "vim"
     ];
 
@@ -86,7 +85,7 @@ let
     } [
         "alacritty"
         "ansifilter"
-        "chromium"
+        "ungoogled-chromium"
         "dfu-programmer"
         "dfu-util"
         "discord"
@@ -132,13 +131,13 @@ let
     };
 
     nixpkgs.common.build.haskell = {}
-        // (np.hs.fromPackages "unstable" "ghc8103" "djinn")
-        // (np.hs.fromPackages "unstable" "ghc8103" "fast-tags")
-        // (np.hs.fromPackages "unstable" "ghc8103" "ghc-events")
-        // (np.hs.fromPackages "unstable" "ghc8103" "haskdogs")
-        // (np.hs.fromPackages "unstable" "ghc8103" "hasktags")
-        // (np.hs.fromPackages "unstable" "ghc8103" "hoogle")
-        // (np.hs.fromPackages "unstable" "ghc8103" "hp2pretty")
+        // (np.hs.fromPackages "unstable" "ghc8104" "djinn")
+        // (np.hs.fromPackages "unstable" "ghc8104" "fast-tags")
+        // (np.hs.fromPackages "unstable" "ghc8104" "ghc-events")
+        // (np.hs.fromPackages "unstable" "ghc8104" "haskdogs")
+        // (np.hs.fromPackages "unstable" "ghc8104" "hasktags")
+        // (np.hs.fromPackages "unstable" "ghc8104" "hoogle")
+        // (np.hs.fromPackages "unstable" "ghc8104" "hp2pretty")
 
         # DESIGN: marked broken, 2020-11-28
         #// (np.hs.fromPackages "unstable" "ghc8103" "threadscope")
@@ -157,10 +156,10 @@ let
     };
 
     haskell-nix.build = {}
-        // (hn.fromHackage "ghc8103" "apply-refact")
-        // (hn.fromHackage "ghc8103" "ghcid")
-        // (hn.fromHackage "ghc8103" "hlint")
-        // (hn.fromHackage "ghc8103" "stylish-haskell")
+        // (hn.fromHackage "ghc8104" "apply-refact")
+        // (hn.fromHackage "ghc8104" "ghcid")
+        // (hn.fromHackage "ghc8104" "hlint")
+        // (hn.fromHackage "ghc8104" "stylish-haskell")
 
 	# DESIGN: marked broken in Nixpkgs, doesn't seem to build with
 	# Haskell.nix either
@@ -176,9 +175,9 @@ let
             lorelei = import sources.direnv-nix-lorelei;
             tags = import sources.nix-haskell-tags;
         in {
-            implicit-hie        = (hls "ghc8103").implicit-hie;
-            haskell-hls-wrapper = (hls "ghc8103").hls-wrapper;
-            haskell-hls-ghc8103 = (hls "ghc8103").hls-renamed;
+            implicit-hie        = (hls "ghc8104").implicit-hie;
+            haskell-hls-wrapper = (hls "ghc8104").hls-wrapper;
+            haskell-hls-ghc8104 = (hls "ghc8104").hls-renamed;
             haskell-hls-ghc884  = (hls "ghc884").hls-renamed;
             haskell-hls-ghc865  = (hls "ghc865").hls-renamed;
             haskell-hls-tags    = tags.nix-haskell-tags-exe;
