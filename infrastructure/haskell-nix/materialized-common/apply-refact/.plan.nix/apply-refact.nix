@@ -11,7 +11,7 @@
     flags = {};
     package = {
       specVersion = "2.4";
-      identifier = { name = "apply-refact"; version = "0.9.0.0"; };
+      identifier = { name = "apply-refact"; version = "0.9.1.0"; };
       license = "BSD-3-Clause";
       copyright = "";
       maintainer = "matthewtpickering@gmail.com";

@@ -100,7 +100,7 @@
         "transformers-base".flags.orphaninstances = true;
         "hpc".revision = (((hackage."hpc")."0.6.1.0").revisions).default;
         "filepath".revision = (((hackage."filepath")."1.4.2.1").revisions).default;
-        "ghc-exactprint".revision = (((hackage."ghc-exactprint")."0.6.3.4").revisions).default;
+        "ghc-exactprint".revision = (((hackage."ghc-exactprint")."0.6.4").revisions).default;
         "ghc-exactprint".flags.roundtrip = false;
         "ghc-exactprint".flags.dev = false;
         "unbounded-delays".revision = (((hackage."unbounded-delays")."0.1.1.1").revisions).default;
