@@ -341,7 +341,7 @@
    #+END_SRC
 
    #+RESULTS: nix-build-link
-   : /nix/store/nr1hczdz5608g9chkgf860j3xs226hra-python3.8-grip-4.5.2
+   : /nix/store/dxns71s824p02vnkrpflr9l57s11073a-python3.8-grip-4.5.2
 
    Following these symlinks, we can see the files the project provides:
 
@@ -378,7 +378,7 @@
    #+END_SRC
 
    #+RESULTS: nix-build-path
-   : /nix/store/nr1hczdz5608g9chkgf860j3xs226hra-python3.8-grip-4.5.2
+   : /nix/store/dxns71s824p02vnkrpflr9l57s11073a-python3.8-grip-4.5.2
 
 ** Running commands
 

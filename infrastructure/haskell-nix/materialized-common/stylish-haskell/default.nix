@@ -10,12 +10,12 @@
         "bifunctors".revision = (((hackage."bifunctors")."5.5.10").revisions).default;
         "bifunctors".flags.semigroups = true;
         "bifunctors".flags.tagged = true;
-        "data-fix".revision = (((hackage."data-fix")."0.3.0").revisions).default;
+        "data-fix".revision = (((hackage."data-fix")."0.3.1").revisions).default;
         "base-compat-batteries".revision = (((hackage."base-compat-batteries")."0.11.2").revisions).default;
         "extensible-exceptions".revision = (((hackage."extensible-exceptions")."0.1.1.4").revisions).default;
         "unix".revision = (((hackage."unix")."2.7.2.2").revisions).default;
         "mtl".revision = (((hackage."mtl")."2.2.2").revisions).default;
-        "regex-base".revision = (((hackage."regex-base")."0.94.0.0").revisions).default;
+        "regex-base".revision = (((hackage."regex-base")."0.94.0.1").revisions).default;
         "rts".revision = (((hackage."rts")."1.0").revisions).default;
         "regex-posix".revision = (((hackage."regex-posix")."0.96.0.0").revisions).default;
         "regex-posix".flags._regex-posix-clib = false;
@@ -29,9 +29,11 @@
         "scientific".flags.integer-simple = false;
         "scientific".flags.bytestring-builder = false;
         "deepseq".revision = (((hackage."deepseq")."1.4.4.0").revisions).default;
-        "random".revision = (((hackage."random")."1.1").revisions).default;
-        "uuid-types".revision = (((hackage."uuid-types")."1.0.3").revisions).default;
+        "random".revision = (((hackage."random")."1.2.0").revisions).default;
+        "uuid-types".revision = (((hackage."uuid-types")."1.0.4").revisions).default;
         "optparse-applicative".revision = (((hackage."optparse-applicative")."0.15.1.0").revisions).default;
+        "splitmix".revision = (((hackage."splitmix")."0.1.0.3").revisions).default;
+        "splitmix".flags.optimised-mixer = false;
         "dlist".revision = (((hackage."dlist")."1.0").revisions).default;
         "dlist".flags.werror = false;
         "HUnit".revision = (((hackage."HUnit")."1.6.2.0").revisions).default;
@@ -56,12 +58,12 @@
         "base-compat".revision = (((hackage."base-compat")."0.11.2").revisions).default;
         "time-compat".revision = (((hackage."time-compat")."1.9.5").revisions).default;
         "time-compat".flags.old-locale = false;
-        "ansi-terminal".revision = (((hackage."ansi-terminal")."0.10.3").revisions).default;
+        "ansi-terminal".revision = (((hackage."ansi-terminal")."0.11").revisions).default;
         "ansi-terminal".flags.example = false;
         "tagged".revision = (((hackage."tagged")."0.8.6.1").revisions).default;
         "tagged".flags.transformers = true;
         "tagged".flags.deepseq = true;
-        "ghc-lib-parser".revision = (((hackage."ghc-lib-parser")."8.10.3.20201220").revisions).default;
+        "ghc-lib-parser".revision = (((hackage."ghc-lib-parser")."8.10.4.20210206").revisions).default;
         "containers".revision = (((hackage."containers")."0.6.2.1").revisions).default;
         "integer-logarithms".revision = (((hackage."integer-logarithms")."1.0.3.1").revisions).default;
         "integer-logarithms".flags.check-bounds = false;
@@ -89,12 +91,9 @@
         "comonad".flags.containers = true;
         "time".revision = (((hackage."time")."1.9.3").revisions).default;
         "transformers".revision = (((hackage."transformers")."0.5.6.2").revisions).default;
-        "hashable".revision = (((hackage."hashable")."1.3.0.0").revisions).default;
-        "hashable".flags.sse2 = true;
+        "hashable".revision = (((hackage."hashable")."1.3.1.0").revisions).default;
         "hashable".flags.integer-gmp = true;
-        "hashable".flags.sse41 = false;
-        "hashable".flags.examples = false;
-        "attoparsec".revision = (((hackage."attoparsec")."0.13.2.4").revisions).default;
+        "attoparsec".revision = (((hackage."attoparsec")."0.13.2.5").revisions).default;
         "attoparsec".flags.developer = false;
         "colour".revision = (((hackage."colour")."2.3.5").revisions).default;
         "happy".revision = (((hackage."happy")."1.20.0").revisions).default;
@@ -105,12 +104,12 @@
         "filepath".revision = (((hackage."filepath")."1.4.2.1").revisions).default;
         "process".revision = (((hackage."process")."1.6.9.0").revisions).default;
         "pretty".revision = (((hackage."pretty")."1.1.3.6").revisions).default;
-        "aeson".revision = (((hackage."aeson")."1.5.5.1").revisions).default;
+        "aeson".revision = (((hackage."aeson")."1.5.6.0").revisions).default;
         "aeson".flags.cffi = false;
         "aeson".flags.fast = false;
         "aeson".flags.bytestring-builder = false;
         "aeson".flags.developer = false;
-        "ghc-boot-th".revision = (((hackage."ghc-boot-th")."8.10.3").revisions).default;
+        "ghc-boot-th".revision = (((hackage."ghc-boot-th")."8.10.4").revisions).default;
         "base-orphans".revision = (((hackage."base-orphans")."0.8.4").revisions).default;
         "HsYAML-aeson".revision = (((hackage."HsYAML-aeson")."0.2.0.0").revisions).default;
         "th-abstraction".revision = (((hackage."th-abstraction")."0.4.2.0").revisions).default;
@@ -119,8 +118,8 @@
         "integer-gmp".revision = (((hackage."integer-gmp")."1.0.3.0").revisions).default;
         };
       compiler = {
-        version = "8.10.3";
-        nix-name = "ghc8103";
+        version = "8.10.4";
+        nix-name = "ghc8104";
         packages = {
           "binary" = "0.8.8.0";
           "ghc-prim" = "0.6.1";
@@ -142,7 +141,7 @@
           "filepath" = "1.4.2.1";
           "process" = "1.6.9.0";
           "pretty" = "1.1.3.6";
-          "ghc-boot-th" = "8.10.3";
+          "ghc-boot-th" = "8.10.4";
           "array" = "0.5.4.0";
           "integer-gmp" = "1.0.3.0";
           };
