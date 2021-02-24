@@ -41,6 +41,7 @@ jobs:
             --argstr buildSet prebuilt \
             --argstr buildInfrastructure ${{ matrix.infra }}
   build:
+    continue-on-error: true
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
