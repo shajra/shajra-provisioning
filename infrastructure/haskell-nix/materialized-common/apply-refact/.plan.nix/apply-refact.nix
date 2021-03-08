@@ -11,7 +11,7 @@
     flags = {};
     package = {
       specVersion = "2.4";
-      identifier = { name = "apply-refact"; version = "0.9.1.0"; };
+      identifier = { name = "apply-refact"; version = "0.9.3.0"; };
       license = "BSD-3-Clause";
       copyright = "";
       maintainer = "matthewtpickering@gmail.com";
@@ -61,6 +61,7 @@
           "Refact/Apply"
           "Refact/Fixity"
           "Refact/Internal"
+          "Refact/Compat"
           ];
         hsSourceDirs = [ "src" ];
         };
@@ -88,6 +89,7 @@
           modules = [
             "Paths_apply_refact"
             "Refact/Apply"
+            "Refact/Compat"
             "Refact/Fixity"
             "Refact/Internal"
             "Refact/Options"
@@ -126,6 +128,7 @@
           modules = [
             "Paths_apply_refact"
             "Refact/Apply"
+            "Refact/Compat"
             "Refact/Fixity"
             "Refact/Internal"
             "Refact/Options"

@@ -9,7 +9,7 @@
         "stm".revision = (((hackage."stm")."2.5.0.0").revisions).default;
         "unix".revision = (((hackage."unix")."2.7.2.2").revisions).default;
         "mtl".revision = (((hackage."mtl")."2.2.2").revisions).default;
-        "lifted-async".revision = (((hackage."lifted-async")."0.10.1.3").revisions).default;
+        "lifted-async".revision = (((hackage."lifted-async")."0.10.2").revisions).default;
         "rts".revision = (((hackage."rts")."1.0").revisions).default;
         "cmdargs".revision = (((hackage."cmdargs")."0.10.21").revisions).default;
         "cmdargs".flags.testprog = false;
@@ -39,7 +39,7 @@
         "transformers-compat".flags.four = false;
         "transformers-compat".flags.three = false;
         "template-haskell".revision = (((hackage."template-haskell")."2.16.0.0").revisions).default;
-        "call-stack".revision = (((hackage."call-stack")."0.3.0").revisions).default;
+        "call-stack".revision = (((hackage."call-stack")."0.4.0").revisions).default;
         "terminal-size".revision = (((hackage."terminal-size")."0.3.2.1").revisions).default;
         "ansi-terminal".revision = (((hackage."ansi-terminal")."0.11").revisions).default;
         "ansi-terminal".flags.example = false;
@@ -63,7 +63,8 @@
         "time".revision = (((hackage."time")."1.9.3").revisions).default;
         "tasty-hunit".revision = (((hackage."tasty-hunit")."0.10.0.3").revisions).default;
         "transformers".revision = (((hackage."transformers")."0.5.6.2").revisions).default;
-        "hashable".revision = (((hackage."hashable")."1.3.1.0").revisions).default;
+        "hashable".revision = (((hackage."hashable")."1.3.2.0").revisions).default;
+        "hashable".flags.random-initial-seed = false;
         "hashable".flags.integer-gmp = true;
         "colour".revision = (((hackage."colour")."2.3.5").revisions).default;
         "transformers-base".revision = (((hackage."transformers-base")."0.4.5.2").revisions).default;

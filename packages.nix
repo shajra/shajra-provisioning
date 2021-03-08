@@ -85,7 +85,7 @@ let
     } [
         "alacritty"
         "ansifilter"
-        "ungoogled-chromium"
+        "chromium"
         "dfu-programmer"
         "dfu-util"
         "discord"

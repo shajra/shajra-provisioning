@@ -9,7 +9,7 @@
         "semigroupoids".flags.tagged = true;
         "semigroupoids".flags.containers = true;
         "semigroupoids".flags.contravariant = true;
-        "free".revision = (((hackage."free")."5.1.6").revisions).default;
+        "free".revision = (((hackage."free")."5.1.7").revisions).default;
         "ghc".revision = (((hackage."ghc")."8.10.4").revisions).default;
         "exceptions".revision = (((hackage."exceptions")."0.10.4").revisions).default;
         "refact".revision = (((hackage."refact")."0.3.0.2").revisions).default;
@@ -17,7 +17,7 @@
         "binary".revision = (((hackage."binary")."0.8.8.0").revisions).default;
         "ghc-boot".revision = (((hackage."ghc-boot")."8.10.4").revisions).default;
         "ghc-prim".revision = (((hackage."ghc-prim")."0.6.1").revisions).default;
-        "bifunctors".revision = (((hackage."bifunctors")."5.5.10").revisions).default;
+        "bifunctors".revision = (((hackage."bifunctors")."5.5.11").revisions).default;
         "bifunctors".flags.semigroups = true;
         "bifunctors".flags.tagged = true;
         "extra".revision = (((hackage."extra")."1.7.9").revisions).default;
@@ -83,7 +83,7 @@
         "tasty-expected-failure".revision = (((hackage."tasty-expected-failure")."0.12.3").revisions).default;
         "text".revision = (((hackage."text")."1.2.4.1").revisions).default;
         "Cabal".revision = (((hackage."Cabal")."3.2.1.0").revisions).default;
-        "unordered-containers".revision = (((hackage."unordered-containers")."0.2.13.0").revisions).default;
+        "unordered-containers".revision = (((hackage."unordered-containers")."0.2.14.0").revisions).default;
         "unordered-containers".flags.debug = false;
         "base".revision = (((hackage."base")."4.14.1.0").revisions).default;
         "comonad".revision = (((hackage."comonad")."5.0.8").revisions).default;
@@ -93,7 +93,8 @@
         "time".revision = (((hackage."time")."1.9.3").revisions).default;
         "terminfo".revision = (((hackage."terminfo")."0.4.1.4").revisions).default;
         "transformers".revision = (((hackage."transformers")."0.5.6.2").revisions).default;
-        "hashable".revision = (((hackage."hashable")."1.3.1.0").revisions).default;
+        "hashable".revision = (((hackage."hashable")."1.3.2.0").revisions).default;
+        "hashable".flags.random-initial-seed = false;
         "hashable".flags.integer-gmp = true;
         "colour".revision = (((hackage."colour")."2.3.5").revisions).default;
         "transformers-base".revision = (((hackage."transformers-base")."0.4.5.2").revisions).default;

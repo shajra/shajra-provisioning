@@ -36,7 +36,7 @@
         "transformers-compat".flags.four = false;
         "transformers-compat".flags.three = false;
         "template-haskell".revision = (((hackage."template-haskell")."2.16.0.0").revisions).default;
-        "call-stack".revision = (((hackage."call-stack")."0.3.0").revisions).default;
+        "call-stack".revision = (((hackage."call-stack")."0.4.0").revisions).default;
         "terminal-size".revision = (((hackage."terminal-size")."0.3.2.1").revisions).default;
         "ansi-terminal".revision = (((hackage."ansi-terminal")."0.11").revisions).default;
         "ansi-terminal".flags.example = false;
@@ -56,7 +56,8 @@
         "time".revision = (((hackage."time")."1.9.3").revisions).default;
         "tasty-hunit".revision = (((hackage."tasty-hunit")."0.10.0.3").revisions).default;
         "transformers".revision = (((hackage."transformers")."0.5.6.2").revisions).default;
-        "hashable".revision = (((hackage."hashable")."1.3.1.0").revisions).default;
+        "hashable".revision = (((hackage."hashable")."1.3.2.0").revisions).default;
+        "hashable".flags.random-initial-seed = false;
         "hashable".flags.integer-gmp = true;
         "colour".revision = (((hackage."colour")."2.3.5").revisions).default;
         "filepath".revision = (((hackage."filepath")."1.4.2.1").revisions).default;
