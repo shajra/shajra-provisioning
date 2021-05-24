@@ -31,7 +31,7 @@ let
 
     mkNixpkgs = s: import s {
         config = config.nixpkgs;
-        overlays = with overlay; [global];
+        overlays = with overlay; [global emacs];
     };
 
     nixpkgs-stable   = mkNixpkgs sources.nixpkgs-stable;
