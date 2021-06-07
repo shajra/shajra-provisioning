@@ -104,6 +104,7 @@ let
         "python3"
         "rofi-unwrapped"
         "rxvt_unicode-with-plugins"
+        "simple-scan"
         "slack"
         "stack"
         "usbutils"

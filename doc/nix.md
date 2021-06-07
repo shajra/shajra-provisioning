@@ -144,7 +144,7 @@ After a successful call of `nix build`, you'll see one or more symlinks for each
 readlink result*
 ```
 
-    /nix/store/jy1z4zj4g1w73zscn3nm71sl7ldgy6h7-python3.8-grip-4.5.2
+    /nix/store/l43ij1495kfnr5wwk0w6jqm218vq6ayw-python3.8-grip-4.5.2
 
 Following these symlinks, we can see the files the project provides:
 
@@ -172,7 +172,7 @@ It's common to configure these "result" symlinks as ignored in source control to
 nix path-info --file . python38Packages-grip
 ```
 
-    /nix/store/jy1z4zj4g1w73zscn3nm71sl7ldgy6h7-python3.8-grip-4.5.2
+    /nix/store/l43ij1495kfnr5wwk0w6jqm218vq6ayw-python3.8-grip-4.5.2
 
 ## Running commands<a id="sec-4-3"></a>
 
@@ -196,7 +196,7 @@ nix run \
     
     …
 
-Thus far, the argument of the `--file` switch has always referenced a Nix file on our local filesystem. However, it's possible to reference a Nix expression downloaded from the internet. The Nix ecosystem is supported by a giant GitHub repository of Nix expressions called [Nixpkgs](https://github.com/NixOS/nixpkgs). Special branches of this repository are considered *channels* in the Nix ecosystem. A Nixpkgs branch of "nixos-20.09" can be referenced by "channel:nixos-20.09" for `nix` subcommands that accept a `--file` switch.
+Thus far, the argument of the `--file` switch has always referenced a Nix file on our local filesystem. However, it's possible to reference a Nix expression downloaded from the internet. The Nix ecosystem is supported by a giant GitHub repository of Nix expressions called [Nixpkgs](https://github.com/NixOS/nixpkgs). Special branches of this repository are considered *channels* in the Nix ecosystem. A Nixpkgs branch of "nixos-21.05" can be referenced by "channel:nixos-21.05" for `nix` subcommands that accept a `--file` switch.
 
 Again, as with `nix build` attribute paths are specified as positional arguments to select packages.
 

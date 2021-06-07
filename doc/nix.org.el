@@ -6,4 +6,4 @@
  (run-attr       . "python38Packages-grip")
  (run-name       . "python3.8-grip")
  (run-target     . "grip")
- (nixos-release  . "nixos-20.09"))
+ (nixos-release  . "nixos-21.05"))
