@@ -1,4 +1,5 @@
 let config = import ./config.nix;
+    sources = import ./sources;
 in
 
 { buildSet ? config.buildSet
@@ -9,9 +10,7 @@ in
 let
 
     infra = import ./infrastructure {
-        inherit checkMaterialization;
-        config = import ./config.nix;
-        sources = import ./sources;
+        inherit config checkMaterialization sources;
     };
 
     pkgs = import ./packages.nix infra;

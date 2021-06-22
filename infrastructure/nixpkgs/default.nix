@@ -5,33 +5,18 @@
 
 let
 
-    overlay.global = self: super: {
+    overlay.provided = import ./overlay;
 
-        # DESIGN: downloading the latest hashes is time-consuming
-        #all-cabal-hashes = sources.all-cabal-hashes;
+    # DESIGN: downloading the latest hashes is time-consuming
+    #overlay.all-cabal-hashes = self: super: {
+    #    all-cabal-hashes = sources.all-cabal-hashes;
+    #};
 
-        global = super.global.overrideAttrs (oldAttrs: {
-            postInstall = ''
-              mkdir -p "$out/share/emacs/site-lisp"
-              cp -v *.el "$out/share/emacs/site-lisp"
-
-              wrapProgram $out/bin/gtags \
-                --set GTAGSCONF "$out/share/gtags/gtags.conf" \
-                --prefix PYTHONPATH : "$(toPythonPath ${super.pythonPackages.pygments})"
-              wrapProgram $out/bin/global \
-                --set GTAGSCONF "$out/share/gtags/gtags.conf" \
-                --prefix PYTHONPATH : "$(toPythonPath ${super.pythonPackages.pygments})"
-            '';
-        });
-
-    };
-
-    # DESIGN: Doom Emacs isn't ready yet for GCC Emacs
     overlay.emacs = import sources.emacs-overlay;
 
     mkNixpkgs = s: import s {
         config = config.nixpkgs;
-        overlays = with overlay; [global emacs];
+        overlays = builtins.attrValues overlay;
     };
 
     nixpkgs-stable   = mkNixpkgs sources.nixpkgs-stable;

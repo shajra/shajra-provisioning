@@ -25,9 +25,9 @@ let
                 if builtins.elem name config.haskell-nix.platformSensitive
                 then
                     if isDarwin
-                    then haskell-nix/materialized-darwin
-                    else haskell-nix/materialized-linux
-                else haskell-nix/materialized-common;
+                    then ./materialized-darwin
+                    else ./materialized-linux
+                else ./materialized-common;
             materialized = materializedBase + "/${name}";
             check = config.haskell-nix.plan."${name}".check
                 or checkMaterialization;
