@@ -1,17 +1,8 @@
 { config, pkgs, lib, ... }:
 
-# DESIGN: https://github.com/NixOS/nixpkgs/issues/21796
-# Ideally is pkgs.hplipWithPlugin, but unfortunately older
-# versions like pkgs.hplipWithPlugin_3_18_5 don't work still
 let
 
-    sources = import ../../sources;
-    config = import ../../config.nix;
-    pkgs
-    pkgs-hplip = import sources."nixos-19.09" {
-        config = config.nixpkgs; overlays = [];
-    };
-    pinnedHplip = pkgs.hplipWithPlugin;
+    overlays = (import ../../build.nix {}).infra.np.overlays;
 
 in {
 
@@ -38,7 +29,7 @@ in {
   environment.systemPackages = with pkgs; [
 
     # Hardware/network-specific
-    pinnedHplip
+    hplipWithPlugin
     lan-jelly
 
     # X: UI/UX
@@ -75,7 +66,7 @@ in {
   hardware.enableRedistributableFirmware = true;
   hardware.pulseaudio.enable = true;
   hardware.sane.enable = true;
-  hardware.sane.extraBackends = [ pkgs.gutenprint pinnedHplip ];
+  hardware.sane.extraBackends = [ pkgs.gutenprint pkgs.hplipWithPlugin ];
   #hardware.bumblebee.enable = true;
   #hardware.bumblebee.connectDisplay = true;
 
@@ -94,6 +85,7 @@ in {
   networking.search = [ "dyndns.org" ];
   networking.hostName = "hole";
   networking.wireless.enable = true;
+  networking.wireless.interfaces = [ "wlp6s0" ];
 
   nix.binaryCaches = [ "https://hydra.iohk.io" ];
   nix.binaryCachePublicKeys = [
@@ -103,7 +95,8 @@ in {
   nix.useSandbox = "relaxed";
 
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.overlays = [ (import ./overlay) ];
+  nixpkgs.overlays = overlays;
+  #nixpkgs.pkgs = pkgs;
 
   powerManagement.powertop.enable = true;
 
@@ -133,7 +126,7 @@ in {
   services.logind.lidSwitchExternalPower = "ignore";
   services.logind.lidSwitch = "suspend-then-hibernate";
   services.lorri.enable = true;
-  services.printing.drivers = [ pinnedHplip ];
+  services.printing.drivers = [ pkgs.hplipWithPlugin ];
   services.printing.enable = true;
 
   services.redshift.enable = true;

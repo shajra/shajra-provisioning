@@ -13,10 +13,17 @@ let
     #};
 
     overlay.emacs = import sources.emacs-overlay;
+    overlay.nix-project = self: super: import sources.nix-project;
+
+    overlays = with overlay; [
+        emacs
+        nix-project
+        provided
+    ];
 
     mkNixpkgs = s: import s {
         config = config.nixpkgs;
-        overlays = builtins.attrValues overlay;
+        inherit overlays;
     };
 
     nixpkgs-stable   = mkNixpkgs sources.nixpkgs-stable;
@@ -39,7 +46,7 @@ let
 
 in {
 
-    inherit nixpkgs-stable nixpkgs-unstable;
+    inherit nixpkgs-stable nixpkgs-unstable overlays;
 
     pick = {linux ? null, darwin ? null}: paths:
         let pkgs =

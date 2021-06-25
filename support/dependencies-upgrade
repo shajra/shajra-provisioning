@@ -4,8 +4,8 @@ cd "$(dirname "$0")/.."
 
 nix run \
     --ignore-environment \
-    --file ./support \
-    nix-project-exe \
+    --file build.nix \
+    infra.np.nixpkgs-stable.nix-project-exe \
     --command \
     nix-project \
     --upgrade \

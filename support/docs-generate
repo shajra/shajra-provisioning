@@ -9,14 +9,14 @@ nix run \
     --ignore-environment \
     --keep LANG \
     --keep LOCALE_ARCHIVE \
-    --file support \
-    nix-project-org2gfm \
-    pkgs.ansifilter \
-    pkgs.coreutils \
-    pkgs.gnugrep \
-    pkgs.gnutar \
-    pkgs.gzip \
-    pkgs.tree \
+    --file build.nix \
+    infra.np.nixpkgs-stable.nix-project-org2gfm \
+    infra.np.nixpkgs-stable.ansifilter \
+    infra.np.nixpkgs-stable.coreutils \
+    infra.np.nixpkgs-stable.gnugrep \
+    infra.np.nixpkgs-stable.gnutar \
+    infra.np.nixpkgs-stable.gzip \
+    infra.np.nixpkgs-stable.tree \
     --command \
     org2gfm \
     --ignore links.org \

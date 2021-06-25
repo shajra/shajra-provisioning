@@ -22,10 +22,10 @@ export PATH
 main()
 {
     if is_online && at_home
-    then 
+    then
         echo "INFO: at home, routing Jelly locally"
         iptables_rule_add
-    else 
+    else
         echo "INFO: not at home, routing Jelly remotely"
         iptables_rule_remove
     fi
@@ -45,7 +45,7 @@ at_home()
 iptables_rule_add()
 {
     if ! iptables_rule -C >/dev/null 2>&1
-    then 
+    then
         iptables_rule -A
         echo "INFO: iptables modified"
     fi
@@ -54,7 +54,7 @@ iptables_rule_add()
 iptables_rule_remove()
 {
     while iptables_rule -C >/dev/null 2>&1
-    do 
+    do
         iptables_rule -D
         echo "INFO: iptables modified"
     done

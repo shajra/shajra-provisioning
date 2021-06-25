@@ -14,8 +14,8 @@
     ];
     # DESIGN: https://github.com/input-output-hk/hackage.nix/blob/master/index-state-hashes.nix
     haskell-nix.hackage.index = {
-        state = "2021-06-22T00:00:00Z";
-        sha256 = "91dc1c34af6996d134c07af25396cd171bdf608b26b81117546fe631702ec02f";
+        state = "2021-06-24T00:00:00Z";
+        sha256 = "fc47b656324984fe18aa6bf5d8fa605f2cadb94d41c9004f2bf8cca014301138";
     };
     haskell-nix.nixpkgs-pin = "nixpkgs-2009";
     nixpkgs = {
