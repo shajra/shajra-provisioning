@@ -70,7 +70,7 @@
         "deepseq".revision = (((hackage."deepseq")."1.4.4.0").revisions).default;
         "enclosed-exceptions".revision = (((hackage."enclosed-exceptions")."1.0.3").revisions).default;
         "transformers".revision = (((hackage."transformers")."0.5.6.2").revisions).default;
-        "colour".revision = (((hackage."colour")."2.3.5").revisions).default;
+        "colour".revision = (((hackage."colour")."2.3.6").revisions).default;
         "hashable".revision = (((hackage."hashable")."1.3.2.0").revisions).default;
         "hashable".flags.integer-gmp = true;
         "hashable".flags.random-initial-seed = false;

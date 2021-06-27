@@ -18,7 +18,7 @@
 
 This project uses the [Nix package manager](https://nixos.org/nix) to download all necessary dependencies and build everything from source. In this regard, Nix is helpful as not just a package manager, but also a build tool. Nix helps us get from raw source files to not only built executables, but all the way to a Nix package, which we can install with Nix if we like.
 
-[This project's continuous integration (using GitHub Actions)](https://github.com/shajra/shajra-nix-packages/actions) caches built packages at [Cachix](https://cachix.org/), a service for caching pre-built Nix packages. If you don't want to wait for a full local build when first using this project, setting up Cachix is recommended.
+[This project's continuous integration (using GitHub Actions)](https://github.com/shajra/shajra-machines/actions) caches built packages at [Cachix](https://cachix.org/), a service for caching pre-built Nix packages. If you don't want to wait for a full local build when first using this project, setting up Cachix is recommended.
 
 Within this project, the various files with a ".nix" extension are Nix files, each of which contains an expression written in the [Nix expression language](https://nixos.org/nix/manual/#ch-expression-language) used by the Nix package manager to specify packages. If you get proficient with this language, you can use these expressions as a starting point to compose your own packages beyond what's provided in this project.
 
@@ -144,7 +144,7 @@ After a successful call of `nix build`, you'll see one or more symlinks for each
 readlink result*
 ```
 
-    /nix/store/l43ij1495kfnr5wwk0w6jqm218vq6ayw-python3.8-grip-4.5.2
+    /nix/store/wlfs4fb8g3164na96n1la68l0dl39ahh-python3.8-grip-4.5.2
 
 Following these symlinks, we can see the files the project provides:
 
@@ -172,7 +172,7 @@ It's common to configure these "result" symlinks as ignored in source control to
 nix path-info --file . python38Packages-grip
 ```
 
-    /nix/store/l43ij1495kfnr5wwk0w6jqm218vq6ayw-python3.8-grip-4.5.2
+    /nix/store/wlfs4fb8g3164na96n1la68l0dl39ahh-python3.8-grip-4.5.2
 
 ## Running commands<a id="sec-4-3"></a>
 

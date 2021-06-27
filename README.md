@@ -7,7 +7,7 @@
 - [License](#sec-4)
 - [Contribution](#sec-5)
 
-[![img](https://github.com/shajra/shajra-nix-packages/workflows/CI/badge.svg)](https://github.com/shajra/shajra-nix-packages/actions)
+[![img](https://github.com/shajra/shajra-machines/workflows/CI/badge.svg)](https://github.com/shajra/shajra-machines/actions)
 
 # About this project<a id="sec-1"></a>
 
@@ -74,7 +74,7 @@ The "master" branch of the repository on GitHub has the latest released version 
 
 # License<a id="sec-4"></a>
 
-All files in this "shajra-nix-packages" project are licensed under the terms of GPLv3 or (at your option) any later version.
+All files in this "shajra-machines" project are licensed under the terms of GPLv3 or (at your option) any later version.
 
 Please see the [./COPYING.md](./COPYING.md) file for more details.
 

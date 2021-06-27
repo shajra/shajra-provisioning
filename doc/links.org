@@ -1,5 +1,5 @@
 #+LINK: cachix https://cachix.org/
-#+LINK: github-actions https://github.com/shajra/shajra-nix-packages/actions
+#+LINK: github-actions https://github.com/shajra/shajra-machines/actions
 #+LINK: nix https://nixos.org/nix
 #+LINK: nix-env https://nixos.org/nix/manual/#sec-nix-env
 #+LINK: nix-expr https://nixos.org/nix/manual/#ch-expression-language

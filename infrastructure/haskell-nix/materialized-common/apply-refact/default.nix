@@ -94,7 +94,7 @@
         "tasty".flags.clock = true;
         "deepseq".revision = (((hackage."deepseq")."1.4.4.0").revisions).default;
         "transformers".revision = (((hackage."transformers")."0.5.6.2").revisions).default;
-        "colour".revision = (((hackage."colour")."2.3.5").revisions).default;
+        "colour".revision = (((hackage."colour")."2.3.6").revisions).default;
         "terminfo".revision = (((hackage."terminfo")."0.4.1.4").revisions).default;
         "syb".revision = (((hackage."syb")."0.7.2.1").revisions).default;
         "hashable".revision = (((hackage."hashable")."1.3.2.0").revisions).default;
