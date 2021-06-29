@@ -1,13 +1,14 @@
 { checkMaterialization
-, config
+, infraConfig
 , sources
 , isDarwin
 }:
 
 let
-    haskell-nix =
+
+    nixpkgs =
         let hn = import sources."haskell.nix" {};
-            nixpkgsSrc = hn.sources."${config.haskell-nix.nixpkgs-pin}";
+            nixpkgsSrc = hn.sources."${infraConfig.haskell-nix.nixpkgs-pin}";
             nixpkgsOrigArgs = hn.nixpkgsArgs;
             nixpkgsArgs = nixpkgsOrigArgs // {
                 config = {};
@@ -16,39 +17,39 @@ let
                     happy = super.haskellPackages.happy;
                 })];
             };
-        in (import nixpkgsSrc nixpkgsArgs).haskell-nix;
+        in import nixpkgsSrc nixpkgsArgs;
+
+    haskell-nix = nixpkgs.haskell-nix;
 
     allExes = pkg: pkg.components.exes;
 
     planConfigFor = ghcVersion: name: modules:
         let materializedBase =
-                if builtins.elem name config.haskell-nix.platformSensitive
+                if builtins.elem name infraConfig.haskell-nix.platformSensitive
                 then
                     if isDarwin
                     then ./materialized-darwin
                     else ./materialized-linux
                 else ./materialized-common;
             materialized = materializedBase + "/${name}";
-            check = config.haskell-nix.plan."${name}".check
-                or checkMaterialization;
         in {
             inherit name modules materialized checkMaterialization;
             compiler-nix-name = ghcVersion;
-            index-state = config.haskell-nix.hackage.index.state;
-            index-sha256 = config.haskell-nix.hackage.index.sha256;
+            index-state = infraConfig.haskell-nix.hackage.index.state;
+            index-sha256 = infraConfig.haskell-nix.hackage.index.sha256;
             lookupSha256 = {location, ...}:
-                config.haskell-nix.lookupSha256."${location}" or null;
+                infraConfig.haskell-nix.lookupSha256."${location}" or null;
         };
 
     defaultModules = [{ enableSeparateDataOutput = true; }];
 
 in rec {
 
-    inherit haskell-nix;
+    inherit haskell-nix nixpkgs;
 
     fromHackageWithModules = ghcVersion: name: modules:
         let planConfig = planConfigFor ghcVersion name modules // {
-                version = config.hackage.version."${name}";
+                version = infraConfig.hackage.version."${name}";
             };
         in allExes (haskell-nix.hackage-package planConfig);
 

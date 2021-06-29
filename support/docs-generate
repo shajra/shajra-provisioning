@@ -9,7 +9,7 @@ nix run \
     --ignore-environment \
     --keep LANG \
     --keep LOCALE_ARCHIVE \
-    --file build.nix \
+    --file . \
     infra.np.nixpkgs-stable.nix-project-org2gfm \
     infra.np.nixpkgs-stable.ansifilter \
     infra.np.nixpkgs-stable.coreutils \

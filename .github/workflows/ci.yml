@@ -3,12 +3,12 @@ on:
   push:
   pull_request:
 jobs:
-  linux:
+  packages-linux:
     strategy:
       matrix:
-        infra: ["nixpkgs", "haskell-nix", "shajra"]
-        set: ["build", "prebuilt"]
-    name: "linux: ${{ matrix.infra }}: ${{ matrix.set }}"
+        infra: [nixpkgs, haskell-nix, shajra]
+        set: [build, prebuilt]
+    name: "linux pkgs: ${{ matrix.infra }}: ${{ matrix.set }}"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -21,45 +21,29 @@ jobs:
     - uses: cachix/cachix-action@v10
       with:
         name: shajra
-        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
+        signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
     - run: cat ~/.config/nix/nix.conf
     - run: |
         nix --print-build-logs build \
+            --file . \
             --arg checkMaterialization true \
             --argstr buildSet ${{ matrix.set }} \
-            --argstr buildInfrastructure ${{ matrix.infra }}
+            --argstr buildInfrastructure ${{ matrix.infra }} \
+            pkgs
     - run: |
         nix --print-build-logs path-info \
+            --file . \
             --arg checkMaterialization true \
             --argstr buildSet ${{ matrix.set }} \
-            --argstr buildInfrastructure ${{ matrix.infra }}
-  nixos-rebuild:
-    name: "nixos-rebuild"
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v13
-      with:
-        extra_nix_config: |
-          trusted-public-keys = hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=
-          trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
-          substituters = https://hydra.iohk.io https://cache.nixos.org/
-    - uses: cachix/cachix-action@v10
-      with:
-        name: shajra
-        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
-    - run: cat ~/.config/nix/nix.conf
-    - run: |
-        NIX_PATH=nixos=channel:nixos-21.05 \
-        nix run nixos.nixos-rebuild \
-        --command support/nixos-rebuild --host hole build
-  darwin:
+            --argstr buildInfrastructure ${{ matrix.infra }} \
+            pkgs
+  packages-darwin:
     strategy:
       matrix:
-        infra: ["nixpkgs", "haskell-nix", "shajra"]
-        set: ["build", "prebuilt"]
-    name: "darwin: ${{ matrix.infra }}: ${{ matrix.set }}"
-    needs: [linux, nixos-rebuild]
+        infra: [nixpkgs, haskell-nix, shajra]
+        set: [build, prebuilt]
+    name: "darwin pkgs: ${{ matrix.infra }}: ${{ matrix.set }}"
+    needs: [packages-linux]
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
@@ -72,15 +56,62 @@ jobs:
     - uses: cachix/cachix-action@v10
       with:
         name: shajra
-        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
+        signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
     - run: cat ~/.config/nix/nix.conf
     - run: |
         nix --print-build-logs build \
+            --file . \
             --arg checkMaterialization true \
             --argstr buildSet ${{ matrix.set }} \
-            --argstr buildInfrastructure ${{ matrix.infra }}
+            --argstr buildInfrastructure ${{ matrix.infra }} \
+            pkgs
     - run: |
         nix --print-build-logs path-info \
+            --file . \
             --arg checkMaterialization true \
             --argstr buildSet ${{ matrix.set }} \
-            --argstr buildInfrastructure ${{ matrix.infra }}
+            --argstr buildInfrastructure ${{ matrix.infra }} \
+            pkgs
+  installers-linux:
+    name: linux installers
+    needs: [packages-linux]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v13
+      with:
+        extra_nix_config: |
+          trusted-public-keys = hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=
+          trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+          substituters = https://hydra.iohk.io https://cache.nixos.org/
+    - uses: cachix/cachix-action@v10
+      with:
+        name: shajra
+        signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
+    - run: cat ~/.config/nix/nix.conf
+    - run: |
+        NIX_PATH=nixos=channel:nixos-21.05 \
+        nix run nixos.nixos-rebuild \
+        --command ./nixos-rebuild --target hole build
+    - run: ./home-manager --target hole build
+  installers-darwin:
+    name: darwin installers
+    needs: [packages-darwin]
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v13
+      with:
+        extra_nix_config: |
+          trusted-public-keys = hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=
+          trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+          substituters = https://hydra.iohk.io https://cache.nixos.org/
+    - uses: cachix/cachix-action@v10
+      with:
+        name: shajra
+        signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
+    - run: cat ~/.config/nix/nix.conf
+    - run: ./darwin-rebuild --target EEM099LMBP-1.local build
+    - run: ./home-manager   --target EEM099LMBP-1.local build
+
+

@@ -1,23 +1,26 @@
-self: super:
+self: _super:
 
 let
-    prog_name = "shajra-nixos-rebuild";
+    progName = "shajra-nixos-rebuild";
     meta.description = "controlled NixOS rebuild";
-    src = super.lib.sources.sourceFilesBySuffices ../../../..
-        [ ".nix" ".json" ];
+    sources = (import ../../../.. {}).sources;
 in
 
-self.nix-project-lib.writeShellCheckedExe prog_name
+self.nix-project-lib.writeShellCheckedExe progName
 {
     inherit meta;
+    path = with self; [
+        coreutils
+        hostname
+        man_db
+    ];
 }
 ''
 set -eu
 set -o pipefail
 
 
-PROG="$("${self.coreutils}/bin/basename" "$0")"
-HOST="$("${self.nettools}/bin/hostname")"
+TARGET="$(hostname)"
 NIXOS_EXE="$(command -v nixos-rebuild || true)"
 ARGS=()
 
@@ -27,10 +30,8 @@ ARGS=()
 
 print_usage()
 {
-    "${self.coreutils}/bin/cat" - <<EOF
-USAGE:
-
-    $PROG [OPTION]... NIXOS_REBUILD_ARGS...
+    cat - <<EOF
+USAGE: ${progName} [OPTION]... [--] NIXOS_REBUILD_ARGS...
 
 DESCRIPTION:
 
@@ -41,11 +42,11 @@ DESCRIPTION:
 OPTIONS:
 
     -h --help            print this help message
-    -H --host            name of host to configure for
+    -t --target          target host to configure for
                          (otherwise autodetected)
     -N --nixos-exe PATH  filepath of 'nixos-rebuild' executable to use
 
-    '$PROG' pins all dependencies except for Nix itself,
+    '${progName}' pins all dependencies except for Nix itself,
      which it finds on the path if possible.  Otherwise set
      '--nixos-exe'.
 
@@ -62,9 +63,9 @@ main()
             print_usage
             exit 0
             ;;
-        -H|--host)
-            HOST="''${2:-}"
-            if [ -z "$HOST" ]
+        -t|--target)
+            TARGET="''${2:-}"
+            if [ -z "$TARGET" ]
             then die "$1 requires argument"
             fi
             shift
@@ -75,6 +76,11 @@ main()
             then die "$1 requires argument"
             fi
             shift
+            ;;
+        --)
+            shift
+            ARGS+=("$@")
+            break
             ;;
         *)
             ARGS+=("$1")
@@ -91,9 +97,10 @@ main()
 rebuild()
 {
     /usr/bin/env -i \
-        PATH="$(path_for "$NIXOS_EXE")" \
-        NIX_PATH="nixpkgs=${super.path}" \
-        NIXOS_CONFIG="${src}/machines/$HOST/configuration.nix" \
+        MANPATH=/run/current-system/sw/share/man \
+        PATH="$(path_for "$NIXOS_EXE"):$PATH" \
+        NIX_PATH="nixpkgs=${sources.nixpkgs-system}" \
+        NIXOS_CONFIG="${sources.shajra-provisioning}/machines/$TARGET/configuration.nix" \
         nixos-rebuild "$@"
 }
 

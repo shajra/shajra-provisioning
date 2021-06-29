@@ -1,0 +1,65 @@
+steps:
+
+  - simple_align:
+      cases: false
+      top_level_patterns: false
+      records: false
+
+  - imports:
+      align: none
+      list_align: after_alias
+      pad_module_names: false
+      long_list_align: new_line
+      empty_list_align: right_after
+      list_padding: 2
+      separate_lists: false
+      space_surround: false
+
+  - language_pragmas:
+      style: vertical
+      align: false
+      remove_redundant: true
+
+  - trailing_whitespace: {}
+
+columns: 100
+
+newline: native
+
+language_extensions:
+  - BlockArguments
+  - CPP
+  - ConstraintKinds
+  - DataKinds
+  - DefaultSignatures
+  - DeriveDataTypeable
+  - DeriveGeneric
+  - DerivingStrategies
+  - DerivingVia
+  - EmptyDataDecls
+  - ExistentialQuantification
+  - FlexibleContexts
+  - FlexibleInstances
+  - FunctionalDependencies
+  - GADTs
+  - GeneralizedNewtypeDeriving
+  - LambdaCase
+  - MultiParamTypeClasses
+  - MultiWayIf
+  - NamedFieldPuns
+  - NoImplicitPrelude
+  - NoMonomorphismRestriction
+  - OverloadedStrings
+  - PackageImports
+  - QuasiQuotes
+  - RankNTypes
+  - RecordWildCards
+  - ScopedTypeVariables
+  - StandaloneDeriving
+  - TemplateHaskell
+  - TupleSections
+  - TypeApplications
+  - TypeFamilies
+  - TypeFamilyDependencies
+  - TypeOperators
+  - ViewPatterns

@@ -1,0 +1,12 @@
+#!/bin/sh -eu
+
+cd "$(dirname "$0")"
+
+nix run \
+    --ignore-environment \
+    --file . \
+    infra.np.nixpkgs-stable.shajra-darwin-rebuild \
+    --command \
+    shajra-darwin-rebuild \
+    --nix-exe "$(command -v nix)" \
+    "$@"

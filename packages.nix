@@ -6,12 +6,14 @@
 
 let
 
-    pickDefault = np.pick {
+    pickHome = np.pick {
         linux  = "unstable";
         darwin = "stable";
     };
 
-    nixpkgs.common.prebuilt = pickDefault [
+    nixpkgs.common.prebuilt = pickHome [
+
+        # Generally used CLI tools
         "aspell"
         "aspellDicts.en"
         "aspellDicts.en-computers"
@@ -24,27 +26,21 @@ let
         "cloc"
         "cmake"
         "coreutils"
+        "curl"
         "dhall"
-        "direnv"
         "fd"
-        "gitFull"
         "gnugrep"
         "gnumake"
-        "gnupg"
+        "gnupg"  # TODO: home-manager
         "graphviz"
-        "home-manager"
-        "htop"
         "imagemagick"
-        "jq"
-        "jre"
         "mpc_cli"
-        "ncmpcpp"
         "niv"
-        "nixfmt"
         "nix-diff"
         "nix-index"
-        "oh-my-zsh"
+        "nixfmt"
         "pandoc"
+        "paperkey"
         "patchelf"
         "procps"
         "pstree"
@@ -57,12 +53,17 @@ let
         "slack-term"
         "sqlint"
         "sqlite"
-        "teensy-loader-cli"
         "tree"
         "unison"
         "unzip"
         "wget"
         "which"
+
+        # Fonts
+        "font-awesome_5"
+        "meslo-lgs-nf"
+        "nerdfonts"
+        "source-code-pro"
     ];
 
     nixpkgs.unstable.prebuilt = np.pick {
@@ -75,47 +76,57 @@ let
     nixpkgs.ifDarwin.prebuilt = np.pick {
         darwin = "stable";
     } [
+        # TODO: figure out collision of JDK with Home Manager on Darwin
+        # https://github.com/nix-community/home-manager/issues/1994
+        "jdk8"
         "mongodb"
         "mongodb-tools"
-        "vim"
     ];
 
-    nixpkgs.ifLinux.prebuilt = np.pick {
+    nixpkgs.ifLinux.prebuilt.stable = np.pick {
         linux = "unstable";
     } [
-        "alacritty"
+        # DESIGN: broken in unstable, 2021-08-01
+        "chromium"  # TODO: home-manager
+    ];
+
+    nixpkgs.ifLinux.prebuilt.unstable = np.pick {
+        linux = "unstable";
+    } [
         "ansifilter"
-        "chromium"
         "dfu-programmer"
         "dfu-util"
         "discord"
-        "escrotum"
-        "feh"
-        "firefoxWrapper"
+        "fontpreview"
         "freemind"
         "fswatch"
+        "gnome3.adwaita-icon-theme"
         "inkscape"
         "irccloud"
+        "jdk"
         "libreoffice"
+        "maim"
+        "pavucontrol"
         "pciutils"
         "playerctl"
+        "ponymix"
         "postgresql"
         "powertop"
+        "pulsemixer"
         "python3"
-        "rofi-unwrapped"
-        "rxvt_unicode-with-plugins"
         "simple-scan"
         "slack"
         "stack"
         "usbutils"
-        "vimHugeX"
         "whipper"
         "wirelesstools"
+        "wpa_supplicant_gui"
         "xclip"
-        "zathura"
+        "xorg.xdpyinfo"
+        "xorg.xev"
     ];
 
-    nixpkgs.common.build.topLevel = pickDefault [ "global" ] // {
+    nixpkgs.common.build.topLevel = pickHome [ "global" ] // {
         emacs =
             let nixpkgs =
                     if isDarwin
@@ -149,24 +160,26 @@ let
 
     nixpkgs.ifLinux.build.topLevel =
         let pkgs = with np.nixpkgs-unstable; {
+                inherit moneydance;
                 texlive = texlive.combine {
                     inherit (texlive) capt-of scheme-medium wrapfig;
                 };
             };
         in if isDarwin then {} else pkgs;
 
-    haskell-nix.prebuilt = with hn.haskell-nix; {
-        inherit nix-tools;
+    haskell-nix.prebuilt = with hn.nixpkgs.haskell-nix; {
+        # DESIGN: don't use enough to want to think about a cache miss
+        #nix-tools = nix-tools.ghc8105;
     };
 
     haskell-nix.build = {}
-        // (hn.fromHackage "ghc8104" "apply-refact")
-        // (hn.fromHackage "ghc8104" "ghcid")
-        // (hn.fromHackage "ghc8104" "hlint")
-        // (hn.fromHackage "ghc8104" "stylish-haskell")
+        // (hn.fromHackage "ghc8105" "apply-refact")
+        // (hn.fromHackage "ghc8105" "ghcid")
+        // (hn.fromHackage "ghc8105" "hlint")
+        // (hn.fromHackage "ghc8105" "stylish-haskell")
 
-	# DESIGN: marked broken in Nixpkgs, doesn't seem to build with
-	# Haskell.nix either
+        # DESIGN: marked broken in Nixpkgs, doesn't seem to build with
+        # Haskell.nix either
         #// (hn.fromHackage "ghc8103" "ghc-events-analyze")
         ;
 
@@ -176,35 +189,30 @@ let
                     inherit ghcVersion;
                     hlsUnstable = false;
                 };
-            lorelei = import sources.direnv-nix-lorelei;
             tags = import sources.nix-haskell-tags;
         in {
-            implicit-hie        = (hls "ghc8104").implicit-hie;
-            haskell-hls-wrapper = (hls "ghc8104").hls-wrapper;
-            haskell-hls-ghc8104 = (hls "ghc8104").hls-renamed;
-            haskell-hls-ghc884  = (hls "ghc884").hls-renamed;
-            haskell-hls-ghc865  = (hls "ghc865").hls-renamed;
+            implicit-hie        = (hls "8.10.5").implicit-hie;
+            haskell-hls-wrapper = (hls "8.10.5").hls-wrapper;
+            haskell-hls-ghc8105 = (hls "8.10.5").hls-renamed;
+            haskell-hls-ghc8104 = (hls "8.10.4").hls-renamed;
+            haskell-hls-ghc884  = (hls "8.8.4").hls-renamed;
+            haskell-hls-ghc865  = (hls "8.6.5").hls-renamed;
             haskell-hls-tags    = tags.nix-haskell-tags-exe;
-            direnv-nix-lorelei  = lorelei.direnv-nix-lorelei;
         };
 
 in
 
 {
-    prebuilt.nixpkgs = {}
+    inherit haskell-nix shajra;
+
+    nixpkgs.prebuilt = {}
         // nixpkgs.common.prebuilt
         // nixpkgs.unstable.prebuilt
         // nixpkgs.ifDarwin.prebuilt
         // nixpkgs.ifLinux.prebuilt;
 
-    build.nixpkgs = {}
+    nixpkgs.build = {}
         // nixpkgs.common.build.topLevel
         // nixpkgs.common.build.haskell
         // nixpkgs.ifLinux.build.topLevel;
-
-    prebuilt.haskell-nix = haskell-nix.prebuilt;
-
-    build.haskell-nix = haskell-nix.build;
-
-    build.shajra = shajra.build;
 }

@@ -1,5 +1,5 @@
 { checkMaterialization
-, config
+, infraConfig
 , sources
 }:
 
@@ -9,11 +9,11 @@ let
         np.nixpkgs-stable.lib.systems.doubles.darwin;
 
     hn = import ./haskell-nix {
-        inherit checkMaterialization config sources isDarwin;
+        inherit checkMaterialization infraConfig sources isDarwin;
     };
 
     np = import ./nixpkgs {
-        inherit config sources isDarwin;
+        inherit infraConfig sources isDarwin;
     };
 
 in {

@@ -1,0 +1,12 @@
+#!/bin/sh -eu
+
+cd "$(dirname "$0")"
+
+nix run \
+    --ignore-environment \
+    --file . \
+    infra.np.nixpkgs-stable.shajra-nixos-rebuild \
+    --command \
+    shajra-nixos-rebuild \
+    --nixos-exe "$(command -v nixos-rebuild)" \
+    "$@"

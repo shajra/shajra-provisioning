@@ -5,13 +5,13 @@ self: super:
 
 let 
 
-    rpathInternal = super.stdenv.lib.concatStringsSep ":" [
+    rpathInternal = super.lib.concatStringsSep ":" [
         "$out/jre/lib/jli"
         "$out/jre/lib/server"
         "$out/jre/lib"
     ];
 
-    rpathExternal = with super; stdenv.lib.strings.makeLibraryPath [
+    rpathExternal = with super; lib.strings.makeLibraryPath [
         alsaLib 
         atk 
         cairo

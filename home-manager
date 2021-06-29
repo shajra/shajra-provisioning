@@ -1,0 +1,16 @@
+#!/bin/sh -eu
+
+cd "$(dirname "$0")"
+
+nix run \
+    --ignore-environment \
+    --keep HOME \
+    --keep TERM \
+    --keep TERMINFO \
+    --keep USER \
+    --file . \
+    infra.np.nixpkgs-stable.shajra-home-manager \
+    --command \
+    shajra-home-manager \
+    --nix "$(command -v nix-build)" \
+    "$@"

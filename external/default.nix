@@ -1,0 +1,44 @@
+{ config ? import ../config.nix
+, sources ? import ./sources.nix
+}:
+
+let
+
+    srcs = sources;
+    cfg = config.provision.pkgs;
+
+    lib = (import srcs.nixpkgs { config = {}; overlays = []; }).lib;
+
+    isDarwin = builtins.elem builtins.currentSystem lib.systems.doubles.darwin;
+
+    nixpkgs-stable-darwin = srcs.nixpkgs-darwin;
+    nixpkgs-stable-linux = srcs.nixpkgs;
+    nixpkgs-stable =
+        if isDarwin then nixpkgs-stable-darwin else nixpkgs-stable-linux;
+
+    lookup = {
+        "stable-darwin" = nixpkgs-stable-darwin;
+        "stable-linux" = nixpkgs-stable-linux;
+        "unstable" = srcs.nixpkgs-unstable;
+    };
+
+    nixpkgs-home =
+        if isDarwin
+        then lookup."${cfg.home.darwin}"
+        else lookup."${cfg.home.linux}";
+
+    nixpkgs-system =
+        if isDarwin
+        then lookup."${cfg.system.darwin}"
+        else lookup."${cfg.system.linux}";
+
+    srcs-merged = srcs // {
+        inherit
+        nixpkgs-stable
+        nixpkgs-stable-darwin
+        nixpkgs-stable-linux
+        nixpkgs-home
+        nixpkgs-system;
+    };
+
+in builtins.removeAttrs srcs-merged ["nixpkgs" "nixpkgs-darwin"]

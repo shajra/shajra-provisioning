@@ -1,0 +1,14 @@
+#!/bin/sh -eu
+
+cd "$(dirname "$0")/.."
+
+nix run \
+    --ignore-environment \
+    --file . \
+    infra.np.nixpkgs-stable.nix-project-exe \
+    --command \
+    nix-project \
+    --source-dir external \
+    --nix "$(command -v nix)" \
+    init-update \
+    "$@"

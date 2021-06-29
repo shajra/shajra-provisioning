@@ -45,10 +45,10 @@
         "distributive".flags.tagged = true;
         "distributive".flags.semigroups = true;
         "happy".revision = (((hackage."happy")."1.20.0").revisions).default;
-        "base".revision = (((hackage."base")."4.14.1.0").revisions).default;
-        "regex-posix".revision = (((hackage."regex-posix")."0.96.0.0").revisions).default;
+        "base".revision = (((hackage."base")."4.14.2.0").revisions).default;
+        "regex-posix".revision = (((hackage."regex-posix")."0.96.0.1").revisions).default;
         "regex-posix".flags._regex-posix-clib = false;
-        "rts".revision = (((hackage."rts")."1.0").revisions).default;
+        "rts".revision = (((hackage."rts")."1.0.1").revisions).default;
         "text".revision = (((hackage."text")."1.2.4.1").revisions).default;
         "mtl".revision = (((hackage."mtl")."2.2.2").revisions).default;
         "time".revision = (((hackage."time")."1.9.3").revisions).default;
@@ -64,7 +64,7 @@
         "integer-logarithms".revision = (((hackage."integer-logarithms")."1.0.3.1").revisions).default;
         "integer-logarithms".flags.check-bounds = false;
         "integer-logarithms".flags.integer-gmp = true;
-        "containers".revision = (((hackage."containers")."0.6.2.1").revisions).default;
+        "containers".revision = (((hackage."containers")."0.6.4.1").revisions).default;
         "tagged".revision = (((hackage."tagged")."0.8.6.1").revisions).default;
         "tagged".flags.deepseq = true;
         "tagged".flags.transformers = true;
@@ -88,7 +88,7 @@
         "aeson".flags.fast = false;
         "aeson".flags.cffi = false;
         "parsec".revision = (((hackage."parsec")."3.1.14.0").revisions).default;
-        "ghc-boot-th".revision = (((hackage."ghc-boot-th")."8.10.4").revisions).default;
+        "ghc-boot-th".revision = (((hackage."ghc-boot-th")."8.10.5").revisions).default;
         "splitmix".revision = (((hackage."splitmix")."0.1.0.3").revisions).default;
         "splitmix".flags.optimised-mixer = false;
         "filepath".revision = (((hackage."filepath")."1.4.2.1").revisions).default;
@@ -119,8 +119,8 @@
         "extensible-exceptions".revision = (((hackage."extensible-exceptions")."0.1.1.4").revisions).default;
         };
       compiler = {
-        version = "8.10.4";
-        nix-name = "ghc8104";
+        version = "8.10.5";
+        nix-name = "ghc8105";
         packages = {
           "binary" = "0.8.8.0";
           "ghc-prim" = "0.6.1";
@@ -130,17 +130,17 @@
           "pretty" = "1.1.3.6";
           "process" = "1.6.9.0";
           "hpc" = "0.6.1.0";
-          "base" = "4.14.1.0";
-          "rts" = "1.0";
+          "base" = "4.14.2.0";
+          "rts" = "1.0.1";
           "text" = "1.2.4.1";
           "mtl" = "2.2.2";
           "time" = "1.9.3";
           "unix" = "2.7.2.2";
           "bytestring" = "0.10.12.0";
-          "containers" = "0.6.2.1";
+          "containers" = "0.6.4.1";
           "directory" = "1.3.6.0";
           "parsec" = "3.1.14.0";
-          "ghc-boot-th" = "8.10.4";
+          "ghc-boot-th" = "8.10.5";
           "filepath" = "1.4.2.1";
           "deepseq" = "1.4.4.0";
           "transformers" = "0.5.6.2";
@@ -153,5 +153,84 @@
   modules = [
     ({ lib, ... }:
       { packages = { "stylish-haskell" = { flags = {}; }; }; })
+    ({ lib, ... }:
+      {
+        packages = {
+          "ghc-lib-parser".components.library.planned = lib.mkOverride 900 true;
+          "tagged".components.library.planned = lib.mkOverride 900 true;
+          "containers".components.library.planned = lib.mkOverride 900 true;
+          "bifunctors".components.library.planned = lib.mkOverride 900 true;
+          "binary".components.library.planned = lib.mkOverride 900 true;
+          "these".components.library.planned = lib.mkOverride 900 true;
+          "ghc-prim".components.library.planned = lib.mkOverride 900 true;
+          "HsYAML".components.library.planned = lib.mkOverride 900 true;
+          "extensible-exceptions".components.library.planned = lib.mkOverride 900 true;
+          "old-locale".components.library.planned = lib.mkOverride 900 true;
+          "base-compat-batteries".components.library.planned = lib.mkOverride 900 true;
+          "stylish-haskell".components.exes."stylish-haskell".planned = lib.mkOverride 900 true;
+          "happy".components.exes."happy".planned = lib.mkOverride 900 true;
+          "indexed-traversable".components.library.planned = lib.mkOverride 900 true;
+          "assoc".components.library.planned = lib.mkOverride 900 true;
+          "comonad".components.library.planned = lib.mkOverride 900 true;
+          "Cabal".components.library.planned = lib.mkOverride 900 true;
+          "regex-base".components.library.planned = lib.mkOverride 900 true;
+          "hashable".components.library.planned = lib.mkOverride 900 true;
+          "attoparsec".components.library.planned = lib.mkOverride 900 true;
+          "file-embed".components.library.planned = lib.mkOverride 900 true;
+          "colour".components.library.planned = lib.mkOverride 900 true;
+          "syb".components.library.planned = lib.mkOverride 900 true;
+          "transformers".components.library.planned = lib.mkOverride 900 true;
+          "uuid-types".components.library.planned = lib.mkOverride 900 true;
+          "optparse-applicative".components.library.planned = lib.mkOverride 900 true;
+          "random".components.library.planned = lib.mkOverride 900 true;
+          "process".components.library.planned = lib.mkOverride 900 true;
+          "hpc".components.library.planned = lib.mkOverride 900 true;
+          "scientific".components.library.planned = lib.mkOverride 900 true;
+          "dlist".components.library.planned = lib.mkOverride 900 true;
+          "pretty".components.library.planned = lib.mkOverride 900 true;
+          "HUnit".components.library.planned = lib.mkOverride 900 true;
+          "vector".components.library.planned = lib.mkOverride 900 true;
+          "template-haskell".components.library.planned = lib.mkOverride 900 true;
+          "integer-gmp".components.library.planned = lib.mkOverride 900 true;
+          "call-stack".components.library.planned = lib.mkOverride 900 true;
+          "array".components.library.planned = lib.mkOverride 900 true;
+          "xml".components.library.planned = lib.mkOverride 900 true;
+          "ansi-terminal".components.library.planned = lib.mkOverride 900 true;
+          "base-compat".components.library.planned = lib.mkOverride 900 true;
+          "test-framework-hunit".components.library.planned = lib.mkOverride 900 true;
+          "stylish-haskell".components.tests."stylish-haskell-tests".planned = lib.mkOverride 900 true;
+          "time-compat".components.library.planned = lib.mkOverride 900 true;
+          "hostname".components.library.planned = lib.mkOverride 900 true;
+          "integer-logarithms".components.library.planned = lib.mkOverride 900 true;
+          "ansi-wl-pprint".components.library.planned = lib.mkOverride 900 true;
+          "test-framework".components.library.planned = lib.mkOverride 900 true;
+          "bytestring".components.library.planned = lib.mkOverride 900 true;
+          "data-fix".components.library.planned = lib.mkOverride 900 true;
+          "unix".components.library.planned = lib.mkOverride 900 true;
+          "alex".components.exes."alex".planned = lib.mkOverride 900 true;
+          "text".components.library.planned = lib.mkOverride 900 true;
+          "base".components.library.planned = lib.mkOverride 900 true;
+          "rts".components.library.planned = lib.mkOverride 900 true;
+          "unordered-containers".components.library.planned = lib.mkOverride 900 true;
+          "regex-posix".components.library.planned = lib.mkOverride 900 true;
+          "mtl".components.library.planned = lib.mkOverride 900 true;
+          "time".components.library.planned = lib.mkOverride 900 true;
+          "distributive".components.library.planned = lib.mkOverride 900 true;
+          "deepseq".components.library.planned = lib.mkOverride 900 true;
+          "filepath".components.library.planned = lib.mkOverride 900 true;
+          "strict".components.library.planned = lib.mkOverride 900 true;
+          "splitmix".components.library.planned = lib.mkOverride 900 true;
+          "aeson".components.library.planned = lib.mkOverride 900 true;
+          "parsec".components.library.planned = lib.mkOverride 900 true;
+          "ghc-boot-th".components.library.planned = lib.mkOverride 900 true;
+          "base-orphans".components.library.planned = lib.mkOverride 900 true;
+          "directory".components.library.planned = lib.mkOverride 900 true;
+          "th-abstraction".components.library.planned = lib.mkOverride 900 true;
+          "primitive".components.library.planned = lib.mkOverride 900 true;
+          "stylish-haskell".components.library.planned = lib.mkOverride 900 true;
+          "transformers-compat".components.library.planned = lib.mkOverride 900 true;
+          "HsYAML-aeson".components.library.planned = lib.mkOverride 900 true;
+          };
+        })
     ];
   }

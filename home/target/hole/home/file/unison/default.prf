@@ -1,0 +1,7 @@
+root = /home/tnks
+root = ssh://jelly//home/tnks
+
+logfile = /home/tnks/var/log/unison.log
+
+path = doc/shared
+ignore = Name *.sock

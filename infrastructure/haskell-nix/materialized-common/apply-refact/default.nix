@@ -3,7 +3,7 @@
     {
       packages = {
         "binary".revision = (((hackage."binary")."0.8.8.0").revisions).default;
-        "ghc-boot".revision = (((hackage."ghc-boot")."8.10.4").revisions).default;
+        "ghc-boot".revision = (((hackage."ghc-boot")."8.10.5").revisions).default;
         "bifunctors".revision = (((hackage."bifunctors")."5.5.11").revisions).default;
         "bifunctors".flags.tagged = true;
         "bifunctors".flags.semigroups = true;
@@ -31,8 +31,8 @@
         "distributive".flags.semigroups = true;
         "transformers-base".revision = (((hackage."transformers-base")."0.4.5.2").revisions).default;
         "transformers-base".flags.orphaninstances = true;
-        "base".revision = (((hackage."base")."4.14.1.0").revisions).default;
-        "rts".revision = (((hackage."rts")."1.0").revisions).default;
+        "base".revision = (((hackage."base")."4.14.2.0").revisions).default;
+        "rts".revision = (((hackage."rts")."1.0.1").revisions).default;
         "text".revision = (((hackage."text")."1.2.4.1").revisions).default;
         "tasty-golden".revision = (((hackage."tasty-golden")."2.3.4").revisions).default;
         "tasty-golden".flags.build-example = false;
@@ -42,7 +42,7 @@
         "unordered-containers".flags.debug = false;
         "tasty-expected-failure".revision = (((hackage."tasty-expected-failure")."0.12.3").revisions).default;
         "unix".revision = (((hackage."unix")."2.7.2.2").revisions).default;
-        "contravariant".revision = (((hackage."contravariant")."1.5.3").revisions).default;
+        "contravariant".revision = (((hackage."contravariant")."1.5.4").revisions).default;
         "contravariant".flags.tagged = true;
         "contravariant".flags.semigroups = true;
         "contravariant".flags.statevar = true;
@@ -53,8 +53,8 @@
         "ansi-wl-pprint".revision = (((hackage."ansi-wl-pprint")."0.6.9").revisions).default;
         "ansi-wl-pprint".flags.example = false;
         "ghc-paths".revision = (((hackage."ghc-paths")."0.1.0.12").revisions).default;
-        "ghc".revision = (((hackage."ghc")."8.10.4").revisions).default;
-        "containers".revision = (((hackage."containers")."0.6.2.1").revisions).default;
+        "ghc".revision = (((hackage."ghc")."8.10.5").revisions).default;
+        "containers".revision = (((hackage."containers")."0.6.4.1").revisions).default;
         "semigroupoids".revision = (((hackage."semigroupoids")."5.3.5").revisions).default;
         "semigroupoids".flags.distributive = true;
         "semigroupoids".flags.comonad = true;
@@ -80,7 +80,7 @@
         "th-abstraction".revision = (((hackage."th-abstraction")."0.4.2.0").revisions).default;
         "uniplate".revision = (((hackage."uniplate")."1.6.13").revisions).default;
         "parsec".revision = (((hackage."parsec")."3.1.14.0").revisions).default;
-        "ghc-boot-th".revision = (((hackage."ghc-boot-th")."8.10.4").revisions).default;
+        "ghc-boot-th".revision = (((hackage."ghc-boot-th")."8.10.5").revisions).default;
         "splitmix".revision = (((hackage."splitmix")."0.1.0.3").revisions).default;
         "splitmix".flags.optimised-mixer = false;
         "ghc-exactprint".revision = (((hackage."ghc-exactprint")."0.6.4").revisions).default;
@@ -106,21 +106,21 @@
         "comonad".flags.distributive = true;
         "comonad".flags.indexed-traversable = true;
         "comonad".flags.containers = true;
-        "ghc-heap".revision = (((hackage."ghc-heap")."8.10.4").revisions).default;
-        "ghci".revision = (((hackage."ghci")."8.10.4").revisions).default;
+        "ghc-heap".revision = (((hackage."ghc-heap")."8.10.5").revisions).default;
+        "ghci".revision = (((hackage."ghci")."8.10.5").revisions).default;
         "filemanip".revision = (((hackage."filemanip")."0.3.6.3").revisions).default;
         "Cabal".revision = (((hackage."Cabal")."3.2.1.0").revisions).default;
         "indexed-traversable".revision = (((hackage."indexed-traversable")."0.1.1").revisions).default;
         "extra".revision = (((hackage."extra")."1.7.9").revisions).default;
-        "StateVar".revision = (((hackage."StateVar")."1.2.1").revisions).default;
-        "stm".revision = (((hackage."stm")."2.5.0.0").revisions).default;
+        "StateVar".revision = (((hackage."StateVar")."1.2.2").revisions).default;
+        "stm".revision = (((hackage."stm")."2.5.0.1").revisions).default;
         };
       compiler = {
-        version = "8.10.4";
-        nix-name = "ghc8104";
+        version = "8.10.5";
+        nix-name = "ghc8105";
         packages = {
           "binary" = "0.8.8.0";
-          "ghc-boot" = "8.10.4";
+          "ghc-boot" = "8.10.5";
           "ghc-prim" = "0.6.1";
           "exceptions" = "0.10.4";
           "array" = "0.5.4.0";
@@ -129,26 +129,26 @@
           "pretty" = "1.1.3.6";
           "process" = "1.6.9.0";
           "hpc" = "0.6.1.0";
-          "base" = "4.14.1.0";
-          "rts" = "1.0";
+          "base" = "4.14.2.0";
+          "rts" = "1.0.1";
           "text" = "1.2.4.1";
           "mtl" = "2.2.2";
           "time" = "1.9.3";
           "unix" = "2.7.2.2";
           "bytestring" = "0.10.12.0";
-          "ghc" = "8.10.4";
-          "containers" = "0.6.2.1";
+          "ghc" = "8.10.5";
+          "containers" = "0.6.4.1";
           "directory" = "1.3.6.0";
           "parsec" = "3.1.14.0";
-          "ghc-boot-th" = "8.10.4";
+          "ghc-boot-th" = "8.10.5";
           "filepath" = "1.4.2.1";
           "deepseq" = "1.4.4.0";
           "transformers" = "0.5.6.2";
           "terminfo" = "0.4.1.4";
-          "ghc-heap" = "8.10.4";
-          "ghci" = "8.10.4";
+          "ghc-heap" = "8.10.5";
+          "ghci" = "8.10.5";
           "Cabal" = "3.2.1.0";
-          "stm" = "2.5.0.0";
+          "stm" = "2.5.0.1";
           };
         };
       };
@@ -157,5 +157,83 @@
   modules = [
     ({ lib, ... }:
       { packages = { "apply-refact" = { flags = {}; }; }; })
+    ({ lib, ... }:
+      {
+        packages = {
+          "tagged".components.library.planned = lib.mkOverride 900 true;
+          "ghc".components.library.planned = lib.mkOverride 900 true;
+          "containers".components.library.planned = lib.mkOverride 900 true;
+          "semigroupoids".components.library.planned = lib.mkOverride 900 true;
+          "silently".components.library.planned = lib.mkOverride 900 true;
+          "bifunctors".components.library.planned = lib.mkOverride 900 true;
+          "ghc-boot".components.library.planned = lib.mkOverride 900 true;
+          "binary".components.library.planned = lib.mkOverride 900 true;
+          "refact".components.library.planned = lib.mkOverride 900 true;
+          "ghc-prim".components.library.planned = lib.mkOverride 900 true;
+          "StateVar".components.library.planned = lib.mkOverride 900 true;
+          "stm".components.library.planned = lib.mkOverride 900 true;
+          "extra".components.library.planned = lib.mkOverride 900 true;
+          "indexed-traversable".components.library.planned = lib.mkOverride 900 true;
+          "ghc-heap".components.library.planned = lib.mkOverride 900 true;
+          "comonad".components.library.planned = lib.mkOverride 900 true;
+          "filemanip".components.library.planned = lib.mkOverride 900 true;
+          "Cabal".components.library.planned = lib.mkOverride 900 true;
+          "ghci".components.library.planned = lib.mkOverride 900 true;
+          "clock".components.library.planned = lib.mkOverride 900 true;
+          "hashable".components.library.planned = lib.mkOverride 900 true;
+          "colour".components.library.planned = lib.mkOverride 900 true;
+          "terminfo".components.library.planned = lib.mkOverride 900 true;
+          "syb".components.library.planned = lib.mkOverride 900 true;
+          "transformers".components.library.planned = lib.mkOverride 900 true;
+          "optparse-applicative".components.library.planned = lib.mkOverride 900 true;
+          "unix-compat".components.library.planned = lib.mkOverride 900 true;
+          "random".components.library.planned = lib.mkOverride 900 true;
+          "process".components.library.planned = lib.mkOverride 900 true;
+          "hpc".components.library.planned = lib.mkOverride 900 true;
+          "apply-refact".components.exes."refactor".planned = lib.mkOverride 900 true;
+          "apply-refact".components.library.planned = lib.mkOverride 900 true;
+          "async".components.library.planned = lib.mkOverride 900 true;
+          "pretty".components.library.planned = lib.mkOverride 900 true;
+          "template-haskell".components.library.planned = lib.mkOverride 900 true;
+          "integer-gmp".components.library.planned = lib.mkOverride 900 true;
+          "array".components.library.planned = lib.mkOverride 900 true;
+          "ansi-terminal".components.library.planned = lib.mkOverride 900 true;
+          "free".components.library.planned = lib.mkOverride 900 true;
+          "apply-refact".components.tests."test".planned = lib.mkOverride 900 true;
+          "exceptions".components.library.planned = lib.mkOverride 900 true;
+          "ansi-wl-pprint".components.library.planned = lib.mkOverride 900 true;
+          "ghc-paths".components.setup.planned = lib.mkOverride 900 true;
+          "bytestring".components.library.planned = lib.mkOverride 900 true;
+          "ghc-paths".components.library.planned = lib.mkOverride 900 true;
+          "contravariant".components.library.planned = lib.mkOverride 900 true;
+          "wcwidth".components.library.planned = lib.mkOverride 900 true;
+          "unix".components.library.planned = lib.mkOverride 900 true;
+          "text".components.library.planned = lib.mkOverride 900 true;
+          "base".components.library.planned = lib.mkOverride 900 true;
+          "rts".components.library.planned = lib.mkOverride 900 true;
+          "unordered-containers".components.library.planned = lib.mkOverride 900 true;
+          "tasty-golden".components.library.planned = lib.mkOverride 900 true;
+          "tasty-expected-failure".components.library.planned = lib.mkOverride 900 true;
+          "mtl".components.library.planned = lib.mkOverride 900 true;
+          "time".components.library.planned = lib.mkOverride 900 true;
+          "transformers-base".components.library.planned = lib.mkOverride 900 true;
+          "distributive".components.library.planned = lib.mkOverride 900 true;
+          "ghc-exactprint".components.library.planned = lib.mkOverride 900 true;
+          "deepseq".components.library.planned = lib.mkOverride 900 true;
+          "unbounded-delays".components.library.planned = lib.mkOverride 900 true;
+          "tasty".components.library.planned = lib.mkOverride 900 true;
+          "filepath".components.library.planned = lib.mkOverride 900 true;
+          "temporary".components.library.planned = lib.mkOverride 900 true;
+          "splitmix".components.library.planned = lib.mkOverride 900 true;
+          "uniplate".components.library.planned = lib.mkOverride 900 true;
+          "parsec".components.library.planned = lib.mkOverride 900 true;
+          "ghc-boot-th".components.library.planned = lib.mkOverride 900 true;
+          "profunctors".components.library.planned = lib.mkOverride 900 true;
+          "base-orphans".components.library.planned = lib.mkOverride 900 true;
+          "directory".components.library.planned = lib.mkOverride 900 true;
+          "th-abstraction".components.library.planned = lib.mkOverride 900 true;
+          "transformers-compat".components.library.planned = lib.mkOverride 900 true;
+          };
+        })
     ];
   }
