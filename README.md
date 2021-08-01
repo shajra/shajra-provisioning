@@ -290,7 +290,7 @@ This means that you have almost the full power of the upstream script. You can l
 -   [Nix-Darwin](https://daiderd.com/nix-darwin)
 -   [The Home Manager project for Nix](https://github.com/nix-community/home-manager)
 
-Just remember that all Nix-oriented environment variables are cleared out, such as `NIX_PATH`, so options like `nixos-rebuild`'s `--upgrade` will likely not do what you want. That option is a convenient to the update packages provided by Nix channels. But we don't get our latest versions from Nix channels. We get them from Niv instead, as discussed in the next section.
+Just remember that all Nix-oriented environment variables are cleared out, such as `NIX_PATH`, so options like `nixos-rebuild`'s `--upgrade` won't function as usual. The `--upgrade` option is convenient for updating packages provided by Nix channels found on `NIX_PATH`. However, channels are mutable, and therefore not reliably repeatable. This is why this project manages versions of dependencies with Niv instead of Nix channels, so that the exact versions of our dependencies are locked down and under source control.
 
 ## Updating dependencies<a id="sec-3-3"></a>
 
