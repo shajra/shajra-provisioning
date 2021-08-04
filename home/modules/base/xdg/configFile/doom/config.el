@@ -14,6 +14,7 @@
  lsp-haskell-formatting-provider "stylish-haskell"
  lsp-haskell-server-path "haskell-language-server-wrapper"
  org-src-preserve-indentation t
+ projectile-project-search-path '("~/src/work/" "~/src/shajra/")
  whitespace-line-column 79)
 
 
