@@ -35,7 +35,7 @@ To get faster feedback with incremental builds we have two options:
       "/\\.stack-work/"
       "^/run/user/"
       "^/nix/store/")
-    "Regular expressions to exclude matching buffers from ‘dante-mode’.
+    "Regular expressions to exclude buffers from ‘dante-mode’ and ‘lsp-mode’.
 
 Source code doesn't always have well-formed project files, which prevents Dante
 from loading. This happens in particular with source downloaded with tools like

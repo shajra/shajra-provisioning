@@ -64,6 +64,6 @@ normal etags backend find references in the source of non-local dependencies."
   (remove-hook 'xref-backend-functions 'dante--xref-backend)
   (defadvice! +haskell--dante-mode-a (orig-fn &rest args)
     :around #'dante-mode
-    (+haskell--cond-a 'dante orig-fn args)
+    (+haskell--cond-a 'dante orig-fn #'+haskell--dante-load-current-buffer args)
     (when +haskell-dante-xref-enable
       (add-hook 'xref-backend-functions 'dante--xref-backend nil t))))

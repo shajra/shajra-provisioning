@@ -17,10 +17,11 @@
   (add-hook! flycheck-mode #'+haskell--flycheck-checkers-disable-h))
 
 ;;;###autoload
-(defun +haskell--cond-a (backend orig-fn &rest args)
+(defun +haskell--cond-a (backend orig-fn after-fn &rest args)
   (when (and
-       (eq +haskell-backend backend)
-       (not (-any?
-             (lambda (re) (string-match-p re buffer-file-name))
-             +haskell-exclude-regexes)))
-      (apply orig-fn args)))
+         (eq +haskell-backend backend)
+         (not (-any?
+               (lambda (re) (string-match-p re buffer-file-name))
+               +haskell-exclude-regexes)))
+    (apply orig-fn args)
+    (funcall after-fn)))

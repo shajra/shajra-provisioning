@@ -18,4 +18,4 @@
 (after! lsp-mode
   (defadvice! +haskell--cond-lsp-a (orig-fn &rest args)
     :around #'lsp
-    (+haskell--cond-a 'lsp orig-fn args)))
+    (+haskell--cond-a 'lsp orig-fn (lambda ()) args)))

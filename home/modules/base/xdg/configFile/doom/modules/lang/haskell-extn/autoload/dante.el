@@ -190,6 +190,13 @@ ancestor of D."
       " --ghc-options=-ignore-dot-ghci"))))
 
 ;;;###autoload
+(defun +haskell--dante-load-current-buffer ()
+  ;; DESIGN: This loading of the buffer was a reverse engineered as a fix to
+  ;; what appears to be a defect in Dante.  Closing/reopenning a Haskell file
+  ;; severes the connection with the Dante session.
+  (lcr-cps-let ((_ (dante-async-load-current-buffer t nil)))))
+
+;;;###autoload
 (defun +haskell--find-nix-shell ()
   (let ((found (locate-dominating-file (buffer-file-name) "shell.nix")))
     (if found (concat (expand-file-name found) "shell.nix"))))
