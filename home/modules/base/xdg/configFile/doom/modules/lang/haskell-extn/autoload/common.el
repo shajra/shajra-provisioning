@@ -6,11 +6,11 @@
 (defun +haskell--flycheck-checkers-disable-h ()
   (when (or (eq +haskell-backend 'dante) (eq +haskell-backend 'lsp))
     (dolist (item '(haskell-ghc haskell-stack-ghc))
-      (flycheck-disable-checker item)))
+      (flycheck--toggle-checker item nil)))
   (when (not (eq +haskell-backend 'dante))
-    (flycheck-disable-checker 'haskell-dante))
+    (flycheck--toggle-checker 'haskell-dante nil))
   (when (not (eq +haskell-backend 'lsp))
-    (flycheck-disable-checker 'lsp)))
+    (flycheck--toggle-checker 'lsp nil)))
 
 ;;;###autoload
 (defun +haskell--checkers-disable-h ()
