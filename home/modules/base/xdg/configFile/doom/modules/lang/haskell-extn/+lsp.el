@@ -16,14 +16,6 @@
     (direnv-update-directory-environment)))
 
 (after! lsp-mode
-  ;; DESIGN: same call as in Doom, but without ":async t".
-  ;; After reading the lsp-mode code, I'm pretty sure it's not an async call.
-  (set-lookup-handlers! 'lsp-mode
-    :documentation #'lsp-describe-thing-at-point
-    :definition #'lsp-find-definition
-    :implementations #'lsp-find-implementation
-    :type-definition #'lsp-find-type-definition
-    :references #'lsp-find-references)
   (defadvice! +haskell--cond-lsp-a (orig-fn &rest args)
     :around #'lsp
     (+haskell--cond-a 'lsp orig-fn args)))
