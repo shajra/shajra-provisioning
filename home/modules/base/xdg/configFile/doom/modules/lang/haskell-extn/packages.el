@@ -1,7 +1,7 @@
 ;;; -*- no-byte-compile: t; lexical-binding: t; -*-
 
 
-(load! "modules/lang/haskell/packages.el" doom-emacs-dir)
+(load! "modules/lang/haskell/packages" doom-emacs-dir)
 
 ;; DESIGN: match Doom
 (package! haskell-mode :pin "98ba3922360199d5260d47f417f096730ad057c5")

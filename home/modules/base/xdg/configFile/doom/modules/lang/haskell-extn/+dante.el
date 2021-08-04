@@ -31,7 +31,7 @@ normal etags backend find references in the source of non-local dependencies."
 
 ;;; package configuration
 
-(load! "modules/lang/haskell/+dante.el" doom-emacs-dir)
+(load! "modules/lang/haskell/+dante" doom-emacs-dir)
 
 (add-hook! haskell-literate-mode #'dante-mode)
 

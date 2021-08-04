@@ -1,7 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
 
-(load! "modules/lang/haskell/+lsp.el" doom-emacs-dir)
+(load! "modules/lang/haskell/+lsp" doom-emacs-dir)
 
 (add-hook! haskell-literate-mode #'lsp!)
 
