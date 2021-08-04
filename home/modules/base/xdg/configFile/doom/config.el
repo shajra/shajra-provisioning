@@ -5,6 +5,7 @@
 
 (setq-default
  dante-methods '(alt-stack-project alt-cabal)
+ doom-large-file-size-alist '(("/TAGS\\([.]local\\)?$". 50.0) ("." . 1.0))
  doom-theme 'doom-solarized-light
  fancy-splash-image "~/.config/doom/snowman.png"
  fill-column 80
