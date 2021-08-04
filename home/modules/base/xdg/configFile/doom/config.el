@@ -42,4 +42,4 @@
    org-startup-indented nil))
 
 ;; DESIGN: Some configuration is more personal...
-(load! "~/.config/doom-private/config")
+(load! "~/.config/doom-private/config" nil t)
