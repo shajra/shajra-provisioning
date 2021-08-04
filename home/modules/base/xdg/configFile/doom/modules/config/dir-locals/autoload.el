@@ -19,7 +19,7 @@ directories at once."
   (let ((class (+dir-locals--class-symbol dir mode)))
     (dir-locals-set-class-variables class `((,mode . ,alist)))
     (dir-locals-set-directory-class dir class)
-    (setq-default dir-locals-directory-cache (-distinct dir-locals-directory-cache))))
+    (setq-default dir-locals-directory-cache (seq-uniq dir-locals-directory-cache))))
 
 ;;;###autoload
 (defun +dir-locals-set-dirs-locals (mode dirlocals &optional baselocals)
