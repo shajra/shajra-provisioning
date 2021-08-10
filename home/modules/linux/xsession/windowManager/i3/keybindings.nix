@@ -55,6 +55,9 @@ in
     # Show the first scratchpad window
     "${mod}+minus" = "scratchpad show";
 
+    # Stick toggle
+    "${mod}+Shift+s" = "sticky toggle";
+
     # focus with Vim-style keys or cursor keys
     "${mod}+h" = "focus left";
     "${mod}+j" = "focus down";

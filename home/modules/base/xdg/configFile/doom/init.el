@@ -6,7 +6,7 @@
  :completion
  company
  helm
- ivy  ; or ido
+ ivy  ; alternative to ido
 
  :ui
  doom
@@ -22,16 +22,16 @@
  (popup
   +all
   +defaults)
- ;;tabs  ; tried, but not sure I like it
- treemacs  ; or neotree
+ treemacs  ; alternative to neotree
  unicode
  vc-gutter
  vi-tilde-fringe
  window-select
- ;workspaces
+ ;workspaces  ; didn't like, may try again later
 
  :editor
- (evil +everywhere)
+ (evil
+   +everywhere)
  file-templates
  fold
  format
@@ -41,7 +41,8 @@
  word-wrap
 
  :checkers
- (spell +aspell)
+ (spell
+   +aspell)
  syntax
 
  :emacs
@@ -58,7 +59,8 @@
  ;;direnv
  emacs-direnv
  docker
- (eval +overlay)
+ (eval
+   +overlay)
  gist
  (lookup
   +docsets)
@@ -76,11 +78,15 @@
  data
  emacs-lisp
  haskell
- (haskell-extn +dante +lsp)
+ (haskell-extn
+   +dante
+   +lsp)
  latex
  markdown
  nix
  (org
+  +pretty
+  +hugo
   ;;+pandoc
   ;;+present
   )
@@ -89,7 +95,8 @@
   +lsp
   +pyright)
  rest
- sh
+ (sh
+   +fish)
  ;;web
  yaml
 

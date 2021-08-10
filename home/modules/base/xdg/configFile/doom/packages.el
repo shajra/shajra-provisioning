@@ -7,9 +7,4 @@
 ;; (package! builtin-package :disable t)
 ;; (package! some-package :recipe (:local-repo "path/to/repo"))
 
-
-;; TODO: is this needed any more?
-;;(package! lsp-mode :recipe
-;;  (:host github
-;;   :repo "shajra/lsp-mode"
-;;   :branch "user/shajra/fix-empty-check"))
+(package! f)
