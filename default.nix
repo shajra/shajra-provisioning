@@ -16,7 +16,8 @@ let
     gitIgnores =
         # DESIGN: believe Nixpkgs has a bug processing this special case
         (map (builtins.replaceStrings ["\\#"] ["[#]"])
-        (import home/modules/base/programs/git null).ignores);
+        (import home/modules/base/programs/git null).ignores)
+        ++ ["*.org" "*.md"];
 
     sources =
         let
