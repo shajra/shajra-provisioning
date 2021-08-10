@@ -43,6 +43,7 @@ let
         "patchelf"
         "procps"
         "pstree"
+        "python3"
         "python38Packages.grip"
         "ripgrep"
         "rsync"
