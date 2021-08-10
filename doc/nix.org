@@ -366,7 +366,7 @@ have a name prefixed with "result" and point back to the respective build in
 #+END_SRC
 
 #+RESULTS: nix-build-link
-: /nix/store/npy3mpyyxz1013nj9gx77kh04gx63lcj-python3.8-grip-4.5.2
+: /nix/store/vfq4p8qzq1qprn3psmzh07450hizb2jw-python3.8-grip-4.5.2
 
 Following these symlinks, we can see the files the project provides:
 
@@ -403,7 +403,7 @@ you can use =nix path-info= after a successful build:
 #+END_SRC
 
 #+RESULTS: nix-build-path
-: /nix/store/npy3mpyyxz1013nj9gx77kh04gx63lcj-python3.8-grip-4.5.2
+: /nix/store/vfq4p8qzq1qprn3psmzh07450hizb2jw-python3.8-grip-4.5.2
 
 ** Running commands
 

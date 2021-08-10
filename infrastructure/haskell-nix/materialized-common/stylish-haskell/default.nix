@@ -55,7 +55,7 @@
         "unordered-containers".revision = (((hackage."unordered-containers")."0.2.14.0").revisions).default;
         "unordered-containers".flags.debug = false;
         "unix".revision = (((hackage."unix")."2.7.2.2").revisions).default;
-        "data-fix".revision = (((hackage."data-fix")."0.3.1").revisions).default;
+        "data-fix".revision = (((hackage."data-fix")."0.3.2").revisions).default;
         "test-framework".revision = (((hackage."test-framework")."0.8.2.0").revisions).default;
         "bytestring".revision = (((hackage."bytestring")."0.10.12.0").revisions).default;
         "ansi-wl-pprint".revision = (((hackage."ansi-wl-pprint")."0.6.9").revisions).default;
@@ -70,7 +70,7 @@
         "tagged".flags.transformers = true;
         "ghc-lib-parser".revision = (((hackage."ghc-lib-parser")."8.10.5.20210606").revisions).default;
         "base-orphans".revision = (((hackage."base-orphans")."0.8.4").revisions).default;
-        "primitive".revision = (((hackage."primitive")."0.7.1.0").revisions).default;
+        "primitive".revision = (((hackage."primitive")."0.7.2.0").revisions).default;
         "directory".revision = (((hackage."directory")."1.3.6.0").revisions).default;
         "HsYAML-aeson".revision = (((hackage."HsYAML-aeson")."0.2.0.0").revisions).default;
         "transformers-compat".revision = (((hackage."transformers-compat")."0.6.6").revisions).default;

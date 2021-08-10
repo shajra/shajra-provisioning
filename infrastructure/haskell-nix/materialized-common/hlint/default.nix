@@ -70,7 +70,7 @@
         "unordered-containers".flags.debug = false;
         "data-default-class".revision = (((hackage."data-default-class")."0.1.2.0").revisions).default;
         "unix".revision = (((hackage."unix")."2.7.2.2").revisions).default;
-        "data-fix".revision = (((hackage."data-fix")."0.3.1").revisions).default;
+        "data-fix".revision = (((hackage."data-fix")."0.3.2").revisions).default;
         "bytestring".revision = (((hackage."bytestring")."0.10.12.0").revisions).default;
         "polyparse".revision = (((hackage."polyparse")."1.13").revisions).default;
         "integer-logarithms".revision = (((hackage."integer-logarithms")."1.0.3.1").revisions).default;
@@ -86,7 +86,7 @@
         "ghc-lib-parser-ex".flags.auto = true;
         "ghc-lib-parser-ex".flags.no-ghc-lib = false;
         "base-orphans".revision = (((hackage."base-orphans")."0.8.4").revisions).default;
-        "primitive".revision = (((hackage."primitive")."0.7.1.0").revisions).default;
+        "primitive".revision = (((hackage."primitive")."0.7.2.0").revisions).default;
         "directory".revision = (((hackage."directory")."1.3.6.0").revisions).default;
         "transformers-compat".revision = (((hackage."transformers-compat")."0.7").revisions).default;
         "transformers-compat".flags.two = false;
@@ -97,7 +97,7 @@
         "transformers-compat".flags.three = false;
         "transformers-compat".flags.mtl = true;
         "th-abstraction".revision = (((hackage."th-abstraction")."0.4.2.0").revisions).default;
-        "resourcet".revision = (((hackage."resourcet")."1.2.4.2").revisions).default;
+        "resourcet".revision = (((hackage."resourcet")."1.2.4.3").revisions).default;
         "aeson".revision = (((hackage."aeson")."1.5.6.0").revisions).default;
         "aeson".flags.developer = false;
         "aeson".flags.bytestring-builder = false;

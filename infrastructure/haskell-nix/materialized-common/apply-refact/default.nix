@@ -29,7 +29,7 @@
         "distributive".revision = (((hackage."distributive")."0.6.2.1").revisions).default;
         "distributive".flags.tagged = true;
         "distributive".flags.semigroups = true;
-        "transformers-base".revision = (((hackage."transformers-base")."0.4.5.2").revisions).default;
+        "transformers-base".revision = (((hackage."transformers-base")."0.4.6").revisions).default;
         "transformers-base".flags.orphaninstances = true;
         "base".revision = (((hackage."base")."4.14.2.0").revisions).default;
         "rts".revision = (((hackage."rts")."1.0.1").revisions).default;
@@ -42,7 +42,7 @@
         "unordered-containers".flags.debug = false;
         "tasty-expected-failure".revision = (((hackage."tasty-expected-failure")."0.12.3").revisions).default;
         "unix".revision = (((hackage."unix")."2.7.2.2").revisions).default;
-        "contravariant".revision = (((hackage."contravariant")."1.5.4").revisions).default;
+        "contravariant".revision = (((hackage."contravariant")."1.5.5").revisions).default;
         "contravariant".flags.tagged = true;
         "contravariant".flags.semigroups = true;
         "contravariant".flags.statevar = true;
@@ -68,7 +68,7 @@
         "silently".revision = (((hackage."silently")."1.2.5.1").revisions).default;
         "base-orphans".revision = (((hackage."base-orphans")."0.8.4").revisions).default;
         "directory".revision = (((hackage."directory")."1.3.6.0").revisions).default;
-        "transformers-compat".revision = (((hackage."transformers-compat")."0.6.6").revisions).default;
+        "transformers-compat".revision = (((hackage."transformers-compat")."0.7").revisions).default;
         "transformers-compat".flags.two = false;
         "transformers-compat".flags.five = false;
         "transformers-compat".flags.four = false;

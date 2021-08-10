@@ -46,7 +46,7 @@
         "tagged".flags.deepseq = true;
         "tagged".flags.transformers = true;
         "directory".revision = (((hackage."directory")."1.3.6.0").revisions).default;
-        "transformers-compat".revision = (((hackage."transformers-compat")."0.6.6").revisions).default;
+        "transformers-compat".revision = (((hackage."transformers-compat")."0.7").revisions).default;
         "transformers-compat".flags.two = false;
         "transformers-compat".flags.five = false;
         "transformers-compat".flags.four = false;

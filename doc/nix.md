@@ -164,7 +164,7 @@ After a successful call of `nix build`, you'll see one or more symlinks for each
 readlink result*
 ```
 
-    /nix/store/npy3mpyyxz1013nj9gx77kh04gx63lcj-python3.8-grip-4.5.2
+    /nix/store/vfq4p8qzq1qprn3psmzh07450hizb2jw-python3.8-grip-4.5.2
 
 Following these symlinks, we can see the files the project provides:
 
@@ -192,7 +192,7 @@ It's common to configure these "result" symlinks as ignored in source control to
 nix path-info --file . pkgs.python38Packages-grip
 ```
 
-    /nix/store/npy3mpyyxz1013nj9gx77kh04gx63lcj-python3.8-grip-4.5.2
+    /nix/store/vfq4p8qzq1qprn3psmzh07450hizb2jw-python3.8-grip-4.5.2
 
 ## Running commands<a id="sec-5-3"></a>
 
