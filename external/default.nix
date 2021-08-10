@@ -1,10 +1,10 @@
 { config ? import ../config.nix
-, sources ? import ./sources.nix
+, externalOverrides ? {}
 }:
 
 let
 
-    srcs = sources;
+    srcs = import ./sources.nix // externalOverrides;
     cfg = config.provision.pkgs;
 
     lib = (import srcs.nixpkgs { config = {}; overlays = []; }).lib;

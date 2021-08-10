@@ -1,5 +1,5 @@
 { config ? import ./config.nix
-, externalSources ? import ./external { inherit config; }
+, externalOverrides ? {}
 , buildSet ? config.build.set
 , buildInfrastructure ? config.build.infrastructure
 , checkMaterialization ? config.infrastructure.haskell-nix.checkMaterialization
@@ -7,7 +7,9 @@
 
 let
 
-    bootstrap = import externalSources.nixpkgs-stable {
+    external = import ./external { inherit config externalOverrides; };
+
+    bootstrap = import external.nixpkgs-stable {
         config = {}; overlays = [];
     };
 
@@ -19,7 +21,7 @@ let
     sources =
         let
             gi = bootstrap.nix-gitignore;
-        in externalSources // {
+        in external // {
             shajra-provisioning = gi.gitignoreSource gitIgnores ./.;
         };
 

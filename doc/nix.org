@@ -2,7 +2,7 @@
 #+SETUPFILE: links.org
 
 
-* Org-mode Setup :noexport:
+* Org-mode setup :noexport:
 
 This document is written in a project-agnostic way so it can be copied to other
 projects that use Nix.
@@ -14,7 +14,7 @@ macros and source code blocks (using Noweb).
 
 #+NAME: get
 #+BEGIN_SRC emacs-lisp :var arg="" :eval yes :results silent
-(alist-get (intern arg) (car (read-from-string (f-read "nix.org.el"))))
+  (alist-get (intern arg) (car (read-from-string (f-read "nix.org.el"))))
 #+END_SRC
 
 #+MACRO: get (eval (concat $2 (alist-get (intern $1) (car (read-from-string (f-read "nix.org.el")))) $2))
@@ -35,16 +35,16 @@ an evaluation of a source code block.
 
 #+NAME: crop
 #+BEGIN_SRC emacs-lisp :var text="" :var first-n=5 :var last-n=5 :results silent
-(let* ((ls         (split-string text "\n"))
-       (first-ls   (-take first-n ls))
-       (rest-first (-drop first-n ls))
-       (rest-last  (-drop-last (+ 1 last-n) rest-first))
-       (last-ls    (-take-last (+ 1 last-n) rest-first)))
-  (string-join
-   (if rest-last
-       (append first-ls '("…") last-ls)
-     (append first-ls last-ls))
-   "\n"))
+  (let* ((ls         (split-string text "\n"))
+         (first-ls   (-take first-n ls))
+         (rest-first (-drop first-n ls))
+         (rest-last  (-drop-last (+ 1 last-n) rest-first))
+         (last-ls    (-take-last (+ 1 last-n) rest-first)))
+    (string-join
+     (if rest-last
+         (append first-ls '("…") last-ls)
+       (append first-ls last-ls))
+     "\n"))
 #+END_SRC
 
 ** Setup action
@@ -54,9 +54,9 @@ block evaluation.
 
 #+NAME: nix-init
 #+BEGIN_SRC shell :eval no
-export NIX_PROFILE=$(pwd)/nix-profile
-export NIX_PAGER=cat
-export PATH="$NIX_PROFILE/bin:$PATH"
+  export NIX_PROFILE=$(pwd)/nix-profile
+  export NIX_PAGER=cat
+  export PATH="$NIX_PROFILE/bin:$PATH"
 #+END_SRC
 
 Next we perform some side-effects to set up the evaluation of the whole
@@ -64,9 +64,9 @@ document.
 
 #+NAME: cleanup
 #+BEGIN_SRC shell :dir .. :results output silent :noweb yes
-<<nix-init>>
-rm --force result*
-rm --force "$NIX_PROFILE"*
+  <<nix-init>>
+  rm --force result*
+  rm --force "$NIX_PROFILE"*
 #+END_SRC
 
 This is just a hack to deal with the fact that we never know what directory a
@@ -74,15 +74,15 @@ session will start in, so we need a way to calculate the PWD to jump to it.
 
 #+NAME: pwd-parent
 #+BEGIN_SRC shell :results output silent
-echo cd "$(pwd)/.."
+  echo cd "$(pwd)/.."
 #+END_SRC
 
 This begins a session with environment variables initialized.
 
 #+NAME: session-init
 #+BEGIN_SRC shell :session env :results output silent :noweb yes
-<<pwd-parent()>>
-<<nix-init>>
+  <<pwd-parent()>>
+  <<nix-init>>
 #+END_SRC
 
 * About this document
@@ -162,27 +162,27 @@ locally.
 All of this makes Nix an attractive tool for managing almost any software
 project.
 
-* Installation and Setup
+* Installation and setup
 
 ** Nix package manager setup
 
 #+BEGIN_QUOTE
-*_NOTE:_* You don't need this step if you're running NixOS, which comes with
-Nix baked in.
+*_NOTE:_* You don't need this step if you're running NixOS, which comes with Nix
+baked in.
 #+END_QUOTE
 
 If you don't already have Nix, [[nix-learn][the official installation script]] should work on a
 variety of UNIX-like operating systems:
 
 #+BEGIN_SRC shell :eval no
-sh <(curl -L https://nixos.org/nix/install) --daemon
+  sh <(curl -L https://nixos.org/nix/install) --daemon
 #+END_SRC
 
 If you're on a recent release of MacOS, you will need an extra switch:
 
 #+BEGIN_SRC shell :eval no
-sh <(curl -L https://nixos.org/nix/install) --daemon \
-    --darwin-use-unencrypted-nix-store-volume
+  sh <(curl -L https://nixos.org/nix/install) --daemon \
+      --darwin-use-unencrypted-nix-store-volume
 #+END_SRC
 
 After installation, you may have to exit your terminal session and log back in
@@ -207,10 +207,10 @@ This augments the default substitutor that pulls from cache.nixos.org.
 You can configure shajra.cachix.org as a substitutor with the following command:
 
 #+BEGIN_SRC shell :eval no
-nix run \
-    --file https://cachix.org/api/v1/install \
-    cachix \
-    --command cachix use shajra
+  nix run \
+      --file https://cachix.org/api/v1/install \
+      cachix \
+      --command cachix use shajra
 #+END_SRC
 
 Cachix is a service that anyone can use.  You can call this command later to add
@@ -244,8 +244,8 @@ values:
 
 - simple primitives and functions
 - /derivations/ of packages that can be built and installed with Nix
-- containers of values, allowing a single value to provide multiple
-  values of different types, including more containers of values.
+- containers of values, allowing a single value to provide multiple values of
+  different types, including more containers of values.
 
 Once you learn the Nix language, you can read these files to see what kind of
 values they build. We can use the =nix search= command to see what package
@@ -254,16 +254,16 @@ this project, we can execute:
 
 #+NAME: nix-derivation-show
 #+BEGIN_SRC shell :dir .. :results output silent :exports none
-nix show-derivation --file default.nix >/dev/null 2>&1
+  nix show-derivation --file default.nix >/dev/null 2>&1
 #+END_SRC
 
 #+BEGIN_SRC shell :eval no
-nix search --file default.nix --no-cache
+  nix search --file default.nix --no-cache
 #+END_SRC
 
 #+NAME: nix-search
 #+BEGIN_SRC shell :dir .. :results output :exports results :post crop(text=*this*, first-n=9, last-n=0)
-nix search --file default.nix --no-cache | ansifilter
+  nix search --file default.nix --no-cache | ansifilter
 #+END_SRC
 
 #+RESULTS: nix-search
@@ -314,7 +314,7 @@ directory of this project, we could use =.= instead of =default.nix=:
 
 #+NAME: nix-search-alt
 #+BEGIN_SRC shell :dir .. :results output silent
-nix search --file . --no-cache
+  nix search --file . --no-cache
 #+END_SRC
 
 In the remainder of this document, we'll use =.= instead of =default.nix= since
@@ -327,8 +327,8 @@ The following result is one returned by our prior execution of ~nix search
 
 #+NAME: nix-search-specific
 #+BEGIN_SRC shell :dir .. :results output :exports results :noweb yes
-nix search --no-cache --file . | ansifilter \
-    | grep --color=never --after-context=1 '* <<get("package-attr")>> ('
+  nix search --no-cache --file . | ansifilter \
+      | grep --color=never --after-context=1 '* <<get("package-attr")>> ('
 #+END_SRC
 
 #+RESULTS: nix-search-specific
@@ -344,7 +344,7 @@ We can build this package with =nix build= from the project root:
 
 #+NAME: nix-build
 #+BEGIN_SRC shell :dir .. :results output silent :noweb yes
-nix build --file . <<get("package-attr")>>
+  nix build --file . <<get("package-attr")>>
 #+END_SRC
 
 The positional arguments to =nix build= are /installables/, which can be
@@ -362,7 +362,7 @@ have a name prefixed with "result" and point back to the respective build in
 
 #+NAME: nix-build-link
 #+BEGIN_SRC shell :dir .. :results output :exports both
-readlink result*
+  readlink result*
 #+END_SRC
 
 #+RESULTS: nix-build-link
@@ -372,7 +372,7 @@ Following these symlinks, we can see the files the project provides:
 
 #+NAME: nix-build-tree
 #+BEGIN_SRC shell :dir .. :results output :exports both :post crop(text=*this*, first-n=10, last-n=0)
-tree -l result*
+  tree -l result*
 #+END_SRC
 
 #+RESULTS: nix-build-tree
@@ -399,7 +399,7 @@ you can use =nix path-info= after a successful build:
 
 #+NAME: nix-build-path
 #+BEGIN_SRC shell :dir .. :results output :exports both :noweb yes
-nix path-info --file . <<get("package-attr")>>
+  nix path-info --file . <<get("package-attr")>>
 #+END_SRC
 
 #+RESULTS: nix-build-path
@@ -421,10 +421,10 @@ path from {{{run-src}}}, we can call the following:
 
 #+NAME: nix-run
 #+BEGIN_SRC shell :dir .. :results output :exports both :noweb yes :post crop(text=*this*, first-n=5, last-n=0)
-nix run \
-    --file <<get("run-src")>> \
-    <<get("run-attr")>> \
-    --command <<get("run-target")>> --help
+  nix run \
+      --file <<get("run-src")>> \
+      <<get("run-attr")>> \
+      --command <<get("run-target")>> --help
 #+END_SRC
 
 #+RESULTS: nix-run
@@ -469,7 +469,7 @@ can point your =~/.nix-profile= to any writable location with the
 =--switch-profile= switch:
 
 #+BEGIN_SRC shell :eval no
-nix-env --switch-profile /nix/var/nix/profiles/per-user/$USER/another-profile
+  nix-env --switch-profile /nix/var/nix/profiles/per-user/$USER/another-profile
 #+END_SRC
 
 This way, you can just put =~/.nix-profile/bin= on your =PATH=, and any programs
@@ -480,7 +480,7 @@ We can query what's installed in the active profile with the =--query= switch:
 
 #+NAME: nix-env-query-1
 #+BEGIN_SRC shell :session env :results output silent
-nix-env --query
+  nix-env --query
 #+END_SRC
 
 To install the {{{package-target}}} {{{package-type}}}, which is accessed by the
@@ -488,7 +488,7 @@ To install the {{{package-target}}} {{{package-type}}}, which is accessed by the
 
 #+NAME: nix-env-install
 #+BEGIN_SRC shell :session env :results output :exports both :noweb yes :post crop(text=*this*, first-n=1, last-n=3)
-nix-env --install --file . --attr <<get("package-attr")>> 2>&1
+  nix-env --install --file . --attr <<get("package-attr")>> 2>&1
 #+END_SRC
 
 #+RESULTS: nix-env-install
@@ -498,7 +498,7 @@ We can see this installation by querying what's been installed:
 
 #+NAME: nix-env-query-2
 #+BEGIN_SRC shell :session env :results output :exports both
-nix-env --query
+  nix-env --query
 #+END_SRC
 
 #+RESULTS: nix-env-query-2
@@ -509,7 +509,7 @@ name, in this case {{{package-name}}}:
 
 #+NAME: nix-env-uninstall
 #+BEGIN_SRC shell :session env :results output :exports both :noweb yes
-nix-env --uninstall <<get("package-name")>> 2>&1
+  nix-env --uninstall <<get("package-name")>> 2>&1
 #+END_SRC
 
 #+RESULTS: nix-env-uninstall
@@ -610,7 +610,7 @@ realizing their packages with the following command:
 
 #+NAME: nix-derivation-show-again
 #+BEGIN_SRC shell :dir .. :results output silent
-nix show-derivation --file default.nix
+  nix show-derivation --file default.nix
 #+END_SRC
 
 Once these derivations are instantiated, you may get more results with =nix
@@ -624,7 +624,7 @@ without requiring us to evaluate everything when selecting out packages by
 attribute paths. In fact, the entire NixOS operating system is based heavily on
 a single single expression managed in a Git repository called [[nixpkgs][Nixpkgs]].
 
-* Next Steps
+* Next steps
 
 This document has covered a fraction of Nix usage, hopefully enough to introduce
 Nix in the context of [[file:../README.org][this project]].
@@ -641,6 +641,6 @@ used for setting up development environments. And we didn't cover much of
 The Nix ecosystem is vast. This project and documentation illustrates just a
 small sample of what Nix can do.
 
-* Org-mode Teardown :noexport:
+* Org-mode teardown :noexport:
 
 #+CALL: cleanup()

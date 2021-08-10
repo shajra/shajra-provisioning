@@ -1,7 +1,7 @@
 - [About this document](#sec-1)
 - [How this project uses Nix](#sec-2)
 - [Motivation to use Nix](#sec-3)
-- [Installation and Setup](#sec-4)
+- [Installation and setup](#sec-4)
   - [Nix package manager setup](#sec-4-1)
   - [Cache setup](#sec-4-2)
 - [Working with Nix](#sec-5)
@@ -12,7 +12,7 @@
   - [Garbage collection](#sec-5-5)
   - [Understanding derivations](#nix-drv)
   - [Lazy evaluation](#sec-5-7)
-- [Next Steps](#sec-6)
+- [Next steps](#sec-6)
 
 
 # About this document<a id="sec-1"></a>
@@ -43,7 +43,7 @@ The repeatability and precision of Nix enables caching services, which for Nix a
 
 All of this makes Nix an attractive tool for managing almost any software project.
 
-# Installation and Setup<a id="sec-4"></a>
+# Installation and setup<a id="sec-4"></a>
 
 ## Nix package manager setup<a id="sec-4-1"></a>
 
@@ -315,7 +315,7 @@ Once these derivations are instantiated, you may get more results with `nix sear
 
 We haven't made a big deal of it, but the Nix language is *lazily evaluated*. This allows a single Nix expression to refer to several thousand packages, but without requiring us to evaluate everything when selecting out packages by attribute paths. In fact, the entire NixOS operating system is based heavily on a single single expression managed in a Git repository called [Nixpkgs](https://github.com/NixOS/nixpkgs).
 
-# Next Steps<a id="sec-6"></a>
+# Next steps<a id="sec-6"></a>
 
 This document has covered a fraction of Nix usage, hopefully enough to introduce Nix in the context of [this project](../README.md).
 
