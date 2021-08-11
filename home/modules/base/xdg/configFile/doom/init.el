@@ -16,22 +16,20 @@
  hl-todo
  hydra
  indent-guides
+ (ligatures +extra)
  modeline
  nav-flash
  ophints
- (popup
-  +all
-  +defaults)
+ (popup +all +defaults)
  treemacs  ; alternative to neotree
- unicode
+ ;unicode
  vc-gutter
  vi-tilde-fringe
  window-select
  ;workspaces  ; didn't like, may try again later
 
  :editor
- (evil
-   +everywhere)
+ (evil +everywhere)
  file-templates
  fold
  format
@@ -41,8 +39,7 @@
  word-wrap
 
  :checkers
- (spell
-   +aspell)
+ (spell +aspell)
  syntax
 
  :emacs
@@ -59,13 +56,10 @@
  ;;direnv
  emacs-direnv
  docker
- (eval
-   +overlay)
+ (eval +overlay)
  gist
- (lookup
-  +docsets)
- (lsp
-  +peek)
+ (lookup +docsets)
+ (lsp +peek)
  ;;macos
  magit
  make
@@ -78,9 +72,7 @@
  data
  emacs-lisp
  haskell
- (haskell-extn
-   +dante
-   +lsp)
+ (haskell-extn +dante +lsp)
  latex
  markdown
  nix
@@ -91,12 +83,9 @@
   ;;+present
   )
  ;;plantuml
- (python
-  +lsp
-  +pyright)
+ (python +lsp +pyright)
  rest
- (sh
-   +fish)
+ (sh +fish)
  ;;web
  yaml
 
