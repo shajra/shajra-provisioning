@@ -119,7 +119,6 @@ let
         "postgresql"
         "powertop"
         "pulsemixer"
-        "python3"
         "simple-scan"
         "slack"
         "stack"
