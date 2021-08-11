@@ -140,10 +140,7 @@ let
                 raw =
                     if isDarwin
                     then nixpkgs.emacsMacport
-                    else
-                        # nixpkgs.emacsUnstable is GCC Emacs
-                        # nixpkgs.emacs in case GCC is too unstable
-                        nixpkgs.emacsUnstable;
+                    else nixpkgs.emacsGcc;
             in (nixpkgs.emacsPackagesFor raw).emacsWithPackages
                 (epkgs: with epkgs.melpaPackages; [
                     vterm emacsql emacsql-sqlite
