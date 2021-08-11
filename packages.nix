@@ -211,7 +211,8 @@ in
         // nixpkgs.common.prebuilt
         // nixpkgs.unstable.prebuilt
         // nixpkgs.ifDarwin.prebuilt
-        // nixpkgs.ifLinux.prebuilt;
+        // nixpkgs.ifLinux.prebuilt.stable
+        // nixpkgs.ifLinux.prebuilt.unstable;
 
     nixpkgs.build = {}
         // nixpkgs.common.build.topLevel
