@@ -61,10 +61,15 @@ let
         "which"
 
         # Fonts
+        "emacs-all-the-icons-fonts"
+        "etBook"
         "font-awesome_5"
+        "hasklig"
         "meslo-lgs-nf"
         "nerdfonts"
         "source-code-pro"
+        "symbola"
+        "twitter-color-emoji"
     ];
 
     nixpkgs.unstable.prebuilt = np.pick {

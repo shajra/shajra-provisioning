@@ -47,6 +47,13 @@
         "url": "https://github.com/input-output-hk/haskell.nix/archive/40c97135df2d83ac0d5531a32028d23eca6d130e.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "hasklig": {
+        "sha256": "1m41iafnv097qwg7yissj3y06w0lgs0mfv2iz62dq85j95s5mlww",
+        "type": "file",
+        "url": "https://github.com/i-tu/Hasklig/releases/download/v1.2/Hasklig-1.2.zip",
+        "url_template": "https://github.com/i-tu/Hasklig/releases/download/v<version>/Hasklig-<version>.zip",
+        "version": "1.2"
+    },
     "home-manager": {
         "branch": "master",
         "description": "Manage a user environment using Nix  [maintainer=@rycee] ",

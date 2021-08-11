@@ -13,6 +13,10 @@ let
     overlay.emacs = import sources.emacs-overlay;
     overlay.nix-project = self: super: import sources.nix-project;
     overlay.upgrades = self: super: {
+        hasklig = super.hasklig.overrideAttrs (old: {
+            url = sources.hasklig.url;
+            sha256 = sources.hasklig.sha256;
+        });
         home-manager = super.home-manager.overrideAttrs (old: {
             src = sources.home-manager;
         });
