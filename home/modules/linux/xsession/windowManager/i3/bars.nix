@@ -16,4 +16,5 @@ in
         urgentWorkspace   = color "#93a1a1" "#dc322f" "#fdf6e3";
         bindingMode       = color "#93a1a1" "#dc322f" "#fdf6e3";
     };
+    workspaceNumbers = false;
 }]
