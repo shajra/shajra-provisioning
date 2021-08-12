@@ -109,7 +109,7 @@ in {
     services.logind.lidSwitch = "suspend-then-hibernate";
     services.openssh.enable = false;
     services.openssh.extraConfig = ''UseDNS no'';
-    services.openssh.ports = [ 64896 ];
+    services.openssh.ports = [];   # put a port here when using
     services.printing.drivers = [ pkgs.hplipWithPlugin ];
     services.printing.enable = true;
     services.tlp.enable = true;
