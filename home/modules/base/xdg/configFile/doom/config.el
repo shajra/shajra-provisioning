@@ -3,16 +3,19 @@
 
 ;; Simple settings
 
+(let ((scale (if (eq system-type 'darwin) 1.5 1.0)))
+  (setq-default
+   doom-big-font            (font-spec :family "SauceCodePro Nerd Font" :size (* scale 18.0))
+   doom-font                (font-spec :family "SauceCodePro Nerd Font" :size (* scale 11.0))
+   doom-serif-font          (font-spec :family "Source Serif Pro" :size (* scale 11.0))
+   doom-unicode-font        (font-spec :family "FreeSerif")  ; alternative to Symbola
+   doom-variable-pitch-font (font-spec :family "Source Serif Variable" :size (* scale 11.0))))
+
 (setq-default
  dante-methods '(alt-stack-project alt-cabal)
- doom-big-font            (font-spec :family "SauceCodePro Nerd Font" :size 18.0)
- doom-font                (font-spec :family "SauceCodePro Nerd Font" :size 11.0)
  doom-large-file-size-alist '(("/TAGS\\([.]local\\)?$". 50.0) ("." . 1.0))
  doom-modeline-major-mode-icon t
- doom-serif-font          (font-spec :family "Source Serif Pro" :size 11.0)
  doom-theme 'doom-solarized-light
- doom-unicode-font        (font-spec :family "FreeSerif")  ; alternative to Symbola
- doom-variable-pitch-font (font-spec :family "Source Serif Variable" :size 11.0)
  fancy-splash-image "~/.config/doom/snowman.png"
  fill-column 80
  +haskell-dante-xref-enable nil
