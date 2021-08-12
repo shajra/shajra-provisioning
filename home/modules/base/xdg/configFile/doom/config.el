@@ -73,4 +73,4 @@
       (org-indent-mode)))
 
 ;; DESIGN: Some configuration is more personal...
-(load! "config" "/home/tnks/.config/doom-private" t)
+(load! "config" "~/.config/doom-private" t)
