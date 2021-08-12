@@ -8,7 +8,7 @@ in
 {
     imports = [ ../base ];
 
-    home.file = import home/file sources;
+    home.file = import home/file pkgs sources;
 
     programs.bash = import programs/bash;
     programs.firefox = import programs/firefox pkgs;

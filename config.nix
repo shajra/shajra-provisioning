@@ -39,6 +39,9 @@
             ungoogled-chromium = {
                 enablePepperFlash = false;
             };
+            firefox = {
+                enableTridactylNative = true;
+            };
         };
     };
 
