@@ -22,6 +22,8 @@ self.nix-project-lib.writeShellCheckedExe progName
 set -eu
 set -o pipefail
 
+PATH="$PATH:/run/current-system/sw/bin"
+
 DPI="''${1:-235}"
 XRESOURCES="$HOME/.Xresources.dpi"
 
