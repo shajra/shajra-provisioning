@@ -139,7 +139,7 @@ let
                     else np.nixpkgs-unstable;
                 raw =
                     if isDarwin
-                    then nixpkgs.emacsMacport
+                    then nixpkgs.emacsMacport  # emacsGcc not cached for Darwin
                     else nixpkgs.emacsGcc;
             in (nixpkgs.emacsPackagesFor raw).emacsWithPackages
                 (epkgs: with epkgs.melpaPackages; [
