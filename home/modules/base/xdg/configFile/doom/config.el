@@ -8,6 +8,7 @@
  doom-big-font            (font-spec :family "SauceCodePro Nerd Font" :size 18.0)
  doom-font                (font-spec :family "SauceCodePro Nerd Font" :size 11.0)
  doom-large-file-size-alist '(("/TAGS\\([.]local\\)?$". 50.0) ("." . 1.0))
+ doom-modeline-major-mode-icon t
  doom-serif-font          (font-spec :family "Source Serif Pro" :size 11.0)
  doom-theme 'doom-solarized-light
  doom-unicode-font        (font-spec :family "FreeSerif")  ; alternative to Symbola
