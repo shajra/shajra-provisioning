@@ -63,6 +63,7 @@ let
         # Fonts
         "emacs-all-the-icons-fonts"  # for Emacs, used automatically by Doom
         "etBook"                     # stylish font from Edward Tufte's books
+        "source-serif-pro"           # serif font to complement Sauce Code Pro
         "font-awesome_5"             # for i3status-rust icons
         "freefont_ttf"               # a Unicode fallback font
         "symbola"                    # another Unicode fallback font

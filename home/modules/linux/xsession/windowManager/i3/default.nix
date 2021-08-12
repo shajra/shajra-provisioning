@@ -16,7 +16,7 @@ in
     config = rec {
         bars = import ./bars.nix i3status-exe i3status-conf;
         colors = import ./colors.nix;
-        fonts = ["NotoSans Nerd Font Condensed Medium 10"];
+        fonts = ["Source Serif Pro 10"];
         floating.criteria = [ { class = "Pavucontrol"; } ];
         keybindings = import ./keybindings.nix modifier config pkgs alacritty-exe;
         modes = import ./modes.nix modifier;
