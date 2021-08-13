@@ -139,7 +139,9 @@ let
                     else np.nixpkgs-unstable;
                 raw =
                     if isDarwin
-                    then nixpkgs.emacsMacport  # emacsGcc not cached for Darwin
+                    then
+                        # DESIGN: not built/cached in Hydra, trying out
+                        nixpkgs.emacsGcc
                     else nixpkgs.emacsGcc;
             in (nixpkgs.emacsPackagesFor raw).emacsWithPackages
                 (epkgs: with epkgs.melpaPackages; [
