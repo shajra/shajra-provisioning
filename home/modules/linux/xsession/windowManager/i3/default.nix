@@ -7,7 +7,6 @@ let
     i3status-exe  = "${config.programs.i3status-rust.package}/bin/i3status-rs";
     i3-conf = "${config.xdg.configHome}/i3status-rust/config-bottom.toml";
     i3status-conf = "${config.xdg.configHome}/i3status-rust/config-bottom.toml";
-    runAlways = cmd: { command = cmd; always = true; notification = false; };
     runOnce = cmd: { command = cmd; always = false; notification = false; };
 in
 
@@ -22,7 +21,6 @@ in
         modes = import ./modes.nix modifier;
         modifier = "Mod4";
         startup = [
-            (runAlways ". ~/.xprofile; systemctl --user start graphical-session.target")
             (runOnce "${i3msg-exe} workspace 1")
             (runOnce "${autorandr-exe} --change --default home")
         ];

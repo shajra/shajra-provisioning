@@ -31,4 +31,6 @@ echo "*dpi: $DPI" > "$XRESOURCES"
 xrdb -merge "$XRESOURCES"
 xrandr --dpi "$DPI"
 i3-msg restart
+# shellcheck disable=SC1090
+. ~/.xprofile
 ''
