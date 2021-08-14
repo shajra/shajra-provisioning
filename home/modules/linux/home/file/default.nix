@@ -1,9 +1,14 @@
-pkgs: sources:
+config: pkgs: sources:
+
+let
+    makeLink = link: pkgs.runCommand "makeLink" {} "ln -s ${link} $out";
+in
 
 {
     ".nix-channels".source = ./nix-channels;
     ".XCompose".text = import xcompose/text.nix sources;
     ".xprofile".source = xprofile/xprofile.libinput;
+    ".Xdefaults".source = makeLink "${config.home.homeDirectory}/.Xresources";
 
     # DESIGN: Ideally, Home Manager and Nixpkgs would make this easier
     # https://github.com/NixOS/nixpkgs/issues/47340

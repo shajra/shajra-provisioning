@@ -11,6 +11,9 @@ in
         bottom = {
             blocks = [
                 {
+                block = "notify";
+                }
+                {
                 block = "disk_space";
                 format = "{icon} {available} {percentage}";
                 }
@@ -21,11 +24,6 @@ in
                 format_swap = "{swap_free_percents}";
                 }
                 {
-                block = "battery";
-                format = "  {percentage} {time}";
-                device = "BAT1";
-                }
-                {
                 block = "cpu";
                 interval = 3;
                 }
@@ -33,6 +31,11 @@ in
                 block = "load";
                 format = " {1m}";
                 interval = 3;
+                }
+                {
+                block = "battery";
+                format = "  {percentage} {time}";
+                device = "BAT1";
                 }
                 {
                 block = "net";
@@ -61,7 +64,7 @@ in
                 format = "%a %Y-%m-%d %l:%M %p";
                 }
             ];
-            icons = "awesome5";
+            icons = "material-nf";
             theme = "solarized-light";
         };
     };

@@ -21,21 +21,36 @@ in
 
     programs.alacritty = import programs/alacritty;
     programs.bash.enable = true;
+    programs.bat.config = { theme = "Solarized (light)"; };
+    programs.bat.enable = true;
+    programs.broot.enable = true;
     programs.dircolors.enable = true;
-    programs.direnv.enable = true;
     programs.direnv.enableFishIntegration = false;
+    programs.direnv.enable = true;
     programs.feh.enable = true;
     programs.fish = import programs/fish;
+    programs.fzf.enable = true;
+    programs.gh.enable = true;
     programs.git = import programs/git sources.delta;
     programs.home-manager.enable = true;
     programs.htop.enable = true;
     programs.jq.enable = true;
     programs.kitty = import programs/kitty pkgs;
+    programs.lesspipe.enable = true;
+    programs.lsd.enable = true;
     programs.man.generateCaches = true;
+    programs.mcfly.enableFuzzySearch = true;
+    programs.mcfly.enableLightTheme = true;
+    programs.mcfly.enable = true;
     programs.ncmpcpp.enable = true;
+    programs.neovim = import programs/neovim pkgs;
+    programs.newsboat.enable = true;
+    programs.noti.enable = true;
+    programs.pazi.enable = true;
+    programs.readline.enable = true;
+    programs.skim.enable = true;
     programs.starship = import programs/starship;
     programs.urxvt.enable = true;
-    programs.neovim = import programs/neovim pkgs;
 
     xdg.configFile = import xdg/configFile config pkgs sources;
 }

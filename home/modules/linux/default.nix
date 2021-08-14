@@ -8,7 +8,7 @@ in
 {
     imports = [ ../base ];
 
-    home.file = import home/file pkgs sources;
+    home.file = import home/file config pkgs sources;
 
     programs.bash = import programs/bash;
     programs.firefox = import programs/firefox pkgs;
@@ -16,8 +16,11 @@ in
     programs.rofi.enable = true;
     programs.zathura.enable = true;
 
+    services.dunst.enable = true;
+    services.dunst.settings.global.geometry = "0x0-0+0";
     services.gammastep.enable = true;
     services.gammastep.provider = "geoclue2";
+    services.xsuspender = import services/xsuspender;
 
     xresources = import ./xresources;
 

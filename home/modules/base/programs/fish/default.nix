@@ -37,14 +37,22 @@
     interactiveShellInit = ''
         umask 077
         fish_vi_key_bindings
+        set EDITOR vim
     '';
 
     shellAliases = {
+        c = "bat";
         emacs-doom = "emacs --with-profile doom & disown";
         emacs-min = "emacs --with-profile min & disown";
         emacs-space = "emacs --with-profile space & disown";
         g = "git";
+        j = "pazi_cd";
+        l1= "lsd -1";
+        la= "lsd -lah";
+        ll= "lsd -l";
+        l = "lsd";
         unison = "unison -ui text";
-        view = "vim";
+        view = "vim -R";
+        v = "vim";
     };
 }
