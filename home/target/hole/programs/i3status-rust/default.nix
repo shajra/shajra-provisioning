@@ -29,18 +29,18 @@ in
                 }
                 {
                 block = "load";
-                format = " {1m}";
+                format = "{1m}";
                 interval = 3;
                 }
                 {
                 block = "battery";
-                format = "  {percentage} {time}";
+                format = "{percentage} {time} {power}";
                 device = "BAT1";
                 }
                 {
                 block = "net";
                 device = "wlp6s0";
-                format = " {ssid}  {signal_strength}  {ip}";
+                format = "{ssid}  {signal_strength}  {ip}";
                 interval = 3;
                 on_click = ''
                     if ${daemon} --name wpa_gui --running

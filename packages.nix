@@ -64,12 +64,13 @@ let
         # Fonts
         "emacs-all-the-icons-fonts"  # for Emacs, used automatically by Doom
         "etBook"                     # stylish font from Edward Tufte's books
-        "source-serif-pro"           # serif font to complement Sauce Code Pro
+        "fira"                       # variable font to complement Fira Code
         "font-awesome_5"             # for i3status-rust icons
         "freefont_ttf"               # a Unicode fallback font
-        "symbola"                    # another Unicode fallback font
         "hasklig"                    # latest Haskell-ligatures
         "nerdfonts"                  # developer fonts with lots of icons
+        "source-serif-pro"           # serif font to complement Sauce Code Pro
+        "symbola"                    # another Unicode fallback font
         "twitter-color-emoji"        # for emojis
     ];
 
