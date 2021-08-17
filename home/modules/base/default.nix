@@ -25,10 +25,11 @@ in
     programs.bat.enable = true;
     programs.broot.enable = true;
     programs.dircolors.enable = true;
+    programs.dircolors.extraConfig = builtins.readFile "${sources.dircolors-solarized}/dircolors.ansi-light";
     programs.direnv.enableFishIntegration = false;
     programs.direnv.enable = true;
     programs.feh.enable = true;
-    programs.fish = import programs/fish;
+    programs.fish = import programs/fish pkgs sources.colored_man_pages;
     programs.fzf.enable = true;
     programs.gh.enable = true;
     programs.git = import programs/git sources.delta;
@@ -37,7 +38,6 @@ in
     programs.jq.enable = true;
     programs.kitty = import programs/kitty pkgs;
     programs.lesspipe.enable = true;
-    programs.lsd.enable = true;
     programs.man.generateCaches = true;
     programs.mcfly.enableFuzzySearch = true;
     programs.mcfly.enableLightTheme = true;

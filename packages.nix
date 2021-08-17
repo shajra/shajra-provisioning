@@ -26,6 +26,7 @@ let
         "coreutils"
         "curl"
         "dhall"
+        "exa"
         "fd"
         "gnugrep"
         "gnumake"

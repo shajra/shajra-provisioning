@@ -16,10 +16,10 @@ in
     programs.rofi.enable = true;
     programs.zathura.enable = true;
 
-    services.dunst.enable = true;
-    services.dunst.settings.global.geometry = "0x0-0+0";
+    services.dunst = import services/dunst config pkgs;
     services.gammastep.enable = true;
     services.gammastep.provider = "geoclue2";
+    services.picom.enable = true;
     services.xsuspender = import services/xsuspender;
 
     xresources = import ./xresources;

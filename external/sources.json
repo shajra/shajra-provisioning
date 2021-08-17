@@ -1,4 +1,16 @@
 {
+    "colored_man_pages": {
+        "branch": "main",
+        "description": "Fish shell plugin to colorize man pages",
+        "homepage": "",
+        "owner": "PatrickF1",
+        "repo": "colored_man_pages.fish",
+        "rev": "8c4965b9be9433d12ba50c28452cab8c71c59a50",
+        "sha256": "0pxm10wlngcxf8lzlfx2w1b2z6qh2jdpm7m224q6bznl0kvw46wf",
+        "type": "tarball",
+        "url": "https://github.com/PatrickF1/colored_man_pages.fish/archive/8c4965b9be9433d12ba50c28452cab8c71c59a50.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "delta": {
         "branch": "master",
         "description": "A viewer for git and diff output",
@@ -9,6 +21,18 @@
         "sha256": "0i91wyaa374fipn18hlnfbipbqbph15vcbwlgd5q1qz3mzcz80qh",
         "type": "tarball",
         "url": "https://github.com/dandavison/delta/archive/c733031528d1b1e31679c75be4a0991053446013.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "dircolors-solarized": {
+        "branch": "master",
+        "description": "This is a repository of themes for GNU ls (configured via GNU dircolors) that support Ethan Schoonover’s Solarized color scheme.",
+        "homepage": "http://ethanschoonover.com/solarized",
+        "owner": "seebi",
+        "repo": "dircolors-solarized",
+        "rev": "03393f25e241e45fe9341d7baaa2507fd9741a53",
+        "sha256": "11k8jksj0fm4ia0n7rs9n9n73kb6i9gldy6qc7wz4prkj4rr743p",
+        "type": "tarball",
+        "url": "https://github.com/seebi/dircolors-solarized/archive/03393f25e241e45fe9341d7baaa2507fd9741a53.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "direnv-nix-lorelei": {
