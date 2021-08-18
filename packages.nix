@@ -106,6 +106,7 @@ let
         "dfu-programmer"
         "dfu-util"
         "discord"
+        "dunst"
         "fontpreview"
         "freemind"
         "fswatch"

@@ -3,6 +3,7 @@ mod: config: pkgs: alacritty:
 let
     autorandr = "${pkgs.autorandr}/bin/autorandr";
     awk = "${pkgs.gawk}/bin/awk";
+    dunstctl = "${pkgs.dunst}/bin/dunstctl";
     firefox = "${config.programs.firefox.package}/bin/firefox";
     fish = "${config.programs.fish.package}/bin/fish";
     i3-workspace-name = "${pkgs.i3-workspace-name}/bin/i3-workspace-name";
@@ -126,7 +127,12 @@ in
     "${mod}+slash" = "workspace back_and_forth";
 
     # rename workspace
-    "${mod}+n" = ''exec ${i3-workspace-name}'';
+    "${mod}+w" = ''exec ${i3-workspace-name}'';
+
+    # notification center
+    "${mod}+n" = ''exec ${dunstctl} set-paused toggle'';
+    "${mod}+Shift+n" = ''exec test "$(${dunstctl} is-paused)" = false && ${dunstctl} close'';
+    "${mod}+Control+n" = ''exec test "$(${dunstctl} is-paused)" = false && ${dunstctl} close-all'';
 
     # start a new terminal
     "${mod}+Return" = ''exec ${alacritty}'';

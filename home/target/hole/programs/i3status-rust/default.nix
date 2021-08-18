@@ -11,9 +11,6 @@ in
         bottom = {
             blocks = [
                 {
-                block = "notify";
-                }
-                {
                 block = "disk_space";
                 format = "{icon} {available} {percentage}";
                 }
@@ -57,6 +54,9 @@ in
                     else ${daemon} --name pavucontrol -- ${pavucontrol}
                     fi
                 '';
+                }
+                {
+                block = "notify";
                 }
                 {
                 block = "time";
