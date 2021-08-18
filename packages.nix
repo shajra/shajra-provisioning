@@ -111,7 +111,6 @@ let
         "freemind"
         "fswatch"
         "gnome3.adwaita-icon-theme"
-        "i3-init"
         "inkscape"
         "irccloud"
         "jdk"
@@ -169,7 +168,10 @@ let
 
     nixpkgs.ifLinux.build.topLevel =
         let pkgs = with np.nixpkgs-unstable; {
-                inherit moneydance;
+                inherit
+                    dunst-time
+                    i3-init
+                    moneydance;
                 texlive = texlive.combine {
                     inherit (texlive) capt-of scheme-medium wrapfig;
                 };

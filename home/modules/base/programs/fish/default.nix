@@ -69,8 +69,9 @@ in
         j = "pazi_cd";
         l1= "exa --icons --group-directories-first -1";
         la= "exa --icons --group-directories-first -lah";
-        ll= "exa --icons --group-directories-first -l";
         l = "exa --icons --group-directories-first";
+        ll= "exa --icons --group-directories-first -l";
+        t = "dunst-time";
         unison = "unison -ui text";
         view = "vim -R";
         v = "vim";

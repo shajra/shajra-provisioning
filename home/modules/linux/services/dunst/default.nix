@@ -6,19 +6,24 @@ config: pkgs:
     iconTheme.package = pkgs.gnome3.adwaita-icon-theme;
     settings = {
         global = {
+            browser = "${config.programs.firefox.package}/bin/firefox";
             corner_radius = 24;
-            dmenu = "${config.programs.rofi.package}/bin/rofi";
-            font = "SourceSerifPro: Bold";
+            dmenu = "${config.programs.rofi.package}/bin/rofi -dmenu";
+            ellipsize = "end";
+            font = "SourceSerifPro";
+            format = "<b>%s</b> %b";
             frame_width = 8;
-            geometry = "0x0-50+100";
-            horizontal_padding = 12;
+            geometry = "1200x0-50+100";
+            horizontal_padding = 24;
             markup = "full";
+            min_icon_size = 64;
             padding = 12;
             progress_bar_frame_width = 2;
             progress_bar_height = 24;
             separator_height = 8;
+            shrink = true;
             text_icon_padding = 8;
-            transparency = 10;
+            transparency = 5;
         };
         urgency_low = {
             background  = "#fdf6e3";
@@ -37,7 +42,12 @@ config: pkgs:
             foreground  = "#cb4b16";
             frame_color = "#859900";
             highlight   = "#cb4b16";
-            timeout     = "0";
+            timeout     = 0;
+        };
+        dunst-time = {
+            appname = "dunst-time";
+            format = "<big><b>%s</b></big>\n<span foreground='#657b83'>%b</span>";
+            timeout = 0;
         };
     };
 }
