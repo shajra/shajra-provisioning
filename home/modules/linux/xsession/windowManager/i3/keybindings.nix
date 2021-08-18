@@ -5,7 +5,7 @@ let
     awk = "${pkgs.gawk}/bin/awk";
     firefox = "${config.programs.firefox.package}/bin/firefox";
     fish = "${config.programs.fish.package}/bin/fish";
-    i3-input = "${config.xsession.windowManager.i3.package}/bin/i3-input";
+    i3-workspace-name = "${pkgs.i3-workspace-name}/bin/i3-workspace-name";
     light = "${pkgs.light}/bin/light";
     ponymix = "${pkgs.ponymix}/bin/ponymix";
     rofi = "${config.programs.rofi.package}/bin/rofi";
@@ -126,7 +126,7 @@ in
     "${mod}+slash" = "workspace back_and_forth";
 
     # rename workspace
-    "${mod}+n" = ''exec ${i3-input} -F 'rename workspace to "%s"' -P 'New name for workspace: ' '';
+    "${mod}+n" = ''exec ${i3-workspace-name}'';
 
     # start a new terminal
     "${mod}+Return" = ''exec ${alacritty}'';
