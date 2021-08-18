@@ -1,6 +1,6 @@
-i3-dpi:
+i3-init:
 
 {
   enable = true;
-  profiles = import ./profiles.nix i3-dpi;
+  profiles = import ./profiles.nix i3-init;
 }

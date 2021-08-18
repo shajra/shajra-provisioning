@@ -28,7 +28,6 @@ in {
         # DESIGN: specific to hardware
         hplipWithPlugin
         lan-jelly
-        i3-dpi
     ];
 
     fonts.enableDefaultFonts = true;

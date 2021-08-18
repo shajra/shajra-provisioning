@@ -24,6 +24,5 @@ in
 
     xresources = import ./xresources;
 
-    xsession.enable = true;
-    xsession.windowManager.i3 = import xsession/windowManager/i3 config pkgs;
+    xsession = import ./xsession config pkgs;
 }

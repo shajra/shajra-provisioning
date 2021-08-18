@@ -110,6 +110,7 @@ let
         "freemind"
         "fswatch"
         "gnome3.adwaita-icon-theme"
+        "i3-init"
         "inkscape"
         "irccloud"
         "jdk"
