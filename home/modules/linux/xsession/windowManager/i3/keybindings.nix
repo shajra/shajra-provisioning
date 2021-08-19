@@ -4,12 +4,11 @@ let
     autorandr = "${pkgs.autorandr}/bin/autorandr";
     awk = "${pkgs.gawk}/bin/awk";
     dunstctl = "${pkgs.dunst}/bin/dunstctl";
+    dunst-osd = "${pkgs.dunst-osd}/bin/dunst-osd";
     firefox = "${config.programs.firefox.package}/bin/firefox";
     fish = "${config.programs.fish.package}/bin/fish";
     i3-workspace-name = "${pkgs.i3-workspace-name}/bin/i3-workspace-name";
-    light = "${pkgs.light}/bin/light";
     pkill = "${pkgs.procps}/bin/pkill";
-    ponymix = "${pkgs.ponymix}/bin/ponymix";
     rofi = "${config.programs.rofi.package}/bin/rofi";
     user = config.home.username;
 
@@ -191,13 +190,13 @@ in
     "${mod}+m" = "mark --toggle *";
 
     # PulseAudio controls
-    "XF86AudioRaiseVolume" = ''exec --no-startup-id ${ponymix} increase 5%'';
-    "XF86AudioLowerVolume" = ''exec --no-startup-id ${ponymix} decrease 5%'';
-    "XF86AudioMute" = "exec --no-startup-id ${ponymix} toggle";
+    "XF86AudioRaiseVolume" = ''exec --no-startup-id ${dunst-osd} volume up'';
+    "XF86AudioLowerVolume" = ''exec --no-startup-id ${dunst-osd} volume down'';
+    "XF86AudioMute" =        ''exec --no-startup-id ${dunst-osd} volume mute-toggle'';
 
     # screen brightness
-    "XF86MonBrightnessUp" = ''exec --no-startup-id ${light} -A 0.5'';
-    "XF86MonBrightnessDown" = ''exec --no-startup-id ${light} -U 0.5'';
+    "XF86MonBrightnessUp"   = ''exec --no-startup-id ${dunst-osd} brightness up'';
+    "XF86MonBrightnessDown" = ''exec --no-startup-id ${dunst-osd} brightness down'';
 
     # media
     #"XF86AudioNext" = ''exec --no-startup-id ${mpc} next'';

@@ -44,6 +44,10 @@ config: pkgs:
             highlight   = "#cb4b16";
             timeout     = 0;
         };
+        transient_history_ignore = {
+            match_transient = true;
+            history_ignore = true;
+        };
         dunst-time = {
             appname = "dunst-time";
             format = "<big><b>%s</b></big>\n<span foreground='#657b83'>%b</span>";
