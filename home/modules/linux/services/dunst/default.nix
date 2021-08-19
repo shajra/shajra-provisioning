@@ -50,7 +50,7 @@ config: pkgs:
         };
         dunst-time = {
             appname = "dunst-time";
-            format = "<big><b>%s</b></big>\n<span foreground='#657b83'>%b</span>";
+            format = "<big><b>%s</b></big>\\n<span foreground='#657b83'>%b</span>";
             timeout = 0;
         };
     };
