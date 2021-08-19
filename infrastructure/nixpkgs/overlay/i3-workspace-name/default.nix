@@ -2,7 +2,7 @@ self: super:
 
 let
     progName = "i3-workspace-name";
-    meta.description = "change i3 workspace name interatively";
+    meta.description = "change I3 workspace name interatively";
 in
 
 self.nix-project-lib.writeShellCheckedExe progName

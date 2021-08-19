@@ -1,9 +1,13 @@
-pkgs:
+config: pkgs:
 
 let
     daemon = "${pkgs.daemon}/bin/daemon";
-    wpa_gui = "${pkgs.wpa_supplicant_gui}/bin/wpa_gui";
+    dunstctl = "${pkgs.dunst}/bin/dunstctl";
+    i3-dunst = "${pkgs.i3status-rust-dunst}/bin/i3status-rust-dunst";
     pavucontrol = "${pkgs.pavucontrol}/bin/pavucontrol";
+    pkill = "${pkgs.procps}/bin/pkill";
+    user = config.home.username;
+    wpa_gui = "${pkgs.wpa_supplicant_gui}/bin/wpa_gui";
 in
 
 {
@@ -57,6 +61,15 @@ in
                 }
                 {
                 block = "notify";
+                }
+                {
+                block = "custom";
+                command  = "${i3-dunst} status";
+                on_click = "${dunstctl} set-paused toggle; ${pkill} -u ${user} -SIGRTMIN+0 i3status-rs";
+                signal = 0;
+                hide_when_empty = true;
+                interval = 3;
+                json = true;
                 }
                 {
                 block = "time";

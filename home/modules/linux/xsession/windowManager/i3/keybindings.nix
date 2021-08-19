@@ -8,8 +8,10 @@ let
     fish = "${config.programs.fish.package}/bin/fish";
     i3-workspace-name = "${pkgs.i3-workspace-name}/bin/i3-workspace-name";
     light = "${pkgs.light}/bin/light";
+    pkill = "${pkgs.procps}/bin/pkill";
     ponymix = "${pkgs.ponymix}/bin/ponymix";
     rofi = "${config.programs.rofi.package}/bin/rofi";
+    user = config.home.username;
 
     fish-aliases = pkgs.writeScript "fish-aliases" ''
         #!${fish} -i
@@ -130,9 +132,17 @@ in
     "${mod}+w" = ''exec ${i3-workspace-name}'';
 
     # notification center
-    "${mod}+n" = ''exec test "$(${dunstctl} is-paused)" = false && ${dunstctl} close'';
-    "${mod}+Shift+n" = ''exec ${dunstctl} set-paused toggle'';
-    "${mod}+Control+n" = ''exec test "$(${dunstctl} is-paused)" = false && ${dunstctl} close-all'';
+    "${mod}+n" = ''
+        exec test "$(${dunstctl} is-paused)" = false \
+        && ${dunstctl} close \
+        && ${pkill} -u ${user} -SIGRTMIN+0 i3status-rs
+    '';
+    "${mod}+Shift+n" = ''
+        exec test "$(${dunstctl} is-paused)" = false \
+        && ${dunstctl} history-pop \
+        && ${pkill} -u ${user} -SIGRTMIN+0 i3status-rs
+    '';
+    "${mod}+Control+n" = ''exec ${dunstctl} set-paused toggle'';
 
     # start a new terminal
     "${mod}+Return" = ''exec ${alacritty}'';
