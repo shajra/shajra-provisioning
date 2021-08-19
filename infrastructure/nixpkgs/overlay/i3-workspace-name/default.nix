@@ -41,7 +41,7 @@ get_input()
 {
     rofi -dmenu \
         -lines 0 \
-        -p 'New name' \
+        -p 'workspace name' \
         -theme-str '
             entry { placeholder: ""; }
             inputbar { children: [prompt, textbox-prompt-colon, entry]; }
