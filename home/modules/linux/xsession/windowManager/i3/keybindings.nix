@@ -130,8 +130,8 @@ in
     "${mod}+w" = ''exec ${i3-workspace-name}'';
 
     # notification center
-    "${mod}+n" = ''exec ${dunstctl} set-paused toggle'';
-    "${mod}+Shift+n" = ''exec test "$(${dunstctl} is-paused)" = false && ${dunstctl} close'';
+    "${mod}+n" = ''exec test "$(${dunstctl} is-paused)" = false && ${dunstctl} close'';
+    "${mod}+Shift+n" = ''exec ${dunstctl} set-paused toggle'';
     "${mod}+Control+n" = ''exec test "$(${dunstctl} is-paused)" = false && ${dunstctl} close-all'';
 
     # start a new terminal
