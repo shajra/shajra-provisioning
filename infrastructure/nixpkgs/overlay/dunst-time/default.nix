@@ -45,6 +45,8 @@ main()
         --urgency "$urgency" \
         "$summary" \
         "$body"
+
+    return "$exit_code"
 }
 
 pretty_command()
