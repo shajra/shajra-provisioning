@@ -13,7 +13,7 @@ in
     programs.bash = import programs/bash;
     programs.firefox = import programs/firefox pkgs;
     programs.i3status-rust.enable = true;
-    programs.rofi.enable = true;
+    programs.rofi = import programs/rofi;
     programs.zathura.enable = true;
 
     services.dunst = import services/dunst config pkgs;

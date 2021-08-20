@@ -10,7 +10,7 @@ config: pkgs:
             corner_radius = 24;
             dmenu = "${config.programs.rofi.package}/bin/rofi -dmenu";
             ellipsize = "end";
-            font = "SourceSerifPro";
+            font = "Source Serif Pro";
             format = "<b>%s</b> %b";
             frame_width = 8;
             geometry = "1200x0-50+100";
