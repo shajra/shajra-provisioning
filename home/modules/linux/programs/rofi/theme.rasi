@@ -12,7 +12,7 @@
     solarized-base1:     #93a1a1;    // shadowed comments
     solarized-base2:     #eee8d5;    // background highlights
     solarized-base3:     #fdf6e3;    // background
-    solarized-base3-tr:  #fdf6e3b0;  // background (transparent)
+    solarized-base3-tr:  #fdf6e3c0;  // background (transparent)
     solarized-yellow:    #b58900;
     solarized-orange:    #cb4b16;
     solarized-red:       #dc322f;
@@ -57,7 +57,7 @@ window {
     border-radius: 24px;
     background-color: @background-color;
     border:           8;
-    padding:          2;
+    padding:          24;
 }
 
 mainbox {

@@ -41,11 +41,8 @@ get_input()
 {
     rofi -dmenu \
         -lines 0 \
-        -p 'workspace name' \
-        -theme-str '
-            entry { placeholder: ""; }
-            inputbar { children: [prompt, textbox-prompt-colon, entry]; }
-        '
+        -p 'workspace name: ' \
+        -theme-str 'inputbar { children: [prompt, entry]; }'
 }
 
 trim()

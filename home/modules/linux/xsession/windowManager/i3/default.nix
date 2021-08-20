@@ -25,5 +25,8 @@ in
             (runOnce "${autorandr-exe} --change --default home")
         ];
         terminal = alacritty-exe;
+        window = {
+            border = 3;
+        };
     };
 }
