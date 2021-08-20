@@ -26,9 +26,10 @@ in
         };
         bored = {
             body = ''
-                nix-channel --update
-                and unison
+                unison
+                and nix-channel --update
                 and pull-all
+                and nix search --update-cache > /dev/null
             '';
         };
         org-refs = {
