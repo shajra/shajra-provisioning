@@ -72,6 +72,7 @@ in
         la= "exa --icons --group-directories-first -lah";
         l = "exa --icons --group-directories-first";
         ll= "exa --icons --group-directories-first -l";
+        nnn = "nnn -C";
         t = "dunst-time";
         unison = "unison -ui text";
         view = "vim -R";

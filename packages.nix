@@ -38,6 +38,7 @@ let
         "nix-diff"
         "nixfmt"
         "nix-index"
+        "nnn"
         "nodePackages.textlint"
         "pandoc"
         "paperkey"
