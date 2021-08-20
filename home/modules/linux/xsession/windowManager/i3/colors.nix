@@ -25,10 +25,10 @@ in
 
 {
     #                             border bground text   indicator cborder
-    urgent          = clientColor orange base2   orange red       orange;
+    urgent          = clientColor base1  base2   orange red       base1;
     focused         = clientColor green  green   base3  yellow    green;
-    focusedInactive = clientColor base1  base2   violet violet    base1;
-    unfocused       = clientColor base1  base2   base00 violet    base1;
+    focusedInactive = clientColor base1  base2   violet base00    base1;
+    unfocused       = clientColor base1  base2   base00 base00    base1;
     placeholder     = clientColor base03 base02  base0  base03    base03;
     background      = base0;
 }
