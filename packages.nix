@@ -172,9 +172,6 @@ let
                     dunst-time
                     i3-init
                     moneydance;
-                texlive = texlive.combine {
-                    inherit (texlive) capt-of scheme-medium wrapfig;
-                };
             };
         in if isDarwin then {} else pkgs;
 
