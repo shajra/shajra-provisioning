@@ -8,6 +8,8 @@ in
 {
     imports = [ ../base ];
 
+    gtk = import ./gtk pkgs;
+
     home.file = import home/file config pkgs sources;
 
     programs.bash = import programs/bash;

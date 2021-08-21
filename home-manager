@@ -4,6 +4,7 @@ cd "$(dirname "$0")"
 
 nix run \
     --ignore-environment \
+    --keep DBUS_SESSION_BUS_ADDRESS \
     --keep HOME \
     --keep TERM \
     --keep TERMINFO \

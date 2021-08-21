@@ -106,6 +106,7 @@ manage()
         HOME="$HOME" \
         PATH="$PATH" \
         TERM="$TERM" \
+        DBUS_SESSION_BUS_ADDRESS="$DBUS_SESSION_BUS_ADDRESS" \
         TERMINFO="''${TERMINFO:-}" \
         USER="$USER" \
         NIX_PATH="nixpkgs=${sources.nixpkgs-home}" \
