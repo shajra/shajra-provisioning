@@ -38,7 +38,6 @@
         "scientific".revision = (((hackage."scientific")."0.3.7.0").revisions).default;
         "scientific".flags.integer-simple = false;
         "scientific".flags.bytestring-builder = false;
-        "hpc".revision = (((hackage."hpc")."0.6.1.0").revisions).default;
         "alex".revision = (((hackage."alex")."3.2.6").revisions).default;
         "alex".flags.small_base = true;
         "distributive".revision = (((hackage."distributive")."0.6.2.1").revisions).default;
@@ -68,7 +67,7 @@
         "tagged".revision = (((hackage."tagged")."0.8.6.1").revisions).default;
         "tagged".flags.deepseq = true;
         "tagged".flags.transformers = true;
-        "ghc-lib-parser".revision = (((hackage."ghc-lib-parser")."8.10.5.20210606").revisions).default;
+        "ghc-lib-parser".revision = (((hackage."ghc-lib-parser")."8.10.6.20210814").revisions).default;
         "base-orphans".revision = (((hackage."base-orphans")."0.8.4").revisions).default;
         "primitive".revision = (((hackage."primitive")."0.7.2.0").revisions).default;
         "directory".revision = (((hackage."directory")."1.3.6.0").revisions).default;
@@ -129,7 +128,6 @@
           "template-haskell" = "2.16.0.0";
           "pretty" = "1.1.3.6";
           "process" = "1.6.9.0";
-          "hpc" = "0.6.1.0";
           "base" = "4.14.2.0";
           "rts" = "1.0.1";
           "text" = "1.2.4.1";
@@ -184,7 +182,6 @@
           "optparse-applicative".components.library.planned = lib.mkOverride 900 true;
           "random".components.library.planned = lib.mkOverride 900 true;
           "process".components.library.planned = lib.mkOverride 900 true;
-          "hpc".components.library.planned = lib.mkOverride 900 true;
           "scientific".components.library.planned = lib.mkOverride 900 true;
           "dlist".components.library.planned = lib.mkOverride 900 true;
           "pretty".components.library.planned = lib.mkOverride 900 true;
