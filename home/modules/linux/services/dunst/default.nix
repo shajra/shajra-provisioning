@@ -17,6 +17,7 @@ config: pkgs:
             horizontal_padding = 24;
             markup = "full";
             min_icon_size = 64;
+            max_icon_size = 64;
             padding = 12;
             progress_bar_frame_width = 2;
             progress_bar_height = 24;

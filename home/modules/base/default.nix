@@ -23,7 +23,7 @@ in
     programs.bash.enable = true;
     programs.bat.config = { theme = "Solarized (light)"; };
     programs.bat.enable = true;
-    programs.broot.enable = true;
+    programs.broot = import programs/broot;
     programs.dircolors.enable = true;
     programs.dircolors.extraConfig = builtins.readFile "${sources.dircolors-solarized}/dircolors.ansi-light";
     programs.direnv.enableFishIntegration = false;
