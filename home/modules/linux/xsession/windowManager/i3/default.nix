@@ -1,7 +1,7 @@
 config: pkgs:
 
 let
-    alacritty-exe = "${config.programs.alacritty.package}/bin/alacritty";
+    kitty-exe = "${pkgs.kitty}/bin/kitty";
     autorandr-exe = "${pkgs.autorandr}/bin/autorandr";
     i3msg-exe  = "${config.xsession.windowManager.i3.package}/bin/i3-msg";
     i3status-exe  = "${config.programs.i3status-rust.package}/bin/i3status-rs";
@@ -17,14 +17,14 @@ in
         colors = import ./colors.nix;
         fonts = ["Source Serif Pro 10"];
         floating.criteria = [ { class = "Pavucontrol"; } ];
-        keybindings = import ./keybindings.nix modifier config pkgs alacritty-exe;
+        keybindings = import ./keybindings.nix modifier config pkgs kitty-exe;
         modes = import ./modes.nix modifier;
         modifier = "Mod4";
         startup = [
             (runOnce "${i3msg-exe} workspace 1")
             (runOnce "${autorandr-exe} --change --default home")
         ];
-        terminal = alacritty-exe;
+        terminal = kitty-exe;
         window = {
             border = 3;
         };

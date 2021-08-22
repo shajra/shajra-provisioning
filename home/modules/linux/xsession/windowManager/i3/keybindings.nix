@@ -1,4 +1,4 @@
-mod: config: pkgs: alacritty:
+mod: config: pkgs: kitty:
 
 let
     autorandr = "${pkgs.autorandr}/bin/autorandr";
@@ -144,7 +144,7 @@ in
     "${mod}+Control+n" = ''exec ${dunstctl} set-paused toggle'';
 
     # start a new terminal
-    "${mod}+Return" = ''exec ${alacritty}'';
+    "${mod}+Return" = ''exec ${kitty} --single-instance'';
 
     # run dmenu run launcher
     "${mod}+F2" = ''exec ${rofi} -show window'';
@@ -161,8 +161,8 @@ in
         + '' -run-command "${fish} -i -c '{cmd}'"'';
 
     # run dmenu ssh launcher
-    "${mod}+F4" = ''exec ${rofi} -show ssh -terminal "${alacritty}"'';
-    "${mod}+g" = ''exec ${rofi} -show ssh -terminal "${alacritty}"'';
+    "${mod}+F4" = ''exec ${rofi} -show ssh -terminal "${kitty} --single-instance"'';
+    "${mod}+g" = ''exec ${rofi} -show ssh -terminal "${kitty} --single-instance"'';
 
     # kill the current client
     "${mod}+q" = "kill";
