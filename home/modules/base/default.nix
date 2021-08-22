@@ -46,11 +46,11 @@ in
     programs.neovim = import programs/neovim pkgs;
     programs.newsboat.enable = true;
     programs.noti.enable = true;
-    programs.pazi.enable = true;
     programs.readline.enable = true;
     programs.skim.enable = true;
     programs.starship = import programs/starship;
     programs.urxvt.enable = true;
+    programs.zoxide.enable = true;
 
     xdg.configFile = import xdg/configFile config pkgs sources;
 }

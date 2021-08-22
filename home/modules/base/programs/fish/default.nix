@@ -86,8 +86,8 @@ in
         emacs-min = "emacs --with-profile min & disown";
         emacs-space = "emacs --with-profile space & disown";
         g = "git";
-        j = "pazi_cd";
-        jf = "pazi_cd --pipe fzf";
+        ji = "__zoxide_zi";
+        j = "__zoxide_z";
         l1= "exa --icons --group-directories-first -1";
         la= "exa --icons --group-directories-first -lah";
         l = "exa --icons --group-directories-first";
