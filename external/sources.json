@@ -1,5 +1,5 @@
 {
-    "colored_man_pages": {
+    "colored_man_pages.fish": {
         "branch": "main",
         "description": "Fish shell plugin to colorize man pages",
         "homepage": "",
@@ -57,6 +57,18 @@
         "sha256": "1v4rdx04fmk5qwapkgisasrkidnc17ns7qm7rpr910jwn9ri9s2q",
         "type": "tarball",
         "url": "https://github.com/nix-community/emacs-overlay/archive/31faed68033c6aff73002a57db29c8235ddfd112.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "fzf.fish": {
+        "branch": "main",
+        "description": "Augment your fish command line with fzf key bindings.",
+        "homepage": "",
+        "owner": "PatrickF1",
+        "repo": "fzf.fish",
+        "rev": "176c8465b0fad2d5c30aacafff6eb5accb7e3826",
+        "sha256": "16mdfyznxjhv7x561srl559misn37a35d2q9fspxa7qg1d0sc3x9",
+        "type": "tarball",
+        "url": "https://github.com/PatrickF1/fzf.fish/archive/176c8465b0fad2d5c30aacafff6eb5accb7e3826.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "haskell.nix": {

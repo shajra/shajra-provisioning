@@ -1,10 +1,10 @@
-pkgs: colored_man-raw:
+pkgs: sources:
 
 let
 
     # DESIGN: Make colors Solarized Light
     colored_man = pkgs.runCommand "colored_man" {} ''
-        cp -r "${colored_man-raw}" "$out"
+        cp -r "${sources."colored_man_pages.fish"}" "$out"
         substituteInPlace "$out/functions/cless.fish" \
             --replace '[38;5;31m'  '[36m' \
             --replace '[38;5;70m'  '[32m' \
@@ -69,10 +69,16 @@ in
         set EDITOR vim
     '';
 
-    plugins = [{
-        name = "colored_man";
-        src = colored_man;
-    }];
+    plugins = [
+        {
+            name = "colored_man";
+            src = colored_man;
+        }
+        {
+            name = "fzf" ;
+            src = sources."fzf.fish";
+        }
+    ];
 
     shellAliases = {
         c = "bat";
@@ -81,6 +87,7 @@ in
         emacs-space = "emacs --with-profile space & disown";
         g = "git";
         j = "pazi_cd";
+        jf = "pazi_cd --pipe fzf";
         l1= "exa --icons --group-directories-first -1";
         la= "exa --icons --group-directories-first -lah";
         l = "exa --icons --group-directories-first";
