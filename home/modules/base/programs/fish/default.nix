@@ -17,7 +17,17 @@ in
     enable = true;
 
     functions = {
+        path-rebuild = {
+            description = "Rebuild fish_user_paths";
+            body = ''
+                set --erase --universal fish_user_paths
+                for d in ~/src/live/*/bin
+                    fish_add_path --universal $d
+                end
+            '';
+        };
         pull-all = {
+            description = "Git pull all under ~/src/live";
             body = ''
                 for d in ~/src/live/*
                     git -C "$d" pull
@@ -25,6 +35,7 @@ in
             '';
         };
         bored = {
+            description = "Things to run when bored";
             body = ''
                 unison
                 and nix-channel --update
@@ -33,6 +44,7 @@ in
             '';
         };
         org-refs = {
+            description = "Report references found in Org files";
             body = ''
                 rg --type org --only-matching --no-filename --no-line-number \
                         '\[\[([^\]]+)\]' --replace '$1' \
@@ -41,6 +53,7 @@ in
             '';
         };
         org-nix-propagate = {
+            description = "Copy nix.org from master project to rest";
             body = ''
                 find ~/src/shajra \
                     -name nix.org \
