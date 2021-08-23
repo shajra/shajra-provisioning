@@ -3,6 +3,7 @@ mod: config: pkgs: kitty:
 let
     autorandr = "${pkgs.autorandr}/bin/autorandr";
     awk = "${pkgs.gawk}/bin/awk";
+    clipmenu = "${config.services.clipmenu.package}/bin/clipmenu";
     dunstctl = "${pkgs.dunst}/bin/dunstctl";
     dunst-osd = "${pkgs.dunst-osd}/bin/dunst-osd";
     firefox = "${config.programs.firefox.package}/bin/firefox";
@@ -14,9 +15,13 @@ let
 
     fish-aliases = pkgs.writeScript "fish-aliases" ''
         #!${fish} -i
-
         alias | "${awk}" '{print $2}'
     '';
+
+    rofi-clip = pkgs.writers.writeDashBin "rofi-clip" ''
+        exec "${rofi}" -dmenu -p 'clip' "$@"
+    '';
+
 in
 
 {
@@ -163,6 +168,9 @@ in
     # run dmenu ssh launcher
     "${mod}+F4" = ''exec ${rofi} -show ssh -terminal "${kitty} --single-instance"'';
     "${mod}+g" = ''exec ${rofi} -show ssh -terminal "${kitty} --single-instance"'';
+
+    # clipboard management
+    "${mod}+c" = ''exec CM_LAUNCHER=${rofi-clip}/bin/rofi-clip ${clipmenu}'';
 
     # kill the current client
     "${mod}+q" = "kill";

@@ -16,6 +16,11 @@ set solarized_cyan      "2aa198"
 set solarized_green     "859900"
 
 set --export --universal FZF_DEFAULT_OPTS "
+    --cycle
+    --layout=reverse
+    --border
+    --height=90%
+    --preview-window=wrap
     --color=fg:#$solarized_base00
     --color=fg+:#$solarized_base01
     --color=bg:#$solarized_base3

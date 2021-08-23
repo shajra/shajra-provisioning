@@ -67,6 +67,12 @@ in
         umask 077
         fish_vi_key_bindings
         set EDITOR vim
+        bind \ej fzf-cd-widget
+        bind \ef _fzf_search_directory
+        if bind -M insert > /dev/null 2>&1
+            bind -M insert \ej fzf-cd-widget
+            bind -M insert \ef _fzf_search_directory
+        end
     '';
 
     plugins = [

@@ -2,7 +2,10 @@ pkgs:
 
 {
     enable = true;
-    extraConfig = "font_size 11";
+    extraConfig = ''
+        font_size 11
+        scrollback_pager nvim -u NORC -c 'set ft=man' -
+    '';
     font.name = "SauceCodePro Nerd Font Mono";
     font.package = pkgs.nerdfonts;
     settings = {

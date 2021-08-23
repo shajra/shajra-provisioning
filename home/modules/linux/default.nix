@@ -14,11 +14,13 @@ in
 
     programs.bash = import programs/bash;
     programs.firefox = import programs/firefox pkgs;
+    programs.fish = import programs/fish config pkgs;
     programs.i3status-rust.enable = true;
     programs.rofi = import programs/rofi;
     programs.texlive = import programs/texlive;
     programs.zathura.enable = true;
 
+    services.clipmenu.enable = true;
     services.dunst = import services/dunst config pkgs;
     services.gammastep.enable = true;
     services.gammastep.provider = "geoclue2";
