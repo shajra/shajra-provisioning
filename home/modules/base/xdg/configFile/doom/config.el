@@ -26,7 +26,8 @@
  org-log-into-drawer t
  org-startup-folded 'content
  projectile-project-search-path '("~/src/work/" "~/src/shajra/")
- whitespace-line-column 79)
+ whitespace-line-column 79
+ x-select-enable-clipboard nil)
 
 (add-to-list '+org-babel-mode-alist '(fish . shell))
 
