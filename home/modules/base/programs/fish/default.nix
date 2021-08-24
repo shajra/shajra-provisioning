@@ -2,7 +2,8 @@ pkgs: sources:
 
 let
 
-    # DESIGN: Make colors Solarized Light
+    exa-preview = "${pkgs.exa}/bin/exa --icons --group-directories-first -1";
+
     colored_man = pkgs.runCommand "colored_man" {} ''
         cp -r "${sources."colored_man_pages.fish"}" "$out"
         substituteInPlace "$out/functions/cless.fish" \
@@ -63,10 +64,15 @@ in
         };
     };
 
+    shellInit = ''
+        set fzf_preview_dir_cmd ${exa-preview}
+        set fzf_preview_file_cmd "${pkgs.bat}/bin/bat"
+    '';
+
     interactiveShellInit = ''
         umask 077
-        fish_vi_key_bindings
         set EDITOR vim
+        fish_vi_key_bindings
         bind \ej fzf-cd-widget
         bind \ef _fzf_search_directory
         if bind -M insert > /dev/null 2>&1
@@ -94,10 +100,10 @@ in
         g = "git";
         ji = "__zoxide_zi";
         j = "__zoxide_z";
-        l1= "exa --icons --group-directories-first -1";
-        la= "exa --icons --group-directories-first -lah";
+        l1 = exa-preview;
+        la = "exa --icons --group-directories-first -lah";
         l = "exa --icons --group-directories-first";
-        ll= "exa --icons --group-directories-first -l";
+        ll = "exa --icons --group-directories-first -l";
         nnn = "nnn -C";
         t = "dunst-time";
         unison = "unison -ui text";
