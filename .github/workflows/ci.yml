@@ -111,7 +111,7 @@ jobs:
         name: shajra
         signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
     - run: cat ~/.config/nix/nix.conf
-    - run: ./darwin-rebuild --target EEM099LMBP-1 build
-    - run: ./home-manager   --target EEM099LMBP-1 build
+    - run: ./darwin-rebuild --target EEM099LMBP-1.local build
+    - run: ./home-manager   --target EEM099LMBP-1.local build
 
 
