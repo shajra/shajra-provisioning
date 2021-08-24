@@ -4,8 +4,16 @@ let
 
     exa-preview = "${pkgs.exa}/bin/exa --icons --group-directories-first -1";
 
-    colored_man = pkgs.runCommand "colored_man" {} ''
+    man-colored = pkgs.runCommand "man-colored" {} ''
         cp -r "${sources."colored_man_pages.fish"}" "$out"
+        chmod -R +w "$out"
+
+        # DESIGN: Renaming to avoid infinite recursion when wrapping
+        mv "$out/functions/man.fish" "$out/functions/man-colored.fish"
+        substituteInPlace "$out/functions/man-colored.fish" \
+            --replace 'function man'  'function man-colored' \
+
+        # DESIGN: Make colors Solarized Light
         substituteInPlace "$out/functions/cless.fish" \
             --replace '[38;5;31m'  '[36m' \
             --replace '[38;5;70m'  '[32m' \
@@ -18,6 +26,19 @@ in
     enable = true;
 
     functions = {
+        man = {
+            description = "Color man pages with a reasonable width";
+            body = ''
+                set --export MANWIDTH (
+                    if [ $COLUMNS -gt 80 ]
+                        echo 80
+                    else
+                        echo $COLUMNS
+                    end
+                )
+                man-colored $argv
+            '';
+        };
         path-rebuild = {
             description = "Rebuild fish_user_paths";
             body = ''
@@ -83,8 +104,8 @@ in
 
     plugins = [
         {
-            name = "colored_man";
-            src = colored_man;
+            name = "man-colored";
+            src = man-colored;
         }
         {
             name = "fzf" ;
@@ -105,6 +126,7 @@ in
         l = "exa --icons --group-directories-first";
         ll = "exa --icons --group-directories-first -l";
         nnn = "nnn -C";
+        m = "man";
         t = "dunst-time";
         unison = "unison -ui text";
         view = "vim -R";
