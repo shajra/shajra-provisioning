@@ -26,6 +26,7 @@
  org-log-into-drawer t
  org-startup-folded 'content
  projectile-project-search-path '("~/src/work/" "~/src/shajra/")
+ warning-suppress-types '((with-editor))
  whitespace-line-column 79
  x-select-enable-clipboard nil)
 
