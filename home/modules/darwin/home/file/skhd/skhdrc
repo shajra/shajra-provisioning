@@ -13,16 +13,20 @@
 #     - lalt + cmd + shift
 
 # define modes
-:: default   : yabai -m config active_window_border_color 0xffb58900; yabai -m config window_border_width 4
-:: size    @ : yabai -m config active_window_border_color 0xff859900; yabai -m config window_border_width 8
-:: ins     @ : yabai -m config active_window_border_color 0xff268bd2; yabai -m config window_border_width 8
+:: default    : yabai -m config active_window_border_color 0xffb58900; yabai -m config window_border_width  4
+:: passthru   : yabai -m config active_window_border_color 0xffd33682; yabai -m config window_border_width  8
+:: size     @ : yabai -m config active_window_border_color 0xff859900; yabai -m config window_border_width 12
+:: ins      @ : yabai -m config active_window_border_color 0xff268bd2; yabai -m config window_border_width 12
 
 # switch to modes
-size, ins < lalt + shift - escape ; default
+size, ins, passthru < lalt + shift - escape ; default
+size, ins < escape ; default
 lalt - s ; size
 size < lalt - s ; default
 lalt - i ; ins
 ins < lalt - i ; default
+lalt - 0x18 ; passthru
+passthru < lalt - 0x18 ; default
 
 # open terminal
 #lalt - return : /Users/sukant/.nix-profile/Applications/Alacritty.app/Contents/MacOS/alacritty
