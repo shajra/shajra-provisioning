@@ -14,6 +14,12 @@
 # yabai -m config status_bar_space_icon        
 # yabai -m config status_bar_clock_icon        
 
+
+# initialization
+# DESIGN: https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)#macos-big-sur---automatically-load-scripting-addition-on-startup
+sudo yabai --load-sa
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+
 # global settings
 yabai -m config mouse_follows_focus          off
 yabai -m config focus_follows_mouse          off

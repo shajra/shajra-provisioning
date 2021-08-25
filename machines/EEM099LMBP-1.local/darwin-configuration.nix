@@ -7,6 +7,10 @@ let
 in
 
 {
+    environment.etc."sudoers.d/yabai".text = ''
+        sukant ALL = (root) NOPASSWD: ${pkgs.yabai}/bin/yabai --load-sa
+    '';
+
     environment.systemPackages = [];
 
     homebrew = import ./homebrew;
