@@ -4,7 +4,7 @@ let
 
     clipmenu = "${config.services.clipmenu.package}/bin/clipmenu";
     fzf = "${config.programs.fzf.package}/bin/fzf";
-    fzf-clip = pkgs.writers.writeDashBin "fzf-clip" ''
+    fzf-clip = pkgs.writers.writeDash "fzf-clip" ''
         ${fzf} --cycle --layout=reverse --border --height=90%
     '';
 in
@@ -15,7 +15,7 @@ in
             description = "Select a clip from clipmenu via fzf";
             body = ''
                 set result (
-                    CM_LAUNCHER="${fzf-clip}/bin/fzf-clip" \
+                    CM_LAUNCHER="${fzf-clip}" \
                         CM_OUTPUT_CLIP=1 \
                         "${clipmenu}"
                 )

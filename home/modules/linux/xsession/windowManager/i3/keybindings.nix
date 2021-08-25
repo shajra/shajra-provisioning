@@ -18,7 +18,7 @@ let
         alias | "${awk}" '{print $2}'
     '';
 
-    rofi-clip = pkgs.writers.writeDashBin "rofi-clip" ''
+    rofi-clip = pkgs.writers.writeDash "rofi-clip" ''
         exec "${rofi}" -dmenu -p 'clip' "$@"
     '';
 
@@ -170,7 +170,7 @@ in
     "${mod}+g" = ''exec ${rofi} -show ssh -terminal "${kitty} --single-instance"'';
 
     # clipboard management
-    "${mod}+c" = ''exec CM_LAUNCHER=${rofi-clip}/bin/rofi-clip ${clipmenu}'';
+    "${mod}+c" = ''exec CM_LAUNCHER=${rofi-clip} ${clipmenu}'';
 
     # kill the current client
     "${mod}+q" = "kill";
