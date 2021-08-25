@@ -28,7 +28,7 @@
  projectile-project-search-path '("~/src/work/" "~/src/shajra/")
  warning-suppress-types '((with-editor))
  whitespace-line-column 79
- x-select-enable-clipboard nil)
+ x-select-enable-clipboard (eq system-type 'darwin))
 
 (add-to-list '+org-babel-mode-alist '(fish . shell))
 
