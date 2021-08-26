@@ -21,6 +21,7 @@ set --export --universal FZF_DEFAULT_OPTS "
     --border
     --height=90%
     --preview-window=wrap
+    --bind='ctrl-p:toggle-preview'
     --color=fg:#$solarized_base00
     --color=fg+:#$solarized_base01
     --color=bg:#$solarized_base3
