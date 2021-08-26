@@ -13,6 +13,7 @@
         #     - "haskell-nix": limit to packages built with Haskell.nix
         #     - "shajra": limit to https://github.com/shajra projects
         infrastructure = "all";
+        dev = false;  # true, to skip Haskell.nix build for a faster dev cycle
     };
 
     infrastructure = {

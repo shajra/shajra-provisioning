@@ -27,7 +27,7 @@ in
     services.picom.enable = true;
     services.xsuspender = import services/xsuspender;
 
-    xresources = import ./xresources;
+    xresources = import ./xresources config;
 
     xsession = import ./xsession config pkgs;
 }

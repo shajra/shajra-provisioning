@@ -191,7 +191,7 @@ in
     "${mod}+r" = "mode \"resize\"";
 
     # passthrough mode
-    "${mod}+Control+Escape" = "mode \"passthrough\"";
+    "${mod}+Escape" = "mode \"passthrough\"";
 
     # marks
     "${mod}+Shift+m" = "move window to mark *; unmark *";

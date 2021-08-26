@@ -29,7 +29,7 @@ in
     programs.direnv.enableFishIntegration = false;
     programs.direnv.enable = true;
     programs.feh.enable = true;
-    programs.fish = import programs/fish pkgs sources;
+    programs.fish = import programs/fish pkgs sources build.infra.isDarwin;
     programs.fzf.enable = true;
     programs.gh.enable = true;
     programs.git = import programs/git sources.delta;

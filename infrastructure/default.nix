@@ -1,6 +1,7 @@
 { checkMaterialization
 , infraConfig
 , sources
+, isDevBuild
 }:
 
 let
@@ -17,5 +18,5 @@ let
     };
 
 in {
-    inherit hn np sources isDarwin;
+    inherit hn np sources isDarwin isDevBuild;
 }

@@ -29,6 +29,7 @@ let
     infra = import ./infrastructure {
         inherit checkMaterialization sources;
         infraConfig = config.infrastructure;
+        isDevBuild = config.build.dev;
     };
 
     myPkgs = import ./packages.nix infra;

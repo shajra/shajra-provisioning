@@ -2,9 +2,12 @@
 , hn
 , sources
 , isDarwin
+, isDevBuild
 }:
 
 let
+
+    ifNotDev = np.nixpkgs-stable.lib.optionalAttrs (! isDevBuild);
 
     pickHome = np.pick {
         linux  = "unstable";
@@ -176,12 +179,12 @@ let
             };
         in if isDarwin then {} else pkgs;
 
-    haskell-nix.prebuilt = with hn.nixpkgs.haskell-nix; {
+    haskell-nix.prebuilt = {
         # DESIGN: don't use enough to want to think about a cache miss
-        #nix-tools = nix-tools.ghc8105;
+        #nix-tools = hn.nixpkgs.haskell-nix.nix-tools.ghc8105;
     };
 
-    haskell-nix.build = {}
+    haskell-nix.build = ifNotDev ({}
         // (hn.fromHackage "ghc8105" "apply-refact")
         // (hn.fromHackage "ghc8105" "ghcid")
         // (hn.fromHackage "ghc8105" "hlint")
@@ -190,7 +193,7 @@ let
         # DESIGN: marked broken in Nixpkgs, doesn't seem to build with
         # Haskell.nix either
         #// (hn.fromHackage "ghc8103" "ghc-events-analyze")
-        ;
+        );
 
     shajra.build =
         let hls = ghcVersion:
@@ -199,7 +202,7 @@ let
                     hlsUnstable = false;
                 };
             tags = import sources.nix-haskell-tags;
-        in {
+        in ifNotDev {
             implicit-hie        = (hls "8.10.5").implicit-hie;
             haskell-hls-wrapper = (hls "8.10.5").hls-wrapper;
             haskell-hls-ghc8105 = (hls "8.10.5").hls-renamed;

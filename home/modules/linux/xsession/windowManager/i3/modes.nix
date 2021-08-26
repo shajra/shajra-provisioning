@@ -23,13 +23,15 @@ mod:
         "Right"       = "resize grow   right 1 px or 1 ppt";
         "Shift+Right" = "resize shrink right 1 px or 1 ppt";
 
-        "${mod}+Escape" = "mode \"default\"";
-        "${mod}+r"      = "mode \"default\"";
-        "Escape"        = "mode \"default\"";
-        "Return"        = "mode \"default\"";
+        "${mod}+Escape"       = "mode \"default\"";
+        "${mod}+Shift+Escape" = "mode \"default\"";
+        "${mod}+r"            = "mode \"default\"";
+        "Escape"              = "mode \"default\"";
+        "Return"              = "mode \"default\"";
     };
 
     passthrough = {
-        "${mod}+Control+Escape" = "mode \"default\"";
+        "${mod}+Escape"       = "mode \"default\"";
+        "${mod}+Shift+Escape" = "mode \"default\"";
     };
 }
