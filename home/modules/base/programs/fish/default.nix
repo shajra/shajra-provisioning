@@ -73,6 +73,22 @@ in
     enable = true;
 
     functions = {
+        broot-dir = {
+            description = "Jump into a deep directory with Broot";
+            body = ''
+                if [ -n "$argv[1]" ]
+                    br --only-folders --cmd "$argv[1] cd"
+                else
+                    br --only-folders
+                end
+            '';
+        };
+        broot-tree = {
+            description = "Directory tree with Broot";
+            body = ''
+                br -c :pt $argv
+            '';
+        };
         zoxide-smart = {
             description = "Autojump if obvious, else fuzzy search";
             body = ''
@@ -178,6 +194,8 @@ in
     ];
 
     shellAliases = {
+        brd = "broot-dir";
+        brt = "broot-tree";
         c = "bat";
         emacs-doom = "emacs --with-profile doom & disown";
         emacs-min = "emacs --with-profile min & disown";
