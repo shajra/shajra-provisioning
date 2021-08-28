@@ -22,6 +22,7 @@ in
 
     services.clipmenu.enable = true;
     services.dunst = import services/dunst config pkgs;
+    services.emacs = import services/emacs;
     services.gammastep.enable = true;
     services.gammastep.provider = "geoclue2";
     services.picom.enable = true;
