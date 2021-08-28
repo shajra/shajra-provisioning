@@ -46,7 +46,7 @@ in
     programs.neovim = import programs/neovim pkgs;
     programs.newsboat.enable = true;
     programs.noti.enable = true;
-    programs.readline.enable = true;
+    programs.readline = import programs/readline;
     programs.skim.enable = true;
     programs.starship = import programs/starship;
     programs.urxvt.enable = true;
