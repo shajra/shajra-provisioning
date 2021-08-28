@@ -197,6 +197,7 @@ in
         brd = "broot-dir";
         brt = "broot-tree";
         c = "bat";
+        ec = "emacsclient -c -n";
         emacs-doom = "emacs --with-profile doom & disown";
         emacs-min = "emacs --with-profile min & disown";
         emacs-space = "emacs --with-profile space & disown";
