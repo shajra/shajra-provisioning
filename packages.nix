@@ -139,23 +139,10 @@ let
         "xorg.xev"
     ];
 
-    nixpkgs.common.build.topLevel = pickHome [ "global" ] // {
-        emacs =
-            let nixpkgs =
-                    if isDarwin
-                    then np.nixpkgs-stable
-                    else np.nixpkgs-unstable;
-                raw =
-                    if isDarwin
-                    then
-                        # DESIGN: not built/cached in Hydra, trying out
-                        nixpkgs.emacsGcc
-                    else nixpkgs.emacsGcc;
-            in (nixpkgs.emacsPackagesFor raw).emacsWithPackages
-                (epkgs: with epkgs.melpaPackages; [
-                    vterm emacsql emacsql-sqlite
-                ]);
-    };
+    nixpkgs.common.build.topLevel = pickHome [
+        "global"
+        "emacsGcc"  # DESIGN: prebuilt/cached for Linux, but not Darwin
+    ];
 
     nixpkgs.common.build.haskell = {}
         // (np.hs.fromPackages "unstable" "ghc8104" "djinn")

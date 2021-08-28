@@ -4,9 +4,12 @@ let
     build = import ../../.. {};
     infra = build.infra;
     sources = build.sources;
+    prunedPkgs = builtins.removeAttrs build.pkgs [
+        "emacsGcc"  # DESIGN: prebuilt, but passed in programs.emacs.package
+    ];
     selectedPkgs =
         # DESIGN: undoes recurseIntoAttrs to pass validation
-        builtins.filter lib.isDerivation (builtins.attrValues build.pkgs);
+        builtins.filter lib.isDerivation (builtins.attrValues prunedPkgs);
 in
 
 {
@@ -28,6 +31,7 @@ in
     programs.dircolors.extraConfig = builtins.readFile "${sources.dircolors-solarized}/dircolors.ansi-light";
     programs.direnv.enableFishIntegration = false;
     programs.direnv.enable = true;
+    programs.emacs = import programs/emacs pkgs;
     programs.feh.enable = true;
     programs.fish = import programs/fish pkgs sources build.infra.isDarwin;
     programs.fzf.enable = true;
