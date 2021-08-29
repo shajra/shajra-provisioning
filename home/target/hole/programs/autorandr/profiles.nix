@@ -1,4 +1,4 @@
-i3-init:
+i3-dpi:
 
 let
     DP-1-8 = import ./fingerprint.DP-1-8.nix;
@@ -24,7 +24,7 @@ in
             };
         };
         hooks.preswitch = ''
-            ${i3-init}/bin/i3-init 150
+            ${i3-dpi}/bin/i3-dpi 150
         '';
     };
     laptop = {
@@ -45,7 +45,7 @@ in
             };
         };
         hooks.preswitch = ''
-            ${i3-init}/bin/i3-init 235
+            ${i3-dpi}/bin/i3-dpi 235
         '';
     };
 }

@@ -1,54 +1,36 @@
 self: super:
 
 let
-    progName = "i3-init";
-    meta.description = "initial configuration for I3 window manager";
+    progName = "shajra-x-configure";
+    meta.description = "configure X for my hotplugged input devices";
 in
 
 self.nix-project-lib.writeShellCheckedExe progName
 {
     inherit meta;
 
-    # DESIGN: intentionally letting xorg.xrandr and xorg.xrdb come from
-    # /run/current-system.  This guards against incompatibility of X between
-    # nixpkgs-stable and nixpkgs-unstable.
-    pathPure = false;
+    runtimeShell = "${self.dash}/bin/dash";
     path = with self; [
         coreutils
-        i3
     ];
 }
 ''
 set -eu
-set -o pipefail
 
 
+# DESIGN: intentionally letting xset and xinput come from /run/current-system.
+# This guards against incompatibility of X between nixpkgs-stable and
+# nixpkgs-unstable.
 PATH="$PATH:/run/current-system/sw/bin"
-
-DPI="''${1:-235}"
-XRESOURCES="$HOME/.Xresources.dpi"
+export XAUTHORITY="''${XAUTHORITY:-/var/lib/lightdm/.Xauthority}"
 
 
 main()
 {
-    configure_dpi
-    restart_i3
     configure_touchpad
     configure_mouse
     configure_trackball
     set_x
-}
-
-configure_dpi()
-{
-    echo "*dpi: $DPI" > "$XRESOURCES"
-    xrdb -merge "$XRESOURCES"
-    xrandr --dpi "$DPI"
-}
-
-restart_i3()
-{
-    i3-msg restart
 }
 
 configure_touchpad()

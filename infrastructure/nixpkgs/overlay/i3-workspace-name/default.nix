@@ -9,10 +9,6 @@ self.nix-project-lib.writeShellCheckedExe progName
 {
     inherit meta;
 
-    # DESIGN: intentionally letting xorg.xrandr and xorg.xrdb come from
-    # /run/current-system.  This guards against incompatibility of X between
-    # nixpkgs-stable and nixpkgs-unstable.
-    pathPure = false;
     path = with self; [
         coreutils
         i3
@@ -22,9 +18,6 @@ self.nix-project-lib.writeShellCheckedExe progName
 ''
 set -eu
 set -o pipefail
-
-
-PATH="$PATH:/run/current-system/sw/bin"
 
 
 main()

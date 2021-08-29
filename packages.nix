@@ -14,7 +14,7 @@ let
         darwin = "stable";
     };
 
-    nixpkgs.common.prebuilt = pickHome [
+    nixpkgs.prebuilt.common.home = pickHome [
 
         # Generally used CLI tools
         "aspell"
@@ -72,21 +72,21 @@ let
         "fira"                       # variable font to complement Fira Code
         "font-awesome_5"             # for i3status-rust icons
         "freefont_ttf"               # a Unicode fallback font
-        "hasklig"                    # latest Haskell-ligatures
         "nerdfonts"                  # developer fonts with lots of icons
         "source-serif-pro"           # serif font to complement Sauce Code Pro
         "symbola"                    # another Unicode fallback font
         "twitter-color-emoji"        # for emojis
+        # DESIGN: Hasklig is also built from source below
     ];
 
-    nixpkgs.unstable.prebuilt = np.pick {
+    nixpkgs.prebuilt.common.unstable = np.pick {
         linux  = "unstable";
         darwin = "unstable";
     } [
         "haskell.compiler.ghc8104"
     ];
 
-    nixpkgs.ifDarwin.prebuilt = np.pick {
+    nixpkgs.prebuilt.ifDarwin.stable = np.pick {
         darwin = "stable";
     } [
         # TODO: figure out collision of JDK with Home Manager on Darwin
@@ -96,17 +96,11 @@ let
         "mongodb-tools"
     ];
 
-    nixpkgs.ifLinux.prebuilt.stable = np.pick {
-        linux = "unstable";
-    } [
-        # DESIGN: broken in unstable, 2021-08-01
-        "chromium"  # TODO: home-manager
-    ];
-
-    nixpkgs.ifLinux.prebuilt.unstable = np.pick {
+    nixpkgs.prebuilt.ifLinux.unstable = np.pick {
         linux = "unstable";
     } [
         "ansifilter"
+        "chromium"  # TODO: home-manager
         "dfu-programmer"
         "dfu-util"
         "discord"
@@ -139,12 +133,35 @@ let
         "xorg.xev"
     ];
 
-    nixpkgs.common.build.topLevel = pickHome [
-        "global"
+    nixpkgs.build.common.home = pickHome [
         "emacsGcc"  # DESIGN: prebuilt/cached for Linux, but not Darwin
+        "global"
+        "hasklig"
+        "shajra-home-manager"
     ];
 
-    nixpkgs.common.build.haskell = {}
+    nixpkgs.build.ifLinux.unstable =
+        np.nixpkgs-stable.lib.optionalAttrs (! isDarwin) {
+            inherit (np.nixpkgs-unstable)
+            dunst-osd
+            dunst-time
+            i3-dpi
+            i3-workspace-name
+            i3status-rust-dunst
+            lan-jelly
+            moneydance
+            shajra-nixos-rebuild;
+        };
+
+    nixpkgs.build.ifDarwin.stable =
+        np.nixpkgs-stable.lib.optionalAttrs (isDarwin) {
+            inherit (np.nixpkgs-stable)
+            shajra-darwin-rebuild
+            skhd
+            yabai;
+        };
+
+    nixpkgs.build.common.haskell = {}
         // (np.hs.fromPackages "unstable" "ghc8104" "djinn")
         // (np.hs.fromPackages "unstable" "ghc8104" "fast-tags")
         // (np.hs.fromPackages "unstable" "ghc8104" "ghc-events")
@@ -156,15 +173,6 @@ let
         # DESIGN: marked broken, 2020-11-28
         #// (np.hs.fromPackages "unstable" "ghc8103" "threadscope")
         ;
-
-    nixpkgs.ifLinux.build.topLevel =
-        let pkgs = with np.nixpkgs-unstable; {
-                inherit
-                    dunst-time
-                    i3-init
-                    moneydance;
-            };
-        in if isDarwin then {} else pkgs;
 
     haskell-nix.prebuilt = {
         # DESIGN: don't use enough to want to think about a cache miss
@@ -205,14 +213,14 @@ in
     inherit haskell-nix shajra;
 
     nixpkgs.prebuilt = {}
-        // nixpkgs.common.prebuilt
-        // nixpkgs.unstable.prebuilt
-        // nixpkgs.ifDarwin.prebuilt
-        // nixpkgs.ifLinux.prebuilt.stable
-        // nixpkgs.ifLinux.prebuilt.unstable;
+        // nixpkgs.prebuilt.common.home
+        // nixpkgs.prebuilt.common.unstable
+        // nixpkgs.prebuilt.ifDarwin.stable
+        // nixpkgs.prebuilt.ifLinux.unstable;
 
     nixpkgs.build = {}
-        // nixpkgs.common.build.topLevel
-        // nixpkgs.common.build.haskell
-        // nixpkgs.ifLinux.build.topLevel;
+        // nixpkgs.build.common.home
+        // nixpkgs.build.ifLinux.unstable
+        // nixpkgs.build.ifDarwin.stable
+        // nixpkgs.build.common.haskell;
 }

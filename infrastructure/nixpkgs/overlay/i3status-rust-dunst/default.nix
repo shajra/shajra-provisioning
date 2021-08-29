@@ -9,10 +9,6 @@ self.nix-project-lib.writeShellCheckedExe progName
 {
     inherit meta;
 
-    # DESIGN: intentionally letting dbus-send come in from /run/current-system.
-    # This guards against incompatibility of X between nixpkgs-stable and
-    # nixpkgs-unstable.
-    pathPure = false;
     path = with self; [
         bc
         coreutils
@@ -27,6 +23,9 @@ set -o pipefail
 . "${self.nix-project-lib.lib-sh}/share/nix-project/lib.sh"
 
 
+# DESIGN: intentionally letting dbus-send come in from /run/current-system.
+# This guards against incompatibility of X between nixpkgs-stable and
+# nixpkgs-unstable.
 PATH="$PATH:/run/current-system/sw/bin"
 COMMAND=status
 

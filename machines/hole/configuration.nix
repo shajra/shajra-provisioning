@@ -112,7 +112,7 @@ in {
     services.printing.drivers = [ pkgs.hplipWithPlugin ];
     services.printing.enable = true;
     services.tlp.enable = true;
-    services.udev.extraRules = lib.readFile ./udev.rules;
+    services.udev.extraRules = builtins.readFile ./udev.rules;
     services.upower.enable = true;
     services.xserver.displayManager.autoLogin.enable = true;
     services.xserver.displayManager.autoLogin.user = "tnks";
@@ -120,9 +120,38 @@ in {
     services.xserver.displayManager.lightdm.enable = true;
     services.xserver.displayManager.lightdm.greeter.enable = false;
     services.xserver.dpi = 235;
+    services.xserver.inputClassSections = [
+        ''
+        Identifier   "Evoluent VerticalMouse"
+        MatchProduct "Evoluent VerticalMouse"
+        Driver       "libinput"
+        Option       "ButtonMapping"       "1 2 3 4 5 6 7 9 10 8 11 12 13 14"
+        Option       "HorizontalScrolling" "on"
+        Option       "ScrollButton"        "9"
+        Option       "ScrollButtonLock"    "on"
+        ''
+        ''
+        Identifier   "Kensington Expert Mouse"
+        MatchProduct "Kensington Expert Mouse"
+        Driver       "libinput"
+        Option       "AccelSpeed"          "0.25"
+        Option       "ButtonMapping"       "1 2 3 4 5 6 7 8 9 10 11 12 13 14"
+        Option       "HorizontalScrolling" "on"
+        Option       "ScrollButton"        "8"
+        Option       "ScrollButtonLock"    "on"
+        ''
+    ];
     services.xserver.enable = true;
     services.xserver.layout = "us";
     services.xserver.libinput.enable = true;
+    services.xserver.libinput.mouse.horizontalScrolling = true;
+    services.xserver.libinput.mouse.naturalScrolling = true;
+    services.xserver.libinput.mouse.scrollMethod = "button";
+    services.xserver.libinput.touchpad.accelSpeed = "0.4";
+    services.xserver.libinput.touchpad.clickMethod = "clickfinger";
+    services.xserver.libinput.touchpad.disableWhileTyping = true;
+    services.xserver.libinput.touchpad.horizontalScrolling = true;
+    services.xserver.libinput.touchpad.naturalScrolling = true;
     services.xserver.windowManager.i3.enable = true;
     services.xserver.xkbOptions = "lv3:ralt_switch_multikey";
     services.xserver.xkbVariant = "altgr-intl";
