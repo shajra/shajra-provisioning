@@ -1,4 +1,13 @@
 {
+    "bluos-controller.dmg": {
+        "month": "04",
+        "sha256": "0f93jpvv1ggbzx8sxrngbjv947pvs9dkkp4jq0a9xim21macjvz7",
+        "type": "file",
+        "url": "https://www.bluesound.com/wp-content/uploads/2021/04/BluOS-Controller-3.14.0.dmg",
+        "url_template": "https://www.bluesound.com/wp-content/uploads/<year>/<month>/BluOS-Controller-<version>.dmg",
+        "version": "3.14.0",
+        "year": "2021"
+    },
     "colored_man_pages.fish": {
         "branch": "main",
         "description": "Fish shell plugin to colorize man pages",

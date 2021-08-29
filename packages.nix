@@ -143,6 +143,7 @@ let
     nixpkgs.build.ifLinux.unstable =
         np.nixpkgs-stable.lib.optionalAttrs (! isDarwin) {
             inherit (np.nixpkgs-unstable)
+            bluos-controller
             dunst-osd
             dunst-time
             i3-dpi
