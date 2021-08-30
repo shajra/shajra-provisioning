@@ -7,7 +7,7 @@
 
 let
 
-    ifNotDev = np.nixpkgs-stable.lib.optionalAttrs (! isDevBuild);
+    when = np.nixpkgs-stable.lib.optionalAttrs;
 
     pickHome = np.pick {
         linux  = "unstable";
@@ -140,27 +140,24 @@ let
         "shajra-home-manager"
     ];
 
-    nixpkgs.build.ifLinux.unstable =
-        np.nixpkgs-stable.lib.optionalAttrs (! isDarwin) {
-            inherit (np.nixpkgs-unstable)
-            bluos-controller
-            dunst-osd
-            dunst-time
-            i3-dpi
-            i3-workspace-name
-            i3status-rust-dunst
-            lan-jelly
-            moneydance
-            shajra-nixos-rebuild;
-        };
+    nixpkgs.build.ifLinux.unstable = when (! isDarwin) {
+        inherit (np.nixpkgs-unstable)
+        dunst-osd
+        dunst-time
+        i3-dpi
+        i3-workspace-name
+        i3status-rust-dunst
+        lan-jelly
+        moneydance
+        shajra-nixos-rebuild;
+    };
 
-    nixpkgs.build.ifDarwin.stable =
-        np.nixpkgs-stable.lib.optionalAttrs (isDarwin) {
-            inherit (np.nixpkgs-stable)
-            shajra-darwin-rebuild
-            skhd
-            yabai;
-        };
+    nixpkgs.build.ifDarwin.stable = when isDarwin {
+        inherit (np.nixpkgs-stable)
+        shajra-darwin-rebuild
+        skhd
+        yabai;
+    };
 
     nixpkgs.build.common.haskell = {}
         // (np.hs.fromPackages "unstable" "ghc8104" "djinn")
@@ -180,7 +177,8 @@ let
         #nix-tools = hn.nixpkgs.haskell-nix.nix-tools.ghc8105;
     };
 
-    haskell-nix.build = ifNotDev ({}
+    haskell-nix.build = when (! isDevBuild) (
+        {}
         // (hn.fromHackage "ghc8105" "apply-refact")
         // (hn.fromHackage "ghc8105" "ghcid")
         // (hn.fromHackage "ghc8105" "hlint")
@@ -189,16 +187,16 @@ let
         # DESIGN: marked broken in Nixpkgs, doesn't seem to build with
         # Haskell.nix either
         #// (hn.fromHackage "ghc8103" "ghc-events-analyze")
-        );
+    );
 
-    shajra.build =
+    shajra.build.common =
         let hls = ghcVersion:
                 import sources.nix-haskell-hls {
                     inherit ghcVersion;
                     hlsUnstable = false;
                 };
             tags = import sources.nix-haskell-tags;
-        in ifNotDev {
+        in when (! isDevBuild) {
             implicit-hie        = (hls "8.10.5").implicit-hie;
             haskell-hls-wrapper = (hls "8.10.5").hls-wrapper;
             haskell-hls-ghc8105 = (hls "8.10.5").hls-renamed;
@@ -208,11 +206,11 @@ let
             haskell-hls-tags    = tags.nix-haskell-tags-exe;
         };
 
+    shajra.build.ifLinux = when (! isDarwin) (import sources.bluos-nix);
+
 in
 
 {
-    inherit haskell-nix shajra;
-
     nixpkgs.prebuilt = {}
         // nixpkgs.prebuilt.common.home
         // nixpkgs.prebuilt.common.unstable
@@ -224,4 +222,10 @@ in
         // nixpkgs.build.ifLinux.unstable
         // nixpkgs.build.ifDarwin.stable
         // nixpkgs.build.common.haskell;
+
+    inherit haskell-nix;
+
+    shajra.build = {}
+        // shajra.build.common
+        // shajra.build.ifLinux;
 }

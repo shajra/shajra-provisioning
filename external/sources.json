@@ -1,12 +1,15 @@
 {
-    "bluos-controller.dmg": {
-        "month": "04",
-        "sha256": "0f93jpvv1ggbzx8sxrngbjv947pvs9dkkp4jq0a9xim21macjvz7",
-        "type": "file",
-        "url": "https://www.bluesound.com/wp-content/uploads/2021/04/BluOS-Controller-3.14.0.dmg",
-        "url_template": "https://www.bluesound.com/wp-content/uploads/<year>/<month>/BluOS-Controller-<version>.dmg",
-        "version": "3.14.0",
-        "year": "2021"
+    "bluos-nix": {
+        "branch": "main",
+        "description": "Nix repackaging of BluOS Controller",
+        "homepage": null,
+        "owner": "shajra",
+        "repo": "bluos-nix",
+        "rev": "d1629f7705e0690acc50defb3d1c800610c7fc1f",
+        "sha256": "0m31ifzqmzwqcxbays25s1my98wj44ra7rwdknh2hqkrgb78ihpv",
+        "type": "tarball",
+        "url": "https://github.com/shajra/bluos-nix/archive/d1629f7705e0690acc50defb3d1c800610c7fc1f.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "colored_man_pages.fish": {
         "branch": "main",
