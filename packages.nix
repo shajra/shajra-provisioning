@@ -84,16 +84,7 @@ let
         darwin = "unstable";
     } [
         "haskell.compiler.ghc8106"
-    ];
-
-    nixpkgs.prebuilt.ifDarwin.stable = np.pick {
-        darwin = "stable";
-    } [
-        # TODO: figure out collision of JDK with Home Manager on Darwin
-        # https://github.com/nix-community/home-manager/issues/1994
-        "jdk8"
-        "mongodb"
-        "mongodb-tools"
+        "jdk"
     ];
 
     nixpkgs.prebuilt.ifLinux.unstable = np.pick {
@@ -111,7 +102,6 @@ let
         "gnome3.adwaita-icon-theme"
         "inkscape"
         "irccloud"
-        "jdk"
         "libreoffice"
         "maim"
         "pavucontrol"
@@ -214,7 +204,6 @@ in
     nixpkgs.prebuilt = {}
         // nixpkgs.prebuilt.common.home
         // nixpkgs.prebuilt.common.unstable
-        // nixpkgs.prebuilt.ifDarwin.stable
         // nixpkgs.prebuilt.ifLinux.unstable;
 
     nixpkgs.build = {}
