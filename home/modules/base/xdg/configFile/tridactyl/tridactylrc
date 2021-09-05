@@ -1,0 +1,3 @@
+unbind <F1>
+bind J tabnext_gt
+bind K tabprev

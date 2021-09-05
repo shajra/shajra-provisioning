@@ -13,7 +13,7 @@ in
     home.file = import home/file config pkgs sources;
 
     programs.bash = import programs/bash;
-    programs.firefox = import programs/firefox pkgs;
+    programs.firefox = import programs/firefox config pkgs;
     programs.fish = import programs/fish config pkgs;
     programs.i3status-rust.enable = true;
     programs.rofi = import programs/rofi;

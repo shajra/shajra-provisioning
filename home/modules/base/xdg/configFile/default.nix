@@ -7,4 +7,5 @@ config: pkgs: sources:
     "fish/set-universal.fish".onChange = import fish/onChange.nix config;
     "fish/set-universal.fish".source = fish/set-universal.fish;
     "stylish-haskell/config.yaml".source = stylish-haskell/config.yaml;
+    "tridactyl/tridactylrc".source = tridactyl/tridactylrc;
 }
