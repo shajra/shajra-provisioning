@@ -36,6 +36,7 @@ in {
 
     hardware.cpu.intel.updateMicrocode = true;
     hardware.enableRedistributableFirmware = true;
+    hardware.keyboard.zsa.enable = true;
     hardware.pulseaudio.enable = true;
     hardware.pulseaudio.daemon.config = { enable-deferred-volume = "no"; };
     hardware.sane.enable = true;
@@ -112,7 +113,6 @@ in {
     services.printing.drivers = [ pkgs.hplipWithPlugin ];
     services.printing.enable = true;
     services.tlp.enable = true;
-    services.udev.extraRules = builtins.readFile ./udev.rules;
     services.upower.enable = true;
     services.xserver.displayManager.autoLogin.enable = true;
     services.xserver.displayManager.autoLogin.user = "tnks";
@@ -166,6 +166,7 @@ in {
         "dialout"
         "docker"
         "input"
+        "plugdev"
         "video"
         "wheel"
       ];

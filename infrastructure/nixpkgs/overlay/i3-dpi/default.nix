@@ -2,7 +2,7 @@ self: super:
 
 let
     progName = "i3-dpi";
-    meta.description = "change DPI for I3 window manager";
+    meta.description = "Change DPI for I3 window manager";
 in
 
 self.nix-project-lib.writeShellCheckedExe progName

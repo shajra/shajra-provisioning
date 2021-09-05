@@ -32,11 +32,13 @@ let
                     else ./materialized-linux
                 else ./materialized-common;
             materialized = materializedBase + "/${name}";
+            index-state = infraConfig.haskell-nix.hackage.index.state or null;
+            index-sha256 = infraConfig.haskell-nix.hackage.index.sha256 or null;
         in {
             inherit name modules materialized checkMaterialization;
             compiler-nix-name = ghcVersion;
-            index-state = infraConfig.haskell-nix.hackage.index.state;
-            index-sha256 = infraConfig.haskell-nix.hackage.index.sha256;
+            ${if isNull index-state then null else "index-state"} = index-state;
+            ${if isNull index-sha256 then null else "index-sha256"} = index-sha256;
             lookupSha256 = {location, ...}:
                 infraConfig.haskell-nix.lookupSha256."${location}" or null;
         };

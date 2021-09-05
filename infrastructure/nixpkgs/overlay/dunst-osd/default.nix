@@ -2,7 +2,7 @@ self: super:
 
 let
     progName = "dunst-osd";
-    meta.description = "actions with transient notification to Dunst";
+    meta.description = "Actions with transient notification to Dunst";
 in
 
 self.nix-project-lib.writeShellCheckedExe progName
@@ -21,7 +21,7 @@ set -eu
 set -o pipefail
 
 
-. "${self.nix-project-lib.lib-sh}/share/nix-project/lib.sh"
+. "${self.nix-project-lib.common}/share/nix-project/common.bash"
 
 
 print_usage()

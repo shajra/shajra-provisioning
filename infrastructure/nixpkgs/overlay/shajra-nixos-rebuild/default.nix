@@ -2,7 +2,7 @@ self: _super:
 
 let
     progName = "shajra-nixos-rebuild";
-    meta.description = "controlled NixOS rebuild";
+    meta.description = "Controlled NixOS rebuild";
     sources = (import ../../../.. {}).sources;
 in
 
@@ -25,7 +25,7 @@ NIXOS_EXE="$(command -v nixos-rebuild || true)"
 ARGS=()
 
 
-. "${self.nix-project-lib.lib-sh}/share/nix-project/lib.sh"
+. "${self.nix-project-lib.common}/share/nix-project/common.bash"
 
 
 print_usage()

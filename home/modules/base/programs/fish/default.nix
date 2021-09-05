@@ -208,9 +208,11 @@ in
         la = "exa --icons --group-directories-first -lah";
         l = "exa --icons --group-directories-first";
         ll = "exa --icons --group-directories-first -l";
+        lt = "exa --icons --group-directories-first --tree";
         nnn = "nnn -C";
+        ${if isDarwin then "mm" else null} = "${pkgs.m-cli}/bin/m";
         m = "man";
-        t = "dunst-time";
+        t = "notify-time";
         unison = "unison -ui text";
         view = "vim -R";
         v = "vim";

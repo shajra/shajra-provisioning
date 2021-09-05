@@ -13,11 +13,6 @@ let
     rofi = "${config.programs.rofi.package}/bin/rofi";
     user = config.home.username;
 
-    fish-aliases = pkgs.writeScript "fish-aliases" ''
-        #!${fish} -i
-        alias | "${awk}" '{print $2}'
-    '';
-
     rofi-clip = pkgs.writers.writeDash "rofi-clip" ''
         exec "${rofi}" -dmenu -p 'clip' "$@"
     '';
@@ -156,14 +151,8 @@ in
     "${mod}+Tab" = ''exec ${rofi} -show window'';
 
     # run dmenu run launcher
-    "${mod}+F3" =
-        ''exec ${rofi} -show run ''
-        + '' -run-list-command "${fish-aliases}" ''
-        + '' -run-command "${fish} -i -c '{cmd}'"'';
-    "${mod}+p" =
-        ''exec ${rofi} -show run ''
-        + '' -run-list-command "${fish-aliases}" ''
-        + '' -run-command "${fish} -i -c '{cmd}'"'';
+    "${mod}+F3" = ''exec ${rofi} -show run'';
+    "${mod}+p" = ''exec ${rofi} -show run'';
 
     # run dmenu ssh launcher
     "${mod}+F4" = ''exec ${rofi} -show ssh -terminal "${kitty} --single-instance"'';

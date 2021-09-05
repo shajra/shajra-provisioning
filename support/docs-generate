@@ -14,12 +14,12 @@ nix run \
     infra.np.nixpkgs-stable.ansifilter \
     infra.np.nixpkgs-stable.coreutils \
     infra.np.nixpkgs-stable.gnugrep \
-    infra.np.nixpkgs-stable.gnutar \
-    infra.np.nixpkgs-stable.gzip \
     infra.np.nixpkgs-stable.tree \
     --command \
     org2gfm \
-    --ignore links.org \
+    --path-bin \
+    --exclude links.org \
+    --exclude nix.mac.org \
     --nix "$(command -v nix)" \
     --evaluate \
     "$@"

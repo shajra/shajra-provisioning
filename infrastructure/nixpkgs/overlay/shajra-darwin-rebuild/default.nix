@@ -2,7 +2,7 @@ self: _super:
 
 let
     progName = "shajra-darwin-rebuild";
-    meta.description = "controlled MacOS rebuild";
+    meta.description = "Controlled MacOS rebuild";
     sources = (import ../../../.. {}).sources;
 in
 
@@ -26,7 +26,7 @@ NIX_EXE="$(command -v nix || true)"
 ARGS=()
 
 
-. "${self.nix-project-lib.lib-sh}/share/nix-project/lib.sh"
+. "${self.nix-project-lib.common}/share/nix-project/common.bash"
 
 
 print_usage()

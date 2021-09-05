@@ -2,7 +2,7 @@ self: _super:
 
 let
     progName = "shajra-home-manager";
-    meta.description = "controlled home directory management with Nix";
+    meta.description = "Controlled home directory management with Nix";
     sources = (import ../../../.. {}).sources;
 in
 
@@ -29,7 +29,7 @@ NIX_EXE="$(command -v nixos-rebuild || true)"
 ARGS=()
 
 
-. "${self.nix-project-lib.lib-sh}/share/nix-project/lib.sh"
+. "${self.nix-project-lib.common}/share/nix-project/common.bash"
 
 
 print_usage()

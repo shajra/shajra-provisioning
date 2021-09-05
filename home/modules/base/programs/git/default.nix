@@ -66,6 +66,7 @@ delta:
         diff.submodule = "log";
         fetch.recurseSubmodules = true;
         github.user = "shajra";
+        init.defaultBranch = "main";
         pull.rebase = true;
         push.default = "upstream";
         status.submodulesummary = true;

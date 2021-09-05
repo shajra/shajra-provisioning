@@ -2,7 +2,7 @@ self: super:
 
 let
     progName = "lan-jelly";
-    meta.description = "change routing for home server when home";
+    meta.description = "Change routing for home server when home";
 in
 
 self.nix-project-lib.writeShellCheckedExe progName

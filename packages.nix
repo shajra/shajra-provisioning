@@ -83,7 +83,7 @@ let
         linux  = "unstable";
         darwin = "unstable";
     } [
-        "haskell.compiler.ghc8104"
+        "haskell.compiler.ghc8106"
     ];
 
     nixpkgs.prebuilt.ifDarwin.stable = np.pick {
@@ -137,13 +137,13 @@ let
         "emacsGcc"  # DESIGN: prebuilt/cached for Linux, but not Darwin
         "global"
         "hasklig"
+        "notify-time"
         "shajra-home-manager"
     ];
 
     nixpkgs.build.ifLinux.unstable = when (! isDarwin) {
         inherit (np.nixpkgs-unstable)
         dunst-osd
-        dunst-time
         i3-dpi
         i3-workspace-name
         i3status-rust-dunst
@@ -160,16 +160,16 @@ let
     };
 
     nixpkgs.build.common.haskell = {}
-        // (np.hs.fromPackages "unstable" "ghc8104" "djinn")
-        // (np.hs.fromPackages "unstable" "ghc8104" "fast-tags")
-        // (np.hs.fromPackages "unstable" "ghc8104" "ghc-events")
-        // (np.hs.fromPackages "unstable" "ghc8104" "haskdogs")
-        // (np.hs.fromPackages "unstable" "ghc8104" "hasktags")
-        // (np.hs.fromPackages "unstable" "ghc8104" "hoogle")
-        // (np.hs.fromPackages "unstable" "ghc8104" "hp2pretty")
+        // (np.hs.fromPackages "unstable" "ghc8106" "djinn")
+        // (np.hs.fromPackages "unstable" "ghc8106" "fast-tags")
+        // (np.hs.fromPackages "unstable" "ghc8106" "ghc-events")
+        // (np.hs.fromPackages "unstable" "ghc8106" "haskdogs")
+        // (np.hs.fromPackages "unstable" "ghc8106" "hasktags")
+        // (np.hs.fromPackages "unstable" "ghc8106" "hoogle")
+        // (np.hs.fromPackages "unstable" "ghc8106" "hp2pretty")
 
         # DESIGN: marked broken, 2020-11-28
-        #// (np.hs.fromPackages "unstable" "ghc8103" "threadscope")
+        #// (np.hs.fromPackages "unstable" "ghc8106" "threadscope")
         ;
 
     haskell-nix.prebuilt = {
@@ -179,10 +179,10 @@ let
 
     haskell-nix.build = when (! isDevBuild) (
         {}
-        // (hn.fromHackage "ghc8105" "apply-refact")
-        // (hn.fromHackage "ghc8105" "ghcid")
-        // (hn.fromHackage "ghc8105" "hlint")
-        // (hn.fromHackage "ghc8105" "stylish-haskell")
+        // (hn.fromHackage "ghc8107" "apply-refact")
+        // (hn.fromHackage "ghc8107" "ghcid")
+        // (hn.fromHackage "ghc8107" "hlint")
+        // (hn.fromHackage "ghc8107" "stylish-haskell")
 
         # DESIGN: marked broken in Nixpkgs, doesn't seem to build with
         # Haskell.nix either
@@ -197,13 +197,13 @@ let
                 };
             tags = import sources.nix-haskell-tags;
         in when (! isDevBuild) {
-            implicit-hie        = (hls "8.10.5").implicit-hie;
-            haskell-hls-wrapper = (hls "8.10.5").hls-wrapper;
-            haskell-hls-ghc8105 = (hls "8.10.5").hls-renamed;
-            haskell-hls-ghc8104 = (hls "8.10.4").hls-renamed;
+            implicit-hie        = (hls "8.10.7").implicit-hie;
+            haskell-hls-wrapper = (hls "8.10.7").hls-wrapper;
+            haskell-hls-ghc8107 = (hls "8.10.7").hls-renamed;
+            haskell-hls-ghc8106 = (hls "8.10.6").hls-renamed;
             haskell-hls-ghc884  = (hls "8.8.4").hls-renamed;
             haskell-hls-ghc865  = (hls "8.6.5").hls-renamed;
-            haskell-hls-tags    = tags.nix-haskell-tags-exe;
+            haskell-hls-tags    = tags.haskell-tags-nix-exe;
         };
 
     shajra.build.ifLinux = when (! isDarwin) (import sources.bluos-nix);

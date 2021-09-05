@@ -4,6 +4,7 @@ let
     build = import ../../.. {};
     infra = build.infra;
     sources = build.sources;
+    module-lorelei = (import sources.direnv-nix-lorelei).direnv-nix-lorelei-home;
     prunedPkgs = builtins.removeAttrs build.pkgs [
         "emacsGcc"  # DESIGN: prebuilt, but passed in programs.emacs.package
     ];
@@ -11,8 +12,9 @@ let
         # DESIGN: undoes recurseIntoAttrs to pass validation
         builtins.filter lib.isDerivation (builtins.attrValues prunedPkgs);
 in
-
 {
+    imports = [ module-lorelei ];
+
     fonts.fontconfig.enable = true;
 
     home.file = import home/file config.home.homeDirectory;
@@ -31,6 +33,7 @@ in
     programs.dircolors.extraConfig = builtins.readFile "${sources.dircolors-solarized}/dircolors.ansi-light";
     programs.direnv.enableFishIntegration = false;
     programs.direnv.enable = true;
+    programs.direnv-nix-lorelei.enable = true;
     programs.emacs = import programs/emacs pkgs;
     programs.feh.enable = true;
     programs.fish = import programs/fish pkgs sources build.infra.isDarwin;
@@ -43,9 +46,6 @@ in
     programs.kitty = import programs/kitty pkgs;
     programs.lesspipe.enable = true;
     programs.man.generateCaches = true;
-    programs.mcfly.enableFuzzySearch = true;
-    programs.mcfly.enableLightTheme = true;
-    programs.mcfly.enable = true;
     programs.ncmpcpp.enable = true;
     programs.neovim = import programs/neovim pkgs;
     programs.newsboat.enable = true;

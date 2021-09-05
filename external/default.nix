@@ -7,9 +7,8 @@ let
     srcs = import ./sources.nix // externalOverrides;
     cfg = config.provision.pkgs;
 
-    lib = (import srcs.nixpkgs { config = {}; overlays = []; }).lib;
-
-    isDarwin = builtins.elem builtins.currentSystem lib.systems.doubles.darwin;
+    nixpkgs-bootstrap = import srcs.nixpkgs { config = {}; overlays = []; };
+    isDarwin = nixpkgs-bootstrap.stdenv.isDarwin;
 
     nixpkgs-stable-darwin = srcs.nixpkgs-darwin;
     nixpkgs-stable-linux = srcs.nixpkgs;

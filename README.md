@@ -38,14 +38,14 @@ The main idea of this project is to come into a relatively vanilla OS installati
 
 On a NixOS machine this will look like:
 
-```shell
+```sh
 ./nixos-rebuild switch
 ./home-manager switch
 ```
 
 On MacOS with Nix installed, we can run:
 
-```shell
+```sh
 ./darwin-rebuild switch
 ./home-manager switch
 ```
@@ -56,7 +56,7 @@ Ultimately, configuration files, both system-level as well as user-level, are bu
 
 Furthermore, updating supporting software to the latest released versions is as simple as a single command:
 
-```shell
+```sh
 ./support/dependencies-update
 ```
 
@@ -79,9 +79,9 @@ These wrapper scripts call upstream programs bearing the same names. These proje
 
 ```text
 {
-…
-hardware.pulse.audio.enable = true;
-…
+    …
+    hardware.pulse.audio.enable = true;
+    …
 }
 ```
 
@@ -114,13 +114,13 @@ Instructions for installation of an operating system is beyond the scope of this
 
 If you don't already have Nix, [the official installation script](https://nixos.org/learn.html) should work on a variety of UNIX-like operating systems:
 
-```shell
+```bash
 sh <(curl -L https://nixos.org/nix/install) --daemon
 ```
 
 If you're on a recent release of MacOS, you will need an extra switch:
 
-```shell
+```bash
 sh <(curl -L https://nixos.org/nix/install) --daemon \
     --darwin-use-unencrypted-nix-store-volume
 ```
@@ -137,7 +137,7 @@ It's recommended to configure Nix to use shajra.cachix.org as a Nix *substitutor
 
 You can configure shajra.cachix.org as a substitutor with the following command:
 
-```shell
+```sh
 nix run \
     --file https://cachix.org/api/v1/install \
     cachix \
@@ -160,13 +160,13 @@ MacOS, fortunately, comes with Git preinstalled, so you can just use that.
 
 If Git is not on your path, since you've now installed Nix, you can enter a Nix Shell providing Git on the path with the following command:
 
-```shell
+```sh
 nix-shell -p git -I nixpkgs=channel:nixpkgs-unstable
 ```
 
 Once you have access to Git, you can clone the project:
 
-```shell
+```sh
 git clone git@github.com:shajra/shajra-provisioning.git
 ```
 
@@ -202,7 +202,7 @@ Notably, system-level configuration are in directories under `machines`. And con
 
 Whether setting system-level configuration with `nixos-rebuild` or `darwin-rebuild`, or user-level configuration with `home-manager`, all of these tools are configured with the NixOS-style configuration module infrastructure.
 
-The goal of NixOS modules is to make it easy to toggle features on/off with lightweight declarative configuration options. The upstream projects (NixOS, Nix-Darwin, and Home Manager) maintain a huge number of modules for various tools and configuration. The code in these modules do all the complicated tasks of weaving everything together into configuration files. These modules also bake in a lot of useful verification of our configuration. We're just benefiting by reusing these upstream modules.
+The goal of NixOS modules is to make it easy to toggle features on/off with lightweight declarative configuration options. The upstream projects (NixOS, Nix-Darwin, and Home Manager) maintain a huge number of modules for various tools and configuration. The code in these modules do all the complicated tasks of weaving everything together into configuration files. These modules also bake in a lot of useful verification of our configuration. We're just benefiting by reusing these upstream modules. Upstream modules define configurations options that can be set. Our modules then set these options.
 
 The following is very helpful documentation on configuration for various NixOS-style modules:
 
@@ -217,13 +217,13 @@ Once you understand the format of NixOS-style modules and how they work, you can
 
 Also, once you've provisioned a system once, it will likely have some man pages you can call instead of looking up documentation online. To get details on system-level configuration for NixOS or MacOS/Nix-Darwin call:
 
-```shell
+```sh
 man configuration.nix
 ```
 
 For details on Home Manager configuration call:
 
-```shell
+```sh
 man home-configuration.nix
 ```
 
@@ -264,14 +264,14 @@ Once you finally have your configuration where you think you want it, as mention
 
 On NixOS, this looks like the following:
 
-```shell
+```sh
 ./nixos-rebuild switch
 ./home-manager switch
 ```
 
 On MacOS with Nix installed, you run:
 
-```shell
+```sh
 ./darwin-rebuild switch
 ./home-manager switch
 ```
@@ -298,7 +298,7 @@ Versions of all external dependencies are specified in the [`external/sources.js
 
 Generally, I call this script with no arguments, and it goes online to find the latest commits for all the repositories in `sources.json`:
 
-```shell
+```sh
 support/dependencies-update
 ```
 
@@ -308,7 +308,7 @@ Like the other wrapper scripts, you can call `dependencies-update` with a `--hel
 
 For instance, to get `dependencies-update`'s usage message, we'd run the following:
 
-```shell
+```sh
 support/dependencies-update --help
 ```
 
@@ -321,7 +321,7 @@ support/dependencies-update --help
 
 But to use `dependencies-update` to get Niv's usage message, we'd run the following:
 
-```shell
+```sh
 support/dependencies-update niv --help
 ```
 
@@ -385,9 +385,9 @@ I'm sure Nix 2.4, which will officially include flakes, will release sometime so
 
 # Release<a id="sec-5"></a>
 
-The "master" branch of the repository on GitHub has the latest released version of this code. There is currently no commitment to either forward or backward compatibility.
+The "main" branch of the repository on GitHub has the latest released version of this code. There is currently no commitment to either forward or backward compatibility.
 
-"user/shajra" branches are personal branches that may be force-pushed to. The "master" branch should not experience force-pushes and is recommended for general use.
+"user/shajra" branches are personal branches that may be force-pushed to. The "main" branch should not experience force-pushes and is recommended for general use.
 
 # License<a id="sec-6"></a>
 

@@ -5,12 +5,12 @@ config:
         #include "${config.home.homeDirectory}/.Xresources.dpi"
     '';
 
-    properties = 
-        (   import ./colors.nix) 
+    properties =
+        (   import ./colors.nix)
         // (import ./colors-light.nix)
         // {
             "Xcursor.theme"         = "Adwaita";
-            "Xcursor.size"          = 32;
+            "Xcursor.size"          = 48;
             # DESIGN: unset bindings with Control+j/k, otherwise a conflict
             "rofi.kb-accept-entry"  = "Control+m,Return,KP_Enter";
             "rofi.kb-remove-to-eol" = "";

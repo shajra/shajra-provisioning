@@ -6,8 +6,7 @@
 
 let
 
-    isDarwin = builtins.elem builtins.currentSystem
-        np.nixpkgs-stable.lib.systems.doubles.darwin;
+    isDarwin = np.nixpkgs-stable.stdenv.isDarwin;
 
     hn = import ./haskell-nix {
         inherit checkMaterialization infraConfig sources isDarwin;
