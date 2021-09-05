@@ -1,12 +1,12 @@
-#+TITLE: Deep Provisioning All My Machines
-#+SETUPFILE: ./doc/links.org
+#+title: Deep Provisioning All My Machines
+#+setupfile: ./doc/links.org
 
 [[https://github.com/shajra/shajra-provisioning/actions][https://github.com/shajra/shajra-provisioning/workflows/CI/badge.svg]]
 
 * Org-mode setup :noexport:
 
-#+NAME: crop
-#+BEGIN_SRC emacs-lisp :var text="" :var first-n=5 :var last-n=5 :results silent
+#+name: crop
+#+begin_src emacs-lisp :var text="" :var first-n=5 :var last-n=5 :results silent
 (let* ((ls         (split-string text "\n"))
        (first-ls   (-take first-n ls))
        (rest-first (-drop first-n ls))
@@ -17,13 +17,13 @@
        (append first-ls '("…") last-ls)
      (append first-ls last-ls))
    "\n"))
-#+END_SRC
+#+end_src
 
 * About this project
 
-#+BEGIN_QUOTE
+#+begin_quote
 This is either my love letter to Nix, or Nix's love letter to me, or both.
-#+END_QUOTE
+#+end_quote
 
 This project uses [[nix][Nix]] to provision two machines of mine. I may include more
 eventually. One of these machines runs MacOS and has had the Nix package manager
@@ -56,17 +56,17 @@ two commands, the system should be ready to use.
 
 On a NixOS machine this will look like:
 
-#+BEGIN_SRC sh :eval no
+#+begin_src sh :eval no
 ./nixos-rebuild switch
 ./home-manager switch
-#+END_SRC
+#+end_src
 
 On MacOS with Nix installed, we can run:
 
-#+BEGIN_SRC sh :eval no
+#+begin_src sh :eval no
 ./darwin-rebuild switch
 ./home-manager switch
-#+END_SRC
+#+end_src
 
 Managing the home directory with a separate command from the command for
 system-level configuration is a design decision to help with system stability.
@@ -85,9 +85,9 @@ proceed.
 Furthermore, updating supporting software to the latest released versions is as
 simple as a single command:
 
-#+BEGIN_SRC sh :eval no
+#+begin_src sh :eval no
 ./support/dependencies-update
-#+END_SRC
+#+end_src
 
 And because all of the code needed for provisioning is within this repository,
 rolling back to a previous version can be as simple as checking out an alternate
@@ -110,13 +110,13 @@ projects each give us a catalog of configuration modules that dramatically
 simplify the code we need on our end. Our configurations can end up extremely
 concise and declarative. Here's an example:
 
-#+BEGIN_SRC text :eval no
+#+begin_src text :eval no
 {
     …
     hardware.pulse.audio.enable = true;
     …
 }
-#+END_SRC
+#+end_src
 
 Enabled by this approach, there's a battery of checking done by configuration
 modules to make sure settings are valid and congruent.
@@ -156,9 +156,9 @@ document. MacOS is almost certainly preinstalled by Apple. For NixOS, see the
 [[nixos-manual][NixOS manual]] for detailed installation instructions. Other operating systems
 should have their respective installation guides.
 
-#+INCLUDE: "doc/nix.org::*Nix package manager setup" :minlevel 2
+#+include: "doc/nix.org::*Nix package manager setup" :minlevel 2
 
-#+INCLUDE: "doc/nix.org::*Cache setup" :minlevel 2
+#+include: "doc/nix.org::*Cache setup" :minlevel 2
 
 ** Getting this project onto a new machine
 
@@ -171,15 +171,15 @@ MacOS, fortunately, comes with Git preinstalled, so you can just use that.
 If Git is not on your path, since you've now installed Nix, you can enter a Nix
 Shell providing Git on the path with the following command:
 
-#+BEGIN_SRC sh :eval no
+#+begin_src sh :eval no
 nix-shell -p git -I nixpkgs=channel:nixpkgs-unstable
-#+END_SRC
+#+end_src
 
 Once you have access to Git, you can clone the project:
 
-#+BEGIN_SRC sh :eval no
+#+begin_src sh :eval no
 git clone git@github.com:shajra/shajra-provisioning.git
-#+END_SRC
+#+end_src
 
 * Using the project
 
@@ -249,15 +249,15 @@ Also, once you've provisioned a system once, it will likely have some man pages
 you can call instead of looking up documentation online. To get details on
 system-level configuration for NixOS or MacOS/Nix-Darwin call:
 
-#+BEGIN_SRC sh :eval no
+#+begin_src sh :eval no
 man configuration.nix
-#+END_SRC
+#+end_src
 
 For details on Home Manager configuration call:
 
-#+BEGIN_SRC sh :eval no
+#+begin_src sh :eval no
 man home-configuration.nix
-#+END_SRC
+#+end_src
 
 ***  This project's module convention
 
@@ -328,17 +328,17 @@ and call the provided top-level wrapper scripts.
 
 On NixOS, this looks like the following:
 
-#+BEGIN_SRC sh :eval no
+#+begin_src sh :eval no
 ./nixos-rebuild switch
 ./home-manager switch
-#+END_SRC
+#+end_src
 
 On MacOS with Nix installed, you run:
 
-#+BEGIN_SRC sh :eval no
+#+begin_src sh :eval no
 ./darwin-rebuild switch
 ./home-manager switch
-#+END_SRC
+#+end_src
 
 If you call these wrapper scripts with no arguments, that will be the equivalent
 of calling them with the =build= command. The =build= command will build out
@@ -384,9 +384,9 @@ an upstream program called [[niv][Niv]].
 Generally, I call this script with no arguments, and it goes online to find the
 latest commits for all the repositories in =sources.json=:
 
-#+BEGIN_SRC sh :eval no
+#+begin_src sh :eval no
 support/dependencies-update
-#+END_SRC
+#+end_src
 
 Many dependencies managed by Niv may come from GitHub. GitHub will rate limit
 anonymous API calls to 60/hour, which is not a lot. To increase this limit, you
@@ -401,11 +401,11 @@ Niv by prefixing it with the =niv= subcommand.
 For instance, to get =dependencies-update='s usage message, we'd run the
 following:
 
-#+BEGIN_SRC sh :results output :exports both :post crop(text=*this*, first-n=5, last-n=0)
+#+begin_src sh :results output :exports both :post crop(text=*this*, first-n=5, last-n=0)
 support/dependencies-update --help
-#+END_SRC
+#+end_src
 
-#+RESULTS:
+#+results:
 : USAGE:
 : 
 :     nix-project [OPTION]... scaffold
@@ -416,11 +416,11 @@ support/dependencies-update --help
 But to use =dependencies-update= to get Niv's usage message, we'd run the
 following:
 
-#+BEGIN_SRC sh :results output :exports both :post crop(text=*this*, first-n=5, last-n=0)
+#+begin_src sh :results output :exports both :post crop(text=*this*, first-n=5, last-n=0)
 support/dependencies-update niv --help
-#+END_SRC
+#+end_src
 
-#+RESULTS:
+#+results:
 : niv - dependency manager for Nix projects
 : 
 : version: 0.2.19
