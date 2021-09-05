@@ -73,10 +73,26 @@ in
     enable = true;
 
     functions = {
+        git-status = {
+            description = "Jump into a deep directory with Broot";
+            body = ''
+                if set -q argv[1]
+                    set targets $argv
+                else
+                    set targets ~/src/"${if isDarwin then "work" else "shajra"}"
+                end
+                for d in (fd --type d --hidden --glob .git $targets)
+                    pushd $d
+                    cd ..
+                    starship prompt
+                    popd
+                end | sort | grep --color=never ' on '
+            '';
+        };
         broot-dir = {
             description = "Jump into a deep directory with Broot";
             body = ''
-                if [ -n "$argv[1]" ]
+                if set -q argv[1]
                     br --only-folders --cmd "$argv[1] cd"
                 else
                     br --only-folders
@@ -212,6 +228,7 @@ in
         nnn = "nnn -C";
         ${if isDarwin then "mm" else null} = "${pkgs.m-cli}/bin/m";
         m = "man";
+        s = "git-status";
         t = "notify-time";
         unison = "unison -ui text";
         view = "vim -R";
