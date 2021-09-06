@@ -10,7 +10,7 @@ in
     enable = true;
     extraConfig = ''
         font_size 11
-        scrollback_pager nvim -u NORC -c 'set ft=man' -
+        scrollback_pager nvim -u NORC -c 'set ft=man' -c 'hi Search ctermbg=LightGrey' -
     '';
     font.name = "SauceCodePro Nerd Font Mono";
     font.package = pkgs.nerdfonts;
