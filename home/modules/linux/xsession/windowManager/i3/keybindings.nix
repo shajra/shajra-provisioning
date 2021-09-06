@@ -17,10 +17,16 @@ let
         exec "${rofi}" -dmenu -p 'clip' "$@"
     '';
 
+    maim-select = pkgs.writers.writeDash "maim-select" ''
+        TARGET=~/tmp/screenshots
+        mkdir --parents "$TARGET"
+        exec "${pkgs.maim}/bin/maim" --select \
+            "$TARGET/screenshot.$(${pkgs.coreutils}/bin/date +%s).png"
+    '';
+
 in
 
 {
-
     # split in horizontal orientation
     "${mod}+bracketright" = "split h";
 
@@ -201,4 +207,6 @@ in
     #"XF86AudioPrev" = ''exec --no-startup-id ${mpc} prev'';
     "XF86Search" = ''exec ${firefox}'';
 
+    # screen capture
+    "${mod}+Control+s" = ''exec ${maim-select}'';
 }
