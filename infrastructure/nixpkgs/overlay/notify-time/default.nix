@@ -25,7 +25,9 @@ let
                 "$summary" \
                 "$body"
 
-            "${self.libcanberra-gtk3}/bin/canberra-gtk-play" --id "$sound"
+            "${self.libcanberra-gtk3}/bin/canberra-gtk-play" \
+                --id "$sound" \
+                2>/dev/null
         '';
 in
 
