@@ -4,8 +4,10 @@ let
     progName = "notify-time";
     meta.description = "Time a command and send a notification";
     isDarwin = super.stdenv.isDarwin;
-    italics.open = if isDarwin then "" else "<i>";
+    italics.open  = if isDarwin then "" else "<i>";
     italics.close = if isDarwin then "" else "</i>";
+    success_sound = if isDarwin then "Blow" else "dialog-information";
+    error_sound   = if isDarwin then "Submarine" else "dialog-error";
     command =
         if isDarwin
         then ''
@@ -13,7 +15,7 @@ let
                 -title "$summary" \
                 -message "$body" \
                 -activate net.kovidgoyal.kitty \
-                -sound default
+                -sound "$sound"
         ''
         else ''
             "${self.dunst}/bin/dunstify" \
@@ -22,6 +24,8 @@ let
                 --urgency "$urgency" \
                 "$summary" \
                 "$body"
+
+            "${self.libcanberra-gtk3}/bin/canberra-gtk-play" --id "$sound"
         '';
 in
 
@@ -46,6 +50,7 @@ main()
     set -e
     local end="$SECONDS"
     local duration="$((end - start))"
+    local sound="${success_sound}"
 
     local summary="Command Done"
 
@@ -64,6 +69,7 @@ main()
         urgency=critical
         icon=computer-fail-symbolic.symbolic
         body="${italics.open}Exit code:${italics.close} $exit_code$NL$body"
+        sound="${error_sound}"
     fi
 
     ${command}
