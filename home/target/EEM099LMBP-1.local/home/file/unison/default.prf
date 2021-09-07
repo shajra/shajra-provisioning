@@ -1,6 +1,0 @@
-root = /Users/sukant/Documents/jelly
-root = ssh://jelly//home/tnks/doc/shared/safe
-
-logfile = /Users/sukant/var/log/unison.log
-
-ignore = Name *.sock

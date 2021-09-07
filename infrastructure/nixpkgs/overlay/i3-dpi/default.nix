@@ -25,7 +25,7 @@ set -eu
 PATH="$PATH:/run/current-system/sw/bin"
 
 DPI="''${1:-235}"
-XRESOURCES="$HOME/.Xresources.dpi"
+XRESOURCES=~/.Xresources.dpi
 
 
 main()

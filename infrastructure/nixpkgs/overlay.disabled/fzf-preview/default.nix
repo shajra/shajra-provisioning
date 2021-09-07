@@ -56,7 +56,7 @@ echo "$(date): (fzf-lines=$FZF_PREVIEW_LINES, fzf-cols=$FZF_PREVIEW_COLUMNS)" > 
 echo "$(date): (fzf-lines=$FZF_OUTER_LINES, fzf-cols=$FZF_OUTER_COLUMNS)" > ~/debug.fzf.log
 WIDTH="$((  FZF_PREVIEW_COLUMNS  + 0 ))"
 HEIGHT="$(( FZF_PREVIEW_LINES    + 0 ))"
-TMP="$HOME/.cache/${progName}"
+TMP=~/.cache/"${progName}"
 CACHEFILE="$TMP/$(echo "$1" | base64).png"
 
 

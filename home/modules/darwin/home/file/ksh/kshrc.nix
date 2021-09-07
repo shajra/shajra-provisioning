@@ -1,9 +1,7 @@
-home:
+fish:
 
 ''
-fish_exe="${home}/.nix-profile/bin/fish"
-
-if command -v "$fish_exe" > /dev/null
-then exec "$fish_exe"
+if command -v "${fish}" > /dev/null
+then exec "${fish}"
 fi
 ''

@@ -9,6 +9,8 @@ let
 
     external = import ./external { inherit config externalOverrides; };
 
+    home.shared = import home/shared.nix;
+
     bootstrap = import external.nixpkgs-stable {
         config = {}; overlays = [];
     };
@@ -48,4 +50,4 @@ let
 
     pkgs = infra.np.nixpkgs-stable.recurseIntoAttrs selectedPkgs;
 
-in { inherit infra pkgs sources; }
+in { inherit infra home pkgs sources; }

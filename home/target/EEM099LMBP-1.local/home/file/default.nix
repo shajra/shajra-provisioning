@@ -1,3 +1,5 @@
+shared:
+
 {
-    ".unison/default.prf".source = unison/default.prf;
+    ".unison/default.prf".text = import unison/default.prf.nix shared;
 }

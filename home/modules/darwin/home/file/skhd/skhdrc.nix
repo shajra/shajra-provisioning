@@ -1,3 +1,6 @@
+kitty: jq:
+
+''
 # Strategy for keybindings:
 #
 # - left-only modifiers are used to allow right-variants when conflicts
@@ -40,8 +43,8 @@ lalt            - escape ; passthru
 passthru < lalt - escape ; default
 
 # open terminal
-#lalt - return : /Users/sukant/.nix-profile/Applications/Alacritty.app/Contents/MacOS/alacritty
-lalt - return : /Users/sukant/.nix-profile/Applications/Kitty.app/Contents/MacOS/kitty --single-instance --wait-for-single-instance-window-close --directory /Users/sukant
+#lalt - return : alacritty # no args
+lalt - return : ${kitty} --single-instance --wait-for-single-instance-window-close --directory ~
 
 # focus window
 lalt - h : yabai -m window --focus west
@@ -99,14 +102,16 @@ size < lalt - 0 : yabai -m space --balance
 
 # create desktop, move window and follow focus
 lalt + shift - n : yabai -m space --create;\
-                  id=$(yabai -m query --displays --display | grep "spaces");\
-                  yabai -m window --space $(echo ${id:10:${#id}-10});\
-                  yabai -m space --focus $(echo ${id:10:${#id}-10})
+           id="$(yabai -m query --spaces --display \
+               | "${jq}" 'map(select(."native-fullscreen" == 0))[-1].index')";\
+           yabai -m window --space $id;\
+           yabai -m space --focus $id
 
 # create desktop and follow focus
 lalt - n : yabai -m space --create;\
-                id=$(yabai -m query --displays --display | grep "spaces");\
-                yabai -m space --focus $(echo ${id:10:${#id}-10})
+           id="$(yabai -m query --spaces --display \
+               | "${jq}" 'map(select(."native-fullscreen" == 0))[-1].index')";\
+           yabai -m space --focus $id
 
 # destroy desktop
 lalt + shift - w : yabai -m space --destroy
@@ -221,3 +226,4 @@ lcmd + shift - f : yabai -m space --layout bsp
 .blacklist [
     "VMware Fusion"
 ]
+''
