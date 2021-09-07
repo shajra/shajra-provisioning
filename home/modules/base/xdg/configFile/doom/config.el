@@ -63,9 +63,21 @@
 (after! xref
   (add-hook 'xref-backend-functions 'etags--xref-backend))
 
-;; DESIGN: doom dashboard looks bad with an indicator
+;; DESIGN: Doom dashboard looks bad with an indicator
 (add-hook! +doom-dashboard-mode :append
   (display-fill-column-indicator-mode -1))
+
+;; DESIGN: need to load after Doom to change Doom settings
+(after! org-fancy-priorities
+  (setq-default
+   org-priority-default 3
+   org-priority-highest 1
+   org-priority-lowest  5
+   org-fancy-priorities-list '((?1 . "⯁")
+                               (?2 . "🞛")
+                               (?3 . "🞜")
+                               (?4 . "🞚")
+                               (?5 . "⬦"))))
 
 ;; DESIGN: not indenting by default for long prose, but indenting agenda items
 (add-hook! org-load :append
@@ -74,5 +86,5 @@
   (if (+org-agenda-files-includes? (buffer-name))
       (org-indent-mode)))
 
-;; DESIGN: Some configuration is more personal...
+;; DESIGN: some configuration is more personal...
 (load! "config" "~/.config/doom-private" t)
