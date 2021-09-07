@@ -1,4 +1,4 @@
-complete --no-files dunst-time
-complete dunst-time \
+complete --no-files notify-time
+complete notify-time \
     -d Command \
     -a '(__fish_complete_subcommand -- -o --ou tput -f --format)'

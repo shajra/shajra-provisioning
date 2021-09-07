@@ -19,7 +19,7 @@ let
         ''
         else ''
             "${self.dunst}/bin/dunstify" \
-                --appname dunst-time \
+                --appname notify-time \
                 --icon "$icon" \
                 --urgency "$urgency" \
                 "$summary" \

@@ -49,8 +49,8 @@ config: pkgs:
             match_transient = true;
             history_ignore = true;
         };
-        dunst-time = {
-            appname = "dunst-time";
+        notify-time = {
+            appname = "notify-time";
             format = "<big><b>%s</b></big>\\n<span foreground='#657b83'>%b</span>";
             timeout = 0;
         };
