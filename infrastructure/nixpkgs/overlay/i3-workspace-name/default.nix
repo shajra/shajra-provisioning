@@ -35,7 +35,10 @@ get_input()
     rofi -dmenu \
         -lines 0 \
         -p 'workspace name: ' \
-        -theme-str 'inputbar { children: [prompt, entry]; }'
+        -theme-str '
+            inputbar { children: [prompt, entry]; }
+            listview { lines: 0; }
+        '
 }
 
 trim()

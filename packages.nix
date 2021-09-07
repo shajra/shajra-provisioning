@@ -83,7 +83,7 @@ let
         linux  = "unstable";
         darwin = "unstable";
     } [
-        "haskell.compiler.ghc8106"
+        "haskell.compiler.ghc8107"
         "jdk"
     ];
 
@@ -150,13 +150,13 @@ let
     };
 
     nixpkgs.build.common.haskell = {}
-        // (np.hs.fromPackages "unstable" "ghc8106" "djinn")
-        // (np.hs.fromPackages "unstable" "ghc8106" "fast-tags")
-        // (np.hs.fromPackages "unstable" "ghc8106" "ghc-events")
-        // (np.hs.fromPackages "unstable" "ghc8106" "haskdogs")
-        // (np.hs.fromPackages "unstable" "ghc8106" "hasktags")
-        // (np.hs.fromPackages "unstable" "ghc8106" "hoogle")
-        // (np.hs.fromPackages "unstable" "ghc8106" "hp2pretty")
+        // (np.hs.fromPackages "unstable" "ghc8107" "djinn")
+        // (np.hs.fromPackages "unstable" "ghc8107" "fast-tags")
+        // (np.hs.fromPackages "unstable" "ghc8107" "ghc-events")
+        // (np.hs.fromPackages "unstable" "ghc8107" "haskdogs")
+        // (np.hs.fromPackages "unstable" "ghc8107" "hasktags")
+        // (np.hs.fromPackages "unstable" "ghc8107" "hoogle")
+        // (np.hs.fromPackages "unstable" "ghc8107" "hp2pretty")
 
         # DESIGN: marked broken, 2020-11-28
         #// (np.hs.fromPackages "unstable" "ghc8106" "threadscope")

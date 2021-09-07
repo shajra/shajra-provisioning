@@ -56,8 +56,8 @@
 window {
     border-radius: 24px;
     background-color: @background-color;
-    border:           8;
-    padding:          24;
+    border:           8px;
+    padding:          24px;
 }
 
 mainbox {
