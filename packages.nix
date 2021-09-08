@@ -31,6 +31,7 @@ let
         "dhall"
         "exa"
         "fd"
+        "file"
         "gnugrep"
         "gnumake"
         "gnupg"  # TODO: home-manager
@@ -60,11 +61,13 @@ let
         "slack-term"
         "sqlint"
         "sqlite"
+        "t-rec"
         "tree"
         "unison"
         "unzip"
         "wget"
         "which"
+        "yq-go"
 
         # Fonts
         "emacs-all-the-icons-fonts"  # for Emacs, used automatically by Doom
@@ -106,6 +109,7 @@ let
         "maim"
         "pavucontrol"
         "pciutils"
+        "peek"
         "playerctl"
         "ponymix"
         "postgresql"
@@ -114,6 +118,7 @@ let
         "simple-scan"
         "slack"
         "stack"
+        "sxiv"
         "usbutils"
         "whipper"
         "wirelesstools"
