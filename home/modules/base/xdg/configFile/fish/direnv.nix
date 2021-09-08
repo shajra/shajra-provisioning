@@ -39,6 +39,15 @@ function direnv-toggle \
     end
 end
 
+function direnv-status \
+    --description "see if Direnv is on or off"
+    if set --query __direnv_hook_enabled
+        echo Direnv is enabled
+    else
+        echo Direnv is disabled
+    end
+end
+
 function direnv-retry \
     --description "cycle Direnv off, then on"
     if set --query __direnv_hook_enabled

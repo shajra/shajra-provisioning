@@ -32,6 +32,7 @@ in
     programs.dircolors.enable = true;
     programs.dircolors.extraConfig = builtins.readFile "${sources.dircolors-solarized}/dircolors.ansi-light";
     programs.direnv.enableFishIntegration = false;
+    programs.direnv.enableBashIntegration = false;
     programs.direnv.enable = true;
     programs.direnv-nix-lorelei.enable = true;
     programs.emacs = import programs/emacs pkgs;
