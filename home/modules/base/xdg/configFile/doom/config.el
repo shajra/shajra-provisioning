@@ -70,7 +70,7 @@
 ;; DESIGN: need to load after Doom to change Doom settings
 (after! org-fancy-priorities
   (setq-default
-   org-priority-default 3
+   org-priority-default 2
    org-priority-highest 1
    org-priority-lowest  5
    org-fancy-priorities-list '((?1 . "⯁")
