@@ -77,7 +77,7 @@
                                (?2 . "🞛")
                                (?3 . "🞜")
                                (?4 . "🞚")
-                               (?5 . "⬦"))))
+                               (?5 . "⟡"))))
 
 ;; DESIGN: not indenting by default for long prose, but indenting agenda items
 (add-hook! org-load :append
