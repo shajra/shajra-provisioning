@@ -43,7 +43,7 @@ in
     programs.git = import programs/git sources.delta;
     programs.home-manager.enable = true;
     programs.htop.enable = true;
-    programs.jq.enable = true;
+    programs.jq = import programs/jq;
     programs.kitty = import programs/kitty pkgs;
     programs.lesspipe.enable = true;
     programs.man.generateCaches = true;
