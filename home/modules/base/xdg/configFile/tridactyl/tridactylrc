@@ -1,3 +1,4 @@
 unbind <F1>
 bind J tabnext_gt
 bind K tabprev
+set editorcmd kitty vim %f '+normal!%lGzv%c|'
