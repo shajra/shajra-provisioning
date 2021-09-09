@@ -1,14 +1,14 @@
 {
     "bluos-nix": {
-        "branch": "main",
+        "branch": "old/3.14.0",
         "description": "Nix repackaging of BluOS Controller",
         "homepage": null,
         "owner": "shajra",
         "repo": "bluos-nix",
-        "rev": "72088622b5b764439d65bd043c57bc64b461e96d",
-        "sha256": "13wvrqf7c8kgcz35dvvbiy13ji40qys54arml98cqm3xhpaym93x",
+        "rev": "45abc0c23ce7e23cd6a96f6bb615212ae5d19be7",
+        "sha256": "184xlrv2grb90c6yf29qs3gdv9hnfy37zc0g33p4cqnfjbff242l",
         "type": "tarball",
-        "url": "https://github.com/shajra/bluos-nix/archive/72088622b5b764439d65bd043c57bc64b461e96d.tar.gz",
+        "url": "https://github.com/shajra/bluos-nix/archive/45abc0c23ce7e23cd6a96f6bb615212ae5d19be7.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "colored_man_pages.fish": {
