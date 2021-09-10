@@ -70,14 +70,19 @@
 ;; DESIGN: need to load after Doom to change Doom settings
 (after! org-fancy-priorities
   (setq-default
-   org-priority-default 2
+   org-priority-default 4
    org-priority-highest 1
    org-priority-lowest  5
-   org-fancy-priorities-list '((?1 . "⯁")
-                               (?2 . "🞛")
-                               (?3 . "🞜")
-                               (?4 . "🞚")
-                               (?5 . "⟡"))))
+   org-fancy-priorities-list '(
+                               (?A . "🅐") (?B . "🅑") (?C . "🅒") (?D . "🅓")
+                               ;;(?A . "🅰") (?B . "🅱") (?C . "🅲") (?D . "🅳")
+                               ;;(?A . "🄰") (?B . "🄱") (?C . "🄲") (?D . "🄳")
+                               ;;(?1 . " ") (?2 . " ") (?3 . " ") (?4 . " ") (?5 . " ")
+                               ;;(?1 . " ") (?2 . " ") (?3 . " ") (?4 . " ") (?5 . " ")
+                               ;;(?1 . " ") (?2 . " ") (?3 . " ") (?4 . " ") (?5 . " ")
+                               ;;(?1 . "⓵") (?2 . "⓶") (?3 . "⓷") (?4 . "⓸") (?5 . "⓹")
+                               (?1 . "🌑") (?2 . "🌒") (?3 . "🌓") (?4 . "🌔") (?5 . "🌕")
+                               )))
 
 ;; DESIGN: not indenting by default for long prose, but indenting agenda items
 (add-hook! org-load :append
