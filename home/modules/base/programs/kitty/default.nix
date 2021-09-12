@@ -4,13 +4,17 @@ let
     hintsOpen = type: "kitten hints --type=${type}"
         + " --hints-text-color 'green' --hints-foreground-color white";
     hintsInsert = type: "${hintsOpen type} --program -";
+    scrollbackNvim = ''nvim </dev/null -u NORC -c "map q :qa!<CR>" ''
+        + ''-c "terminal cat /proc/$$/fd/0 -" ''
+        + ''-c "set clipboard+=unnamedplus" ''
+        + ''-c "call cursor(CURSOR_LINE, CURSOR_COLUMN)"'';
 in
 
 {
     enable = true;
     extraConfig = ''
         font_size 11
-        scrollback_pager nvim -u NORC -c 'set ft=man' -c 'hi Search ctermbg=LightGrey' -c 'normal G{}' -c 'map q :qa!<CR>' -c 'set clipboard+=unnamedplus' -
+        scrollback_pager sh -c '${scrollbackNvim}'
     '';
     font.name = "SauceCodePro Nerd Font Mono";
     font.package = pkgs.nerdfonts;
