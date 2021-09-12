@@ -73,8 +73,24 @@ in
     enable = true;
 
     functions = {
-        git-status = {
-            description = "Jump into a deep directory with Broot";
+        system-info = {
+            description = "A summary of system information";
+            body = ''
+                "${pkgs.macchina}/bin/macchina" \
+                    --hide Resolution \
+                    --color Yellow \
+                    --no-title \
+                    --spacing 1 \
+                    --long-shell \
+                    --no-ascii \
+                    --bar \
+                    --no-bar-delimiter \
+                    --no-box
+                "${pkgs.coreutils}/bin/cat" "${./color_bars.txt}"
+            '';
+        };
+        projects = {
+            description = "Status of my projects";
             body = ''
                 if set -q argv[1]
                     set targets $argv
@@ -196,6 +212,7 @@ in
             then darwinInteractiveShellInit
             else linuxInteractiveShellInit
         }
+        system-info
     '';
 
     plugins = [

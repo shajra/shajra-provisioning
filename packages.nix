@@ -37,6 +37,7 @@ let
         "gnupg"  # TODO: home-manager
         "graphviz"
         "imagemagick"
+        "macchina"
         "mpc_cli"
         "niv"
         "nix-diff"
