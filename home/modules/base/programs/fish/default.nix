@@ -245,7 +245,7 @@ in
         nnn = "nnn -C";
         ${if isDarwin then "mm" else null} = "${pkgs.m-cli}/bin/m";
         m = "man";
-        s = "git-status";
+        p = "projects";
         ${if isDarwin then null else "sx"} = "sxiv -a";
         t = "notify-time";
         unison = "unison -ui text";
