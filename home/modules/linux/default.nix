@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
     build = import ../../.. {};
@@ -32,5 +32,5 @@ in
 
     xresources = import ./xresources config;
 
-    xsession = import ./xsession config pkgs;
+    xsession = import ./xsession config pkgs lib;
 }

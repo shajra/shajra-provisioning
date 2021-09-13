@@ -1,27 +1,37 @@
-mod:
+lib: mod:
 
-{
-    resize = {
+let
 
-        "h"           = "resize grow   left 1 px or 1 ppt";
-        "Shift+h"     = "resize shrink left 1 px or 1 ppt";
-        "Left"        = "resize grow   left 1 px or 1 ppt";
-        "Shift+Left"  = "resize shrink left 1 px or 1 ppt";
+    directions = {
+        "h"     = "left";
+        "Left"  = "left";
+        "j"     = "down";
+        "Down"  = "left";
+        "k"     = "up";
+        "Up"    = "up";
+        "l"     = "right";
+        "Right" = "right";
+    };
 
-        "j"           = "resize grow   down 1 px or 1 ppt";
-        "Shift+j"     = "resize shrink down 1 px or 1 ppt";
-        "Down"        = "resize grow   down 1 px or 1 ppt";
-        "Shift+Down"  = "resize shrink down 1 px or 1 ppt";
+    # DESIGN: Sometimes it's easier to keep the mod-key depressed.
+    bindingsForDirection = key: dir: {
+        "${key}"               = "resize grow   ${dir} 1 px or 1 ppt";
+        "${mod}+${key}"        = "resize grow   ${dir} 1 px or 1 ppt";
+        "Shift+${key}"         = "resize shrink ${dir} 1 px or 1 ppt";
+        "${mod}+Shift+${key}"  = "resize shrink ${dir} 1 px or 1 ppt";
+    };
 
-        "k"           = "resize grow   up 1 px or 1 ppt";
-        "Shift+k"     = "resize shrink up 1 px or 1 ppt";
-        "Up"          = "resize grow   up 1 px or 1 ppt";
-        "Shift+Up"    = "resize shrink up 1 px or 1 ppt";
+    directionBindings =
+        let unmerged = lib.mapAttrsToList bindingsForDirection directions;
+        in lib.foldl' (a: b: a // b) {} unmerged;
 
-        "l"           = "resize grow   right 1 px or 1 ppt";
-        "Shift+l"     = "resize shrink right 1 px or 1 ppt";
-        "Right"       = "resize grow   right 1 px or 1 ppt";
-        "Shift+Right" = "resize shrink right 1 px or 1 ppt";
+in {
+
+    resize = directionBindings // {
+        # DESIGN: This is a hack that balances a split when it's a split, but
+        # otherwise probably will do something surprising.
+        "equal"        = "floating toggle, floating toggle";
+        "${mod}+equal" = "floating toggle, floating toggle";
 
         "${mod}+Escape"       = "mode \"default\"";
         "${mod}+Shift+Escape" = "mode \"default\"";

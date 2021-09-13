@@ -1,4 +1,4 @@
-config: pkgs:
+config: pkgs: lib:
 
 let
     autorandr-exe = "${pkgs.autorandr}/bin/autorandr";
@@ -19,8 +19,8 @@ in
         fonts = ["Source Serif Pro 10"];
         gaps = import ./gaps.nix;
         floating.criteria = [ { class = "Pavucontrol"; } ];
-        keybindings = import ./keybindings.nix modifier config pkgs kitty-exe;
-        modes = import ./modes.nix modifier;
+        keybindings = import ./keybindings.nix config pkgs modifier kitty-exe;
+        modes = import ./modes.nix lib modifier;
         modifier = "Mod4";
         startup = [
             (runOnce "${i3msg-exe} workspace 1")

@@ -1,4 +1,4 @@
-mod: config: pkgs: kitty:
+config: pkgs: mod: kitty:
 
 let
     autorandr = "${pkgs.autorandr}/bin/autorandr";
