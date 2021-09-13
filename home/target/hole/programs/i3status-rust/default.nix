@@ -15,6 +15,11 @@ in
         bottom = {
             blocks = [
                 {
+                block = "focused_window";
+                max_width = 80;
+                show_marks = "visible";
+                }
+                {
                 block = "disk_space";
                 format = "{icon} {available} {percentage}";
                 }
