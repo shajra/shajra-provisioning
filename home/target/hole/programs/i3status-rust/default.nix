@@ -83,7 +83,13 @@ in
                 }
             ];
             icons = "material-nf";
-            theme = "solarized-light";
+            settings.theme = {
+                name = "solarized-light";
+                overrides = {
+                    idle_bg = "#859900";
+                    idle_fg = "#fdf6e3";
+                };
+            };
         };
     };
 }

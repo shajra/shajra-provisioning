@@ -25,7 +25,7 @@ in
         startup = [
             (runOnce "${i3msg-exe} workspace 1")
             (runOnce "${autorandr-exe} --change --default home")
-            (runOnce "${setroot-exe} --solid-color '#002b36'")
+            (runOnce "${setroot-exe} --solid-color '#fdf6e3'")
         ];
         terminal = kitty-exe;
         window = {

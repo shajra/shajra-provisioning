@@ -28,9 +28,9 @@ in
     # the very thin lines around the title.
     #
     #                             border bground text   indicator cborder
-    urgent          = clientColor base01 base2   orange red       base01;
+    urgent          = clientColor base01 base1   orange red       base1;
     focused         = clientColor green  green   base3  cyan      green;
-    focusedInactive = clientColor violet base2   violet violet    base01;
-    unfocused       = clientColor base01 base2   base00 violet    base01;
-    placeholder     = clientColor base03 base02  base0  base03    base03;
+    focusedInactive = clientColor base01 base1   base3  violet    base1;
+    unfocused       = clientColor base01 base1   base02 violet    base1;
+    placeholder     = clientColor base3  base3   base01 base01    base3;
 }
