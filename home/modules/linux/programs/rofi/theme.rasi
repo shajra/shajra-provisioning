@@ -34,7 +34,7 @@
     normal-foreground:           @foreground;
     alternate-normal-background: @solarized-base2;
     alternate-normal-foreground: @foreground;
-    selected-normal-background:  @solarized-yellow;
+    selected-normal-background:  @solarized-magenta;
     selected-normal-foreground:  @solarized-base3;
 
     active-background:           @normal-background;

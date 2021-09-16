@@ -28,11 +28,11 @@ in
     colors = {
         statusline = base01;
         background = base3;
-        focusedWorkspace  = color base1 green base3;
-        activeWorkspace   = color base1 green base03;
-        inactiveWorkspace = color base1 base3 base03;
-        urgentWorkspace   = color base1 red   base3;
-        bindingMode       = color base1 red   base3;
+        focusedWorkspace  = color base1 green   base3;
+        activeWorkspace   = color base1 green   base03;
+        inactiveWorkspace = color base1 base2   base00;
+        urgentWorkspace   = color base1 magenta base3;
+        bindingMode       = color base1 cyan    base3;
     };
     position = "top";
     workspaceNumbers = false;

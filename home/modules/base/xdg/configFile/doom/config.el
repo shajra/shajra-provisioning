@@ -44,6 +44,13 @@
   '(mode-line-inactive :family "Source Serif Variable" :height 0.9))
 (advice-add #'doom-modeline--font-height :override #'(lambda () (progn 28)))
 
+;; DESIGN: light override of Solarized Light theme
+;;
+(custom-set-faces!
+  `(highlight :background ,(doom-color 'magenta))
+  `(cursor :background ,(doom-color 'green))
+  `(doom-themes-treemacs-file-face :foreground ,(doom-color 'green)))
+
 
 ;; Function calls
 

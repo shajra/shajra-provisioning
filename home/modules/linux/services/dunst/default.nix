@@ -8,12 +8,12 @@ config: pkgs:
         global = {
             browser = "${config.programs.firefox.package}/bin/firefox";
             corner_radius = 24;
-            dmenu = "${config.programs.rofi.package}/bin/rofi -dmenu";
+            dmenu = "${config.programs.rofi.package}/bin/rofi -dmenu -p action";
             ellipsize = "end";
             font = "Source Serif Pro";
             format = "<b>%s</b> %b";
             frame_width = 8;
-            geometry = "1200x0-50+100";
+            geometry = "1200x0-50+125";
             horizontal_padding = 24;
             markup = "full";
             min_icon_size = 64;

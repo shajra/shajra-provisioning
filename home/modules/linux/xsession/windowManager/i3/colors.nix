@@ -6,11 +6,12 @@ let
 
     base03     = "#002b36";
     base02     = "#073642";
+    base015    = "#2f525b";
     base01     = "#586e75";  # emphasized text
     base00     = "#657b83";  # standard text
     base0      = "#839496";
     base1      = "#93a1a1";  # shadowed comments
-    base15     = "#c0c4bb";  # non-Solarized semitone
+    base15     = "#c0c4bb";
     base2      = "#eee8d5";  # background highlights
     base3      = "#fdf6e3";  # background
     yellow     = "#b58900";
@@ -25,8 +26,8 @@ let
     focus_bg      = green;
     focus_fg      = base3;
     unfocus_bg    = base15;
-    unfocus_fg_em = base03;
-    unfocus_fg    = base01;
+    unfocus_fg_em = base3;
+    unfocus_fg    = base015;
 
 in
 

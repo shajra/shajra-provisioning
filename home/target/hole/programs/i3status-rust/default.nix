@@ -16,7 +16,7 @@ in
             blocks = [
                 {
                 block = "focused_window";
-                max_width = 80;
+                max_width = 70;
                 show_marks = "visible";
                 }
                 {
@@ -86,8 +86,10 @@ in
             settings.theme = {
                 name = "solarized-light";
                 overrides = {
-                    idle_bg = "#859900";
-                    idle_fg = "#fdf6e3";
+                    idle_bg     = "#859900";  # green
+                    idle_fg     = "#fdf6e3";  # base3
+                    info_bg     = "#2aa198";  # cyan
+                    critical_bg = "#d33682";  # magenta
                 };
             };
         };

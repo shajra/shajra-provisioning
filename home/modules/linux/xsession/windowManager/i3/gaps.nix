@@ -1,5 +1,6 @@
 {
-    inner = 4;
+    top   = -1;
+    inner = 3;
     outer = 0;
 
     smartBorders = "off";  # off, on, no_gaps
