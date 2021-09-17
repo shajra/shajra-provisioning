@@ -9,6 +9,7 @@ let
     i3-conf = "${config.xdg.configHome}/i3status-rust/config-bottom.toml";
     i3status-conf = "${config.xdg.configHome}/i3status-rust/config-bottom.toml";
     runOnce = cmd: { command = cmd; always = false; notification = false; };
+    modifierAlt = "Mod1";
 in
 
 {
@@ -19,7 +20,8 @@ in
         fonts = ["Source Serif Pro 10"];
         gaps = import ./gaps.nix;
         floating.criteria = [ { class = "Pavucontrol"; } ];
-        keybindings = import ./keybindings.nix config pkgs modifier kitty-exe;
+        keybindings = import ./keybindings.nix
+            config pkgs modifier modifierAlt kitty-exe;
         modes = import ./modes.nix lib modifier;
         modifier = "Mod4";
         startup = [

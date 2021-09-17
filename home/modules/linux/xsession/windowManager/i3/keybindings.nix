@@ -1,4 +1,4 @@
-config: pkgs: mod: kitty:
+config: pkgs: mod: modAlt: kitty:
 
 let
     autorandr = "${pkgs.autorandr}/bin/autorandr";
@@ -42,11 +42,11 @@ in
     # global fullscreen
     "${mod}+Shift+f" = "fullscreen";
 
-    # stacking
-    "${mod}+s" = "layout stacking";
-
     # tabbed
     "${mod}+t" = "layout tabbed";
+
+    # stacking
+    "${mod}+Shift+t" = "layout stacking";
 
     # default
     "${mod}+d" = "layout default";
@@ -147,7 +147,9 @@ in
         && ${dunstctl} history-pop \
         && ${pkill} -u ${user} -SIGRTMIN+0 i3status-rs
     '';
-    "${mod}+Control+n" = ''exec ${dunstctl} set-paused toggle'';
+    "${mod}+Control+n" = ''exec ${dunstctl} action'';
+    "${mod}+Control+Shift+n" = ''exec ${dunstctl} context'';
+    "${mod}+${modAlt}+n" = ''exec ${dunstctl} set-paused toggle'';
 
     # start a new terminal
     "${mod}+Return" = ''exec ${kitty} --single-instance'';
@@ -158,7 +160,7 @@ in
 
     # run dmenu run launcher
     "${mod}+F3" = ''exec ${rofi} -show run'';
-    "${mod}+p" = ''exec ${rofi} -show run'';
+    "${mod}+r" = ''exec ${rofi} -show run'';
 
     # run dmenu ssh launcher
     "${mod}+F4" = ''exec ${rofi} -show ssh -terminal "${kitty} --single-instance"'';
@@ -183,7 +185,7 @@ in
     "${mod}+Control+Shift+r" = "restart";
 
     # resize mode
-    "${mod}+r" = "mode \"resize\"";
+    "${mod}+s" = "mode \"resize\"";
 
     # passthrough mode
     "${mod}+Escape" = "mode \"passthrough\"";

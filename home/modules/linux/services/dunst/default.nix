@@ -16,8 +16,11 @@ config: pkgs:
             geometry = "1200x0-50+125";
             horizontal_padding = 24;
             markup = "full";
-            min_icon_size = 64;
             max_icon_size = 64;
+            min_icon_size = 64;
+            mouse_left_click = "close_current";
+            mouse_middle_click = "close_all";
+            mouse_right_click = "do_action, close_current";
             padding = 12;
             progress_bar_frame_width = 2;
             progress_bar_height = 24;

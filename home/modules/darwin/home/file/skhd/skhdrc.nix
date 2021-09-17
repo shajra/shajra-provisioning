@@ -174,7 +174,6 @@ lalt + cmd + shift - 1 : yabai -m window --display 1; yabai -m display --focus 1
 lalt + cmd + shift - 2 : yabai -m window --display 2; yabai -m display --focus 2
 lalt + cmd + shift - 3 : yabai -m window --display 3; yabai -m display --focus 3
 
-
 # rotate tree
 lalt - r : yabai -m space --rotate 90
 

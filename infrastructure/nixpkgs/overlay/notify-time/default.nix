@@ -1,6 +1,7 @@
 self: super:
 
 let
+
     progName = "notify-time";
     meta.description = "Time a command and send a notification";
     isDarwin = super.stdenv.isDarwin;
@@ -8,27 +9,61 @@ let
     italics.close = if isDarwin then "" else "</i>";
     success_sound = if isDarwin then "Blow" else "dialog-information";
     error_sound   = if isDarwin then "Submarine" else "dialog-error";
-    command =
-        if isDarwin
-        then ''
-            "${self.terminal-notifier}/bin/terminal-notifier" \
-                -title "$summary" \
-                -message "$body" \
-                -activate net.kovidgoyal.kitty \
-                -sound "$sound"
-        ''
-        else ''
-            "${self.dunst}/bin/dunstify" \
+
+    setup'.darwin = "";
+
+    setup'.linux = ''
+        local i3_exe
+        i3_exe="$(command -v i3-msg)"
+
+        local con_id=0
+        if [ -x "$i3_exe" ]
+        then
+            con_id="$(i3-msg -t get_tree | "${self.jq}/bin/jq" '
+                    .. | objects | select(.focused == true) | .id
+                '
+            )"
+        fi
+    '';
+
+    setup = if isDarwin then setup'.darwin else setup'.linux;
+
+    notify'.darwin = ''
+        "${self.terminal-notifier}/bin/terminal-notifier" \
+            -title "$summary" \
+            -message "$body" \
+            -activate net.kovidgoyal.kitty \
+            -sound "$sound"
+    '';
+
+    notify'.linux = ''
+        "${self.libcanberra-gtk3}/bin/canberra-gtk-play" \
+            --id "$sound" \
+            2>/dev/null
+
+        local action_args=()
+        if [ "$con_id" -gt 0 ]
+        then action_args=(--action "default,Focus on terminal")
+        fi
+
+        {
+            local action
+            action="$("${self.dunst}/bin/dunstify" \
+                "''${action_args[@]}" \
                 --appname notify-time \
                 --icon "$icon" \
                 --urgency "$urgency" \
                 "$summary" \
                 "$body"
+            )"
+            if [ "$action" = default ] && [ -x "$i3_exe" ] && [ "$con_id" -gt 0 ]
+            then i3-msg --quiet [con_id="$con_id"] focus
+            fi
+        } &
+    '';
 
-            "${self.libcanberra-gtk3}/bin/canberra-gtk-play" \
-                --id "$sound" \
-                2>/dev/null
-        '';
+    notify = if isDarwin then notify'.darwin else notify'.linux;
+
 in
 
 self.nix-project-lib.writeShellCheckedExe progName
@@ -45,6 +80,8 @@ NL="
 
 main()
 {
+    ${setup}
+
     local start="$SECONDS"
     set +e
     "$@"
@@ -74,7 +111,7 @@ main()
         sound="${error_sound}"
     fi
 
-    ${command}
+    ${notify}
 
     return "$exit_code"
 }

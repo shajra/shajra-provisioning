@@ -18,6 +18,10 @@ in
                 block = "focused_window";
                 max_width = 70;
                 show_marks = "visible";
+                #theme_overrides = {
+                #    idle_bg = "#859900";
+                #    idle_fg = "#586e75";
+                #};
                 }
                 {
                 block = "disk_space";

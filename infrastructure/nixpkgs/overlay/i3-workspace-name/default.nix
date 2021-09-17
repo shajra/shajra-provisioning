@@ -12,6 +12,7 @@ self.nix-project-lib.writeShellCheckedExe progName
     path = with self; [
         coreutils
         i3
+        jq
         rofi
     ];
 }
@@ -24,9 +25,8 @@ main()
 {
     local input; input="$(get_input)"
     local trimmed_input; trimmed_input="$(trim "$input")"
-
     if [ -n "$trimmed_input" ]
-    then i3-msg "rename workspace to \"$trimmed_input\""
+    then smart_rename "$trimmed_input"
     fi
 }
 
@@ -39,6 +39,43 @@ get_input()
             inputbar { children: [prompt, entry]; }
             listview { lines: 0; }
         '
+}
+
+smart_rename()
+{
+    local target_name="$1"
+    local temp_name="$1_"
+    local current_name; current_name="$(get_current_name)"
+    if name_exists "$target_name"
+    then
+        rename "$current_name" "$temp_name"
+        rename "$target_name" "$current_name"
+        rename "$temp_name" "$target_name"
+    else
+        rename "$current_name" "$target_name"
+    fi
+}
+
+get_current_name()
+{
+    i3-msg -t get_workspaces \
+        | jq --raw-output '.[] | select(.focused == true).name'
+}
+
+name_exists()
+{
+    local name="$1"
+    i3-msg -t get_workspaces \
+        | jq --exit-status ".[] | select(.name == \"$name\")" \
+        >/dev/null
+
+}
+
+rename()
+{
+    orig="$1"
+    new="$2"
+    i3-msg "rename workspace \"$orig\" to \"$new\""
 }
 
 trim()
