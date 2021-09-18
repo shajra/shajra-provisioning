@@ -204,10 +204,10 @@
         "homepage": "https://nur.nix-community.org/",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "66a98df90ceed071f010abe52362c69b42f6a246",
-        "sha256": "01f7ldzadn57ksfjp8palygxpszxl5azf8mb7vq6p6jaxapr6map",
+        "rev": "aa0787ef9bdd4fa4ef168b364a03c89e70640d7e",
+        "sha256": "1k1xb2asi790zwpm91lf7prx62cimi29q036dxvgcgdrd2sgynkv",
         "type": "tarball",
-        "url": "https://github.com/nix-community/NUR/archive/66a98df90ceed071f010abe52362c69b42f6a246.tar.gz",
+        "url": "https://github.com/nix-community/NUR/archive/aa0787ef9bdd4fa4ef168b364a03c89e70640d7e.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "pointless-xcompose": {
