@@ -114,6 +114,13 @@
         "url": "https://github.com/nix-community/home-manager/archive/371576cdc2580ba93a38e28da8ece2129f558815.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "moneydance": {
+        "sha256": "04cclqbnr2a34nxwx84mv7b6mxdp862gxgf2rspf4pxcdyl3v9w7",
+        "type": "tarball",
+        "url": "https://infinitekind.com/stabledl/2021.1_3069/moneydance-linux.tar.gz",
+        "url_template": "https://infinitekind.com/stabledl/<version>/moneydance-linux.tar.gz",
+        "version": "2021.1_3069"
+    },
     "nix-darwin": {
         "branch": "master",
         "description": "nix modules for darwin",

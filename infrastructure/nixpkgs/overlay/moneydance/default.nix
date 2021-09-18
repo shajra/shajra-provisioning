@@ -12,11 +12,7 @@ let
         pname = "moneydance-lib";
         version = "2021.1_3069";
         name = "${pname}-${version}";
-        # TODO: should this come from Niv like everything else?
-        src = super.fetchzip {
-            url = "https://infinitekind.com/stabledl/${version}/moneydance-linux.tar.gz";
-            sha256 = "04cclqbnr2a34nxwx84mv7b6mxdp862gxgf2rspf4pxcdyl3v9w7";
-        };
+        src = super.moneydance-dist;
         phases = [ "installPhase" ];
         installPhase = ''
             cp -r "$src/lib" "$out"

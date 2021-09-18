@@ -22,6 +22,7 @@ let
         });
         skhd = super.skhd.overrideAttrs (old: { src = sources.skhd; });
         yabai = super.yabai.overrideAttrs (old: { src = sources.yabai; });
+        moneydance-dist = sources.moneydance;
     };
 
     overlay.provided = import ./overlay;
