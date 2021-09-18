@@ -75,13 +75,18 @@ in
     functions = {
         system-info = {
             description = "A summary of system information";
-            body = ''
+            body =
+                # DESIGN: Nixpkgs-darwin has an older version of Macchina that
+                # complains if you use the wrong switches.  Will notice when it
+                # updates and the prompt looks bad.
+                let linuxOnly = "--hide Resolution --long-shell";
+                    platformSpecific = if isDarwin then "" else linuxOnly;
+                in ''
                 "${pkgs.macchina}/bin/macchina" \
-                    --hide Resolution \
+                    ${platformSpecific} \
                     --color Yellow \
                     --no-title \
                     --spacing 1 \
-                    --long-shell \
                     --no-ascii \
                     --bar \
                     --no-bar-delimiter \

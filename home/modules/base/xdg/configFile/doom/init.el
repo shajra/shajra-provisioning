@@ -71,7 +71,7 @@
  ;;cc
  data
  emacs-lisp
- haskell
+ (haskell +lsp)
  (haskell-extn +dante +lsp)
  latex
  markdown

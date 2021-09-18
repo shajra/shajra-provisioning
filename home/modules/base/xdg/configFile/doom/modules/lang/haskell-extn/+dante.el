@@ -1,4 +1,6 @@
 ;;; -*- lexical-binding: t; -*-
+;;;###if (featurep! +dante)
+
 
 ;;; variables
 
@@ -31,9 +33,65 @@ normal etags backend find references in the source of non-local dependencies."
 
 ;;; package configuration
 
-(load! "modules/lang/haskell/+dante" doom-emacs-dir)
+(use-package! dante
 
-(add-hook! haskell-literate-mode #'dante-mode)
+  :hook ((haskell-mode-local-vars . dante-mode)
+         (haskell-literate-mode   . dante-mode))
+
+  :init
+
+  (setq dante-load-flags '(;; defaults:
+                           "+c"
+                           "-fdiagnostics-color=never"
+                           "-ferror-spans"
+                           "-fno-diagnostics-show-caret"
+                           "-Wwarn=missing-home-modules"
+                           ;; necessary to make attrap-attrap useful:
+                           "-Wall"
+                           ;; necessary to make company completion useful:
+                           "-fdefer-typed-holes"
+                           "-fdefer-type-errors"))
+
+  :config
+
+  (when (featurep! :checkers syntax)
+    (+haskell/dante-hlint-on))
+
+  (set-company-backend! 'dante-mode #'dante-company)
+
+  ;; DESIGN: Prevent Dante's buffer saving from leaving buffer in an unmodified
+  ;; state. Whether a buffer's state is set as modified or not determines
+  ;; whether some save hooks are run (for example autoformatting hooks).  Dante
+  ;; works by saving the buffer to a temporary file, but without triggering save
+  ;; hooks.  However Dante's saving as implemented upstream resets the buffer's
+  ;; state as unmodified, which can prevent save hooks from triggering on a
+  ;; subsequent save.
+  (defadvice! +haskell--restore-modified-state-a (fn &rest args)
+    :around #'dante-async-load-current-buffer
+    (let ((modified-p (buffer-modified-p)))
+      (apply fn args)
+      (if modified-p (set-buffer-modified-p t))))
+
+  (when (featurep 'evil)
+    (add-hook 'dante-mode-hook #'evil-normalize-keymaps))
+
+  (map! :map dante-mode-map
+        :localleader
+        "t" #'dante-type-at
+        "i" #'dante-info
+        "l" #'haskell-process-load-file
+        "e" #'dante-eval-block
+        "a" #'attrap-attrap)
+
+  (+haskell--dante-methods-alist-extend)
+
+  (remove-hook 'xref-backend-functions 'dante--xref-backend)
+
+  (defadvice! +haskell--dante-mode-a (orig-fn &rest args)
+    :around #'dante-mode
+    (+haskell--cond-a 'dante orig-fn #'+haskell--dante-load-current-buffer args)
+    (when +haskell-dante-xref-enable
+      (add-hook 'xref-backend-functions 'dante--xref-backend nil t))))
 
 (after! (dante envrc)
   (defadvice! +haskell--dante-envrc-a (&rest _)
@@ -44,26 +102,3 @@ normal etags backend find references in the source of non-local dependencies."
   (defadvice! +haskell--dante-direnv-a (&rest _)
     :before #'dante-start
     (direnv-update-directory-environment)))
-
-(after! (dante flycheck)
-  (+haskell/dante-hlint-on))
-
-(after! dante
-  (+haskell--dante-methods-alist-extend)
-  (dolist
-      (item
-       '("+c"
-         "-fdefer-typed-holes"
-         "-fdefer-type-errors"
-         "-fdiagnostics-color=never"
-         "-ferror-spans"
-         "-fno-diagnostics-show-caret"
-         "-Wall"
-         "-Wwarn=missing-home-modules"))
-    (add-to-list 'dante-load-flags item))
-  (remove-hook 'xref-backend-functions 'dante--xref-backend)
-  (defadvice! +haskell--dante-mode-a (orig-fn &rest args)
-    :around #'dante-mode
-    (+haskell--cond-a 'dante orig-fn #'+haskell--dante-load-current-buffer args)
-    (when +haskell-dante-xref-enable
-      (add-hook 'xref-backend-functions 'dante--xref-backend nil t))))

@@ -1,7 +1,6 @@
 ;;; -*- lexical-binding: t; -*-
+;;;###if (featurep! +lsp)
 
-
-(load! "modules/lang/haskell/+lsp" doom-emacs-dir)
 
 (add-hook! haskell-literate-mode #'lsp!)
 

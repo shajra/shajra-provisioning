@@ -11,5 +11,4 @@ in
     ".skhdrc".text = import skhd/skhdrc.nix kitty jq;
     ".yabairc".source = yabai/yabairc;
     ".yabairc".executable = true;
-    ".nix-channels".source = ./nix-channels;
 }

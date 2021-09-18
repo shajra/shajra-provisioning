@@ -2,15 +2,6 @@
 
 
 (unless
-    (and
-     (featurep! :lang haskell)
-     (not (featurep! :lang haskell +lsp))
-     (not (featurep! :lang haskell +dante)))
-  (error! (concat
-           "(:lang haskell) is required, but without its +lsp and +dante flags."
-           "\n  Use the +lsp/+dante flags of (:lang haskell-extn) instead.")))
-
-(unless
     (or
      (featurep! +lsp)
      (featurep! +dante))
@@ -20,7 +11,9 @@
 
 (when (featurep! +lsp)
   (unless (featurep! :tools lsp)
-    (error! "The +lsp flag of this module requires (:tools lsp).")))
+    (error! "The +lsp flag of this module requires (:tools lsp)."))
+  (unless (featurep! :lang haskell +lsp)
+    (error! "The +lsp flag of this module requires (:lang haskell +lsp).")))
 
 (when (featurep! :tools lsp +eglot)
   (error! "This module only supports lsp-mode, not eglot."))

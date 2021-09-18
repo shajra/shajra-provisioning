@@ -5,7 +5,6 @@ let
 in
 
 {
-    ".nix-channels".source = ./nix-channels;
     ".XCompose".text = import xcompose/text.nix sources;
     ".Xdefaults".source = makeLink "${config.home.homeDirectory}/.Xresources";
 
