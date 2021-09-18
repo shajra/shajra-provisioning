@@ -11,15 +11,15 @@
     flags = {};
     package = {
       specVersion = "2.4";
-      identifier = { name = "stylish-haskell"; version = "0.12.2.0"; };
+      identifier = { name = "stylish-haskell"; version = "0.13.0.0"; };
       license = "BSD-3-Clause";
       copyright = "2012 Jasper Van der Jeugt";
       maintainer = "Jasper Van der Jeugt <m@jaspervdj.be>";
       author = "Jasper Van der Jeugt <m@jaspervdj.be>";
-      homepage = "https://github.com/jaspervdj/stylish-haskell";
+      homepage = "https://github.com/haskell/stylish-haskell";
       url = "";
       synopsis = "Haskell code prettifier";
-      description = "A Haskell code prettifier. For more information, see:\n\n<https://github.com/jaspervdj/stylish-haskell/blob/master/README.markdown>";
+      description = "A Haskell code prettifier. For more information, see:\n\n<https://github.com/haskell/stylish-haskell/blob/master/README.markdown>";
       buildType = "Simple";
       isLocal = true;
       detailLevel = "FullDetails";
@@ -165,6 +165,7 @@
             "Language/Haskell/Stylish/Step/TrailingWhitespace/Tests"
             "Language/Haskell/Stylish/Step/UnicodeSyntax"
             "Language/Haskell/Stylish/Step/UnicodeSyntax/Tests"
+            "Language/Haskell/Stylish/Regressions"
             "Language/Haskell/Stylish/Tests"
             "Language/Haskell/Stylish/Tests/Util"
             "Language/Haskell/Stylish/Util"
