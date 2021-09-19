@@ -70,6 +70,7 @@
  :lang
  ;;cc
  data
+ dhall
  emacs-lisp
  (haskell +lsp)
  (haskell-extn +dante +lsp)
