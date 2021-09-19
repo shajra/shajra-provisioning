@@ -7,7 +7,7 @@
 
 ;;;###autoload
 (put 'projectile-tags-command 'safe-local-variable
-     (lambda (v) (s-starts-with? "nix-haskell-tags" v)))
+     (lambda (v) (s-starts-with? "haskell-tags-nix" v)))
 
 ;;;###autoload
 (put 'tags-table-list 'safe-local-variable
