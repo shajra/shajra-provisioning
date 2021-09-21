@@ -24,7 +24,7 @@ Also see ‘+haskell/dante-hlint-off’, and ‘+haskell/dante-hlint-toggle’."
   "Whether to enable ‘xref’ support for ‘dante-mode’.
 
 Dante's ‘xref’ backend only finds references local to the project. So using a
-tool like haskdogs, codex, or nix-haskell-tags, you might be able to set up a
+tool like haskdogs, codex, or haskell-tags-nix, you might be able to set up a
 normal etags backend find references in the source of non-local dependencies."
   :type '(radio
           (const :tag "enable Dante Xref backend" t)

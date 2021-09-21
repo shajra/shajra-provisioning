@@ -43,38 +43,67 @@ let
                 infraConfig.haskell-nix.lookupSha256."${location}" or null;
         };
 
+    hackagePlanConfigFor = ghcVersion: name: modules:
+        planConfigFor ghcVersion name modules // {
+            version = infraConfig.hackage.version."${name}";
+        };
+
+    sourcePlanConfigFor = ghcVersion: name: modules:
+        planConfigFor ghcVersion name modules // {
+            src = sources."${name}";
+        };
+
     defaultModules = [{ enableSeparateDataOutput = true; }];
+
+    defaultReinstallableLibGhcModules = defaultModules ++ [{
+        reinstallableLibGhc = true;
+    }];
 
 in rec {
 
     inherit haskell-nix nixpkgs;
 
     fromHackageWithModules = ghcVersion: name: modules:
-        let planConfig = planConfigFor ghcVersion name modules // {
-                version = infraConfig.hackage.version."${name}";
-            };
+        let planConfig = hackagePlanConfigFor ghcVersion name modules;
         in allExes (haskell-nix.hackage-package planConfig);
+
+    fromHackageReinstallableLibGhc = ghcVersion: name:
+        fromHackageWithModules ghcVersion name
+            defaultReinstallableLibGhcModules;
 
     fromHackage = ghcVersion: name:
         fromHackageWithModules ghcVersion name defaultModules;
 
-    fromHackageReinstallableLibGhc = ghcVersion: name:
-        fromHackageWithModules ghcVersion name (defaultModules ++ [{
-            reinstallableLibGhc = true;
-        }]);
+    hackageUpdateMaterializedWithModules = ghcVersion: name: modules:
+        let planConfig = hackagePlanConfigFor ghcVersion name modules;
+            plan-nix = (haskell-nix.hackage-project planConfig).plan-nix;
+        in {
+            "${name}" = plan-nix.passthru.updateMaterialized;
+        };
+
+    hackageUpdateMaterialized = ghcVersion: name:
+        hackageUpdateMaterializedWithModules ghcVersion name defaultModules;
+
 
     fromSourceWithModules = ghcVersion: name: modules:
-        let planConfig = planConfigFor ghcVersion name modules // {
-                src = sources."${name}";
-            };
+        let planConfig = sourcePlanConfigFor ghcVersion name modules;
         in allExes (haskell-nix.cabalProject planConfig)."${name}";
+
+    fromSourceReinstallableLibGhc = ghcVersion: name:
+        fromSourceWithModules ghcVersion name
+            defaultReinstallableLibGhcModules;
 
     fromSource = ghcVersion: name:
         fromSourceWithModules ghcVersion name defaultModules;
 
-    fromSourceReinstallableLibGhc = ghcVersion: name:
-        fromSourceWithModules ghcVersion name (defaultModules ++ [{
-            reinstallableLibGhc = true;
-        }]);
+    sourceUpdateMaterializedWithModules = ghcVersion: name: modules:
+        let planConfig = sourcePlanConfigFor ghcVersion name modules;
+            plan-nix = (haskell-nix.cabalProject' planConfig).plan-nix;
+        in {
+            "${name}" = plan-nix.passthru.updateMaterialized;
+        };
+
+    sourceUpdateMaterialized = ghcVersion: name:
+        sourceUpdateMaterializedWithModules ghcVersion name defaultModules;
 
 }

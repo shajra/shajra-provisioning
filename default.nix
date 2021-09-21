@@ -35,6 +35,7 @@ let
     };
 
     myPkgs = import ./packages.nix infra;
+    updateMaterialized = myPkgs.haskell-nix.updateMaterialized;
 
     includeSet = bs: buildSet == bs || buildSet == "all";
     includeInfra = i: buildInfrastructure == i || buildInfrastructure == "all";
@@ -50,4 +51,4 @@ let
 
     pkgs = infra.np.nixpkgs-stable.recurseIntoAttrs selectedPkgs;
 
-in { inherit infra home pkgs sources; }
+in { inherit infra home pkgs sources updateMaterialized; }

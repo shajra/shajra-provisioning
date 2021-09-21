@@ -185,13 +185,21 @@ let
         #// (hn.fromHackage "ghc8103" "ghc-events-analyze")
     );
 
+    haskell-nix.updateMaterialized = when (! isDevBuild) (
+        {}
+        // (hn.hackageUpdateMaterialized "ghc8107" "apply-refact")
+        // (hn.hackageUpdateMaterialized "ghc8107" "ghcid")
+        // (hn.hackageUpdateMaterialized "ghc8107" "hlint")
+        // (hn.hackageUpdateMaterialized "ghc8107" "stylish-haskell")
+    );
+
     shajra.build.common =
         let hls = ghcVersion:
-                import sources.nix-haskell-hls {
+                import sources.haskell-hls-nix {
                     inherit ghcVersion;
                     hlsUnstable = false;
                 };
-            tags = import sources.nix-haskell-tags;
+            tags = import sources.haskell-tags-nix;
         in when (! isDevBuild) {
             implicit-hie        = (hls "8.10.7").implicit-hie;
             haskell-hls-wrapper = (hls "8.10.7").hls-wrapper;
