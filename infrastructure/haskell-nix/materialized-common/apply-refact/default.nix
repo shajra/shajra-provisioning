@@ -20,7 +20,7 @@
         "async".revision = (((hackage."async")."2.2.3").revisions).default;
         "async".flags.bench = false;
         "process".revision = (((hackage."process")."1.6.13.2").revisions).default;
-        "random".revision = (((hackage."random")."1.2.0").revisions).default;
+        "random".revision = (((hackage."random")."1.2.1").revisions).default;
         "unix-compat".revision = (((hackage."unix-compat")."0.5.3").revisions).default;
         "unix-compat".flags.old-time = false;
         "optparse-applicative".revision = (((hackage."optparse-applicative")."0.16.1.0").revisions).default;

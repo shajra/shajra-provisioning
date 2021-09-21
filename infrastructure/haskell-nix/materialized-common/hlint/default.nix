@@ -17,12 +17,12 @@
         "exceptions".revision = (((hackage."exceptions")."0.10.4").revisions).default;
         "time-compat".revision = (((hackage."time-compat")."1.9.6.1").revisions).default;
         "time-compat".flags.old-locale = false;
-        "yaml".revision = (((hackage."yaml")."0.11.5.0").revisions).default;
+        "yaml".revision = (((hackage."yaml")."0.11.6.0").revisions).default;
         "yaml".flags.no-exe = true;
         "yaml".flags.no-examples = true;
         "array".revision = (((hackage."array")."0.5.4.0").revisions).default;
         "integer-gmp".revision = (((hackage."integer-gmp")."1.0.3.0").revisions).default;
-        "mono-traversable".revision = (((hackage."mono-traversable")."1.0.15.1").revisions).default;
+        "mono-traversable".revision = (((hackage."mono-traversable")."1.0.15.2").revisions).default;
         "template-haskell".revision = (((hackage."template-haskell")."2.16.0.0").revisions).default;
         "vector".revision = (((hackage."vector")."0.12.3.0").revisions).default;
         "vector".flags.unsafechecks = false;
@@ -35,7 +35,7 @@
         "dlist".flags.werror = false;
         "pretty".revision = (((hackage."pretty")."1.1.3.6").revisions).default;
         "process".revision = (((hackage."process")."1.6.13.2").revisions).default;
-        "random".revision = (((hackage."random")."1.2.0").revisions).default;
+        "random".revision = (((hackage."random")."1.2.1").revisions).default;
         "uuid-types".revision = (((hackage."uuid-types")."1.0.5").revisions).default;
         "scientific".revision = (((hackage."scientific")."0.3.7.0").revisions).default;
         "scientific".flags.integer-simple = false;

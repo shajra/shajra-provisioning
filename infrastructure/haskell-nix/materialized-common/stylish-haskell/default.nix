@@ -32,7 +32,7 @@
         "dlist".flags.werror = false;
         "pretty".revision = (((hackage."pretty")."1.1.3.6").revisions).default;
         "process".revision = (((hackage."process")."1.6.13.2").revisions).default;
-        "random".revision = (((hackage."random")."1.2.0").revisions).default;
+        "random".revision = (((hackage."random")."1.2.1").revisions).default;
         "optparse-applicative".revision = (((hackage."optparse-applicative")."0.16.1.0").revisions).default;
         "optparse-applicative".flags.process = true;
         "uuid-types".revision = (((hackage."uuid-types")."1.0.5").revisions).default;

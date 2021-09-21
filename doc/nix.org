@@ -375,7 +375,7 @@ readlink result*
 #+end_src
 
 #+results: nix-build-link
-: /nix/store/cc15syqii2b5fpwhg7qxdwl5sr8zclf4-python3.8-grip-4.5.2
+: /nix/store/khcckpw76gdglgh8l4y76fgswffajx7x-python3.8-grip-4.5.2
 
 Following these symlinks, we can see the files the project provides:
 
@@ -412,7 +412,7 @@ nix path-info --file . <<get("package-attr")>>
 #+end_src
 
 #+results: nix-build-path
-: /nix/store/cc15syqii2b5fpwhg7qxdwl5sr8zclf4-python3.8-grip-4.5.2
+: /nix/store/khcckpw76gdglgh8l4y76fgswffajx7x-python3.8-grip-4.5.2
 
 ** Running commands
 
