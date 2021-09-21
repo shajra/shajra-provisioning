@@ -79,7 +79,6 @@ let
         "nerdfonts"                  # developer fonts with lots of icons
         "source-serif-pro"           # serif font to complement Sauce Code Pro
         "symbola"                    # another Unicode fallback font
-        "twitter-color-emoji"        # for emojis
         # DESIGN: Hasklig is also built from source below
     ];
 
@@ -127,6 +126,10 @@ let
         "xclip"
         "xorg.xdpyinfo"
         "xorg.xev"
+
+        # Fonts
+        # DESIGN: made Linux-only because of a build problem, 2021-09-21
+        "twitter-color-emoji"        # for emojis
     ];
 
     nixpkgs.build.common.home = pickHome [
