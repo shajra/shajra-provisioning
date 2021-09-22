@@ -105,9 +105,18 @@ in
                 for d in (fd --type d --hidden --glob .git $targets)
                     pushd $d
                     cd ..
-                    starship prompt
+                    starship prompt; echo
+                    set main (git rev-parse main 2>/dev/null)
+                    set next (git rev-parse user/shajra/next 2>/dev/null)
+                    if [ "$main" != "main" ] && [ "$next" != "user/shajra/next" ]
+                        if [ "$main" = "$next" ]
+                            printf "    \x1b[32m☑ main = next\x1b[0m\n"
+                        else
+                            printf "    \x1b[33m☒ main ≠ next\x1b[0m\n"
+                        end
+                    end
                     popd
-                end | sort | grep --color=never ' on '
+                end | grep --color=never '^ \| on '
             '';
         };
         broot-dir = {
