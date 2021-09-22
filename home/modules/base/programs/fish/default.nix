@@ -102,6 +102,7 @@ in
                 else
                     set targets ~/src/"${if isDarwin then "work" else "shajra"}"
                 end
+                echo
                 for d in (fd --type d --hidden --glob .git $targets)
                     pushd $d
                     cd ..
@@ -116,7 +117,7 @@ in
                         end
                     end
                     popd
-                end | grep --color=never '^ \| on '
+                end | grep --color=never '^ \| on ' |  sed -e 's/^/    /'
             '';
         };
         broot-dir = {
