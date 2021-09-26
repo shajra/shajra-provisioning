@@ -13,7 +13,10 @@ let
         builtins.filter lib.isDerivation (builtins.attrValues prunedPkgs);
 in
 {
-    imports = [ module-lorelei ];
+    imports = [
+        ../theme
+        module-lorelei
+    ];
 
     fonts.fontconfig.enable = true;
 
@@ -24,13 +27,13 @@ in
     nixpkgs.config = infra.np.config;
     nixpkgs.overlays = infra.np.overlays;
 
-    programs.alacritty = import programs/alacritty;
+    programs.alacritty = import programs/alacritty config pkgs;
     programs.bash.enable = true;
-    programs.bat.config = { theme = "Solarized (light)"; };
+    programs.bat.config = { theme = config.theme.external.bat.name; };
     programs.bat.enable = true;
-    programs.broot = import programs/broot;
+    programs.broot = import programs/broot config pkgs;
     programs.dircolors.enable = true;
-    programs.dircolors.extraConfig = builtins.readFile "${sources.dircolors-solarized}/dircolors.ansi-light";
+    programs.dircolors.extraConfig = config.theme.external.dircolors.extraConfig;
     programs.direnv.enableFishIntegration = false;
     programs.direnv.enableBashIntegration = false;
     programs.direnv.enable = true;
@@ -44,7 +47,7 @@ in
     programs.home-manager.enable = true;
     programs.htop.enable = true;
     programs.jq = import programs/jq;
-    programs.kitty = import programs/kitty pkgs;
+    programs.kitty = import programs/kitty config pkgs;
     programs.lesspipe.enable = true;
     programs.man.generateCaches = true;
     programs.ncmpcpp.enable = true;

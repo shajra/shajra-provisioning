@@ -23,6 +23,7 @@ let
         skhd = super.skhd.overrideAttrs (old: { src = sources.skhd; });
         yabai = super.yabai.overrideAttrs (old: { src = sources.yabai; });
         moneydance-dist = sources.moneydance;
+        dircolors-solarized = sources.dircolors-solarized;
     };
 
     overlay.provided = import ./overlay;

@@ -1,13 +1,7 @@
-pkgs:
+config:
 
 {
     enable = true;
-    font =  {
-        name = "Source Serif Pro";
-        package = pkgs.source-serif-pro;
-    };
-    theme = {
-        name = "NumixSolarizedLightMagenta";
-        package = pkgs.numix-solarized-gtk-theme;
-    };
+    font = config.theme.fonts.proportional;
+    theme = config.theme.external.gtk;
 }

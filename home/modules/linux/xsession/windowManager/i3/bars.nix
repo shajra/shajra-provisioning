@@ -1,38 +1,36 @@
-i3status-exe: i3status-conf:
-
-let color = border: background: text: {
-        inherit border background text;
-    };
-
-    base03     = "#002b36";
-    base02     = "#073642";
-    base01     = "#586e75";  # emphasized text
-    base00     = "#657b83";  # standard text
-    base0      = "#839496";
-    base1      = "#93a1a1";  # shadowed comments
-    base2      = "#eee8d5";  # background highlights
-    base3      = "#fdf6e3";  # background
-    yellow     = "#b58900";
-    orange     = "#cb4b16";
-    red        = "#dc322f";
-    magenta    = "#d33682";
-    violet     = "#6c71c4";
-    blue       = "#268bd2";
-    cyan       = "#2aa198";
-    green      = "#859900";
-
-in
+i3status-exe: i3status-conf: colors: foreground: fontName:
 
 [{
+    fonts = ["Material Icons 20" "${fontName} 9"];
     statusCommand = "${i3status-exe} ${i3status-conf}";
     colors = {
-        statusline = base01;
-        background = base3;
-        focusedWorkspace  = color base1 green   base3;
-        activeWorkspace   = color base1 green   base03;
-        inactiveWorkspace = color base1 base2   base00;
-        urgentWorkspace   = color base1 magenta base3;
-        bindingMode       = color base1 cyan    base3;
+        statusline = colors.semantic.foreground;
+        background = colors.semantic.background;
+        focusedWorkspace  = {
+            background = colors.window.selected.focused.background;
+            text       = colors.window.selected.focused.text;
+            border     = colors.window.selected.focused.border.workspace;
+        };
+        activeWorkspace   = {
+            background = colors.window.selected.unfocused.background;
+            text       = colors.window.selected.unfocused.text;
+            border     = colors.window.selected.unfocused.border.workspace;
+        };
+        inactiveWorkspace = {
+            background = colors.window.unselected.background;
+            text       = colors.window.unselected.text;
+            border     = colors.window.unselected.border.workspace;
+        };
+        urgentWorkspace   = {
+            background = colors.window.urgent.background;
+            text       = colors.window.urgent.text;
+            border     = colors.window.urgent.border.workspace;
+        };
+        bindingMode       = {
+            background = colors.window.bindingMode.background;
+            text       = colors.window.bindingMode.text;
+            border     = colors.window.bindingMode.border;
+        };
     };
     position = "top";
     workspaceNumbers = false;

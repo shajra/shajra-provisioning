@@ -1,18 +1,32 @@
+config: pkgs:
+
+let
+
+    format = f: x: pkgs.lib.colors.format "0x%R%G%B" (f x);
+    id = x: x;
+    lighten = pkgs.lib.colors.lightenByDec 32;
+    foregroundFor = config.theme.colors.nominal.foregroundFor;
+    colors = pkgs.lib.colors.transformColors (format id) config.theme.colors;
+    lightColors = pkgs.lib.colors.transformColors (format lighten) config.theme.colors;
+    foreground = pkgs.lib.colors.transformColors (format foregroundFor) config.theme.colors;
+
+in
+
 {
     env.TERM = "xterm-256color";
     scrolling.history = 10000;
 
     font = {
         normal = {
-            family = "SauceCodePro Nerd Font Mono";
+            family = config.theme.fonts.monospaced.code.name;
             style = "Regular";
         };
         bold = {
-            family = "SauceCodePro Nerd Font Mono";
+            family = config.theme.fonts.monospaced.code.name;
             style = "Bold";
         };
         italic = {
-            family = "SauceCodePro Nerd Font Mono";
+            family = config.theme.fonts.monospaced.code.name;
             style = "Italic";
         };
         size = 11.0;
@@ -22,28 +36,60 @@
 
     colors = {
         primary = {
-            background = "0xfdf6e3";
-            foreground = "0x586e75";
+            background = colors.semantic.background;
+            foreground = colors.semantic.foreground;
         };
-        normal = {
-            black =   "0x073642";
-            red =     "0xdc322f";
-            green =   "0x859900";
-            yellow =  "0xb58900";
-            blue =    "0x268bd2";
-            magenta = "0xd33682";
-            cyan =    "0x2aa198";
-            white =   "0xeee8d5";
+        cursor = {
+            cursor = colors.semantic.unifying;
+            text   = foreground.semantic.unifying;
         };
-        bright = {
-            black =   "0x002b36";
-            red =     "0xcb4b16";
-            green =   "0x586e75";
-            yellow =  "0x657b83";
-            blue =    "0x839496";
-            magenta = "0x6c71c4";
-            cyan =    "0x93a1a1";
-            white =   "0xfdf6e3";
+        selection = {
+            background = colors.semantic.highlight;
+            text       = foreground.semantic.highlight;
+        };
+        search = {
+            matches = {
+                background = colors.semantic.background_highlighted;
+                foreground = colors.semantic.foreground;
+            };
+            focused_match = {
+                background = colors.semantic.foreground;
+                foreground = colors.semantic.background;
+            };
+        };
+        hints = {
+            start = {
+                background = colors.semantic.highlight;
+                foreground = foreground.semantic.highlight;
+            };
+            end = {
+                background = lightColors.semantic.highlight;
+                foreground = foreground.semantic.highlight;
+            };
+        };
+        normal = with colors.terminal.normal; {
+            inherit
+            black
+            red
+            green
+            yellow
+            blue
+            magenta
+            cyan
+            white;
+        };
+        bright = with colors.terminal.bright; {
+            inherit
+            black
+            red
+            green
+            yellow
+            blue
+            magenta
+            cyan
+            white;
         };
     };
+
+    bell.color = colors.semantic.urgent;
 }

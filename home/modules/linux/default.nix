@@ -8,7 +8,7 @@ in
 {
     imports = [ ../base ];
 
-    gtk = import ./gtk pkgs;
+    gtk = import ./gtk config;
 
     home.file = import home/file config pkgs sources;
 
@@ -16,7 +16,7 @@ in
     programs.firefox = import programs/firefox config pkgs;
     programs.fish = import programs/fish config pkgs;
     programs.i3status-rust.enable = true;
-    programs.rofi = import programs/rofi;
+    programs.rofi = import programs/rofi config pkgs;
     programs.texlive = import programs/texlive;
     programs.zathura.enable = true;
 
@@ -30,7 +30,7 @@ in
 
     xdg.mimeApps = import xdg/mimeApps;
 
-    xresources = import ./xresources config;
+    xresources = import ./xresources config pkgs;
 
     xsession = import ./xsession config pkgs lib;
 }

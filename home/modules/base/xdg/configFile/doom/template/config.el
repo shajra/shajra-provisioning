@@ -5,17 +5,17 @@
 
 (let ((scale (if (eq system-type 'darwin) 1.5 1.0)))
   (setq-default
-   doom-big-font            (font-spec :family "SauceCodePro Nerd Font" :size (* scale 18.0))
-   doom-font                (font-spec :family "SauceCodePro Nerd Font" :size (* scale 11.0))
-   doom-serif-font          (font-spec :family "Source Serif Pro" :size (* scale 11.0))
+   doom-big-font            (font-spec :family "@theme_font_mono_code@" :size (* scale 18.0))
+   doom-font                (font-spec :family "@theme_font_mono_code@" :size (* scale 11.0))
+   doom-serif-font          (font-spec :family "@theme_font_mono_serif@" :size (* scale 11.0))
    doom-unicode-font        (font-spec :family "FreeSerif")  ; alternative to Symbola
-   doom-variable-pitch-font (font-spec :family "Source Serif Variable" :size (* scale 11.0))))
+   doom-variable-pitch-font (font-spec :family "@theme_font_proportional@" :size (* scale 11.0))))
 
 (setq-default
  dante-methods '(alt-stack-project alt-cabal)
  doom-large-file-size-alist '(("/TAGS\\([.]local\\)?$". 50.0) ("." . 1.0))
  doom-modeline-major-mode-icon t
- doom-theme 'doom-solarized-light
+ doom-theme '@theme_doom_name@
  fancy-splash-image "~/.config/doom/snowman.png"
  fill-column 80
  +haskell-dante-xref-enable nil
@@ -40,16 +40,16 @@
 ;; different computers and displays.
 ;;
 (custom-set-faces!
-  '(mode-line :family "Source Serif Variable" :height 0.9)
-  '(mode-line-inactive :family "Source Serif Variable" :height 0.9))
+  '(mode-line :family "@theme_font_proportional@" :height 0.9)
+  '(mode-line-inactive :family "@theme_font_proportional@" :height 0.9))
 (advice-add #'doom-modeline--font-height :override #'(lambda () (progn 28)))
 
 ;; DESIGN: light override of Solarized Light theme
 ;;
 (custom-set-faces!
-  `(highlight :background ,(doom-color 'magenta))
-  `(cursor :background ,(doom-color 'green))
-  `(doom-themes-treemacs-file-face :foreground ,(doom-color 'green)))
+  `(highlight :background ,(doom-color '@theme_color_highlight@))
+  `(cursor :background ,(doom-color '@theme_color_unifying@))
+  `(doom-themes-treemacs-file-face :foreground ,(doom-color '@theme_color_unifying@)))
 
 
 ;; Function calls

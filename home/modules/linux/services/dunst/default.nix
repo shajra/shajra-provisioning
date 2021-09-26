@@ -1,5 +1,15 @@
 config: pkgs:
 
+let
+
+    format = f: x: pkgs.lib.colors.format "#%R%G%B" (f x);
+    id = x: x;
+    foregroundFor = config.theme.colors.nominal.foregroundFor;
+    colors = pkgs.lib.colors.transformColors (format id) config.theme.colors;
+    foreground = pkgs.lib.colors.transformColors (format foregroundFor) config.theme.colors;
+
+in
+
 {
     enable = true;
     iconTheme.name = "Adwaita";
@@ -10,7 +20,7 @@ config: pkgs:
             corner_radius = 24;
             dmenu = "${config.programs.rofi.package}/bin/rofi -dmenu -p action";
             ellipsize = "end";
-            font = "Source Serif Pro";
+            font = config.theme.fonts.proportional.name;
             format = "<b>%s</b> %b";
             frame_width = 8;
             geometry = "1200x0-50+125";
@@ -29,23 +39,23 @@ config: pkgs:
             text_icon_padding = 8;
             transparency = 5;
         };
-        urgency_low = {
-            background  = "#fdf6e3";
-            foreground  = "#657b83";
-            frame_color = "#859900";
-            highlight   = "#657b83";
+        urgency_low = rec {
+            background  = colors.semantic.background;
+            foreground  = colors.semantic.foreground;
+            frame_color = colors.semantic.unifying;
+            highlight   = foreground;
         };
         urgency_normal  = {
-            background  = "#fdf6e3";
-            foreground  = "#859900";
-            frame_color = "#859900";
-            highlight   = "#859900";
+            background  = colors.semantic.background;
+            foreground  = colors.semantic.unifying;
+            frame_color = colors.semantic.unifying;
+            highlight   = colors.semantic.unifying;
         };
         urgency_critical = {
-            background  = "#fdf6e3";
-            foreground  = "#cb4b16";
-            frame_color = "#859900";
-            highlight   = "#cb4b16";
+            background  = colors.semantic.background;
+            foreground  = colors.semantic.urgent;
+            frame_color = colors.semantic.unifying;
+            highlight   = colors.semantic.urgent;
             timeout     = 0;
         };
         transient_history_ignore = {
@@ -54,7 +64,7 @@ config: pkgs:
         };
         notify-time = {
             appname = "notify-time";
-            format = "<big><b>%s</b></big>\\n<span foreground='#657b83'>%b</span>";
+            format = "<big><b>%s</b></big>\\n<span foreground='${colors.semantic.foreground}'>%b</span>";
             timeout = 0;
         };
     };

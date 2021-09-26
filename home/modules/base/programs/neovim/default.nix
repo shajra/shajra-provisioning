@@ -3,6 +3,7 @@ pkgs:
 {
     enable = true;
     plugins = with pkgs.vimPlugins; [
+        fzf-vim
         vim-grammarous
         vim-polyglot
     ];

@@ -1,6 +1,7 @@
 config: pkgs:
 
 let
+
     daemon = "${pkgs.daemon}/bin/daemon";
     dunstctl = "${pkgs.dunst}/bin/dunstctl";
     i3-dunst = "${pkgs.i3status-rust-dunst}/bin/i3status-rust-dunst";
@@ -8,6 +9,13 @@ let
     pkill = "${pkgs.procps}/bin/pkill";
     user = config.home.username;
     wpa_gui = "${pkgs.wpa_supplicant_gui}/bin/wpa_gui";
+
+    format = f: x: pkgs.lib.colors.format "#%R%G%B" (f x);
+    id = x: x;
+    foregroundFor = config.theme.colors.nominal.foregroundFor;
+    colors = pkgs.lib.colors.transformColors (format id) config.theme.colors;
+    foreground = pkgs.lib.colors.transformColors (format foregroundFor) config.theme.colors;
+
 in
 
 {
@@ -18,10 +26,6 @@ in
                 block = "focused_window";
                 max_width = 70;
                 show_marks = "visible";
-                #theme_overrides = {
-                #    idle_bg = "#859900";
-                #    idle_fg = "#586e75";
-                #};
                 }
                 {
                 block = "disk_space";
@@ -88,12 +92,25 @@ in
             ];
             icons = "material-nf";
             settings.theme = {
-                name = "solarized-light";
                 overrides = {
-                    idle_bg     = "#859900";  # green
-                    idle_fg     = "#fdf6e3";  # base3
-                    info_bg     = "#2aa198";  # cyan
-                    critical_bg = "#d33682";  # magenta
+                    idle_bg             = colors.semantic.unifying;
+                    idle_fg             = foreground.semantic.unifying;
+                    good_bg             = colors.semantic.good;
+                    good_fg             = foreground.semantic.good;
+                    info_bg             = colors.semantic.info;
+                    info_fg             = foreground.semantic.info;
+                    warning_bg          = colors.semantic.warning;
+                    warning_fg          = foreground.semantic.warning;
+                    critical_bg         = colors.semantic.urgent;
+                    critical_fg         = foreground.semantic.urgent;
+
+                    alternating_tint_bg = "#202020";  # lighten
+                    alternating_tint_fg = "#202020";  # lighten
+
+                    separator_bg        = "auto";
+                    separator_fg        = "auto";
+                    separator           = "";
+                    #separator           = "";
                 };
             };
         };

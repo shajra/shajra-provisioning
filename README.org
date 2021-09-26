@@ -35,13 +35,14 @@ This repository is designed to be forked and modified, and not really to be used
 as is. The likelihood that anyone else will want the exact configuration I use
 is infinitesimal. Still, you can look at this project to see how code is laid
 out. For the most part, it just shows a recommended way to use a few tools in
-conjunction to get a fairly complete provisioning.
+conjunction to get a fairly complete provisioning. If you're interested, I've
+documented [[file:doc/ux.org][more about my personal configuration]] in a separate document.
 
 If you've used other configuration management tools for this kind of task,
 hopefully this project can show you a much improved alternative. Because of Nix,
 we get a provisioning that's deep, precise, idempotent, and highly repeatable,
-much moreso than tools like Ansible. Additionally, almost the entire system is
-built by a continuous integration job, and published to a public cache for
+much moreso than with tools like Ansible. Additionally, almost the entire system
+is built by a continuous integration job, and published to a public cache for
 convenient redistribution. So we're getting benefits similar to those of Docker,
 but without the restriction to containers.
 

@@ -1,4 +1,6 @@
+config: pkgs:
+
 {
     enable = true;
-    settings = import ./settings.nix;
+    settings = import ./settings.nix config pkgs;
 }
