@@ -5,10 +5,10 @@
         "homepage": null,
         "owner": "shajra",
         "repo": "bluos-nix",
-        "rev": "45abc0c23ce7e23cd6a96f6bb615212ae5d19be7",
-        "sha256": "184xlrv2grb90c6yf29qs3gdv9hnfy37zc0g33p4cqnfjbff242l",
+        "rev": "b55354fcbb08c255a4b80dee3b13164cdf3c53a9",
+        "sha256": "1p3bnpnpn86aafzz1vyv9qsqxisawv7w4kix4nll6j4cl70lqh5v",
         "type": "tarball",
-        "url": "https://github.com/shajra/bluos-nix/archive/45abc0c23ce7e23cd6a96f6bb615212ae5d19be7.tar.gz",
+        "url": "https://github.com/shajra/bluos-nix/archive/b55354fcbb08c255a4b80dee3b13164cdf3c53a9.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "colored_man_pages.fish": {
