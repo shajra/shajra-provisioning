@@ -1,5 +1,5 @@
 {
-   "EEM099LMBP-1.local" = rec {
+   "EEM099LMBP-1" = rec {
       homeDirectory = "/Users/${username}";
       username = "sukant";
    };
