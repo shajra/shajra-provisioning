@@ -42,10 +42,11 @@ let
         else if d == 15 then "f"
         else throw "not decimal digit: ${d}";
 
-    splitChars = s: builtins.filter (x: x != "") (lib.splitString "" s);
-
     h2d = hex:
-        lib.foldl' (acc: x: acc * 16 + digit.h2d x) 0 (splitChars hex);
+        lib.foldl'
+            (acc: x: acc * 16 + digit.h2d x)
+            0
+            (lib.stringToCharacters hex);
 
     d2h = dec:
         let
