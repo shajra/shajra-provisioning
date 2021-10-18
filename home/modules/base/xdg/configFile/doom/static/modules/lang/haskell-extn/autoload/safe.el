@@ -3,7 +3,7 @@
 
 ;;;###autoload
 (put '+haskell-backend 'safe-local-variable
-     (lambda (v) (-contains? '(dante lsp) v)))
+     (lambda (v) (-contains? '(dante lsp none ()) v)))
 
 ;;;###autoload
 (put '+haskell-exclude-regexes 'safe-local-variable #'+haskell--all-regexps?)

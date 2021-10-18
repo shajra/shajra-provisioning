@@ -24,6 +24,7 @@ To get faster feedback with incremental builds we have two options:
 - ‘dante-mode’ (https://github.com/jyp/dante)
 - ‘lsp-haskell’ (https://github.com/emacs-lsp/lsp-haskell)"
     :type '(radio
+            (const :tag "Disabled" ())
             (const :tag "Dante" dante)
             (const :tag "LSP" lsp))
     :group 'haskell)
