@@ -22,7 +22,7 @@
  ophints
  (popup +all +defaults)
  treemacs  ; alternative to neotree
- ;unicode
+ unicode
  vc-gutter
  vi-tilde-fringe
  window-select
