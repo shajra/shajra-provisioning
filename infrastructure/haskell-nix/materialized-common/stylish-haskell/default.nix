@@ -22,7 +22,7 @@
         "integer-gmp".revision = (((hackage."integer-gmp")."1.0.3.0").revisions).default;
         "call-stack".revision = (((hackage."call-stack")."0.4.0").revisions).default;
         "template-haskell".revision = (((hackage."template-haskell")."2.16.0.0").revisions).default;
-        "vector".revision = (((hackage."vector")."0.12.3.0").revisions).default;
+        "vector".revision = (((hackage."vector")."0.12.3.1").revisions).default;
         "vector".flags.unsafechecks = false;
         "vector".flags.internalchecks = false;
         "vector".flags.boundschecks = true;
@@ -101,7 +101,7 @@
         "file-embed".revision = (((hackage."file-embed")."0.0.15.0").revisions).default;
         "colour".revision = (((hackage."colour")."2.3.6").revisions).default;
         "syb".revision = (((hackage."syb")."0.7.2.1").revisions).default;
-        "hashable".revision = (((hackage."hashable")."1.3.3.0").revisions).default;
+        "hashable".revision = (((hackage."hashable")."1.3.4.1").revisions).default;
         "hashable".flags.integer-gmp = true;
         "hashable".flags.random-initial-seed = false;
         "comonad".revision = (((hackage."comonad")."5.0.8").revisions).default;

@@ -18,7 +18,7 @@
         "fsnotify".revision = (((hackage."fsnotify")."0.3.0.1").revisions).default;
         "lifted-base".revision = (((hackage."lifted-base")."0.2.3.12").revisions).default;
         "pretty".revision = (((hackage."pretty")."1.1.3.6").revisions).default;
-        "async".revision = (((hackage."async")."2.2.3").revisions).default;
+        "async".revision = (((hackage."async")."2.2.4").revisions).default;
         "async".flags.bench = false;
         "process".revision = (((hackage."process")."1.6.13.2").revisions).default;
         "monad-control".revision = (((hackage."monad-control")."1.0.3.1").revisions).default;
@@ -71,7 +71,7 @@
         "enclosed-exceptions".revision = (((hackage."enclosed-exceptions")."1.0.3").revisions).default;
         "transformers".revision = (((hackage."transformers")."0.5.6.2").revisions).default;
         "colour".revision = (((hackage."colour")."2.3.6").revisions).default;
-        "hashable".revision = (((hackage."hashable")."1.3.3.0").revisions).default;
+        "hashable".revision = (((hackage."hashable")."1.3.4.1").revisions).default;
         "hashable".flags.integer-gmp = true;
         "hashable".flags.random-initial-seed = false;
         "clock".revision = (((hackage."clock")."0.8.2").revisions).default;
