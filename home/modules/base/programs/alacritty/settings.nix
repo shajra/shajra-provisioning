@@ -29,7 +29,6 @@ in
             family = config.theme.fonts.monospaced.code.name;
             style = "Italic";
         };
-        size = 11.0;
     };
 
     draw_bold_text_with_bright_colors = false;

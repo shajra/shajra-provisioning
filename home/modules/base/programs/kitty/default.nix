@@ -21,18 +21,21 @@ let
 
     hintsInsert = type: "${hintsOpen type} --program -";
 
-    scrollbackNvim = ''nvim </dev/null -u NORC -c "map q :qa!<CR>" ''
-        + ''-c "terminal cat /proc/$$/fd/0 -" ''
-        + ''-c "set clipboard+=unnamedplus" ''
-        + ''-c "call cursor(CURSOR_LINE, CURSOR_COLUMN)"'';
+    scrollbackNvim =
+        '' "${config.programs.neovim.package}/bin/nvim" ''
+        + '' -u NORC ''
+        + '' -c "map q :qa!<CR>" ''
+        + '' -c "terminal cat "<(cat)" - " ''
+        + '' -c "map i <Nop>" ''
+        + '' -c "set clipboard+=unnamedplus" ''
+        + '' -c "call cursor(CURSOR_LINE, CURSOR_COLUMN)" '';
 
 in
 
 {
     enable = true;
     extraConfig = ''
-        font_size 11
-        scrollback_pager sh -c '${scrollbackNvim}'
+        scrollback_pager "${pkgs.bash}/bin/bash" -c '${scrollbackNvim}'
     '';
     font = config.theme.fonts.monospaced.code;
     keybindings = {
