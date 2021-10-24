@@ -92,8 +92,8 @@ jobs:
     - run: |
         NIX_PATH=nixos=channel:nixos-21.05 \
         nix run nixos.nixos-rebuild \
-        --command ./nixos-rebuild --target hole build
-    - run: ./home-manager --target hole build
+            --command ./nixos-rebuild --target hole        build
+    - run:            ./home-manager  --target hole --slim build
   installers-darwin:
     name: darwin installers
     needs: [packages-darwin]
@@ -111,7 +111,7 @@ jobs:
         name: shajra
         signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
     - run: cat ~/.config/nix/nix.conf
-    - run: ./darwin-rebuild --target EEM099LMBP-1 build
-    - run: ./home-manager   --target EEM099LMBP-1 build
+    - run: ./darwin-rebuild --target EEM099LMBP-1        build
+    - run: ./home-manager   --target EEM099LMBP-1 --slim build
 
 
