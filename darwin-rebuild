@@ -8,5 +8,5 @@ nix run \
     infra.np.nixpkgs-stable.shajra-darwin-rebuild \
     --command \
     shajra-darwin-rebuild \
-    --nix-exe "$(command -v nix)" \
+    --nix "$(command -v nix)" \
     "$@"

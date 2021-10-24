@@ -42,10 +42,10 @@ DESCRIPTION:
 
 OPTIONS:
 
-    -h --help            print this help message
-    -t --target NAME     target host to configure for
-                         (otherwise autodetected)
-    -N --nixos-exe PATH  filepath of 'nix-darwin' executable to use
+    -h --help         print this help message
+    -t --target NAME  target host to configure for
+                      (otherwise autodetected)
+    -N --nix PATH     filepath of 'nix' executable to use
 
     '${progName}' pins all dependencies except for Nix itself,
      which it finds on the path if possible.  Otherwise set
@@ -65,17 +65,17 @@ main()
             exit 0
             ;;
         -t|--target)
-            TARGET="''${2:-}"
-            if [ -z "$TARGET" ]
+            if [ -z "''${2:-}" ]
             then die "$1 requires argument"
             fi
+            TARGET="''${2:-}"
             shift
             ;;
-        -N|--nix-exe)
-            NIX_EXE="''${2:-}"
-            if [ -z "$NIX_EXE" ]
+        -N|--nix)
+            if [ -z "''${2:-}" ]
             then die "$1 requires argument"
             fi
+            NIX_EXE="''${2:-}"
             shift
             ;;
         --)
@@ -99,7 +99,7 @@ rebuild()
 {
     local config="${sources.shajra-provisioning}/machines/$TARGET/darwin-configuration.nix"
 
-    PATH="$(path_for "$NIX_EXE"):$PATH"
+    add_nix_to_path "$NIX_EXE"
 
     NIX_PATH="darwin=${sources.nix-darwin}"
     NIX_PATH="nixpkgs=${sources.nixpkgs-system}:$NIX_PATH"

@@ -41,10 +41,11 @@ DESCRIPTION:
 
 OPTIONS:
 
-    -h --help            print this help message
-    -t --target          target host to configure for
-                         (otherwise autodetected)
-    -N --nixos-exe PATH  filepath of 'nixos-rebuild' executable to use
+    -h --help                print this help message
+    -t --target              target host to configure for
+                             (otherwise autodetected)
+    -N --nixos-rebuild PATH  filepath of 'nixos-rebuild'
+                             executable to use
 
     '${progName}' pins all dependencies except for Nix itself,
      which it finds on the path if possible.  Otherwise set
@@ -64,17 +65,17 @@ main()
             exit 0
             ;;
         -t|--target)
-            TARGET="''${2:-}"
-            if [ -z "$TARGET" ]
+            if [ -z "''${2:-}" ]
             then die "$1 requires argument"
             fi
+            TARGET="''${2:-}"
             shift
             ;;
-        -N|--nixos-exe)
-            NIXOS_EXE="''${2:-}"
-            if [ -z "$NIXOS_EXE" ]
+        -N|--nixos-rebuild)
+            if [ -z "''${2:-}" ]
             then die "$1 requires argument"
             fi
+            NIXOS_EXE="''${2:-}"
             shift
             ;;
         --)

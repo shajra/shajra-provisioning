@@ -8,5 +8,5 @@ nix run \
     infra.np.nixpkgs-stable.shajra-nixos-rebuild \
     --command \
     shajra-nixos-rebuild \
-    --nixos-exe "$(command -v nixos-rebuild)" \
+    --nixos-rebuild "$(command -v nixos-rebuild)" \
     "$@"

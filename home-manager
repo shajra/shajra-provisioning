@@ -13,5 +13,5 @@ nix run \
     infra.np.nixpkgs-stable.shajra-home-manager \
     --command \
     shajra-home-manager \
-    --nix "$(command -v nix-build)" \
+    --nix "$(command -v nix)" \
     "$@"
