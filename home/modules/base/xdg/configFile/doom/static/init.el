@@ -16,7 +16,9 @@
  hl-todo
  hydra
  indent-guides
- (ligatures +extra)
+ (ligatures
+  ;;+extra  ; removed to streamline Emacs performance
+  )
  modeline
  nav-flash
  ophints
@@ -26,7 +28,7 @@
  vc-gutter
  vi-tilde-fringe
  window-select
- ;workspaces  ; didn't like, may try again later
+ ;;workspaces  ; didn't like, may try again later
 
  :editor
  (evil +everywhere)
