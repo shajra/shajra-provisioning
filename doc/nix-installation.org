@@ -1,0 +1,186 @@
+#+title: Nix Installation
+#+setupfile: internal/links.org
+
+* Org-mode setup :noexport:
+
+This document is written in a project-agnostic way so it can be copied to other
+projects that use Nix.
+
+** Variables
+
+We set variables in =internal/params.el= and access those settings with the
+following macros and source code blocks (using Noweb).
+
+#+name: get
+#+begin_src emacs-lisp :var arg="" :eval yes :results silent
+(alist-get (intern arg) (car (read-from-string (f-read "internal/params.el"))))
+#+end_src
+
+#+macro: get (eval (concat $2 (alist-get (intern $1) (car (read-from-string (f-read "internal/params.el")))) $3))
+#+macro: nix-latest {{{get(nix-latest)}}}
+#+macro: nixos-latest {{{get(nixos-latest)}}}
+#+macro: nixos-branch {{{get(nixos-latest,=nixos-,=)}}}
+#+macro: platforms {{{get(platforms)}}}
+
+* About this document
+
+This document explains how to
+- install [[nix][the Nix package manager]]
+- set up Nix to download pre-built packages from a cache (optionally)
+- set up the Nix's experimental flakes feature (optionally)
+
+If you're unsure if you want to enable flakes or not, read the provided
+[[file:nix-introduction.org][introduction to Nix]].
+
+* Prerequisites
+
+This project supports {{{platforms}}}.
+
+All we need to use this project is to install Nix, which this document covers.
+Nix can be installed on a variety of Linux and Mac systems. Nix can also be
+installed in Windows via the Windows Subsystem for Linux (WSL). Installation on
+WSL may involve steps not covered in this documentation, though.
+
+Note, some users may be using [[nixos][NixOS]], a Linux operating system built on top of
+Nix. Those users already have Nix and don't need to install it separately. To
+use this project, you don't need to use NixOS as well.
+
+* Level of commitment/risk
+
+Unless you're on NixOS, you're likely already using another package manager for
+your operating system already (APT, DNF, etc.). You don't have to worry about
+Nix or packages installed by Nix conflicting with anything already on your
+system. Running Nix along side other package managers is safe.
+
+All the files of a Nix package are located under =/nix= a directory, well
+isolated from any other package manager. Nix won't touch critical directories
+under =/usr= or =/var=. Nix then symlinks files under =/nix= to your home
+directory under dot-files like =~/.nix-profile=. There is also some light
+configuration under =/etc/nix=.
+
+Hopefully this alleviates any worry about installing a complex program on your
+machine. Uninstallation is not too much more than deleting everything under
+=/nix=.
+
+* Nix package manager installation
+
+#+begin_quote
+*_NOTE:_* You don't need this step if you're running NixOS, which comes with Nix
+baked in.
+#+end_quote
+
+If you don't already have Nix, [[nix-install-quick][the official installation script]] should work on a
+variety of UNIX-like operating systems. If you're okay with the script calling
+=sudo= you can install Nix on a non-WSL machine with the following recommended
+command:
+
+#+begin_src bash :eval no
+sh <(curl -L https://nixos.org/nix/install) --daemon
+#+end_src
+
+The =--daemon= switch installs Nix in the multi-user mode, which is generally
+recommended (single-user installation with =--no-daemon= instead is recommended
+for WSL). The script reports everything it does and touches.
+
+After installation, you may have to exit your terminal session and log back in
+to have environment variables configured to put Nix executables on your =PATH=.
+
+The Nix manual describes [[nix-install-manual][other methods of installing Nix]] that may suit you more.
+If you later want to uninstall Nix, see the [[nix-uninstall][uninstallation steps documented in
+the Nix manual]].
+
+* Cache setup
+
+This project pushes built Nix packages to [[cachix][Cachix]] as part of its [[github-actions][continuous
+integration]]. It's recommended to configure Nix to use shajra.cachix.org as a
+Nix /substituter/. Once configured, Nix will pull down pre-built packages from
+Cachix, instead of building them locally (potentially saving a lot of time).
+This augments Nix's default substituter that pulls from cache.nixos.org.
+
+You can configure shajra.cachix.org as a supplemental substituter with the
+following command:
+
+#+begin_src sh :eval no
+nix run \
+    --file https://cachix.org/api/v1/install \
+    cachix \
+    --command cachix use shajra
+#+end_src
+
+Cachix is a service that anyone can use. You can call this command later to add
+substituters for someone else using Cachix, replacing “shajra” with their
+cache's name.
+
+If you've just run a multi-user Nix installation and are not yet a trusted user
+in =/etc/nix/nix.conf=, this command may not work. But it will report back some
+options to proceed.
+
+One option sets you up as a trusted user, and installs Cachix configuration for
+Nix locally at =~/.config/nix/nix.conf=. This configuration will be available
+immediately, and any subsequent invocation of Nix commands will take advantage
+of the Cachix cache.
+
+You can alternatively configure Cachix as a substituter globally by running the
+above command as a root user (say with =sudo=), which sets up Cachix directly in
+=/etc/nix/nix.conf=. The invocation may give further instructions upon
+completion.
+
+* Setting up experimental features
+
+This project can take advantage of two experimental Nix features:
+- =nix-command=
+- =flakes=
+
+The provided [[file:nix-introduction.org][introduction to Nix]] covers in detail what these features are and
+can help you decide whether you want to enable them.
+
+As you can guess, the =flakes= feature enables flakes functionality in Nix. The
+=nix-command= feature enables a variety of subcommands of Nix's newer =nix=
+command-line tool, some of which allow us to work with flakes.
+
+There is a way to use flakes local to just a single command-line invocation by
+using ~nix --extra-experimental-features 'nix-command flakes' …~, so users can
+try out using flakes without enabling it globally. For those users, this can be
+useful to set to a shell alias. Here's an example that works in most
+POSIX-compliant shells:
+
+#+begin_src sh :eval no
+alias nix-flakes = nix --extra-experimental-features 'nix-command flakes'
+#+end_src
+
+As discussed in the introduction, =nix-command= is actually enabled by default.
+You don't need to enable it explicitly (though you could disable it).
+
+To use flakes there are two things we need to do:
+1. make sure the version we're at least on Nix 2.4
+2. enable both the =nix-command= and =flakes= experimental features.
+
+Since the latest release of Nix is already at {{{nix-latest}}}, if you installed
+Nix recently as per the instructions above, you should be on a recent-enough
+version:
+
+#+name: nix-version
+#+begin_src sh :results output :exports both
+nix --version
+#+end_src
+
+#+RESULTS: nix-version
+: nix (Nix) 2.11.1
+
+The easiest way to turn on experimental features is to create a file
+=~/.config/nix/nix.conf= if it doesn't already exist, and in it put the
+following line:
+
+#+begin_src text :eval no
+experimental-features = nix-command flakes
+#+end_src
+
+Then you should see that the appropriate features are enabled:
+
+#+name: nix-show-config
+#+begin_src sh :results output :export both
+nix show-config | grep experimental-features
+#+end_src
+
+#+RESULTS: nix-show-config
+: experimental-features = flakes nix-command

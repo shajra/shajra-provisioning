@@ -1,10 +1,10 @@
-shared:
+userConfig:
 
 ''
-root = ${shared.hole.homeDirectory}
-root = ssh://jelly/${shared.jelly.homeDirectory}
+root = ${userConfig.hole.homeDirectory}
+root = ssh://jelly/${userConfig.jelly.homeDirectory}
 
-logfile = ${shared.hole.homeDirectory}/var/log/unison.log
+logfile = ${userConfig.hole.homeDirectory}/var/log/unison.log
 
 path = doc/shared
 ignore = Name *.sock

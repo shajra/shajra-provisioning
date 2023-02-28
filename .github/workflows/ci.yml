@@ -11,32 +11,24 @@ jobs:
     name: "linux pkgs: ${{ matrix.infra }}: ${{ matrix.set }}"
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v14
+    - uses: actions/checkout@v3
+    - uses: cachix/install-nix-action@v20
       with:
         extra_nix_config: |
-          trusted-public-keys = hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=
+          trusted-public-keys = cache.iog.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=
           trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
-          substituters = https://hydra.iohk.io https://cache.nixos.org/
-    - uses: cachix/cachix-action@v10
+          substituters = https://cache.iog.io https://cache.nixos.org/
+    - uses: cachix/cachix-action@v12
       with:
         name: shajra
         signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
     - run: cat ~/.config/nix/nix.conf
     - run: |
-        nix --print-build-logs build \
-            --file . \
-            --arg checkMaterialization true \
-            --argstr buildSet ${{ matrix.set }} \
-            --argstr buildInfrastructure ${{ matrix.infra }} \
-            pkgs
+        nix build --print-build-logs --verbose \
+            .#ci.${{ matrix.set }}.${{ matrix.infra }}
     - run: |
         nix --print-build-logs path-info \
-            --file . \
-            --arg checkMaterialization true \
-            --argstr buildSet ${{ matrix.set }} \
-            --argstr buildInfrastructure ${{ matrix.infra }} \
-            pkgs
+            .#ci.${{ matrix.set }}.${{ matrix.infra }}
   packages-darwin:
     strategy:
       matrix:
@@ -46,72 +38,63 @@ jobs:
     needs: [packages-linux]
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v14
+    - uses: actions/checkout@v3
+    - uses: cachix/install-nix-action@v20
       with:
         extra_nix_config: |
           trusted-public-keys = hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=
           trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
-          substituters = https://hydra.iohk.io https://cache.nixos.org/
-    - uses: cachix/cachix-action@v10
+          substituters = https://cache.iog.io https://cache.nixos.org/
+    - uses: cachix/cachix-action@v12
       with:
         name: shajra
         signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
     - run: cat ~/.config/nix/nix.conf
     - run: |
-        nix --print-build-logs build \
-            --file . \
-            --arg checkMaterialization true \
-            --argstr buildSet ${{ matrix.set }} \
-            --argstr buildInfrastructure ${{ matrix.infra }} \
-            pkgs
+        nix build --print-build-logs --verbose \
+            .#ci.${{ matrix.set }}.${{ matrix.infra }}
     - run: |
         nix --print-build-logs path-info \
-            --file . \
-            --arg checkMaterialization true \
-            --argstr buildSet ${{ matrix.set }} \
-            --argstr buildInfrastructure ${{ matrix.infra }} \
-            pkgs
+            .#ci.${{ matrix.set }}.${{ matrix.infra }}
   installers-linux:
     name: linux installers
     needs: [packages-linux]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v14
+    - uses: actions/checkout@v3
+    - uses: cachix/install-nix-action@v20
       with:
         extra_nix_config: |
           trusted-public-keys = hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=
           trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
-          substituters = https://hydra.iohk.io https://cache.nixos.org/
-    - uses: cachix/cachix-action@v10
+          substituters = https://cache.iog.io https://cache.nixos.org/
+    - uses: cachix/cachix-action@v12
       with:
         name: shajra
         signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
     - run: cat ~/.config/nix/nix.conf
     - run: |
-        NIX_PATH=nixos=channel:nixos-21.05 \
-        nix run nixos.nixos-rebuild \
-            --command ./nixos-rebuild --target hole        build
-    - run:            ./home-manager  --target hole --slim build
-  installers-darwin:
-    name: darwin installers
-    needs: [packages-darwin]
-    runs-on: macos-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v14
-      with:
-        extra_nix_config: |
-          trusted-public-keys = hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=
-          trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
-          substituters = https://hydra.iohk.io https://cache.nixos.org/
-    - uses: cachix/cachix-action@v10
-      with:
-        name: shajra
-        signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
-    - run: cat ~/.config/nix/nix.conf
-    - run: ./darwin-rebuild --target EEM099LMBP-1        build
-    - run: ./home-manager   --target EEM099LMBP-1 --slim build
-
-
+        nix run .#nixosConfigurations.hole.nixos-rebuild -- \
+                           --flake .#hole        build
+    - run: ./home-manager  --flake .#hole-slim   build
+    - run: ./home-manager  --flake .#shajra-slim build
+# DESIGN: Packages build on x86_64-darwin, but not provisioning
+#  installers-darwin:
+#    name: darwin installers
+#    needs: [packages-darwin]
+#    runs-on: macos-latest
+#    steps:
+#    - uses: actions/checkout@v3
+#    - uses: cachix/install-nix-action@v20
+#      with:
+#        extra_nix_config: |
+#          trusted-public-keys = hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=
+#          trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+#          substituters = https://cache.iog.io https://cache.nixos.org/
+#    - uses: cachix/cachix-action@v12
+#      with:
+#        name: shajra
+#        signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
+#    - run: cat ~/.config/nix/nix.conf
+#    - run: ./home-manager   --flake .#bagel-slim build
+#    - run: ./darwin-rebuild --flake .#bagel      build

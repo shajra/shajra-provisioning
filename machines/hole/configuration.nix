@@ -1,22 +1,24 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, build, ... }:
 
 let
 
-    infra = (import ../.. {}).infra;
+    infra = build.infra;
+    hplip = infra.np.nixpkgs.unstable.hplipWithPlugin;
+    hostname = "hole";
+    user = build.config.provision.user."${hostname}".username;
 
 in {
 
     imports = [
         ./hardware-configuration.nix
+        ./nvidia-off.nix
     ];
 
     boot.initrd.luks.devices.crypted.device =
         "/dev/disk/by-uuid/36cc4851-8905-48e0-bce6-70f13062619e";
 
-    boot.kernel.sysctl = {
-        "net.ipv4.ip_forward" = 0;
-    };
-    boot.kernelPackages = pkgs.linuxPackages_latest;
+    boot.kernel.sysctl = { "net.ipv4.ip_forward" = 0; };
+    #boot.kernelPackages = pkgs.linuxPackages_latest;
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.systemd-boot.enable = true;
 
@@ -26,7 +28,7 @@ in {
 
     environment.systemPackages = with pkgs; [
         # DESIGN: specific to hardware
-        hplipWithPlugin
+        hplip
         lan-jelly
     ];
 
@@ -37,12 +39,15 @@ in {
     hardware.cpu.intel.updateMicrocode = true;
     hardware.enableRedistributableFirmware = true;
     hardware.keyboard.zsa.enable = true;
+    hardware.opengl.enable = true;
+    hardware.opengl.extraPackages = with pkgs; [
+        libvdpau-va-gl
+        vaapiVdpau
+    ];
     hardware.pulseaudio.enable = true;
     hardware.pulseaudio.daemon.config = { enable-deferred-volume = "no"; };
     hardware.sane.enable = true;
-    hardware.sane.extraBackends = [ pkgs.gutenprint pkgs.hplipWithPlugin ];
-    #hardware.bumblebee.enable = true;
-    #hardware.bumblebee.connectDisplay = true;
+    hardware.sane.extraBackends = [ pkgs.gutenprint hplip ];
 
     location.latitude = 30.2672;
     location.longitude = -97.7431;
@@ -55,32 +60,33 @@ in {
         fi
     '';
     networking.search = [ "hajra.xyz" "local" "home.arpa" ];
-    networking.hostName = "hole";
+    networking.hostName = hostname;
     networking.wireless.enable = true;
     networking.wireless.allowAuxiliaryImperativeNetworks = true;
     networking.wireless.interfaces = [ "wlp6s0" ];
     networking.wireless.userControlled.enable = true;
 
-    nix.autoOptimiseStore = true;
-    nix.binaryCaches = [
-        "https://haskell-language-server.cachix.org"
-        "https://hydra.iohk.io"
-        "https://niv.cachix.org"
-        "https://nix-community.cachix.org"
+    nix.extraOptions = ''
+        experimental-features = nix-command flakes
+    '';
+    nix.package = pkgs.nixFlakes;
+    nix.settings.auto-optimise-store = true;
+    nix.settings.sandbox = "relaxed";
+    nix.settings.substituters = [
         "https://shajra.cachix.org"
+        "https://cache.garnix.io"
+        "https://cache.iog.io"
+        "https://haskell-language-server.cachix.org"
+        "https://nix-community.cachix.org"
     ];
-    nix.binaryCachePublicKeys = [
-        "haskell-language-server.cachix.org-1:juFfHrwkOxqIOZShtC4YC1uT1bBcq2RSvC7OMKx0Nz8="
-        "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
-        "niv.cachix.org-1:X32PCg2e/zAm3/uD1ScqW2z/K0LtDyNV7RdaxIuLgQM="
-        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    nix.settings.trusted-public-keys = [
         "shajra.cachix.org-1:V0x7Wjgd/mHGk2KQwzXv8iydfIgLupbnZKLSQt5hh9o="
+        "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+        "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+        "haskell-language-server.cachix.org-1:juFfHrwkOxqIOZShtC4YC1uT1bBcq2RSvC7OMKx0Nz8="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
-    nix.trustedUsers = [ "root" "tnks" ];
-    nix.useSandbox = "relaxed";
-
-    nixpkgs.config = infra.np.config;
-    nixpkgs.overlays = infra.np.overlays;
+    nix.settings.trusted-users = [ "root" user ];
 
     powerManagement.powertop.enable = true;
 
@@ -101,7 +107,7 @@ in {
     services.avahi.publish.addresses = true;
     services.avahi.publish.domain = true;
     services.avahi.publish.enable = true;
-    services.dbus.packages = [ pkgs.gnome3.dconf ];
+    services.dbus.packages = [ pkgs.dconf ];
     services.geoclue2.enable = true;
     services.locate.enable = true;
     services.logind.lidSwitchDocked = "ignore";
@@ -110,12 +116,15 @@ in {
     services.openssh.enable = false;
     services.openssh.extraConfig = ''UseDNS no'';
     services.openssh.ports = [];   # put a port here when using
-    services.printing.drivers = [ pkgs.hplipWithPlugin ];
+    services.picom.enable = true;
+    services.picom.vSync = true;
+    services.printing.drivers = [ hplip ];
     services.printing.enable = true;
     services.tlp.enable = true;
     services.upower.enable = true;
+    services.upower.criticalPowerAction = "Hibernate";
     services.xserver.displayManager.autoLogin.enable = true;
-    services.xserver.displayManager.autoLogin.user = "tnks";
+    services.xserver.displayManager.autoLogin.user = user;
     services.xserver.displayManager.defaultSession = "none+i3";
     services.xserver.displayManager.lightdm.enable = true;
     services.xserver.displayManager.lightdm.greeter.enable = false;
@@ -156,9 +165,11 @@ in {
     services.xserver.xkbOptions = "lv3:ralt_switch_multikey";
     services.xserver.xkbVariant = "altgr-intl";
 
+    system.stateVersion = "22.11";
+
     time.timeZone = "US/Central";
 
-    users.extraUsers.tnks = {
+    users.extraUsers."${user}" = {
       isNormalUser = true;
       uid = 1000;
       shell = pkgs.fish;

@@ -1,0 +1,20 @@
+spacing = 1
+padding = 0
+hide_ascii = true
+separator = ""
+key_color = "Yellow"
+separator_color = "Black"
+
+[palette]
+type = "Full"
+visible = true
+
+[bar]
+visible = true
+hide_delimiters = true
+symbol_open = '['
+symbol_close = ']'
+
+[box]
+border = "rounded"
+visible = true

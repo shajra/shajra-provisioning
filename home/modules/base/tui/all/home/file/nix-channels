@@ -1,0 +1,4 @@
+https://nixos.org/channels/nixpkgs-unstable nixpkgs-unstable
+https://nixos.org/channels/nixpkgs-22.11-darwin nixpkgs-darwin
+https://nixos.org/channels/nixos-22.11 nixos
+https://nixos.org/channels/nixos-21.11 nixos-prev

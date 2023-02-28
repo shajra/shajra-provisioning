@@ -1,26 +1,14 @@
 {
-    # Which packages to build and include
-    # DESIGN: to build sets in parellel in CI
     build = {
-        # Options:
-        #     - "all": include everything
-        #     - "prebuilt": limit to packages expected prebuilt/cached
-        #     - "build": limit to packages expected fresh builds
-        set = "all";
-        # Options:
-        #     - "all": include all infrastructure
-        #     - "nixpkgs": limit to packages from Nixpkgs
-        #     - "haskell-nix": limit to packages built with Haskell.nix
-        #     - "shajra": limit to https://github.com/shajra projects
-        infrastructure = "all";
         dev = false;  # true, to skip Haskell.nix build for a faster dev cycle
     };
 
     infrastructure = {
         hackage.version = {
-            apply-refact = "latest";
-            ghcid = "latest";
-            hlint = "latest";
+            apply-refact    = "latest";
+            fast-tags       = "latest";
+            ghcid           = "latest";
+            hlint           = "latest";
             stylish-haskell = "latest";
         };
         haskell-nix = {
@@ -30,10 +18,10 @@
             ];
             # DESIGN: https://github.com/input-output-hk/hackage.nix/blob/master/index-state-hashes.nix
             hackage.index = {
-                state = "2021-10-21T00:00:00Z";
-                sha256 = "b9c245e69a901f25e7eb98742f510490dd8c1c2704f70f3b806bf01289059cd0";
+                state = "2023-02-26T00:00:00Z";
+                sha256 = "2a3e55da725c5db16b91ea782eebd51281c76ef895f0813f731285de85e3042f";
             };
-            nixpkgs-pin = "nixpkgs-2105";
+            nixpkgs-pin = "nixpkgs-unstable";
         };
         nixpkgs = {
             allowUnfree = true;
@@ -60,8 +48,26 @@
                 linux = "stable-linux";
             };
             home = {
-                darwin = "stable-darwin";
+                darwin = "unstable";
                 linux = "unstable";
+            };
+        };
+        user = {
+            bagel = rec {
+                homeDirectory = "/Users/${username}";
+                username = "shajra";
+            };
+            shajra = rec {
+                homeDirectory = "/home/${username}";
+                username = "shajra";
+            };
+            hole = rec {
+                homeDirectory = "/home/${username}";
+                username = "tnks";
+            };
+            jelly = rec {
+                homeDirectory = "/home/${username}";
+                username = "tnks";
             };
         };
     };

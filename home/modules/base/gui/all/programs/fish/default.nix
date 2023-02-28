@@ -1,0 +1,5 @@
+{
+    shellAliases = {
+        t = "notify-time";
+    };
+}

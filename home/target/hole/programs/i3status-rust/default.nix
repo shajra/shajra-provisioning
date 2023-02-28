@@ -6,6 +6,7 @@ let
     dunstctl = "${pkgs.dunst}/bin/dunstctl";
     i3-dunst = "${pkgs.i3status-rust-dunst}/bin/i3status-rust-dunst";
     pavucontrol = "${pkgs.pavucontrol}/bin/pavucontrol";
+    pulsemixer = "${pkgs.pulsemixer}/bin/pulsemixer";
     pkill = "${pkgs.procps}/bin/pkill";
     user = config.home.username;
     wpa_gui = "${pkgs.wpa_supplicant_gui}/bin/wpa_gui";
@@ -71,6 +72,12 @@ in
                     else ${daemon} --name pavucontrol -- ${pavucontrol}
                     fi
                 '';
+                }
+                {
+                block = "sound";
+                device_kind = "source";
+                format = "";
+                on_click = "${pulsemixer} --id source-1 --toggle-mute";
                 }
                 {
                 block = "notify";

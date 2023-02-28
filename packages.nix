@@ -1,211 +1,320 @@
-{ np
+{ lib
+, np
 , hn
-, sources
+, inputs
 , isDarwin
 , isDevBuild
 }:
 
 let
 
-    when = np.nixpkgs-stable.lib.optionalAttrs;
+    when = lib.optionalAttrs;
 
     pickHome = np.pick {
-        linux  = "unstable";
-        darwin = "stable";
+        linux  = "home";
+        darwin = "home";
     };
 
-    nixpkgs.prebuilt.common.home = pickHome [
+    pickUnstable = np.pick {
+        linux  = "unstable";
+        darwin = "unstable";
+    };
 
-        # Generally used CLI tools
-        "aspell"
-        "aspellDicts.en"
-        "aspellDicts.en-computers"
-        "aspellDicts.en-science"
-        "bzip2"
-        "cabal2nix"
-        "cabal-install"
-        "cachix"
-        "cmake"
-        "coreutils"
-        "curl"
-        "dhall"
-        "exa"
-        "fd"
-        "file"
-        "gnugrep"
-        "gnumake"
-        "gnupg"  # TODO: home-manager
-        "graphviz"
-        "imagemagick"
-        "macchina"
+in {
+
+    nixpkgs.prebuilt.audio.tui.all = pickHome [
         "mpc_cli"
-        "niv"
-        "nix-diff"
-        "nixfmt"
-        "nix-index"
-        "nnn"
-        "nodePackages.textlint"
-        "pandoc"
-        "paperkey"
-        "patchelf"
-        "procps"
-        "proselint"
-        "pstree"
-        "python3"
-        "python38Packages.grip"
-        "ripgrep"
-        "rsync"
-        "sbt-extras"
-        "scc"
-        "schemaspy"
-        "shellcheck"
-        "slack-term"
-        "sqlint"
-        "sqlite"
-        "t-rec"
-        "tree"
-        "unison"
-        "unzip"
-        "wget"
-        "which"
-        "yq-go"
+    ];
 
+    nixpkgs.prebuilt.audio.tui.linux = np.pick { linux = "home"; } [
+        "playerctl"
+        "ponymix"
+        "pulsemixer"
+        "whipper"
+    ];
+
+    nixpkgs.prebuilt.base.gui.all = pickHome [
         # Fonts
         "emacs-all-the-icons-fonts"  # for Emacs, used automatically by Doom
         "etBook"                     # stylish font from Edward Tufte's books
         "fira"                       # variable font to complement Fira Code
         "font-awesome_5"             # for i3status-rust icons
         "freefont_ttf"               # a Unicode fallback font
+        "hasklig"                    # font with Haskell ligatures
+        "inconsolata-nerdfont"       # popular font, might like it
         "nerdfonts"                  # developer fonts with lots of icons
-        "source-serif-pro"           # serif font to complement Sauce Code Pro
+        "noto-fonts-emoji"           # popular font, might like it
+        "noto-fonts-extra"           # popular font, might like it
+        "noto-fonts"                 # popular font, might like it
+        "source-serif"               # serif font to complement Sauce Code Pro
         "symbola"                    # another Unicode fallback font
-        # DESIGN: Hasklig is also built from source below
     ];
 
-    nixpkgs.prebuilt.common.unstable = np.pick {
-        linux  = "unstable";
-        darwin = "unstable";
-    } [
-        "haskell.compiler.ghc8107"
-        "jdk"
+    nixpkgs.prebuilt.base.gui.darwin = np.pick { darwin = "home"; } [
     ];
 
-    nixpkgs.prebuilt.ifLinux.unstable = np.pick {
-        linux = "unstable";
-    } [
-        "ansifilter"
-        "chromium"  # TODO: home-manager
-        "dfu-programmer"
-        "dfu-util"
-        "discord"
+    nixpkgs.prebuilt.base.gui.linux = np.pick { linux = "home"; } [
+        "devour"
         "dunst"
         "fontpreview"
-        "freemind"
-        "fswatch"
-        "gnome3.adwaita-icon-theme"
-        "inkscape"
-        "irccloud"
-        "libreoffice"
+        "gnome.adwaita-icon-theme"
         "maim"
+        "microsoft-edge"
         "pavucontrol"
-        "pciutils"
-        "peek"
-        "playerctl"
-        "ponymix"
-        "postgresql"
-        "powertop"
-        "pulsemixer"
         "simple-scan"
-        "slack"
-        "stack"
         "sxiv"
-        "usbutils"
-        "whipper"
-        "wirelesstools"
-        "wpa_supplicant_gui"
         "xclip"
         "xorg.xdpyinfo"
         "xorg.xev"
+        "zoom-us"
 
         # Fonts
-        # DESIGN: made Linux-only because of a build problem, 2021-09-21
+        # DESIGN: 2021-09-21: made Linux-only because of a build problem
         "twitter-color-emoji"        # for emojis
     ];
 
-    nixpkgs.build.common.home = pickHome [
-        #"emacsGcc"  # DESIGN: prebuilt/cached for Linux, but not Darwin
-        "global"
-        "hasklig"
-        "notify-time"
-        "shajra-home-manager"
+    nixpkgs.prebuilt.base.tui.all = pickHome [
+        "ansifilter"
+        "bzip2"
+        "cachix"
+        "coreutils"
+        "curl"
+        "direnv"
+        "exa"
+        "fd"
+        "file"
+        "gnugrep"
+        "gnupg"  # TODO: home-manager
+        "languagetool"
+        "macchina"
+        "nix-diff"
+        "nixfmt"
+        "paperkey"
+        "patchelf"
+        "procps"
+        "pstree"
+        "ripgrep"
+        "rsync"
+        "scc"
+        "tree"
+        "unzip"
+        "wget"
+        "which"
+        "yq-go"
+    ] // {
+        aspell = np.nixpkgs.home.aspellWithDicts (d: with d; [
+            en en-computers en-science
+        ]);
+    };
+
+    nixpkgs.prebuilt.base.tui.linux = np.pick { linux = "home"; } [
+        "entr"
+        "fswatch"
+        "niv"
+        "pciutils"
+        "powertop"
+        "usbutils"
     ];
 
-    nixpkgs.build.ifLinux.unstable = when (! isDarwin) {
-        inherit (np.nixpkgs-unstable)
-        dunst-osd
-        emacsGcc
-        i3-dpi
-        i3-workspace-name
-        i3status-rust-dunst
-        lan-jelly
-        moneydance
-        shajra-nixos-rebuild;
-    };
+    nixpkgs.prebuilt.base.tui.darwin = np.pick { darwin = "home"; } [
+    ];
 
-    nixpkgs.build.ifDarwin.stable = when isDarwin {
-        inherit (np.nixpkgs-stable)
-        emacsMacport
-        shajra-darwin-rebuild
-        skhd
-        yabai;
-    };
+    nixpkgs.prebuilt.chat.gui.all = pickHome [
+    ];
 
-    nixpkgs.build.common.haskell = {}
-        // (np.hs.fromPackages "unstable" "ghc8107" "djinn")
-        // (np.hs.fromPackages "unstable" "ghc8107" "fast-tags")
-        // (np.hs.fromPackages "unstable" "ghc8107" "ghc-events")
-        // (np.hs.fromPackages "unstable" "ghc8107" "haskdogs")
-        // (np.hs.fromPackages "unstable" "ghc8107" "hasktags")
-        // (np.hs.fromPackages "unstable" "ghc8107" "hoogle")
-        // (np.hs.fromPackages "unstable" "ghc8107" "hp2pretty")
+    nixpkgs.prebuilt.chat.gui.linux = np.pick { linux = "home"; } [
+        "discord"
+        "element-desktop"
+        "irccloud"
+        "signal-desktop"
+        "slack"
+    ];
 
-        # DESIGN: marked broken, 2020-11-28
-        #// (np.hs.fromPackages "unstable" "ghc8106" "threadscope")
+    nixpkgs.prebuilt.chat.tui.all = pickHome [
+        "slack-term"
+    ];
+
+    nixpkgs.prebuilt.documentation.all = pickHome [
+        "graphviz"
+        "imagemagick"
+        "nodePackages.textlint"
+        "pandoc"
+        "proselint"
+        "python310Packages.grip"
+        "t-rec"
+    ];
+
+    nixpkgs.prebuilt.documentation.linux = np.pick { linux = "home"; } [
+        "dia"
+        "freemind"
+        "gimp"
+        "inkscape"
+        "peek"
+
+        "libreoffice"  # DESIGN: 2022-04-15: broke for Darwin
+    ];
+
+    nixpkgs.prebuilt.programming.c.all = pickHome [
+        "cmake"
+    ];
+
+    nixpkgs.prebuilt.programming.c.linux = np.pick { linux = "home"; } [
+        "gcc"
+    ];
+
+    nixpkgs.prebuilt.programming.db = pickUnstable [
+        "postgresql"
+        "schemaspy"
+        "sqlint"
+        "sqlite"
+    ];
+
+    nixpkgs.prebuilt.programming.general = pickHome [
+        "gnumake"
+    ];
+
+    nixpkgs.prebuilt.programming.haskell =
+        let
+            home = pickHome [
+                "cabal2nix"
+                "cabal-install"
+                "stack"
+            ];
+            unstable = pickUnstable [
+                "haskell.compiler.ghc926"
+                "haskellPackages.djinn"
+            ];
+        in home // unstable;
+
+    nixpkgs.prebuilt.programming.java = pickUnstable [
+    ];
+
+    nixpkgs.prebuilt.programming.python = pickHome [
+        "python3"
+    ];
+
+    nixpkgs.prebuilt.programming.scala = pickHome [
+        "sbt-extras"
+    ];
+
+    nixpkgs.prebuilt.programming.shell = pickHome [
+        "shellcheck"
+    ];
+
+    nixpkgs.prebuilt.sync = pickHome [
+        "unison"
+    ];
+
+    nixpkgs.prebuilt.peripheral.wifi.tui.linux = np.pick { linux = "home"; } [
+        "wirelesstools"
+    ];
+
+    nixpkgs.prebuilt.peripheral.wifi.gui.linux = np.pick { linux = "home"; } [
+        "wpa_supplicant_gui"
+    ];
+
+    nixpkgs.build.base.gui.all = pickHome [
+        "notify-time"
+    ];
+
+    nixpkgs.build.base.gui.darwin = np.pick { darwin = "home"; } [
+        # DESIGN: yabai broken for M1
+        # https://github.com/koekeishiya/yabai/issues/1054
+        #"yabai"
+
+        # DESIGN: Brew skhd seemed more stable for now
+        #"skhd"
+    ];
+
+    nixpkgs.build.base.gui.linux = np.pick { linux = "home"; } [
+        "dunst-osd"
+        "i3-dpi"
+        "i3status-rust-dunst"
+        "i3-workspace-name"
+    ];
+
+    nixpkgs.build.base.tui.all = pickHome [
+        "home-manager"
+    ];
+
+    nixpkgs.build.base.tui.darwin = np.pick { darwin = "home"; } [
+    ];
+
+    nixpkgs.build.base.tui.linux = np.pick { linux = "home"; } [
+    ];
+
+    nixpkgs.build.finance = pickHome [
+        "moneydance"
+    ];
+
+    nixpkgs.build.os.darwin = np.pick { darwin = "home"; } [
+    ];
+
+    nixpkgs.build.os.nixos = np.pick { linux = "home"; } [
+    ];
+
+    nixpkgs.build.programming.general = pickHome [
+        "global"
+    ];
+
+    nixpkgs.build.peripheral.wifi.tui.linux = np.pick { linux = "home"; } [
+        "lan-jelly"
+    ];
+
+    nixpkgs.build.programming.haskell = {}
+        // (np.hs.fromPackages "unstable" "ghc926" "ghc-events")
+        // (np.hs.fromPackages "unstable" "ghc926" "haskdogs")
+        // (np.hs.fromPackages "unstable" "ghc926" "hasktags")
+        // (np.hs.fromPackages "unstable" "ghc926" "hoogle")
+        // (np.hs.fromPackages "unstable" "ghc926" "hp2pretty")
+
+        # DESIGN: 2023-02-27: marked broken
+        #// (np.hs.fromPackages "unstable" "ghc926" "threadscope")
         ;
 
-    haskell-nix.prebuilt = {
+    nixpkgs.build.unused.darwin = np.pick { darwin = "home"; } [
+        # DESIGN: emacsMacport broken for M1
+        # https://github.com/NixOS/nixpkgs/issues/127902
+        # DESIGN: note emacsMacport doesn't have native compilation
+        # https://github.com/railwaycat/homebrew-emacsmacport/issues/274
+        #"emacsMacport"
+    ];
+
+    nixpkgs.build.unused.linux = np.pick { linux = "home"; } [
+        # DESIGN: emacsNativeComp was renamed to emacsUnstable
+        "emacsUnstable"
+    ];
+
+    haskell-nix.prebuilt.programming.haskell = {
         # DESIGN: don't use enough to want to think about a cache miss
-        #nix-tools = hn.nixpkgs.haskell-nix.nix-tools.ghc8105;
+        #nix-tools = hn.nixpkgs.haskell-nix.nix-tools.ghc902;
     };
 
-    haskell-nix.build = when (! isDevBuild) (
+    # DESIGN: 2023-02-26: ghc926 not yet cached
+    haskell-nix.build.programming.haskell = when (! isDevBuild) (
         {}
-        // (hn.fromHackage "ghc8107" "apply-refact")
-        // (hn.fromHackage "ghc8107" "ghcid")
-        // (hn.fromHackage "ghc8107" "hlint")
-        // (hn.fromHackage "ghc8107" "stylish-haskell")
+        // (hn.fromHackage "ghc925" "fast-tags")
+        // (hn.fromHackage "ghc925" "ghcid")
+        // (hn.fromHackage "ghc925" "apply-refact")
+        // (hn.fromHackage "ghc925" "hlint")
+        // (hn.fromHackageCustomized "ghc925" "stylish-haskell" { configureArgs = "-f ghc-lib"; })
 
         # DESIGN: marked broken in Nixpkgs, doesn't seem to build with
         # Haskell.nix either
-        #// (hn.fromHackage "ghc8103" "ghc-events-analyze")
+        #// (hn.fromHackage "ghc926" "ghc-events-analyze")
     );
 
-    haskell-nix.updateMaterialized = when (! isDevBuild) (
-        {}
-        // (hn.hackageUpdateMaterialized "ghc8107" "apply-refact")
-        // (hn.hackageUpdateMaterialized "ghc8107" "ghcid")
-        // (hn.hackageUpdateMaterialized "ghc8107" "hlint")
-        // (hn.hackageUpdateMaterialized "ghc8107" "stylish-haskell")
-    );
+    shajra.prebuilt = {};
 
-    shajra.build.common =
+    shajra.build.programming.haskell =
         let hls = ghcVersion:
-                import sources.haskell-hls-nix {
+                import inputs.haskell-hls-nix {
                     inherit ghcVersion;
                     hlsUnstable = false;
                 };
-            tags = import sources.haskell-tags-nix;
-        in when (! isDevBuild) {
+            tags = import inputs.haskell-tags-nix;
+        in when false {
+        #in when (! isDevBuild) {
             implicit-hie        = (hls "8.10.7").implicit-hie;
             haskell-hls-wrapper = (hls "8.10.7").hls-wrapper;
             haskell-hls-ghc8107 = (hls "8.10.7").hls-renamed;
@@ -215,25 +324,8 @@ let
             haskell-hls-tags    = tags.haskell-tags-nix-exe;
         };
 
-    shajra.build.ifLinux = when (! isDarwin) (import sources.bluos-nix);
+    shajra.build.audio.gui.linux = when
+        false #(! isDarwin)
+        (import inputs.bluos-nix);
 
-in
-
-{
-    nixpkgs.prebuilt = {}
-        // nixpkgs.prebuilt.common.home
-        // nixpkgs.prebuilt.common.unstable
-        // nixpkgs.prebuilt.ifLinux.unstable;
-
-    nixpkgs.build = {}
-        // nixpkgs.build.common.home
-        // nixpkgs.build.ifLinux.unstable
-        // nixpkgs.build.ifDarwin.stable
-        // nixpkgs.build.common.haskell;
-
-    inherit haskell-nix;
-
-    shajra.build = {}
-        // shajra.build.common
-        // shajra.build.ifLinux;
 }

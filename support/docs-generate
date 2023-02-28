@@ -2,26 +2,26 @@
 
 cd "$(dirname "$0")/.."
 
-# DESIGN: the `pkgs.coreutils` argument makes utilities like `whoami` available
-# for evaluated code blocks. This is just an example, you can include any
-# package you like.
-nix run \
+# NOTE: because of --ignore-environment, you control _exactly_ what executables
+# are on PATH when generating documentation with Org2gfm.  Below, only coreutils
+# is on PATH.  You can change the line below to include other binaries from
+# Nixpkgs or any package from any flake you like.
+nix shell \
     --ignore-environment \
     --keep LANG \
     --keep LOCALE_ARCHIVE \
-    --file . \
-    infra.np.nixpkgs-stable.nix-project-org2gfm \
-    infra.np.nixpkgs-stable.ansifilter \
-    infra.np.nixpkgs-stable.coreutils \
-    infra.np.nixpkgs-stable.gnugrep \
-    infra.np.nixpkgs-stable.gnutar \
-    infra.np.nixpkgs-stable.gzip \
-    infra.np.nixpkgs-stable.tree \
+    .#infra.np.nixpkgs.stable.ansifilter \
+    .#infra.np.nixpkgs.stable.coreutils \
+    .#infra.np.nixpkgs.stable.git \
+    .#infra.np.nixpkgs.stable.gnugrep \
+    .#infra.np.nixpkgs.stable.jq \
+    .#infra.np.nixpkgs.stable.nixfmt \
+    .#infra.np.nixpkgs.stable.org2gfm \
+    .#infra.np.nixpkgs.stable.tree \
     --command \
     org2gfm \
     --path-bin \
-    --exclude links.org \
-    --exclude nix.mac.org \
+    --exclude internal \
     --nix "$(command -v nix)" \
     --evaluate \
     "$@"

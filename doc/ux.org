@@ -1,5 +1,5 @@
 #+title: Design and User Experience
-#+setupfile: links.org
+#+setupfile: internal/links.org
 
 [[file:./theme.png]]
 

@@ -1,0 +1,3 @@
+{
+    ".ghci".source = ./ghci;
+}
