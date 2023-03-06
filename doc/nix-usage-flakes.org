@@ -208,23 +208,23 @@ git+file:///home/tnks/src/shajra/shajra-provisioning
 ├───apps
 │   ├───aarch64-darwin
 …
-│   └───hole: NixOS configuration
-├───nixosModules
-├───overlays
 │   └───default: Nixpkgs overlay
 └───packages
     ├───aarch64-darwin
     │   ├───ci: package 'shajra-provision-ci-all'
+    │   ├───home-manager: package 'home-manager'
     │   ├───shajra-darwin-rebuild: package 'shajra-darwin-rebuild'
     │   ├───shajra-home-manager: package 'shajra-home-manager'
     │   └───shajra-nixos-rebuild: package 'shajra-nixos-rebuild'
     ├───x86_64-darwin
     │   ├───ci: package 'shajra-provision-ci-all'
+    │   ├───home-manager: package 'home-manager'
     │   ├───shajra-darwin-rebuild: package 'shajra-darwin-rebuild'
     │   ├───shajra-home-manager: package 'shajra-home-manager'
     │   └───shajra-nixos-rebuild: package 'shajra-nixos-rebuild'
     └───x86_64-linux
         ├───ci: package 'shajra-provision-ci-all'
+        ├───home-manager: package 'home-manager'
         ├───shajra-darwin-rebuild: package 'shajra-darwin-rebuild'
         ├───shajra-home-manager: package 'shajra-home-manager'
         └───shajra-nixos-rebuild: package 'shajra-nixos-rebuild'
@@ -307,13 +307,13 @@ nix search . | ansifilter
 #+begin_example
 ,* packages.x86_64-linux.ci
 
+,* packages.x86_64-linux.home-manager
+  A user environment configurator
+
 ,* packages.x86_64-linux.shajra-darwin-rebuild
   Controlled MacOS rebuild
 
 ,* packages.x86_64-linux.shajra-home-manager
-  Controlled home directory management with Nix
-
-,* packages.x86_64-linux.shajra-nixos-rebuild
 …
 #+end_example
 
@@ -398,6 +398,9 @@ nix search . '<<get("package-attr-short")>>' | ansifilter
 #+end_src
 
 #+RESULTS: nix-search-specific
+: * packages.x86_64-linux.home-manager
+:   A user environment configurator
+: 
 : * packages.x86_64-linux.shajra-home-manager
 :   Controlled home directory management with Nix
 
@@ -448,7 +451,7 @@ readlink result*
 #+end_src
 
 #+RESULTS: nix-build-link
-: /nix/store/0pvq03hc9yc4sdi9fhh9mrjn9fpg6fm2-shajra-home-manager
+: /nix/store/s5r7ibxy2qqpy30l70xq79wsj7mf3jzb-home-manager
 
 Following these symlinks, we can see the files the project provides:
 
@@ -458,11 +461,19 @@ tree -l result*
 #+end_src
 
 #+RESULTS: nix-build-tree
-: result
-: └── bin
-:     └── shajra-home-manager
-: 
-: 1 directory, 1 file
+#+begin_example
+result
+├── bin
+│   └── home-manager
+└── share
+    ├── bash
+    │   └── home-manager.sh
+    ├── bash-completion
+    │   └── completions
+    │       └── home-manager
+    ├── fish
+…
+#+end_example
 
 It's common to configure these “result” symlinks as ignored in source control
 tools (for instance, for Git within a =.gitignore= file).
@@ -477,7 +488,7 @@ nix path-info .#<<get("package-attr-short")>>
 #+end_src
 
 #+results: nix-build-path
-: /nix/store/0pvq03hc9yc4sdi9fhh9mrjn9fpg6fm2-shajra-home-manager
+: /nix/store/s5r7ibxy2qqpy30l70xq79wsj7mf3jzb-home-manager
 
 ** Running commands in a shell
 
@@ -501,11 +512,11 @@ nix shell \
 #+end_src
 
 #+RESULTS: nix-shell
-: USAGE: shajra-home-manager [OPTION]... [--] HOME_MANAGER_ARGS...
+: Usage: /nix/store/s5r7ibxy2qqpy30l70xq79wsj7mf3jzb-home-manager/bin/home-manager [OPTION] COMMAND
 : 
-: DESCRIPTION:
+: Options
 : 
-:     A wrapper of home-manager that defaults to a pinned
+:   -f FILE           The home configuration file.
 : …
 
 Similarly to =nix build=, =nix shell= accepts installables as positional
@@ -574,11 +585,11 @@ nix run .#<<get("run-attr-short")>>  -- --help
 #+end_src
 
 #+RESULTS: nix-run
-: USAGE: shajra-home-manager [OPTION]... [--] HOME_MANAGER_ARGS...
+: Usage: /nix/store/s5r7ibxy2qqpy30l70xq79wsj7mf3jzb-home-manager/bin/home-manager [OPTION] COMMAND
 : 
-: DESCRIPTION:
+: Options
 : 
-:     A wrapper of home-manager that defaults to a pinned
+:   -f FILE           The home configuration file.
 : …
 
 We can see some of the metadata of this package with the =--json= switch of =nix
@@ -591,10 +602,10 @@ nix search --json .#<<get("run-attr-short")>> | jq .
 
 #+RESULTS: nix-search-details
 : {
-:   "packages.x86_64-linux.shajra-home-manager": {
-:     "pname": "shajra-home-manager",
+:   "packages.x86_64-linux.home-manager": {
+:     "pname": "home-manager",
 :     "version": "",
-:     "description": "Controlled home directory management with Nix"
+:     "description": "A user environment configurator"
 : …
 
 In the JSON above, the “pname” field indicates the package's name. In practice,
@@ -637,7 +648,7 @@ nix shell --ignore-environment \
 #+end_src
 
 #+RESULTS: nix-shell-remote
-: /nix/store/0pvq03hc9yc4sdi9fhh9mrjn9fpg6fm2-shajra-home-manager/bin/shajra-home-manager
+: /nix/store/s5r7ibxy2qqpy30l70xq79wsj7mf3jzb-home-manager/bin/home-manager
 
 This is all a consequence of everything discussed in previous sections, but it's
 good to see clearly that what we do with local flake references can work just as
@@ -685,7 +696,7 @@ nix profile list --profile /tmp/nix-profile
 #+end_src
 
 #+RESULTS: nix-profile-list
-: 0 git+file:///home/tnks/src/shajra/shajra-provisioning#packages.x86_64-linux.shajra-home-manager git+file:///home/tnks/src/shajra/shajra-provisioning#packages.x86_64-linux.shajra-home-manager /nix/store/0pvq03hc9yc4sdi9fhh9mrjn9fpg6fm2-shajra-home-manager
+: 0 git+file:///home/tnks/src/shajra/shajra-provisioning#packages.x86_64-linux.home-manager git+file:///home/tnks/src/shajra/shajra-provisioning#packages.x86_64-linux.home-manager /nix/store/s5r7ibxy2qqpy30l70xq79wsj7mf3jzb-home-manager
 
 The output of =nix profile list= is a bit verbose, but each line has three parts:
 - an index to use with other =nix profile= subcommands (like =nix profile remove=)

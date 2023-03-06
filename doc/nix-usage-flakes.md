@@ -111,23 +111,23 @@ nix flake show .
     ├───apps
     │   ├───aarch64-darwin
     …
-    │   └───hole: NixOS configuration
-    ├───nixosModules
-    ├───overlays
     │   └───default: Nixpkgs overlay
     └───packages
         ├───aarch64-darwin
         │   ├───ci: package 'shajra-provision-ci-all'
+        │   ├───home-manager: package 'home-manager'
         │   ├───shajra-darwin-rebuild: package 'shajra-darwin-rebuild'
         │   ├───shajra-home-manager: package 'shajra-home-manager'
         │   └───shajra-nixos-rebuild: package 'shajra-nixos-rebuild'
         ├───x86_64-darwin
         │   ├───ci: package 'shajra-provision-ci-all'
+        │   ├───home-manager: package 'home-manager'
         │   ├───shajra-darwin-rebuild: package 'shajra-darwin-rebuild'
         │   ├───shajra-home-manager: package 'shajra-home-manager'
         │   └───shajra-nixos-rebuild: package 'shajra-nixos-rebuild'
         └───x86_64-linux
             ├───ci: package 'shajra-provision-ci-all'
+            ├───home-manager: package 'home-manager'
             ├───shajra-darwin-rebuild: package 'shajra-darwin-rebuild'
             ├───shajra-home-manager: package 'shajra-home-manager'
             └───shajra-nixos-rebuild: package 'shajra-nixos-rebuild'
@@ -151,10 +151,10 @@ When the installable is just a flake reference, the called `nix` subcommand will
 
 Installables can also reference an output of a flake (`<output reference>` above) directly in a couple of ways:
 
-| Output reference                     | Example installable                           |
-|------------------------------------ |--------------------------------------------- |
-| `<output attribute>.<system>.<name>` | `.#packages.x86_64-linux.shajra-home-manager` |
-| `<name>`                             | `.#shajra-home-manager`                       |
+| Output reference                     | Example installable                    |
+|------------------------------------ |-------------------------------------- |
+| `<output attribute>.<system>.<name>` | `.#packages.x86_64-linux.home-manager` |
+| `<name>`                             | `.#home-manager`                       |
 
 The first way is the most explicit, by providing the full attribute path we can see with `nix flake show`. But this requires specifying the package's system architecture.
 
@@ -178,13 +178,13 @@ nix search .
 
     * packages.x86_64-linux.ci
     
+    * packages.x86_64-linux.home-manager
+      A user environment configurator
+    
     * packages.x86_64-linux.shajra-darwin-rebuild
       Controlled MacOS rebuild
     
     * packages.x86_64-linux.shajra-home-manager
-      Controlled home directory management with Nix
-    
-    * packages.x86_64-linux.shajra-nixos-rebuild
     …
 
 If a flake has a lot of packages, you can pass regexes to prune down the search. Returned values will match all the regexes provided. Also, we can search a remote repository as well for packages to install.
@@ -230,18 +230,21 @@ You may also notice that the Nixpkgs flake outputs packages under the `legacyPac
 
 The following result is one returned by our prior execution of `nix search .`:
 
+    * packages.x86_64-linux.home-manager
+      A user environment configurator
+    
     * packages.x86_64-linux.shajra-home-manager
       Controlled home directory management with Nix
 
-We can see that a package can be accessed with the `packages.x86_64-linux.shajra-home-manager` output attribute path of the project's flake. Not shown in the search results above, this package happens to provide the executable `bin/shajra-home-manager`.
+We can see that a package can be accessed with the `packages.x86_64-linux.home-manager` output attribute path of the project's flake. Not shown in the search results above, this package happens to provide the executable `bin/home-manager`.
 
 We can build this package with `nix build` from the project root:
 
 ```sh
-nix build .#shajra-home-manager
+nix build .#home-manager
 ```
 
-The positional arguments to `nix build` are *installables* as discussed in prior sections. Here, the `.` indicates that our flake should be found from the current directory. Within this flake we look for a package with an attribute name of `shajra-home-manager`. We didn't have to use the full attribute path `packages.x86_64-linux.shajra-home-manager` because `nix build` will automatically look in the `packages` attribute for the system it detects we're on.
+The positional arguments to `nix build` are *installables* as discussed in prior sections. Here, the `.` indicates that our flake should be found from the current directory. Within this flake we look for a package with an attribute name of `home-manager`. We didn't have to use the full attribute path `packages.x86_64-linux.home-manager` because `nix build` will automatically look in the `packages` attribute for the system it detects we're on.
 
 If we omit the attribute path of our installable, Nix try to build a default package which it expects to find under the flake's `packages.<system>.default`. For example, if we ran just `nix build .`, Nix would expect to find a `flake.nix` in the current directory with an output providing a `packages.<system>.default` attribute with a package to build.
 
@@ -259,7 +262,7 @@ After a successful call of `nix build`, you'll see one or more symlinks for each
 readlink result*
 ```
 
-    /nix/store/0pvq03hc9yc4sdi9fhh9mrjn9fpg6fm2-shajra-home-manager
+    /nix/store/s5r7ibxy2qqpy30l70xq79wsj7mf3jzb-home-manager
 
 Following these symlinks, we can see the files the project provides:
 
@@ -268,20 +271,26 @@ tree -l result*
 ```
 
     result
-    └── bin
-        └── shajra-home-manager
-    
-    1 directory, 1 file
+    ├── bin
+    │   └── home-manager
+    └── share
+        ├── bash
+        │   └── home-manager.sh
+        ├── bash-completion
+        │   └── completions
+        │       └── home-manager
+        ├── fish
+    …
 
 It's common to configure these “result” symlinks as ignored in source control tools (for instance, for Git within a `.gitignore` file).
 
 `nix build` has a `--no-link` switch in case you want to build packages without creating “result” symlinks. To get the paths where your packages are located, you can use `nix path-info` after a successful build:
 
 ```sh
-nix path-info .#shajra-home-manager
+nix path-info .#home-manager
 ```
 
-    /nix/store/0pvq03hc9yc4sdi9fhh9mrjn9fpg6fm2-shajra-home-manager
+    /nix/store/s5r7ibxy2qqpy30l70xq79wsj7mf3jzb-home-manager
 
 ## Running commands in a shell<a id="sec-4-6"></a>
 
@@ -289,19 +298,19 @@ We can run commands in Nix-curated environments with `nix shell`. Nix will take 
 
 With `nix shell`, you don't even have to build the package first with `nix build` or mess around with “result” symlinks. `nix shell` will build any necessary packages required.
 
-For example, to get the help message for the `shajra-home-manager` executable provided by the package selected by the `shajra-home-manager` attribute path output by this project's flake, we can call the following:
+For example, to get the help message for the `home-manager` executable provided by the package selected by the `home-manager` attribute path output by this project's flake, we can call the following:
 
 ```sh
 nix shell \
-    .#shajra-home-manager \
-    --command shajra-home-manager --help
+    .#home-manager \
+    --command home-manager --help
 ```
 
-    USAGE: shajra-home-manager [OPTION]... [--] HOME_MANAGER_ARGS...
+    Usage: /nix/store/s5r7ibxy2qqpy30l70xq79wsj7mf3jzb-home-manager/bin/home-manager [OPTION] COMMAND
     
-    DESCRIPTION:
+    Options
     
-        A wrapper of home-manager that defaults to a pinned
+      -f FILE           The home configuration file.
     …
 
 Similarly to `nix build`, `nix shell` accepts installables as positional arguments to select packages to put on the `PATH`.
@@ -344,38 +353,38 @@ And as always, we can specify a full output attribute path explicitly if `nix ru
 Here's the `nix run` equivalent of the `nix shell` invocation from the previous section:
 
 ```sh
-nix run .#shajra-home-manager  -- --help
+nix run .#home-manager  -- --help
 ```
 
-    USAGE: shajra-home-manager [OPTION]... [--] HOME_MANAGER_ARGS...
+    Usage: /nix/store/s5r7ibxy2qqpy30l70xq79wsj7mf3jzb-home-manager/bin/home-manager [OPTION] COMMAND
     
-    DESCRIPTION:
+    Options
     
-        A wrapper of home-manager that defaults to a pinned
+      -f FILE           The home configuration file.
     …
 
 We can see some of the metadata of this package with the `--json` switch of `nix search`:
 
 ```sh
-nix search --json .#shajra-home-manager | jq .
+nix search --json .#home-manager | jq .
 ```
 
     {
-      "packages.x86_64-linux.shajra-home-manager": {
-        "pname": "shajra-home-manager",
+      "packages.x86_64-linux.home-manager": {
+        "pname": "home-manager",
         "version": "",
-        "description": "Controlled home directory management with Nix"
+        "description": "A user environment configurator"
     …
 
 In the JSON above, the “pname” field indicates the package's name. In practice, this may or may not differ from flake output name of the installable.
 
-`nix run` works because the package selected by the output attribute name `shajra-home-manager` selects a package with a package name “shajra-home-manager” that is the same as the executable provided at `bin/shajra-home-manager`.
+`nix run` works because the package selected by the output attribute name `home-manager` selects a package with a package name “home-manager” that is the same as the executable provided at `bin/home-manager`.
 
 If we want something other than what can be detected, then we have to continue using `nix shell` with `--command`.
 
 ## `nix run` and `nix shell` with remote flakes<a id="sec-4-8"></a>
 
-In the examples above, we've used selected packages from this project's flake, like `.#shajra-home-manager`. But one benefit of flakes is that we can refer to remote flakes just as easily, like `nixpkgs#hello`. This means we can build quickly build environments with `nix shell` or run commands with `nix run` without committing to install software.
+In the examples above, we've used selected packages from this project's flake, like `.#home-manager`. But one benefit of flakes is that we can refer to remote flakes just as easily, like `nixpkgs#hello`. This means we can build quickly build environments with `nix shell` or run commands with `nix run` without committing to install software.
 
 Here's a small example.
 
@@ -390,11 +399,11 @@ When using `nix shell`, we can even mix local flake reference with remote ones, 
 ```sh
 nix shell --ignore-environment \
     nixpkgs#which \
-    .#shajra-home-manager \
-    --command which shajra-home-manager
+    .#home-manager \
+    --command which home-manager
 ```
 
-    /nix/store/0pvq03hc9yc4sdi9fhh9mrjn9fpg6fm2-shajra-home-manager/bin/shajra-home-manager
+    /nix/store/s5r7ibxy2qqpy30l70xq79wsj7mf3jzb-home-manager/bin/home-manager
 
 This is all a consequence of everything discussed in previous sections, but it's good to see clearly that what we do with local flake references can work just as well with remote flake references.
 
@@ -406,10 +415,10 @@ We've seen that we can build programs with `nix build` and then execute them usi
 
 This way, you can just put `~/.nix-profile/bin` on your `PATH`, and any programs installed in your default profile will be available for interactive use or scripts.
 
-To install the `shajra-home-manager` executable, which is provided by the `shajra-home-manager` output of our flake, we'd run the following:
+To install the `home-manager` executable, which is provided by the `home-manager` output of our flake, we'd run the following:
 
 ```sh
-nix profile install .#shajra-home-manager
+nix profile install .#home-manager
 ```
 
 We can see this installation by querying what's been installed:
@@ -418,7 +427,7 @@ We can see this installation by querying what's been installed:
 nix profile list
 ```
 
-    0 git+file:///home/tnks/src/shajra/shajra-provisioning#packages.x86_64-linux.shajra-home-manager git+file:///home/tnks/src/shajra/shajra-provisioning#packages.x86_64-linux.shajra-home-manager /nix/store/0pvq03hc9yc4sdi9fhh9mrjn9fpg6fm2-shajra-home-manager
+    0 git+file:///home/tnks/src/shajra/shajra-provisioning#packages.x86_64-linux.home-manager git+file:///home/tnks/src/shajra/shajra-provisioning#packages.x86_64-linux.home-manager /nix/store/s5r7ibxy2qqpy30l70xq79wsj7mf3jzb-home-manager
 
 The output of `nix profile list` is a bit verbose, but each line has three parts:
 
@@ -436,7 +445,7 @@ nix profile remove 0
 we can also provide a regex matching the full attribute path of the flake:
 
 ```sh
-nix profile remove '.*shajra-home-manager'
+nix profile remove '.*home-manager'
 ```
 
 Also, if you look at the symlink-resolved location for your profile, you'll see that Nix retains the symlink trees of previous generations of your profile. In fact you can even rollback to a previous profile with the `nix profile rollback` subcommand. You can delete old generations of your profile with the `nix profile wipe-history` subcommand.

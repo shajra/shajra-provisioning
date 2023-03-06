@@ -172,13 +172,13 @@ nix --experimental-features nix-command search --file . '' | ansifilter
 #+begin_example
 ,* packages.aarch64-darwin.ci
 
+,* packages.aarch64-darwin.home-manager
+  A user environment configurator
+
 ,* packages.aarch64-darwin.shajra-darwin-rebuild
   Controlled MacOS rebuild
 
 ,* packages.aarch64-darwin.shajra-home-manager
-  Controlled home directory management with Nix
-
-,* packages.aarch64-darwin.shajra-nixos-rebuild
 …
 #+end_example
 
@@ -211,6 +211,9 @@ nix --experimental-features nix-command \
 #+end_src
 
 #+RESULTS: nix-search-filtered
+: * packages.x86_64-linux.home-manager
+:   A user environment configurator
+: 
 : * packages.x86_64-linux.shajra-home-manager
 :   Controlled home directory management with Nix
 
@@ -235,8 +238,8 @@ nix --experimental-features \
     "version": "",
     "description": ""
   },
-  "packages.aarch64-darwin.shajra-darwin-rebuild": {
-    "pname": "shajra-darwin-rebuild",
+  "packages.aarch64-darwin.home-manager": {
+    "pname": "home-manager",
     "version": "",
 …
 #+end_example
@@ -280,10 +283,10 @@ nix --experimental-features 'nix-command' \
 
 #+RESULTS: nix-search-specific
 : {
-:   "packages.x86_64-linux.shajra-home-manager": {
-:     "pname": "shajra-home-manager",
+:   "packages.x86_64-linux.home-manager": {
+:     "pname": "home-manager",
 :     "version": "",
-:     "description": "Controlled home directory management with Nix"
+:     "description": "A user environment configurator"
 :   }
 : }
 
@@ -300,7 +303,7 @@ nix-build --attr <<get("package-attr-long")>> .
 #+end_src
 
 #+RESULTS: nix-build
-: /nix/store/0pvq03hc9yc4sdi9fhh9mrjn9fpg6fm2-shajra-home-manager
+: /nix/store/s5r7ibxy2qqpy30l70xq79wsj7mf3jzb-home-manager
 
 If we omit the path to a Nix file, =nix-build= will try to build =default.nix=
 in the current directory. If we omit the =--attr= switch and argument,
@@ -323,7 +326,7 @@ readlink result*
 #+end_src
 
 #+RESULTS: nix-build-link
-: /nix/store/0pvq03hc9yc4sdi9fhh9mrjn9fpg6fm2-shajra-home-manager
+: /nix/store/s5r7ibxy2qqpy30l70xq79wsj7mf3jzb-home-manager
 
 Following these symlinks, we can see the files the project provides:
 
@@ -333,11 +336,19 @@ tree -l result*
 #+end_src
 
 #+RESULTS: nix-build-tree
-: result
-: └── bin
-:     └── shajra-home-manager
-: 
-: 1 directory, 1 file
+#+begin_example
+result
+├── bin
+│   └── home-manager
+└── share
+    ├── bash
+    │   └── home-manager.sh
+    ├── bash-completion
+    │   └── completions
+    │       └── home-manager
+    ├── fish
+…
+#+end_example
 
 It's common to configure these “result” symlinks as ignored in source control
 tools (for instance, for Git within a =.gitignore= file).
@@ -378,11 +389,11 @@ nix --experimental-features 'nix-command' \
 #+end_src
 
 #+RESULTS: nix-shell
-: USAGE: shajra-home-manager [OPTION]... [--] HOME_MANAGER_ARGS...
+: Usage: /nix/store/s5r7ibxy2qqpy30l70xq79wsj7mf3jzb-home-manager/bin/home-manager [OPTION] COMMAND
 : 
-: DESCRIPTION:
+: Options
 : 
-:     A wrapper of home-manager that defaults to a pinned
+:   -f FILE           The home configuration file.
 : …
 
 Similar to other Nix commands, using in ~--file .~ tells =nix shell= to read a
@@ -433,10 +444,10 @@ nix --experimental-features \
 
 #+RESULTS: nix-search-run
 : {
-:   "packages.x86_64-linux.shajra-home-manager": {
-:     "pname": "shajra-home-manager",
+:   "packages.x86_64-linux.home-manager": {
+:     "pname": "home-manager",
 :     "version": "",
-:     "description": "Controlled home directory management with Nix"
+:     "description": "A user environment configurator"
 :   }
 : }
 
@@ -457,11 +468,11 @@ nix --experimental-features nix-command \
 #+end_src
 
 #+RESULTS: nix-run
-: USAGE: shajra-home-manager [OPTION]... [--] HOME_MANAGER_ARGS...
+: Usage: /nix/store/s5r7ibxy2qqpy30l70xq79wsj7mf3jzb-home-manager/bin/home-manager [OPTION] COMMAND
 : 
-: DESCRIPTION:
+: Options
 : 
-:     A wrapper of home-manager that defaults to a pinned
+:   -f FILE           The home configuration file.
 : …
 
 This works because the package selected by {{{run-attr-long}}} selects a package
@@ -549,8 +560,7 @@ nix-env --profile /tmp/nix-profile \
 #+end_src
 
 #+RESULTS: nix-env-install
-: installing 'shajra-home-manager'
-: building '/nix/store/hs9xz17vlb2m4qn6kxfmccgjq4jyrvqg-user-environment.drv'...
+: installing 'home-manager'
 
 We can see this installation by querying what's been installed:
 
@@ -564,7 +574,7 @@ nix-env --profile /tmp/nix-profile --query
 #+end_src
 
 #+RESULTS: nix-env-query-2
-: shajra-home-manager
+: home-manager
 
 Note that this name we see in the results of =nix-env= is the package name, and
 not the attribute path we used to select out our packages. Sometimes these are
@@ -586,13 +596,20 @@ nix --experimental-features nix-command \
 #+end_src
 
 #+RESULTS: nix-search-2
-: {
-:   "packages.x86_64-linux.shajra-home-manager": {
-:     "pname": "shajra-home-manager",
-:     "version": "",
-:     "description": "Controlled home directory management with Nix"
-:   }
-: }
+#+begin_example
+{
+  "packages.x86_64-linux.home-manager": {
+    "pname": "home-manager",
+    "version": "",
+    "description": "A user environment configurator"
+  },
+  "packages.x86_64-linux.shajra-home-manager": {
+    "pname": "shajra-home-manager",
+    "version": "",
+    "description": "Controlled home directory management with Nix"
+  }
+}
+#+end_example
 
 And if we want to uninstall a program from our active profile, we do so by the
 package's name (“pname” above), in this case {{{package-name}}}:
@@ -608,7 +625,7 @@ nix-env --profile /tmp/nix-profile \
 #+end_src
 
 #+RESULTS: nix-env-uninstall
-: uninstalling 'shajra-home-manager'
+: uninstalling 'home-manager'
 
 Summarizing what we'e done, we've installed our package using its attribute path
 ({{{package-attr-long}}}) within the referenced Nix expression. But we uninstall

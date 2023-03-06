@@ -82,13 +82,13 @@ nix --extra-experimental-features nix-command search --file . ''
 
     * packages.aarch64-darwin.ci
     
+    * packages.aarch64-darwin.home-manager
+      A user environment configurator
+    
     * packages.aarch64-darwin.shajra-darwin-rebuild
       Controlled MacOS rebuild
     
     * packages.aarch64-darwin.shajra-home-manager
-      Controlled home directory management with Nix
-    
-    * packages.aarch64-darwin.shajra-nixos-rebuild
     …
 
 If you have the `nix-command` feature disabled, and typing out `nix --extra-experimental-features nix-command` is too verbose for your tastes, consider setting an alias for it in your shell.
@@ -101,9 +101,12 @@ We can filter search results down by supplying regexes as additional position pa
 
 ```sh
 nix --extra-experimental-features nix-command \
-    search --file . '' linux shajra-home-manager
+    search --file . '' linux home-manager
 ```
 
+    * packages.x86_64-linux.home-manager
+      A user environment configurator
+    
     * packages.x86_64-linux.shajra-home-manager
       Controlled home directory management with Nix
 
@@ -120,8 +123,8 @@ nix --extra-experimental-features \
         "version": "",
         "description": ""
       },
-      "packages.aarch64-darwin.shajra-darwin-rebuild": {
-        "pname": "shajra-darwin-rebuild",
+      "packages.aarch64-darwin.home-manager": {
+        "pname": "home-manager",
         "version": "",
     …
 
@@ -142,22 +145,22 @@ Note, this document intentionally doesn't cover either the `nix-channel` command
 The following result is one returned by an execution of `nix search` or tab-completing from within a `nix repl` session:
 
     {
-      "packages.x86_64-linux.shajra-home-manager": {
-        "pname": "shajra-home-manager",
+      "packages.x86_64-linux.home-manager": {
+        "pname": "home-manager",
         "version": "",
-        "description": "Controlled home directory management with Nix"
+        "description": "A user environment configurator"
       }
     }
 
-We can see that a package can be accessed with the `packages.x86_64-linux.shajra-home-manager` output attribute path of the project's flake. Not shown in the search results above, this package happens to provide the executable `bin/shajra-home-manager`.
+We can see that a package can be accessed with the `packages.x86_64-linux.home-manager` output attribute path of the project's flake. Not shown in the search results above, this package happens to provide the executable `bin/home-manager`.
 
 We can build this package with `nix-build` from the project root:
 
 ```sh
-nix-build --attr packages.x86_64-linux.shajra-home-manager .
+nix-build --attr packages.x86_64-linux.home-manager .
 ```
 
-    /nix/store/0pvq03hc9yc4sdi9fhh9mrjn9fpg6fm2-shajra-home-manager
+    /nix/store/s5r7ibxy2qqpy30l70xq79wsj7mf3jzb-home-manager
 
 If we omit the path to a Nix file, `nix-build` will try to build `default.nix` in the current directory. If we omit the `--attr` switch and argument, `nix-build` will try to build packages it finds in the root of the attribute tree.
 
@@ -169,7 +172,7 @@ The output of `nix-build` shows us where in `/nix/store` our package has been bu
 readlink result*
 ```
 
-    /nix/store/0pvq03hc9yc4sdi9fhh9mrjn9fpg6fm2-shajra-home-manager
+    /nix/store/s5r7ibxy2qqpy30l70xq79wsj7mf3jzb-home-manager
 
 Following these symlinks, we can see the files the project provides:
 
@@ -178,10 +181,16 @@ tree -l result*
 ```
 
     result
-    └── bin
-        └── shajra-home-manager
-    
-    1 directory, 1 file
+    ├── bin
+    │   └── home-manager
+    └── share
+        ├── bash
+        │   └── home-manager.sh
+        ├── bash-completion
+        │   └── completions
+        │       └── home-manager
+        ├── fish
+    …
 
 It's common to configure these “result” symlinks as ignored in source control tools (for instance, for Git within a `.gitignore` file).
 
@@ -193,21 +202,21 @@ We can run commands in Nix-curated environments with `nix shell`, provided we're
 
 With `nix shell`, you don't even have to build the package first with `nix build` or mess around with “result” symlinks. `nix shell` will build any necessary packages required.
 
-For example, to get the help message for the `shajra-home-manager` executable provided by the package selected by the `packages.x86_64-linux.shajra-home-manager` attribute path output by this project's flake, we can call the following:
+For example, to get the help message for the `home-manager` executable provided by the package selected by the `packages.x86_64-linux.home-manager` attribute path output by this project's flake, we can call the following:
 
 ```sh
 nix --extra-experimental-features 'nix-command' \
     shell \
     --file . \
-    packages.x86_64-linux.shajra-home-manager \
-    --command shajra-home-manager --help
+    packages.x86_64-linux.home-manager \
+    --command home-manager --help
 ```
 
-    USAGE: shajra-home-manager [OPTION]... [--] HOME_MANAGER_ARGS...
+    Usage: /nix/store/s5r7ibxy2qqpy30l70xq79wsj7mf3jzb-home-manager/bin/home-manager [OPTION] COMMAND
     
-    DESCRIPTION:
+    Options
     
-        A wrapper of home-manager that defaults to a pinned
+      -f FILE           The home configuration file.
     …
 
 Similar to other Nix commands, using in `--file .` tells `nix shell` to read a Nix expression from `./default.nix`. The positional arguments when calling `nix shell` with `--file` are the attribute paths selecting packages to put on the `PATH`.
@@ -230,14 +239,14 @@ Remember, the package's *name* is not the same as the *attribute* use to select 
 
 ```sh
 nix --extra-experimental-features \
-    nix-command search --file . '' --json 'packages.x86_64-linux.shajra-home-manager' | jq .
+    nix-command search --file . '' --json 'packages.x86_64-linux.home-manager' | jq .
 ```
 
     {
-      "packages.x86_64-linux.shajra-home-manager": {
-        "pname": "shajra-home-manager",
+      "packages.x86_64-linux.home-manager": {
+        "pname": "home-manager",
         "version": "",
-        "description": "Controlled home directory management with Nix"
+        "description": "A user environment configurator"
       }
     }
 
@@ -247,17 +256,17 @@ Here's an example of calling `nix run` with this project:
 
 ```sh
 nix --extra-experimental-features nix-command \
-    run --file . packages.x86_64-linux.shajra-home-manager -- --help
+    run --file . packages.x86_64-linux.home-manager -- --help
 ```
 
-    USAGE: shajra-home-manager [OPTION]... [--] HOME_MANAGER_ARGS...
+    Usage: /nix/store/s5r7ibxy2qqpy30l70xq79wsj7mf3jzb-home-manager/bin/home-manager [OPTION] COMMAND
     
-    DESCRIPTION:
+    Options
     
-        A wrapper of home-manager that defaults to a pinned
+      -f FILE           The home configuration file.
     …
 
-This works because the package selected by `packages.x86_64-linux.shajra-home-manager` selects a package with name “shajra-home-manager” that is the same as the executable provided at `bin/shajra-home-manager`.
+This works because the package selected by `packages.x86_64-linux.home-manager` selects a package with name “home-manager” that is the same as the executable provided at `bin/home-manager`.
 
 If we want something other than what can be detected, then we have to continue using `nix shell` with `--command`.
 
@@ -294,14 +303,13 @@ nix-env --switch-profile /nix/var/nix/profiles/per-user/$USER/another-profile
 
 This way, you can just put `~/.nix-profile/bin` on your `PATH`, and any programs installed in your currently active profile will be available for interactive use or scripts.
 
-To install the `shajra-home-manager` executable, which is provided by the `packages.x86_64-linux.shajra-home-manager` attribute path, we'd run the following:
+To install the `home-manager` executable, which is provided by the `packages.x86_64-linux.home-manager` attribute path, we'd run the following:
 
 ```sh
-nix-env --install --file . --attr packages.x86_64-linux.shajra-home-manager 2>&1
+nix-env --install --file . --attr packages.x86_64-linux.home-manager 2>&1
 ```
 
-    installing 'shajra-home-manager'
-    building '/nix/store/hs9xz17vlb2m4qn6kxfmccgjq4jyrvqg-user-environment.drv'...
+    installing 'home-manager'
 
 We can see this installation by querying what's been installed:
 
@@ -309,7 +317,7 @@ We can see this installation by querying what's been installed:
 nix-env --query
 ```
 
-    shajra-home-manager
+    home-manager
 
 Note that this name we see in the results of `nix-env` is the package name, and not the attribute path we used to select out our packages. Sometimes these are congruent, but not always.
 
@@ -317,10 +325,15 @@ We can see the package name of anything we install by using `nix search` with a 
 
 ```sh
 nix --extra-experimental-features nix-command \
-    search --json --file . '' linux 'shajra-home-manager'
+    search --json --file . '' linux 'home-manager'
 ```
 
     {
+      "packages.x86_64-linux.home-manager": {
+        "pname": "home-manager",
+        "version": "",
+        "description": "A user environment configurator"
+      },
       "packages.x86_64-linux.shajra-home-manager": {
         "pname": "shajra-home-manager",
         "version": "",
@@ -328,15 +341,15 @@ nix --extra-experimental-features nix-command \
       }
     }
 
-And if we want to uninstall a program from our active profile, we do so by the package's name (“pname” above), in this case “shajra-home-manager”:
+And if we want to uninstall a program from our active profile, we do so by the package's name (“pname” above), in this case “home-manager”:
 
 ```sh
-nix-env --uninstall shajra-home-manager 2>&1
+nix-env --uninstall home-manager 2>&1
 ```
 
-    uninstalling 'shajra-home-manager'
+    uninstalling 'home-manager'
 
-Summarizing what we'e done, we've installed our package using its attribute path (`packages.x86_64-linux.shajra-home-manager`) within the referenced Nix expression. But we uninstall it using the package name (“shajra-home-manager”), which may or may not be the same as the attribute path. When a package is installed, Nix keeps no reference to the expression that evaluated to the derivation of the installed package. The attribute path is only relevant to this expression. In fact, two different expressions could evaluate to the same derivation, but use different attribute paths. This is why we uninstall packages by their package name.
+Summarizing what we'e done, we've installed our package using its attribute path (`packages.x86_64-linux.home-manager`) within the referenced Nix expression. But we uninstall it using the package name (“home-manager”), which may or may not be the same as the attribute path. When a package is installed, Nix keeps no reference to the expression that evaluated to the derivation of the installed package. The attribute path is only relevant to this expression. In fact, two different expressions could evaluate to the same derivation, but use different attribute paths. This is why we uninstall packages by their package name.
 
 Also, if you look at the resolved location for your profile, you'll see that Nix retains the symlink trees of previous generations of your profile. In fact you can even rollback to a previous profile with the `--rollback` switch. You can delete old generations of your profile with the `--delete-generations` switch.
 

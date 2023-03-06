@@ -8,6 +8,7 @@ cd "$(dirname "$0")/.."
 # Nixpkgs or any package from any flake you like.
 nix shell \
     --ignore-environment \
+    --keep HOME \
     --keep LANG \
     --keep LOCALE_ARCHIVE \
     .#infra.np.nixpkgs.stable.ansifilter \

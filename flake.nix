@@ -44,6 +44,7 @@
                     packages.shajra-nixos-rebuild  = pkgs-system.shajra-nixos-rebuild;
                     packages.shajra-darwin-rebuild = pkgs-system.shajra-darwin-rebuild;
                     packages.shajra-home-manager   = pkgs-home.shajra-home-manager;
+                    packages.home-manager          = inputs'.home-manager.packages.home-manager;
                     apps = {
                         shajra-nixos-rebuild = {
                             type = "app";
@@ -56,6 +57,10 @@
                         shajra-home-manager = {
                             type = "app";
                             program = "${pkgs-home.shajra-home-manager}/bin/shajra-home-manager";
+                        };
+                        home-manager = {
+                            type = "app";
+                            program = "${inputs'.home-manager.packages.home-manager}/bin/home-manager";
                         };
                     };
                     legacyPackages = build.shajra-provision;
