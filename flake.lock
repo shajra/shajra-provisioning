@@ -806,7 +806,6 @@
       },
       "original": {
         "owner": "shajra",
-        "ref": "user/shajra/next",
         "repo": "nix-project",
         "type": "github"
       }

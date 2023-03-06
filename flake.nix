@@ -6,7 +6,7 @@
         flake-parts.url   = github:hercules-ci/flake-parts;
         haskell-nix.url   = github:input-output-hk/haskell.nix;
         home-manager.url  = github:nix-community/home-manager;
-        nix-project.url   = github:shajra/nix-project/user/shajra/next;
+        nix-project.url   = github:shajra/nix-project;
         nur.url           = github:nix-community/NUR;
         nix-darwin             = { url = github:LnL7/nix-darwin; flake = false; };
         bluos-nix              = { url = github:shajra/bluos-nix/old/3.14.0; flake = false; };
