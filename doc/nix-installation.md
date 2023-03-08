@@ -84,7 +84,7 @@ The provided [introduction to Nix](nix-introduction.md) covers in detail what th
 
 As you can guess, the `flakes` feature enables flakes functionality in Nix. The `nix-command` feature enables a variety of subcommands of Nix's newer `nix` command-line tool, some of which allow us to work with flakes.
 
-There is a way to use flakes local to just a single command-line invocation by using `nix --extra-experimental-features 'nix-command flakes' …`, so users can try out using flakes without enabling it globally. For those users, this can be useful to set to a shell alias. Here's an example that works in most POSIX-compliant shells:
+If you don't enable experimental features globally, there is a switch to enable features local to just a single command-line invocation. For example, too use flakes-related commands we call `nix --extra-experimental-features 'nix-command flakes' …`. For users not enabling these features globally, this can be useful to set to a shell alias. Here's an example that works in most POSIX-compliant shells:
 
 ```sh
 alias nix-flakes = nix --extra-experimental-features 'nix-command flakes'
@@ -94,7 +94,7 @@ As discussed in the introduction, `nix-command` is actually enabled by default. 
 
 To use flakes there are two things we need to do:
 
-1.  make sure the version we're at least on Nix 2.4
+1.  make sure the version of Nix we're on is at least 2.4
 2.  enable both the `nix-command` and `flakes` experimental features.
 
 Since the latest release of Nix is already at 2.14, if you installed Nix recently as per the instructions above, you should be on a recent-enough version:

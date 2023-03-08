@@ -113,7 +113,7 @@ Finally, all packages are stored in `/nix/store` by their hash. This simple sche
 
 ## Nixpkgs<a id="sec-3-3"></a>
 
-Nix expressions help us create extremely controlled environments within which we can build packages precisely. However, Nix still calls the conventional build tools of various programming language ecosystems. Under the cover, Nix is ultimately an extremely controlled execution of Bash scripts orchestrating these tools.
+Nix expressions help us create extremely controlled environments within which we can build packages precisely. However, Nix still calls the conventional build tools of various programming language ecosystems. Under the cover, Nix is ultimately an precisely controlled execution of Bash scripts orchestrating these tools.
 
 To keep the Nix expressions for each package concise, the Nix community curates a [Git repository of Nix expressions called Nixpkgs](https://github.com/NixOS/nixpkgs). Most Nix expressions for packages will start with a snapshot of Nixpkgs as a dependency, which provides library support to help keep Nix expressions compact.
 
@@ -125,7 +125,7 @@ Having covered so many of Nix's strengths, it's important to be aware of some pr
 
 ## Nixpkgs takes time to learn<a id="sec-4-1"></a>
 
-There are parts of Nix that are extremely simple. For example, there's an elegance to the hashing calculation and how `/nix/store` is used. Furthermore the Nix language itself has a small footprint, which eases learning it.
+There are parts of Nix that are notably simple. For example, there's an elegance to the hashing calculation and how `/nix/store` is used. Furthermore the Nix language itself has a small footprint, which eases learning it.
 
 However, because of the complexity of all the programming language ecosystems out there, there are a *lot* of supporting libraries in Nixpkgs to understand. There's over two million lines of Nix in Nixpkgs, some auto-generated, increasing the odds of getting lost in it.
 
@@ -178,7 +178,7 @@ All this is generally good news. Flakes address problems that industrial users o
 
 However, flakes are an experimental feature that users need to explicitly enable. Similar to the `nix` command, the inputs and outputs of flake-related subcommands might change slightly. Such changes have already happened.
 
-On top of this, because flakes are experimental, documentation of flakes is extremely fractured in the official documentation. It almost seems like the Nix developers are delaying proper documentation until there's a declaration of stability. A preferred alternative would be developing documentation more concurrently with the implementation, using the comprehensibility of the documentation to inform the design of the software. Features that are too hard to explain expose good opportunities for redesign.
+On top of this, because flakes are experimental, documentation of flakes is fractured in the official documentation. It almost seems like the Nix developers are delaying proper documentation until there's a declaration of stability. A preferred alternative would be developing documentation more concurrently with the implementation, using the comprehensibility of the documentation to inform the design of the software. Features that are too hard to explain expose good opportunities for redesign.
 
 All this puts industrial Nix users in an annoying place. Not using flakes and instead coaching coworkers and customers on how to use Nix safely
 

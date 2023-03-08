@@ -19,9 +19,9 @@
 
 This document explains how to take advantage of software provided by Nix for people new to [the Nix package manager](https://nixos.org/nix). This guide uses this project for examples, but it focused on introducing general Nix usage, which applies to other projects using Nix as well.
 
-This project supports a still-experimental feature of Nix called *flakes*, which this document covers. [Another document](nix-usage-noflakes.md) explains how to do everything illustrated in this document, but without flakes.
+This project supports a still-experimental feature of Nix called *flakes*, which this guide shows users how to use. [Another guide](../nix-usage-noflakes.md) explains how to do everything illustrated in this document, but without flakes.
 
-> **<span class="underline">NOTE:</span>** The decision to use an experimental feature such as flakes comes with trade-offs. Please read the provided [supplemental documentation on Nix](nix-introduction.md) if you're unfamiliar with flakes or these trade-offs. Hopefully you'll find these trade-offs acceptable so you can take advantage of the improved experience flakes offer.
+> **<span class="underline">NOTE:</span>** If you're new to flakes, please read the provided [supplemental introduction to Nix](../nix-introduction.md) to understand the experimental nature of flakes and how it may or may not affect you. Hopefully you'll find these trade-offs acceptable so you can take advantage of the improved experience flakes offer.
 
 # How this project uses Nix<a id="sec-2"></a>
 
@@ -43,7 +43,11 @@ That may affect your ability to follow along with examples.
 
 Otherwise, see the provided [Nix installation and configuration guide](nix-installation.md) if you have not yet set Nix up.
 
-To continue following this usage guide, you will need Nix's experimental flakes feature enabled.
+To continue following this usage guide, you will need Nix's experimental flakes feature. You can enable this globally, or use an alias such as the following:
+
+```sh
+alias nix-flakes = nix --extra-experimental-features 'nix-command flakes'
+```
 
 # Working with Nix<a id="sec-4"></a>
 

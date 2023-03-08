@@ -91,7 +91,11 @@ nix --extra-experimental-features nix-command search --file . ''
     * packages.aarch64-darwin.shajra-home-manager
     …
 
-If you have the `nix-command` feature disabled, and typing out `nix --extra-experimental-features nix-command` is too verbose for your tastes, consider setting an alias for it in your shell.
+If you have the `nix-command` feature disabled, and typing out `nix --extra-experimental-features nix-command` is too verbose for your tastes, consider setting an alias in your shell such as the following:
+
+```sh
+alias nix-new = nix --extra-experimental-features 'nix-command'
+```
 
 Passing in `--file .` tells `nix search` to get the attribute tree to search from the `default.nix` file in the current directory. The positional argument is the attribute path to start the search from within this tree. An empty string indicates to start at the root of the tree.
 

@@ -1,0 +1,9 @@
+#+begin_comment
+DO NOT READ. Some documentation for this project is generated from snippets of
+text like this one. Whether it gets woven into the final project is
+project-dependent.
+#+end_comment
+
+This project requires an experimental feature of Nix called /flakes/. To
+understand more about what flakes are and the consequences of using a
+still-experimental feature of Nix, please see the provided [[file:../nix-introduction.org][introduction to Nix]].

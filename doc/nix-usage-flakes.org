@@ -68,17 +68,7 @@ people new to [[nix][the Nix package manager]]. This guide uses this project for
 examples, but it focused on introducing general Nix usage, which applies to
 other projects using Nix as well.
 
-This project supports a still-experimental feature of Nix called /flakes/, which
-this document covers. [[file:nix-usage-noflakes.org][Another document]] explains how to do everything illustrated
-in this document, but without flakes.
-
-#+begin_quote
-*_NOTE:_* The decision to use an experimental feature such as flakes comes with
-trade-offs. Please read the provided [[file:nix-introduction.org][supplemental documentation on Nix]] if you're
-unfamiliar with flakes or these trade-offs. Hopefully you'll find these
-trade-offs acceptable so you can take advantage of the improved experience
-flakes offer.
-#+end_quote
+#+include: "internal/nix-usage-flakes-include.org"
 
 * How this project uses Nix
 
@@ -106,7 +96,11 @@ Otherwise, see the provided [[file:nix-installation.org][Nix installation and co
 not yet set Nix up.
 
 To continue following this usage guide, you will need Nix's experimental flakes
-feature enabled.
+feature. You can enable this globally, or use an alias such as the following:
+
+#+begin_src sh :eval no
+alias nix-flakes = nix --extra-experimental-features 'nix-command flakes'
+#+end_src
 
 * Working with Nix
 
