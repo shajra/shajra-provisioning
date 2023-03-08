@@ -198,17 +198,18 @@ in
             description = "Copy nix.org from master project to rest";
             body = ''
                 for doc in \
-                        installation \
-                        introduction \
-                        language \
-                        usage-flakes \
-                        usage-noflakes
-                    set src ~/src/shajra/nix-project/doc/nix-{$doc}.org
-                    fd "nix-"$doc"[.]org" ~/src/shajra \
+                        (fd "nix-.*[.]org" ~/src/shajra \
                         --type file \
-                        --exclude /nix-project/ \
-                        --exec echo cp {$src} {} \; \
-                        --exec      cp {$src} {}
+                        --exclude '*-include.org' \
+                        --exclude /nix-project/)
+                    echo cp \
+                        (string replace --regex '/shajra/[^/]+/' \
+                            "/shajra/nix-project/" $doc) \
+                        $doc
+                    cp \
+                        (string replace --regex '/shajra/[^/]+/' \
+                            "/shajra/nix-project/" $doc) \
+                        $doc
                 end
             '';
         };
