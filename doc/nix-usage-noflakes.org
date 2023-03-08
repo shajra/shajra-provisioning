@@ -307,7 +307,7 @@ nix-build --attr <<get("package-attr-long")>> .
 #+end_src
 
 #+RESULTS: nix-build
-: /nix/store/s5r7ibxy2qqpy30l70xq79wsj7mf3jzb-home-manager
+: /nix/store/w7p01j6sdaav1cs5a0a2rklpndj6vv4r-home-manager
 
 If we omit the path to a Nix file, =nix-build= will try to build =default.nix=
 in the current directory. If we omit the =--attr= switch and argument,
@@ -330,7 +330,7 @@ readlink result*
 #+end_src
 
 #+RESULTS: nix-build-link
-: /nix/store/s5r7ibxy2qqpy30l70xq79wsj7mf3jzb-home-manager
+: /nix/store/w7p01j6sdaav1cs5a0a2rklpndj6vv4r-home-manager
 
 Following these symlinks, we can see the files the project provides:
 
@@ -393,7 +393,7 @@ nix --experimental-features 'nix-command' \
 #+end_src
 
 #+RESULTS: nix-shell
-: Usage: /nix/store/s5r7ibxy2qqpy30l70xq79wsj7mf3jzb-home-manager/bin/home-manager [OPTION] COMMAND
+: Usage: /nix/store/w7p01j6sdaav1cs5a0a2rklpndj6vv4r-home-manager/bin/home-manager [OPTION] COMMAND
 : 
 : Options
 : 
@@ -472,7 +472,7 @@ nix --experimental-features nix-command \
 #+end_src
 
 #+RESULTS: nix-run
-: Usage: /nix/store/s5r7ibxy2qqpy30l70xq79wsj7mf3jzb-home-manager/bin/home-manager [OPTION] COMMAND
+: Usage: /nix/store/w7p01j6sdaav1cs5a0a2rklpndj6vv4r-home-manager/bin/home-manager [OPTION] COMMAND
 : 
 : Options
 : 

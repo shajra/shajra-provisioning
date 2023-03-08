@@ -445,7 +445,7 @@ readlink result*
 #+end_src
 
 #+RESULTS: nix-build-link
-: /nix/store/s5r7ibxy2qqpy30l70xq79wsj7mf3jzb-home-manager
+: /nix/store/w7p01j6sdaav1cs5a0a2rklpndj6vv4r-home-manager
 
 Following these symlinks, we can see the files the project provides:
 
@@ -482,7 +482,7 @@ nix path-info .#<<get("package-attr-short")>>
 #+end_src
 
 #+results: nix-build-path
-: /nix/store/s5r7ibxy2qqpy30l70xq79wsj7mf3jzb-home-manager
+: /nix/store/w7p01j6sdaav1cs5a0a2rklpndj6vv4r-home-manager
 
 ** Running commands in a shell
 
@@ -506,7 +506,7 @@ nix shell \
 #+end_src
 
 #+RESULTS: nix-shell
-: Usage: /nix/store/s5r7ibxy2qqpy30l70xq79wsj7mf3jzb-home-manager/bin/home-manager [OPTION] COMMAND
+: Usage: /nix/store/w7p01j6sdaav1cs5a0a2rklpndj6vv4r-home-manager/bin/home-manager [OPTION] COMMAND
 : 
 : Options
 : 
@@ -579,7 +579,7 @@ nix run .#<<get("run-attr-short")>>  -- --help
 #+end_src
 
 #+RESULTS: nix-run
-: Usage: /nix/store/s5r7ibxy2qqpy30l70xq79wsj7mf3jzb-home-manager/bin/home-manager [OPTION] COMMAND
+: Usage: /nix/store/w7p01j6sdaav1cs5a0a2rklpndj6vv4r-home-manager/bin/home-manager [OPTION] COMMAND
 : 
 : Options
 : 
@@ -642,7 +642,7 @@ nix shell --ignore-environment \
 #+end_src
 
 #+RESULTS: nix-shell-remote
-: /nix/store/s5r7ibxy2qqpy30l70xq79wsj7mf3jzb-home-manager/bin/home-manager
+: /nix/store/w7p01j6sdaav1cs5a0a2rklpndj6vv4r-home-manager/bin/home-manager
 
 This is all a consequence of everything discussed in previous sections, but it's
 good to see clearly that what we do with local flake references can work just as
@@ -690,7 +690,7 @@ nix profile list --profile /tmp/nix-profile
 #+end_src
 
 #+RESULTS: nix-profile-list
-: 0 git+file:///home/tnks/src/shajra/shajra-provisioning#packages.x86_64-linux.home-manager git+file:///home/tnks/src/shajra/shajra-provisioning#packages.x86_64-linux.home-manager /nix/store/s5r7ibxy2qqpy30l70xq79wsj7mf3jzb-home-manager
+: 0 git+file:///home/tnks/src/shajra/shajra-provisioning#packages.x86_64-linux.home-manager git+file:///home/tnks/src/shajra/shajra-provisioning#packages.x86_64-linux.home-manager /nix/store/w7p01j6sdaav1cs5a0a2rklpndj6vv4r-home-manager
 
 The output of =nix profile list= is a bit verbose, but each line has three parts:
 - an index to use with other =nix profile= subcommands (like =nix profile remove=)
