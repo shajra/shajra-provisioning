@@ -34,7 +34,7 @@ let
             inherit infraConfig inputs isDarwin system;
         };
         pkgs = final.callPackage ../packages.nix {
-            inherit inputs isDarwin isDevBuild np hn;
+            inherit inputs' isDarwin isDevBuild np hn;
         };
     });
 

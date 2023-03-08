@@ -1,7 +1,7 @@
 { lib
 , np
 , hn
-, inputs
+, inputs'
 , isDarwin
 , isDevBuild
 }:
@@ -293,11 +293,11 @@ in {
     # DESIGN: 2023-02-26: ghc926 not yet cached
     haskell-nix.build.programming.haskell = when (! isDevBuild) (
         {}
-        // (hn.fromHackage "ghc925" "fast-tags")
-        // (hn.fromHackage "ghc925" "ghcid")
-        // (hn.fromHackage "ghc925" "apply-refact")
-        // (hn.fromHackage "ghc925" "hlint")
-        // (hn.fromHackageCustomized "ghc925" "stylish-haskell" { configureArgs = "-f ghc-lib"; })
+        // (hn.fromHackage "ghc926" "fast-tags")
+        // (hn.fromHackage "ghc926" "ghcid")
+        // (hn.fromHackage "ghc926" "apply-refact")
+        // (hn.fromHackage "ghc926" "hlint")
+        // (hn.fromHackageCustomized "ghc926" "stylish-haskell" { configureArgs = "-f ghc-lib"; })
 
         # DESIGN: marked broken in Nixpkgs, doesn't seem to build with
         # Haskell.nix either
@@ -308,11 +308,11 @@ in {
 
     shajra.build.programming.haskell =
         let hls = ghcVersion:
-                import inputs.haskell-hls-nix {
+                import inputs'.haskell-hls-nix {
                     inherit ghcVersion;
                     hlsUnstable = false;
                 };
-            tags = import inputs.haskell-tags-nix;
+            tags = import inputs'.haskell-tags-nix;
         in when false {
         #in when (! isDevBuild) {
             implicit-hie        = (hls "8.10.7").implicit-hie;
@@ -324,8 +324,8 @@ in {
             haskell-hls-tags    = tags.haskell-tags-nix-exe;
         };
 
-    shajra.build.audio.gui.linux = when
-        false #(! isDarwin)
-        (import inputs.bluos-nix);
+    shajra.build.audio.gui.linux = when (! isDarwin) {
+        inherit (inputs'.bluos-nix.packages) bluos-controller;
+    };
 
 }
