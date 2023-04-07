@@ -63,7 +63,7 @@ in {
     networking.hostName = hostname;
     networking.wireless.enable = true;
     networking.wireless.allowAuxiliaryImperativeNetworks = true;
-    networking.wireless.interfaces = [ "wlp6s0" ];
+    #networking.wireless.interfaces = [ "wlp6s0" ];
     networking.wireless.userControlled.enable = true;
 
     nix.extraOptions = ''

@@ -49,7 +49,6 @@
             "systemd-suspend-then-hibernate.service"
         ];
         script = ''
-            date > /home/tnks/nvidiaOff.log
             echo '\_SB.PCI0.PEG0.PEGP._OFF' > /proc/acpi/call
         '';
         serviceConfig.Type = "oneshot";

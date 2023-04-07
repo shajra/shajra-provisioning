@@ -181,7 +181,7 @@ in {
                 "stack"
             ];
             unstable = pickUnstable [
-                "haskell.compiler.ghc926"
+                "haskell.compiler.ghc927"
                 "haskellPackages.djinn"
             ];
         in home // unstable;
@@ -262,14 +262,14 @@ in {
     ];
 
     nixpkgs.build.programming.haskell = {}
-        // (np.hs.fromPackages "unstable" "ghc926" "ghc-events")
-        // (np.hs.fromPackages "unstable" "ghc926" "haskdogs")
-        // (np.hs.fromPackages "unstable" "ghc926" "hasktags")
-        // (np.hs.fromPackages "unstable" "ghc926" "hoogle")
-        // (np.hs.fromPackages "unstable" "ghc926" "hp2pretty")
+        // (np.hs.fromPackages "unstable" "ghc927" "ghc-events")
+        // (np.hs.fromPackages "unstable" "ghc927" "haskdogs")
+        // (np.hs.fromPackages "unstable" "ghc927" "hasktags")
+        // (np.hs.fromPackages "unstable" "ghc927" "hoogle")
+        // (np.hs.fromPackages "unstable" "ghc927" "hp2pretty")
 
         # DESIGN: 2023-02-27: marked broken
-        #// (np.hs.fromPackages "unstable" "ghc926" "threadscope")
+        #// (np.hs.fromPackages "unstable" "ghc927" "threadscope")
         ;
 
     nixpkgs.build.unused.darwin = np.pick { darwin = "home"; } [
@@ -290,18 +290,17 @@ in {
         #nix-tools = hn.nixpkgs.haskell-nix.nix-tools.ghc902;
     };
 
-    # DESIGN: 2023-02-26: ghc926 not yet cached
     haskell-nix.build.programming.haskell = when (! isDevBuild) (
         {}
-        // (hn.fromHackage "ghc926" "fast-tags")
-        // (hn.fromHackage "ghc926" "ghcid")
-        // (hn.fromHackage "ghc926" "apply-refact")
-        // (hn.fromHackage "ghc926" "hlint")
-        // (hn.fromHackageCustomized "ghc926" "stylish-haskell" { configureArgs = "-f ghc-lib"; })
+        // (hn.fromHackage "ghc927" "fast-tags")
+        // (hn.fromHackage "ghc927" "ghcid")
+        // (hn.fromHackage "ghc927" "apply-refact")
+        // (hn.fromHackage "ghc927" "hlint")
+        // (hn.fromHackageCustomized "ghc927" "stylish-haskell" { configureArgs = "-f ghc-lib"; })
 
         # DESIGN: marked broken in Nixpkgs, doesn't seem to build with
         # Haskell.nix either
-        #// (hn.fromHackage "ghc926" "ghc-events-analyze")
+        #// (hn.fromHackage "ghc927" "ghc-events-analyze")
     );
 
     shajra.prebuilt = {};

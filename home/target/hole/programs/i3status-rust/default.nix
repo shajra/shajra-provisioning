@@ -25,18 +25,16 @@ in
             blocks = [
                 {
                 block = "focused_window";
-                max_width = 70;
-                show_marks = "visible";
+                format = " $title.str(max_w:70) $visible_marks |";
                 }
                 {
                 block = "disk_space";
-                format = "{icon} {available} {percentage}";
+                format = " $icon $available $percentage";
                 }
                 {
                 block = "memory";
-                display_type = "memory";
-                format_mem = "{mem_free_percents} {mem_avail_percents}";
-                format_swap = "{swap_free_percents}";
+                format = " $icon $mem_free_percents.eng(w:1) $mem_avail_percents.eng(w:1)";
+                format_alt = " $icon_swap $swap_free_percents.eng(w:1)";
                 }
                 {
                 block = "cpu";
@@ -44,40 +42,53 @@ in
                 }
                 {
                 block = "load";
-                format = "{1m}";
                 interval = 3;
                 }
                 {
                 block = "battery";
-                format = "{percentage} {time} {power}";
+                format = " $icon $percentage {$time |}{$power |}";
                 device = "BAT1";
                 }
                 {
                 block = "net";
                 device = "wlp6s0";
-                format = "{ssid}  {signal_strength}  {ip}";
+                format = " $icon $ssid $signal_strength { $ip |}";
                 interval = 3;
-                on_click = ''
-                    if ${daemon} --name wpa_gui --running
-                    then ${daemon} --name wpa_gui --stop
-                    else ${daemon} --name wpa_gui -- ${wpa_gui} -i wlp6s0 -q
-                    fi
-                '';
+                click = [
+                    {
+                    button = "left";
+                    cmd = ''
+                        if ${daemon} --name wpa_gui --running
+                        then ${daemon} --name wpa_gui --stop
+                        else ${daemon} --name wpa_gui -- ${wpa_gui} -i wlp6s0 -q
+                        fi
+                    '';
+                    }
+                ];
                 }
                 {
                 block = "sound";
-                on_click = ''
-                    if ${daemon} --name pavucontrol --running
-                    then ${daemon} --name pavucontrol --stop
-                    else ${daemon} --name pavucontrol -- ${pavucontrol}
-                    fi
-                '';
+                click = [
+                    {
+                    button = "left";
+                    cmd = ''
+                        if ${daemon} --name pavucontrol --running
+                        then ${daemon} --name pavucontrol --stop
+                        else ${daemon} --name pavucontrol -- ${pavucontrol}
+                        fi
+                    '';
+                    }
+                ];
                 }
                 {
                 block = "sound";
                 device_kind = "source";
-                format = "";
-                on_click = "${pulsemixer} --id source-1 --toggle-mute";
+                click = [
+                    {
+                    button = "left";
+                    cmd = "${pulsemixer} --id source-1 --toggle-mute";
+                    }
+                ];
                 }
                 {
                 block = "notify";
@@ -85,7 +96,15 @@ in
                 {
                 block = "custom";
                 command  = "${i3-dunst} status";
-                on_click = "${dunstctl} set-paused toggle; ${pkill} -u ${user} -SIGRTMIN+0 i3status-rs";
+                click = [
+                    {
+                    button = "left";
+                    cmd = ''
+                      ${dunstctl} set-paused toggle \
+                      && ${pkill} -u ${user} -SIGRTMIN+0 i3status-rs
+                    '';
+                    }
+                ];
                 signal = 0;
                 hide_when_empty = true;
                 interval = 3;
@@ -94,7 +113,7 @@ in
                 {
                 block = "time";
                 interval = 60;
-                format = "%a %Y-%m-%d %l:%M %p";
+                format = " $icon $timestamp.datetime(f:'%a %Y-%m-%d %l:%M %p')";
                 }
             ];
             icons = "material-nf";

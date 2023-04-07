@@ -40,7 +40,12 @@
                     pkgs-system = build-pkgs.system;
                     bagel-system = config.flake.darwinConfigurations.bagel.system;
                 in {
-                    packages.ci = build.shajra-provision.ci.all;
+                    packages.ci-prebuilt-nixpkgs    = build.shajra-provision.ci.prebuilt.nixpkgs;
+                    packages.ci-prebuilt-haskellnix = build.shajra-provision.ci.prebuilt.haskell-nix;
+                    packages.ci-prebuilt-shajra     = build.shajra-provision.ci.prebuilt.shajra;
+                    packages.ci-build-nixpkgs    = build.shajra-provision.ci.build.nixpkgs;
+                    packages.ci-build-haskellnix = build.shajra-provision.ci.build.haskell-nix;
+                    packages.ci-build-shajra     = build.shajra-provision.ci.build.shajra;
                     packages.shajra-nixos-rebuild  = pkgs-system.shajra-nixos-rebuild;
                     packages.shajra-darwin-rebuild = pkgs-system.shajra-darwin-rebuild;
                     packages.shajra-home-manager   = pkgs-home.shajra-home-manager;

@@ -23,18 +23,16 @@ in
             blocks = [
                 {
                 block = "focused_window";
-                max_width = 70;
-                show_marks = "visible";
+                format = "$title.str(max_w:70) $visible_marks";
                 }
                 {
                 block = "disk_space";
-                format = "{icon} {available} {percentage}";
+                format = " $icon $available $percentage";
                 }
                 {
                 block = "memory";
-                display_type = "memory";
-                format_mem = "{mem_free_percents} {mem_avail_percents}";
-                format_swap = "{swap_free_percents}";
+                format = " $icon $mem_free_percents.eng(w:1) $mem_avail_percents.eng(w:1)";
+                format_alt = " $icon_swap $swap_free_percents.eng(w:1)";
                 }
                 {
                 block = "cpu";
@@ -42,13 +40,12 @@ in
                 }
                 {
                 block = "load";
-                format = "{1m}";
                 interval = 3;
                 }
                 {
                 block = "net";
                 device = "ens4";
-                format = "{speed_up}  {speed_down}  {ip}";
+                format = " $icon $speed_up  $speed_down  $ip";
                 interval = 3;
                 }
                 {
@@ -57,7 +54,15 @@ in
                 {
                 block = "custom";
                 command  = "${i3-dunst} status";
-                on_click = "${dunstctl} set-paused toggle; ${pkill} -u ${user} -SIGRTMIN+0 i3status-rs";
+                clicks = [
+                    {
+                    button = "left";
+                    cmd = ''
+                        ${dunstctl} set-paused toggle \
+                        && ${pkill} -u ${user} -SIGRTMIN+0 i3status-rs
+                    '';
+                    }
+                ];
                 signal = 0;
                 hide_when_empty = true;
                 interval = 3;
@@ -66,7 +71,7 @@ in
                 {
                 block = "time";
                 interval = 60;
-                format = "%a %Y-%m-%d %l:%M %p";
+                format = " $icon $timestamp.datetime(f:'%a %Y-%m-%d %l:%M %p')";
                 }
             ];
             icons = "awesome6";
