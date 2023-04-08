@@ -23,9 +23,6 @@ in
     # DESIGN: Nixpkgs's Emacs has native compilation; no need for unstable
     #programs.emacs.package = pkgs.emacsUnstable;
 
-    # DESIGN: don't think this is needed any more
-    #programs.macchina.package = build.pkgSets.base.tui.linux.macchina;
-
     services.emacs = import services/emacs;
 
     xdg.mimeApps = import xdg/mimeApps;
