@@ -1,0 +1,17 @@
+zpool create \
+    -o ashift=13 \
+    -o listsnapshots=off \
+    -O acltype=posixacl \
+    -O canmount=off \
+    -O compression=zstd \
+    -O com.sun:auto-snapshot=true \
+    -O dnodesize=auto \
+    -O encryption=on \
+    -O keyformat=passphrase \
+    -O keylocation=prompt \
+    -O mountpoint=none \
+    -O normalization=formD \
+    -O relatime=on \
+    -O secondarycache=none \
+    -O xattr=sa \
+    jelly mirror /dev/sda /dev/sdb

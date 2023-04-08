@@ -1,0 +1,17 @@
+zfs create \
+    -o mountpoint=/srv/new \
+    -o canmount=off \
+    jelly/data
+
+zfs create \
+    -o mountpoint=none \
+    -o canmount=off \
+    -o refreservation=180G \
+    -o primarycache=none \
+    jelly/reserved
+
+zfs create                 jelly/data/home
+zfs create -o canmount=off jelly/data/srv
+zfs create                 jelly/data/srv/audio
+zfs create                 jelly/data/srv/pictures
+
