@@ -1,4 +1,5 @@
 { coreutils
+, git
 , hostname
 , less
 , man-db
@@ -16,9 +17,10 @@ nix-project-lib.writeShellCheckedExe progName
     inherit meta;
     path = [
         coreutils
+        git
         hostname
-        man-db
         less
+        man-db
     ];
 }
 ''

@@ -74,6 +74,10 @@
                 let configLib = import build/configurations.nix inputs withSystem;
                 in {
                     overlays.default = import build/overlay.nix inputs withSystem;
+                    nixosConfigurations.cake = configLib.nixosConfiguration {
+                        system = "x86_64-linux";
+                        path   = machines/cake/configuration.nix;
+                    };
                     nixosConfigurations.hole = configLib.nixosConfiguration {
                         system = "x86_64-linux";
                         path   = machines/hole/configuration.nix;
@@ -81,6 +85,10 @@
                     darwinConfigurations.bagel = configLib.darwinConfiguration {
                         system = "aarch64-darwin";
                         path   = machines/bagel/darwin-configuration.nix;
+                    };
+                    homeConfigurations.cake = configLib.homeConfiguration {
+                        system = "x86_64-linux";
+                        path   = home/target/cake;
                     };
                     homeConfigurations.hole = configLib.homeConfiguration {
                         system = "x86_64-linux";
@@ -99,6 +107,10 @@
                     # packages built independently, which helps avoid hitting
                     # job time and disk space limits in GitHub Actions.
 
+                    homeConfigurations.cake-slim = configLib.homeConfiguration {
+                        system = "x86_64-linux";
+                        path   = home/target/cake/slim.nix;
+                    };
                     homeConfigurations.hole-slim = configLib.homeConfiguration {
                         system = "x86_64-linux";
                         path   = home/target/hole/slim.nix;

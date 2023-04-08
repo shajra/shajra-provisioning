@@ -4,32 +4,26 @@ let
 
     infra = build.infra;
     hplip = infra.np.nixpkgs.unstable.hplipWithPlugin;
-    hostname = "hole";
+    hostname = "cake";
     user = build.config.provision.user."${hostname}".username;
 
 in {
 
     imports = [
         ./hardware-configuration.nix
-        ./nvidia-off.nix
     ];
 
-    boot.initrd.luks.devices.crypted.device =
-        "/dev/disk/by-uuid/36cc4851-8905-48e0-bce6-70f13062619e";
-
-    boot.kernel.sysctl = { "net.ipv4.ip_forward" = 0; };
     #boot.kernelPackages = pkgs.linuxPackages_latest;
+    boot.kernelParams = [ "i915.force_probe=9a49" ];
     boot.loader.efi.canTouchEfiVariables = true;
+    boot.loader.efi.efiSysMountPoint = "/boot/efi";
     boot.loader.systemd-boot.enable = true;
-
-    environment.etc."systemd/sleep.conf".text = ''
-        HibernateDelaySec=3600
-    '';
+    boot.supportedFilesystems = [ "zfs" ];
+    boot.zfs.extraPools = [ "cake" ];
 
     environment.systemPackages = with pkgs; [
         # DESIGN: specific to hardware
         hplip
-        lan-jelly
     ];
 
     fonts.enableDefaultFonts = true;
@@ -41,7 +35,9 @@ in {
     hardware.keyboard.zsa.enable = true;
     hardware.opengl.enable = true;
     hardware.opengl.extraPackages = with pkgs; [
+        intel-media-driver
         libvdpau-va-gl
+        vaapiIntel
         vaapiVdpau
     ];
     hardware.pulseaudio.enable = true;
@@ -49,29 +45,42 @@ in {
     hardware.sane.enable = true;
     hardware.sane.extraBackends = [ pkgs.gutenprint hplip ];
 
+    i18n.defaultLocale = "en_US.UTF-8";
+    i18n.extraLocaleSettings = {
+        LC_ADDRESS = "en_US.UTF-8";
+        LC_IDENTIFICATION = "en_US.UTF-8";
+        LC_MEASUREMENT = "en_US.UTF-8";
+        LC_MONETARY = "en_US.UTF-8";
+        LC_NAME = "en_US.UTF-8";
+        LC_NUMERIC = "en_US.UTF-8";
+        LC_PAPER = "en_US.UTF-8";
+        LC_TELEPHONE = "en_US.UTF-8";
+        LC_TIME = "en_US.UTF-8";
+    };
+
     location.latitude = 30.2672;
     location.longitude = -97.7431;
 
-    networking.dhcpcd.runHook = ''
-        if [ "$reason" = BOUND ]
-        then
-            ${pkgs.coreutils}/bin/sleep 3
-            ${pkgs.lan-jelly}/bin/lan-jelly
-        fi
-    '';
-    networking.search = [ "hajra.xyz" "local" "home.arpa" ];
+    networking.interfaces.eth0 = {
+        ipv4.addresses = [{
+            address = "192.168.1.3";
+            prefixLength = 24;
+        }];
+    };
+
+    networking.defaultGateway = "192.168.1.1";
+    networking.domain = "home.arpa";
+    networking.hostId = "2d58ff06";
     networking.hostName = hostname;
-    networking.wireless.enable = true;
-    networking.wireless.allowAuxiliaryImperativeNetworks = true;
-    #networking.wireless.interfaces = [ "wlp6s0" ];
-    networking.wireless.userControlled.enable = true;
+    networking.nameservers = [ "192.168.1.1" ];
+    networking.search = [ "home.arpa" ];
+    networking.useDHCP = false;
 
     nix.extraOptions = ''
         experimental-features = nix-command flakes
     '';
     nix.package = pkgs.nixFlakes;
     nix.settings.auto-optimise-store = true;
-    nix.settings.sandbox = "relaxed";
     nix.settings.substituters = [
         "https://shajra.cachix.org"
         "https://cache.garnix.io"
@@ -88,8 +97,6 @@ in {
     ];
     nix.settings.trusted-users = [ "root" user ];
 
-    powerManagement.powertop.enable = true;
-
     programs.command-not-found.enable = false;
     programs.dconf.enable = true;
     programs.fish.enable = true;
@@ -97,9 +104,7 @@ in {
       enable = true;
       enableSSHSupport = true;
     };
-    programs.light.enable = true;
 
-    services.autorandr.enable = true;
     services.avahi.enable = true;
     services.avahi.ipv4 = true;
     services.avahi.ipv6 = true;
@@ -110,25 +115,52 @@ in {
     services.dbus.packages = [ pkgs.dconf ];
     services.geoclue2.enable = true;
     services.locate.enable = true;
-    services.logind.lidSwitchDocked = "ignore";
-    services.logind.lidSwitchExternalPower = "ignore";
-    services.logind.lidSwitch = "suspend-then-hibernate";
-    services.openssh.enable = false;
-    services.openssh.extraConfig = ''UseDNS no'';
-    services.openssh.ports = [];   # put a port here when using
+    services.ntp.enable = true;
+    services.openssh.enable = true;
+    services.openssh.extraConfig = ''AllowUsers tnks mzhajra'';
+    services.openssh.gatewayPorts = "yes";
+    #services.openssh.listenAddresses = [ { addr = "0.0.0.0"; port = 64896; } ];
+    services.openssh.openFirewall = true;
+    services.openssh.ports = [ 64896 ];  # put a port here when using
     services.picom.enable = true;
     services.picom.vSync = true;
     services.printing.drivers = [ hplip ];
     services.printing.enable = true;
-    services.tlp.enable = true;
-    services.upower.enable = true;
-    services.upower.criticalPowerAction = "Hibernate";
+
+    /*
+    services.syncthing.enable = true;
+    services.syncthing.folders."/srv/pictures" = {
+        id = "pictures";
+        versioning = {
+            type = "external";
+            params.command =
+                "${pkgs.syncthing-trash-keep}/bin/syncthing-trash-keep"
+                + " %FOLDER_PATH% %FILE_PATH%";
+        };
+    };
+    */
+
+    services.udev.extraRules = ''
+        # DESIGN: SSD enclosures hardcode the same IDs
+        # USEFUL: udevadm info --name=/dev/sdX --query=property
+        ACTION=="remove", GOTO="ssd_dev_disk_by_id_end"
+        KERNEL!="sd*", GOTO="ssd_dev_disk_by_id_end"
+        SUBSYSTEM!="block", GOTO="ssd_dev_disk_by_id_end"
+        ENV{DEVTYPE}!="disk", GOTO="ssd_dev_disk_by_id_end"
+        ENV{ID_VENDOR_ID}=="0bda", \
+            ENV{ID_MODEL_ID}=="9210", \
+            ENV{ID_SERIAL}="$env{ID_VENDOR}_$env{ID_MODEL}_$env{ID_PART_TABLE_UUID}", \
+            SYMLINK="disk/by-path/$env{ID_PATH}", \
+            SYMLINK+="disk/by-id/$env{ID_BUS}-$env{ID_SERIAL}"
+        LABEL="ssd_dev_disk_by_id_end"
+    '';
+
     services.xserver.displayManager.autoLogin.enable = true;
     services.xserver.displayManager.autoLogin.user = user;
     services.xserver.displayManager.defaultSession = "none+i3";
     services.xserver.displayManager.lightdm.enable = true;
     services.xserver.displayManager.lightdm.greeter.enable = false;
-    services.xserver.dpi = 235;
+    services.xserver.dpi = 160;
     services.xserver.inputClassSections = [
         ''
         Identifier   "Evoluent VerticalMouse"
@@ -156,11 +188,7 @@ in {
     services.xserver.libinput.mouse.horizontalScrolling = true;
     services.xserver.libinput.mouse.naturalScrolling = true;
     services.xserver.libinput.mouse.scrollMethod = "button";
-    services.xserver.libinput.touchpad.accelSpeed = "0.4";
-    services.xserver.libinput.touchpad.clickMethod = "clickfinger";
-    services.xserver.libinput.touchpad.disableWhileTyping = true;
-    services.xserver.libinput.touchpad.horizontalScrolling = true;
-    services.xserver.libinput.touchpad.naturalScrolling = true;
+    services.xserver.videoDrivers = ["intel" "modesetting" "fbdev"];
     services.xserver.windowManager.i3.enable = true;
     services.xserver.xkbOptions = "lv3:ralt_switch_multikey";
     services.xserver.xkbVariant = "altgr-intl";
@@ -170,15 +198,26 @@ in {
     time.timeZone = "US/Central";
 
     users.users."${user}" = {
+      description = "Sukant Hajra";
       isNormalUser = true;
-      uid = 1000;
       shell = pkgs.fish;
+      uid = 1000;
       extraGroups = [
         "dialout"
         "docker"
         "input"
         "plugdev"
         "video"
+        "wheel"
+      ];
+    };
+
+    users.users.mzhajra = {
+      description = "Michelle Hajra";
+      isNormalUser = true;
+      shell = pkgs.fish;
+      uid = 1001;
+      extraGroups = [
         "wheel"
       ];
     };

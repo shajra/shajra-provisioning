@@ -2,4 +2,5 @@
 
 cd "$(dirname "$0")"
 
-nix run .#shajra-home-manager -- "$@"
+nix --extra-experimental-features 'nix-command flakes' \
+    run .#shajra-home-manager -- "$@"

@@ -113,7 +113,7 @@ in
                 {
                 block = "time";
                 interval = 60;
-                format = " $icon $timestamp.datetime(f:'%a %Y-%m-%d %l:%M %p')";
+                format = " $icon $timestamp.datetime(f:'%a %Y-%m-%d %l:%M %p') ";
                 }
             ];
             icons = "material-nf";
