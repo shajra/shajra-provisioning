@@ -93,10 +93,6 @@ in {
     programs.command-not-found.enable = false;
     programs.dconf.enable = true;
     programs.fish.enable = true;
-    programs.gnupg.agent = {
-      enable = true;
-      enableSSHSupport = true;
-    };
     programs.light.enable = true;
 
     services.autorandr.enable = true;

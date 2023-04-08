@@ -18,8 +18,6 @@ in
     programs.i3status-rust = import programs/i3status-rust config pkgs;
 
     services.gammastep.enable = lib.mkForce false;
-    services.gpg-agent.enable = true;
-    services.gpg-agent.enableSshSupport = true;
 
     targets.genericLinux.enable = true;
 

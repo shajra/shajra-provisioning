@@ -100,10 +100,6 @@ in {
     programs.command-not-found.enable = false;
     programs.dconf.enable = true;
     programs.fish.enable = true;
-    programs.gnupg.agent = {
-      enable = true;
-      enableSSHSupport = true;
-    };
 
     services.avahi.enable = true;
     services.avahi.ipv4 = true;
