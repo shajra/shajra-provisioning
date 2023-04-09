@@ -258,7 +258,7 @@ in {
     ];
 
     nixpkgs.build.peripheral.wifi.tui.linux = np.pick { linux = "home"; } [
-        "lan-jelly"
+        "lan-cake"
     ];
 
     nixpkgs.build.programming.haskell = {}

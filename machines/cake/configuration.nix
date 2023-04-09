@@ -63,7 +63,7 @@ in {
 
     networking.interfaces.eth0 = {
         ipv4.addresses = [{
-            address = "192.168.1.3";
+            address = "192.168.1.2";
             prefixLength = 24;
         }];
     };

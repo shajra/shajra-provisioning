@@ -1,8 +1,8 @@
 userConfig: hostname:
 
 ''
-root = ${userConfig."${hostname}".homeDirectory}/Documents/jelly
-root = ssh://jelly/${userConfig.hole.homeDirectory}/doc/shared/safe
+root = ${userConfig."${hostname}".homeDirectory}/Documents/cake
+root = ssh://cake/${userConfig.hole.homeDirectory}/doc/shared/safe
 
 logfile = ${userConfig."${hostname}".homeDirectory}/var/log/unison.log
 

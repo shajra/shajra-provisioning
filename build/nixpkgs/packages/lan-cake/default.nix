@@ -7,7 +7,7 @@
 }:
 
 let
-    progName = "lan-jelly";
+    progName = "lan-cake";
     meta.description = "Change routing for home server when home";
 in
 
@@ -27,8 +27,8 @@ set -eu
 set -o pipefail
 
 
-JELLY_NAME=jelly.hajra.xyz
-JELLY_LOCAL=192.168.1.2
+CAKE_NAME=cake.hajra.xyz
+CAKE_LOCAL=192.168.1.2
 ROUTER_IP=192.168.1.1
 ROUTER_MAC=ac:3b:77:45:fe:b0
 
@@ -37,18 +37,18 @@ main()
 {
     if [ "''${1:-}" = home ]
     then
-        echo "INFO: routing Jelly locally"
+        echo "INFO: routing Cake locally"
         iptables_rule_add
     elif [ "''${1:-}" = remote ]
     then
-        echo "INFO: routing Jelly remotely"
+        echo "INFO: routing Cake remotely"
         iptables_rule_remove
     elif is_online && at_home
     then
-        echo "INFO: at home, routing Jelly locally"
+        echo "INFO: at home, routing Cake locally"
         iptables_rule_add
     else
-        echo "INFO: not at home, routing Jelly remotely"
+        echo "INFO: not at home, routing Cake remotely"
         iptables_rule_remove
     fi
 }
@@ -87,17 +87,17 @@ iptables_rule()
     iptables \
         -t nat \
         "$1" OUTPUT \
-        -d "$(jelly_remote)"/32 \
+        -d "$(cake_remote)"/32 \
         -p tcp \
         -j DNAT \
-        --to-destination "$JELLY_LOCAL"
+        --to-destination "$CAKE_LOCAL"
 }
 
-jelly_remote()
+cake_remote()
 (
-    ip="$(host -4 "$JELLY_NAME")"
+    ip="$(host -4 "$CAKE_NAME")"
     if ! [ "''${ip#;;}" = "$ip" ]
-    then die "$JELLY_NAME IP lookup failed"
+    then die "$CAKE_NAME IP lookup failed"
     fi
     echo "''${ip##* }"
 )

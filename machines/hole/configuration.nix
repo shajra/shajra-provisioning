@@ -29,7 +29,7 @@ in {
     environment.systemPackages = with pkgs; [
         # DESIGN: specific to hardware
         hplip
-        lan-jelly
+        lan-cake
     ];
 
     fonts.enableDefaultFonts = true;
@@ -56,7 +56,7 @@ in {
         if [ "$reason" = BOUND ]
         then
             ${pkgs.coreutils}/bin/sleep 3
-            ${pkgs.lan-jelly}/bin/lan-jelly
+            ${pkgs.lan-cake}/bin/lan-cake
         fi
     '';
     networking.search = [ "hajra.xyz" "local" "home.arpa" ];
