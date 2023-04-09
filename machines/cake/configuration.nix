@@ -123,6 +123,23 @@ in {
     services.printing.drivers = [ hplip ];
     services.printing.enable = true;
 
+    services.samba = {
+        enable = true;
+        extraConfig = ''
+            workgroup = WORKGROUP
+            security = user
+            hosts allow = 192.168.1. 127.0.0.1 localhost
+            hosts deny = 0.0.0.0/0
+        '';
+        openFirewall = true;
+        shares.audio = {
+            browsable = true;
+            comment = "Cake Audio";
+            path = "/srv/audio";
+            read-only = true;
+        };
+    };
+
     /*
     services.syncthing.enable = true;
     services.syncthing.folders."/srv/pictures" = {
