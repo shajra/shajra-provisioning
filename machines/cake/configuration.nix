@@ -110,6 +110,8 @@ in {
     services.avahi.publish.enable = true;
     services.dbus.packages = [ pkgs.dconf ];
     services.geoclue2.enable = true;
+    services.jellyfin.enable = true;
+    services.jellyfin.openFirewall = true;
     services.locate.enable = true;
     services.ntp.enable = true;
     services.openssh.enable = true;
