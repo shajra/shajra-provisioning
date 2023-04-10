@@ -109,6 +109,12 @@ in {
     services.avahi.publish.domain = true;
     services.avahi.publish.enable = true;
     services.dbus.packages = [ pkgs.dconf ];
+    services.ddclient.enable = true;
+    services.ddclient.domains = [ "jelly.dyndns.org" ];
+    services.ddclient.passwordFile = "/etc/ddclient.key";
+    services.ddclient.server = "members.dyndns.org";
+    services.ddclient.username = "tnksknt";
+    services.ddclient.verbose = true;
     services.geoclue2.enable = true;
     services.jellyfin.enable = true;
     services.jellyfin.openFirewall = true;
