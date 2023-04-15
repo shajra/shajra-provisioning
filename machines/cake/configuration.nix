@@ -61,20 +61,10 @@ in {
     location.latitude = 30.2672;
     location.longitude = -97.7431;
 
-    networking.interfaces.eth0 = {
-        ipv4.addresses = [{
-            address = "192.168.1.2";
-            prefixLength = 24;
-        }];
-    };
-
-    networking.defaultGateway = "192.168.1.1";
     networking.domain = "home.arpa";
     networking.hostId = "2d58ff06";
     networking.hostName = hostname;
-    networking.nameservers = [ "192.168.1.1" ];
     networking.search = [ "home.arpa" ];
-    networking.useDHCP = false;
 
     nix.extraOptions = ''
         experimental-features = nix-command flakes
@@ -150,6 +140,7 @@ in {
         extraConfig = ''
             workgroup = WORKGROUP
             security = user
+            hostname lookups = yes
             hosts allow = 192.168.1. 127.0.0.1 localhost
             hosts deny = 0.0.0.0/0
         '';

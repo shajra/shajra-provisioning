@@ -61,7 +61,7 @@ in
                 }
                 {
                 block = "net";
-                device = "eth0";
+                device = "enp90s0";
                 format = " $icon $speed_up $speed_down  $ip";
                 interval = 3;
                 }
