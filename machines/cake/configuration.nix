@@ -141,7 +141,7 @@ in {
             workgroup = WORKGROUP
             security = user
             hostname lookups = yes
-            hosts allow = 192.168.1. 127.0.0.1 localhost
+            hosts allow = 192.168.1. 192.168.2. 192.168.3. 192.168.4. 127.0.0.1 localhost
             hosts deny = 0.0.0.0/0
         '';
         openFirewall = true;
