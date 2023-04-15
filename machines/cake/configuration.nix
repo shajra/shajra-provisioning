@@ -130,6 +130,20 @@ in {
     services.picom.vSync = true;
     services.printing.drivers = [ hplip ];
     services.printing.enable = true;
+    services.roon-server.enable = true;
+    services.roon-server.openFirewall = true;
+
+    services.sanoid.enable = true;
+    services.sanoid.datasets = {
+        "cake/data" = {
+            autoprune = true;
+            autosnap = true;
+            recursive = true;
+            hourly  = 24;
+            daily   = 31;
+            monthly =  3;
+        };
+    };
 
     services.samba = {
         enable = true;
@@ -213,6 +227,9 @@ in {
     services.xserver.windowManager.i3.enable = true;
     services.xserver.xkbOptions = "lv3:ralt_switch_multikey";
     services.xserver.xkbVariant = "altgr-intl";
+
+    services.zfs.autoScrub.enable = true;
+    services.zfs.trim.enable = true;
 
     system.stateVersion = "22.11";
 
