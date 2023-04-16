@@ -116,10 +116,9 @@ in {
     services.ntp.enable = true;
     services.openssh.enable = true;
     services.openssh.extraConfig = ''AllowUsers tnks mzhajra'';
-    services.openssh.gatewayPorts = "yes";
-    #services.openssh.listenAddresses = [ { addr = "0.0.0.0"; port = 64896; } ];
+    #services.openssh.gatewayPorts = "yes";
     services.openssh.openFirewall = true;
-    services.openssh.ports = [ 64896 ];  # put a port here when using
+    services.openssh.ports = [ 64896 ];
     services.picom.enable = true;
     services.picom.vSync = true;
     services.printing.drivers = [ hplip ];

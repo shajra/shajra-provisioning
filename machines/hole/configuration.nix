@@ -102,8 +102,7 @@ in {
     services.logind.lidSwitchExternalPower = "ignore";
     services.logind.lidSwitch = "suspend-then-hibernate";
     services.openssh.enable = false;
-    services.openssh.extraConfig = ''UseDNS no'';
-    services.openssh.ports = [];   # put a port here when using
+    services.openssh.ports = [ 64896 ];
     services.picom.enable = true;
     services.picom.vSync = true;
     services.printing.drivers = [ hplip ];
