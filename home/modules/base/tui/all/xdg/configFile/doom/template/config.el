@@ -94,7 +94,7 @@
    ;;(?1 . "🌕") (?2 . "🌔") (?3 . "🌓") (?4 . "🌒") (?5 . "🌑")
    org-fancy-priorities-list
    '((?A . "🅐") (?B . "🅑") (?C . "🅒") (?D . "🅓")
-     (?1 . "🌕") (?2 . "🌔") (?3 . "🌓") (?4 . "🌒") (?5 . "🌑"))))
+     (?1 . "🌑") (?2 . "🌒") (?3 . "🌓") (?4 . "🌔") (?5 . "🌕"))))
 
 ;; DESIGN: not indenting by default for long prose, but indenting agenda items
 (add-hook! org-load :append
