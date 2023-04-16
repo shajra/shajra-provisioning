@@ -64,7 +64,12 @@ in {
     networking.domain = "home.arpa";
     networking.hostId = "2d58ff06";
     networking.hostName = hostname;
+    networking.interfaces.eno1.useDHCP = false;
+    networking.interfaces.enp90s0.useDHCP = true;
+    networking.interfaces.eth0.useDHCP = false;
+    networking.interfaces.wlp89s0.useDHCP = false;
     networking.search = [ "home.arpa" ];
+    networking.useDHCP = true;
 
     nix.extraOptions = ''
         experimental-features = nix-command flakes
@@ -139,11 +144,18 @@ in {
         enable = true;
         extraConfig = ''
             workgroup = WORKGROUP
+            netbios name = cake
+            interfaces = enp90s0 lo
+            bind interfaces only = yes
+            wins support = yes
+            dns proxy = yes
             security = user
             hostname lookups = yes
+            name resolve order = bcast
             hosts allow = 192.168.1. 192.168.2. 192.168.3. 192.168.4. 127.0.0.1 localhost
             hosts deny = 0.0.0.0/0
         '';
+        nsswins = true;
         openFirewall = true;
         shares.audio = {
             browsable = true;
