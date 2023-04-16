@@ -52,19 +52,11 @@ in {
     location.latitude = 30.2672;
     location.longitude = -97.7431;
 
-    networking.dhcpcd.runHook = ''
-        if [ "$reason" = BOUND ]
-        then
-            ${pkgs.coreutils}/bin/sleep 3
-            ${pkgs.lan-cake}/bin/lan-cake
-        fi
-    '';
-    networking.search = [ "hajra.xyz" "local" "home.arpa" ];
     networking.hostName = hostname;
-    networking.wireless.enable = true;
     networking.wireless.allowAuxiliaryImperativeNetworks = true;
-    #networking.wireless.interfaces = [ "wlp6s0" ];
+    networking.wireless.enable = true;
     networking.wireless.userControlled.enable = true;
+    networking.useDHCP = true;
 
     nix.extraOptions = ''
         experimental-features = nix-command flakes

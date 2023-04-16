@@ -68,7 +68,6 @@ in {
     networking.interfaces.enp90s0.useDHCP = true;
     networking.interfaces.eth0.useDHCP = false;
     networking.interfaces.wlp89s0.useDHCP = false;
-    networking.search = [ "home.arpa" ];
     networking.useDHCP = true;
 
     nix.extraOptions = ''
