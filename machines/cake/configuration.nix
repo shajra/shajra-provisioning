@@ -68,7 +68,7 @@ in {
     #networking.interfaces.enp90s0.useDHCP = true;
     #networking.interfaces.eth0.useDHCP = false;
     #networking.interfaces.wlp89s0.useDHCP = false;
-    #networking.useDHCP = true;
+    networking.useDHCP = true;
 
     nix.extraOptions = ''
         experimental-features = nix-command flakes
