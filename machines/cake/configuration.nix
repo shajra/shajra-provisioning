@@ -64,11 +64,11 @@ in {
     networking.domain = "home.arpa";
     networking.hostId = "2d58ff06";
     networking.hostName = hostname;
-    networking.interfaces.eno1.useDHCP = false;
-    networking.interfaces.enp90s0.useDHCP = true;
-    networking.interfaces.eth0.useDHCP = false;
-    networking.interfaces.wlp89s0.useDHCP = false;
-    networking.useDHCP = true;
+    #networking.interfaces.eno1.useDHCP = false;
+    #networking.interfaces.enp90s0.useDHCP = true;
+    #networking.interfaces.eth0.useDHCP = false;
+    #networking.interfaces.wlp89s0.useDHCP = false;
+    #networking.useDHCP = true;
 
     nix.extraOptions = ''
         experimental-features = nix-command flakes
