@@ -4,7 +4,7 @@ delta:
     enable = true;
 
     userName = "Sukant Hajra";
-    userEmail = "rrudbskr5g@snkmail.com";
+    userEmail = "dev.sukant@hajra.xyz";
 
     aliases = {
         a = "add";
@@ -71,6 +71,7 @@ delta:
         init.defaultBranch = "main";
         pull.rebase = true;
         push.default = "simple";
+        rerere.enabled = true;
         status.submodulesummary = true;
     };
     ignores = [
