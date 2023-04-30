@@ -14,7 +14,10 @@ in {
     ];
 
     #boot.kernelPackages = pkgs.linuxPackages_latest;
-    boot.kernelParams = [ "i915.force_probe=9a49" ];
+    boot.kernelParams = [
+        "i915.force_probe=9a49"
+        "usbcore.autosuspend=-1"
+    ];
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.efi.efiSysMountPoint = "/boot/efi";
     boot.loader.systemd-boot.enable = true;
@@ -109,6 +112,7 @@ in {
     services.ddclient.server = "members.dyndns.org";
     services.ddclient.username = "tnksknt";
     services.ddclient.verbose = true;
+    services.fwupd.enable = true;
     services.geoclue2.enable = true;
     services.jellyfin.enable = true;
     services.jellyfin.openFirewall = true;
