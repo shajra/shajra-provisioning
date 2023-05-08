@@ -13,10 +13,15 @@ in {
         ./hardware-configuration.nix
     ];
 
+    # DESIGN: attempt to stop USB drive crashes
+    # https://www.cnx-software.com/2020/08/12/how-to-fix-unreliable-usb-hard-drives-stalled-transfers-linux-windows
+    boot.extraModprobeConfig = ''
+        options usb-storage quirks=0bda:9210:u
+    '';
     #boot.kernelPackages = pkgs.linuxPackages_latest;
     boot.kernelParams = [
         "i915.force_probe=9a49"
-        "usbcore.autosuspend=-1"
+        "usbcore.autosuspend=-1"  # DESIGN: another attempt to stop USB drive crashes
     ];
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.efi.efiSysMountPoint = "/boot/efi";
