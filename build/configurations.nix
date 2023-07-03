@@ -5,15 +5,15 @@ inputs: withSystem:
 
 {
 
-    nixosConfiguration = { system, path }:
+    nixosConfiguration = { system, path, privateModule ? {} }:
         withSystem system ({ config, ... }:
             config.legacyPackages.infra.np.nixpkgs.system.nixos {
                 _module.args.build = config.legacyPackages;
-                imports = [ path ];
+                imports = [ path privateModule ];
             }
         );
 
-    darwinConfiguration = { system, path }:
+    darwinConfiguration = { system, path, privateModule ? {} }:
         withSystem system ({ config, ... }:
             let pkgs = config.legacyPackages.infra.np.nixpkgs.system;
                 lib = pkgs.lib;
@@ -23,16 +23,16 @@ inputs: withSystem:
                     inherit system pkgs;
                     inputs = {};
                     specialArgs.build = config.legacyPackages;
-                    modules = [ path ];
+                    modules = [ path privateModule ];
                 }
             );
 
-    homeConfiguration = { system, path }:
+    homeConfiguration = { system, path, privateModule ? {} }:
         withSystem system ({ config, ... }:
             inputs.home-manager.lib.homeManagerConfiguration {
                 pkgs = config.legacyPackages.infra.np.nixpkgs.home;
                 extraSpecialArgs.build = config.legacyPackages;
-                modules = [ path ];
+                modules = [ path privateModule ];
             }
         );
 

@@ -181,7 +181,7 @@ in {
                 "stack"
             ];
             unstable = pickUnstable [
-                "haskell.compiler.ghc927"
+                "haskell.compiler.ghc945"
                 "haskellPackages.djinn"
             ];
         in home // unstable;
@@ -262,14 +262,15 @@ in {
     ];
 
     nixpkgs.build.programming.haskell = {}
-        // (np.hs.fromPackages "unstable" "ghc927" "ghc-events")
-        // (np.hs.fromPackages "unstable" "ghc927" "haskdogs")
-        // (np.hs.fromPackages "unstable" "ghc927" "hasktags")
-        // (np.hs.fromPackages "unstable" "ghc927" "hoogle")
-        // (np.hs.fromPackages "unstable" "ghc927" "hp2pretty")
+        // (np.hs.fromPackages "unstable" "ghc945" "ghc-events")
+        // (np.hs.fromPackages "unstable" "ghc945" "hoogle")
+        # DESIGN: 2023-07-02: didn't build with 9.4.5; using Haskell.nix
+        #// (np.hs.fromPackages "unstable" "ghc945" "haskdogs")
+        #// (np.hs.fromPackages "unstable" "ghc945" "hasktags")
+        #// (np.hs.fromPackages "unstable" "ghc945" "hp2pretty")
 
         # DESIGN: 2023-02-27: marked broken
-        #// (np.hs.fromPackages "unstable" "ghc927" "threadscope")
+        #// (np.hs.fromPackages "unstable" "ghc945" "threadscope")
         ;
 
     nixpkgs.build.unused.darwin = np.pick { darwin = "home"; } [
@@ -287,20 +288,23 @@ in {
 
     haskell-nix.prebuilt.programming.haskell = {
         # DESIGN: don't use enough to want to think about a cache miss
-        #nix-tools = hn.nixpkgs.haskell-nix.nix-tools.ghc902;
+        #nix-tools = hn.nixpkgs.haskell-nix.nix-tools.ghc945;
     };
 
     haskell-nix.build.programming.haskell = when (! isDevBuild) (
         {}
-        // (hn.fromHackage "ghc927" "fast-tags")
-        // (hn.fromHackage "ghc927" "ghcid")
-        // (hn.fromHackage "ghc927" "apply-refact")
-        // (hn.fromHackage "ghc927" "hlint")
-        // (hn.fromHackageCustomized "ghc927" "stylish-haskell" { configureArgs = "-f ghc-lib"; })
+        // (hn.fromHackage "ghc945" "fast-tags")
+        // (hn.fromHackage "ghc945" "ghcid")
+        // (hn.fromHackage "ghc945" "apply-refact")
+        // (hn.fromHackage "ghc945" "hlint")
+        // (hn.fromHackage "ghc945" "haskdogs")
+        // (hn.fromHackage "ghc945" "hasktags")
+        // (hn.fromHackage "ghc945" "hp2pretty")
+        // (hn.fromHackageCustomized "ghc945" "stylish-haskell" { configureArgs = "-f ghc-lib"; })
 
         # DESIGN: marked broken in Nixpkgs, doesn't seem to build with
         # Haskell.nix either
-        #// (hn.fromHackage "ghc927" "ghc-events-analyze")
+        #// (hn.fromHackage "ghc945" "ghc-events-analyze")
     );
 
     shajra.prebuilt = {};

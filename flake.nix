@@ -6,7 +6,7 @@
         emacs-overlay.url = github:nix-community/emacs-overlay;
         flake-parts.url   = github:hercules-ci/flake-parts;
         haskell-nix.url   = github:input-output-hk/haskell.nix;
-        home-manager.url  = github:nix-community/home-manager;
+        home-manager.url  = github:shajra/home-manager/feature/lieer-address-override;
         nix-project.url   = github:shajra/nix-project;
         nur.url           = github:nix-community/NUR;
         nix-darwin             = { url = github:LnL7/nix-darwin; flake = false; };
@@ -23,7 +23,7 @@
         xcompose               = { url = github:kragen/xcompose; flake = false; };
     };
 
-    outputs = inputs@{ flake-parts, nix-project, ... }:
+    outputs = inputs@{ flake-parts, nix-project, shajra-private, ... }:
         flake-parts.lib.mkFlake { inherit inputs; } ({withSystem, config, ... }: {
             imports = [
                 nix-project.flakeModules.nixpkgs
@@ -89,6 +89,7 @@
                     homeConfigurations.cake = configLib.homeConfiguration {
                         system = "x86_64-linux";
                         path   = home/target/cake;
+                        privateModule = shajra-private.homeModules.cake;
                     };
                     homeConfigurations.hole = configLib.homeConfiguration {
                         system = "x86_64-linux";

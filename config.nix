@@ -9,6 +9,9 @@
             fast-tags       = "latest";
             ghcid           = "latest";
             hlint           = "latest";
+            haskdogs        = "latest";
+            hasktags        = "latest";
+            hp2pretty       = "latest";
             stylish-haskell = "latest";
         };
         haskell-nix = {
@@ -18,8 +21,8 @@
             ];
             # DESIGN: https://github.com/input-output-hk/hackage.nix/blob/master/index-state-hashes.nix
             hackage.index = {
-                state = "2023-04-02T00:00:00Z";
-                sha256 = "fea194e594f1dc78ea89d64555fc00ada25be59af081c97d319baa37d90913c9";
+                state = "2023-07-03T00:00:00Z";
+                sha256 = "6702d0f48ed8e69e51bd6d10f1996add0d2ddc1ff580da76d6eef813e52cded8";
             };
             nixpkgs-pin = "nixpkgs-unstable";
         };
