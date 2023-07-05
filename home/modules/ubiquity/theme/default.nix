@@ -4,6 +4,8 @@ let
 
     cfg = config.theme;
 
+    isDarwin = pkgs.stdenv.isDarwin;
+
     optsOf = x: { inherit (x) options; };
 
     font.mkOpt = description: lib.mkOption {
@@ -197,7 +199,10 @@ let
                 package = pkgs.nerdfonts;
             };
             proportional = {
-                name = "SourceSerif4";
+                name =
+                    if isDarwin
+                    then "Source Serif 4"
+                    else "SourceSerif4";
                 package = pkgs.source-serif;
             };
         };
