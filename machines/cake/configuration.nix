@@ -241,7 +241,7 @@ in {
     services.zfs.autoScrub.enable = true;
     services.zfs.trim.enable = true;
 
-    system.stateVersion = "22.11";
+    system.stateVersion = "23.05";
 
     time.timeZone = "US/Central";
 

@@ -10,8 +10,8 @@
  ;; run-type must be "executable"
  (run-target-short     . "home-manager")
  (run-target-long      . "bin/home-manager")
- (nix-latest           . "2.14")
- (nixos-latest         . "22.11")
+ (nix-latest           . "2.16")
+ (nixos-latest         . "23.05")
  (platforms            . "\n\
 - Linux on x86-64 machines\n\
 - MacOS on x86-64 machines\n\
