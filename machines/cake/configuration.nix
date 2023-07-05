@@ -3,6 +3,7 @@
 let
 
     infra = build.infra;
+    #hplip = pkgs.hplipWithPlugin;
     hplip = infra.np.nixpkgs.unstable.hplipWithPlugin;
     hostname = "cake";
     user = build.config.provision.user."${hostname}".username;
@@ -110,6 +111,7 @@ in {
     services.avahi.publish.addresses = true;
     services.avahi.publish.domain = true;
     services.avahi.publish.enable = true;
+    services.avahi.publish.userServices = true;
     services.dbus.packages = [ pkgs.dconf ];
     services.ddclient.enable = true;
     services.ddclient.domains = [ "jelly.dyndns.org" ];
@@ -254,7 +256,9 @@ in {
         "dialout"
         "docker"
         "input"
+        "lp"
         "plugdev"
+        "scanner"
         "video"
         "wheel"
       ];
