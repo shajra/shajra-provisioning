@@ -187,6 +187,8 @@ in {
     };
     */
 
+    services.tailscale.enable = true;
+
     services.udev.extraRules = ''
         # DESIGN: SSD enclosures hardcode the same IDs
         # USEFUL: udevadm info --name=/dev/sdX --query=property
@@ -201,6 +203,10 @@ in {
             SYMLINK+="disk/by-id/$env{ID_BUS}-$env{ID_SERIAL}"
         LABEL="ssd_dev_disk_by_id_end"
     '';
+
+    services.xrdp.enable = true;
+    services.xrdp.defaultWindowManager = "i3";
+    services.xrdp.openFirewall = true;
 
     services.xserver.displayManager.autoLogin.enable = true;
     services.xserver.displayManager.autoLogin.user = user;
