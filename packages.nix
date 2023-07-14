@@ -264,7 +264,7 @@ in {
     nixpkgs.build.programming.haskell = {}
         // (np.hs.fromPackages "unstable" "ghc945" "ghc-events")
         // (np.hs.fromPackages "unstable" "ghc945" "hoogle")
-        # DESIGN: 2023-07-02: didn't build with 9.4.5; using Haskell.nix
+        # DESIGN: 2023-07-14: didn't build with 9.4.5; using Haskell.nix
         #// (np.hs.fromPackages "unstable" "ghc945" "haskdogs")
         #// (np.hs.fromPackages "unstable" "ghc945" "hasktags")
         #// (np.hs.fromPackages "unstable" "ghc945" "hp2pretty")
@@ -282,8 +282,9 @@ in {
     ];
 
     nixpkgs.build.unused.linux = np.pick { linux = "home"; } [
-        # DESIGN: emacsNativeComp was renamed to emacsUnstable
-        "emacsUnstable"
+        # DESIGN: Not using because Doom doesn't support 29+
+        # https://github.com/doomemacs/doomemacs#prerequisites
+        #"emacsUnstable"
     ];
 
     haskell-nix.prebuilt.programming.haskell = {

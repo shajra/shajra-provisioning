@@ -20,7 +20,9 @@ in
     # DESIGN: DEBUG: removing to understand infinite recursion
     #programs.direnv-nix-lorelei.enable = true;
 
-    # DESIGN: Nixpkgs's Emacs has native compilation; no need for unstable
+    # DESIGN: Emacs 29+ (emacsUnstable) isn't supported
+    # Emacs 28 is now standard in nixpkgs-unstable
+    # https://github.com/doomemacs/doomemacs#prerequisites
     #programs.emacs.package = pkgs.emacsUnstable;
 
     services.emacs = import services/emacs;
