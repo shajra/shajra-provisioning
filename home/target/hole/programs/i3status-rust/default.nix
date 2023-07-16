@@ -74,7 +74,7 @@ in
                     cmd = ''
                         if ${daemon} --name pavucontrol --running
                         then ${daemon} --name pavucontrol --stop
-                        else ${daemon} --name pavucontrol -- ${pavucontrol}
+                        else ${daemon} --name pavucontrol -- ${pavucontrol} --tab 3
                         fi
                     '';
                     }
@@ -86,7 +86,12 @@ in
                 click = [
                     {
                     button = "left";
-                    cmd = "${pulsemixer} --id source-1 --toggle-mute";
+                    cmd = ''
+                        if ${daemon} --name pavucontrol --running
+                        then ${daemon} --name pavucontrol --stop
+                        else ${daemon} --name pavucontrol -- ${pavucontrol} --tab 4
+                        fi
+                    '';
                     }
                 ];
                 }
