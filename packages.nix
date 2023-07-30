@@ -15,11 +15,6 @@ let
         darwin = "home";
     };
 
-    pickUnstable = np.pick {
-        linux  = "unstable";
-        darwin = "unstable";
-    };
-
 in {
 
     nixpkgs.prebuilt.audio.tui.all = pickHome [
@@ -68,9 +63,6 @@ in {
         "xorg.xev"
         "zoom-us"
 
-        # Fonts
-        # DESIGN: 2021-09-21: made Linux-only because of a build problem
-        "twitter-color-emoji"        # for emojis
     ];
 
     nixpkgs.prebuilt.base.tui.all = pickHome [
@@ -144,15 +136,19 @@ in {
         "t-rec"
     ];
 
-    nixpkgs.prebuilt.documentation.linux = np.pick { linux = "home"; } [
-        "dia"
-        "freemind"
-        "gimp"
-        "inkscape"
-        "peek"
-
-        "libreoffice"  # DESIGN: 2022-04-15: broke for Darwin
-    ];
+    nixpkgs.prebuilt.documentation.linux =
+        let
+            home = np.pick { linux = "home"; } [
+                "dia"
+                "freemind"
+                "gimp"
+                "inkscape"
+                "libreoffice"  # DESIGN: 2022-04-15: broke for Darwin
+            ];
+            stable = np.pick { linux = "stable"; } [
+                "peek"  # DESIGN: 2023-07-29: build broken in Unstable
+            ];
+        in home // stable;
 
     nixpkgs.prebuilt.programming.c.all = pickHome [
         "cmake"
@@ -162,7 +158,7 @@ in {
         "gcc"
     ];
 
-    nixpkgs.prebuilt.programming.db = pickUnstable [
+    nixpkgs.prebuilt.programming.db = pickHome [
         "postgresql"
         "schemaspy"
         "sqlint"
@@ -173,20 +169,15 @@ in {
         "gnumake"
     ];
 
-    nixpkgs.prebuilt.programming.haskell =
-        let
-            home = pickHome [
-                "cabal2nix"
-                "cabal-install"
-                "stack"
-            ];
-            unstable = pickUnstable [
-                "haskell.compiler.ghc945"
-                "haskellPackages.djinn"
-            ];
-        in home // unstable;
+    nixpkgs.prebuilt.programming.haskell = pickHome [
+        "cabal2nix"
+        "cabal-install"
+        "stack"
+        "haskell.compiler.ghc945"
+        "haskellPackages.djinn"
+    ];
 
-    nixpkgs.prebuilt.programming.java = pickUnstable [
+    nixpkgs.prebuilt.programming.java = pickHome [
     ];
 
     nixpkgs.prebuilt.programming.python = pickHome [
@@ -263,15 +254,7 @@ in {
     ];
 
     nixpkgs.build.programming.haskell = {}
-        // (np.hs.fromPackages "unstable" "ghc945" "ghc-events")
-        // (np.hs.fromPackages "unstable" "ghc945" "hoogle")
-        # DESIGN: 2023-07-14: didn't build with 9.4.5; using Haskell.nix
-        #// (np.hs.fromPackages "unstable" "ghc945" "haskdogs")
-        #// (np.hs.fromPackages "unstable" "ghc945" "hasktags")
-        #// (np.hs.fromPackages "unstable" "ghc945" "hp2pretty")
-
-        # DESIGN: 2023-02-27: marked broken
-        #// (np.hs.fromPackages "unstable" "ghc945" "threadscope")
+        # DESIGN: GHC 9.4.5 not cached; building Haskell tools with Haskell.nix
         ;
 
     nixpkgs.build.unused.darwin = np.pick { darwin = "home"; } [
@@ -295,17 +278,22 @@ in {
 
     haskell-nix.build.programming.haskell = when (! isDevBuild) (
         {}
-        // (hn.fromHackage "ghc945" "fast-tags")
-        // (hn.fromHackage "ghc945" "ghcid")
         // (hn.fromHackage "ghc945" "apply-refact")
-        // (hn.fromHackage "ghc945" "hlint")
+        // (hn.fromHackage "ghc945" "fast-tags")
+        // (hn.fromHackage "ghc945" "ghc-events")
+        // (hn.fromHackage "ghc945" "ghcid")
         // (hn.fromHackage "ghc945" "haskdogs")
         // (hn.fromHackage "ghc945" "hasktags")
+        // (hn.fromHackage "ghc945" "hlint")
+        // (hn.fromHackage "ghc945" "hoogle")
         // (hn.fromHackage "ghc945" "hp2pretty")
         // (hn.fromHackageCustomized "ghc945" "stylish-haskell" { configureArgs = "-f ghc-lib"; })
 
+        # DESIGN: a long compile for a niche tool
+        #// (hn.fromHackage "ghc945" "threadscope")
+
         # DESIGN: marked broken in Nixpkgs, doesn't seem to build with
-        # Haskell.nix either
+        # Haskell.nix either (need to look for a modern alternative exists)
         #// (hn.fromHackage "ghc945" "ghc-events-analyze")
     );
 

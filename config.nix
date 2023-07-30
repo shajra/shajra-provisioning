@@ -7,12 +7,15 @@
         hackage.version = {
             apply-refact    = "latest";
             fast-tags       = "latest";
+            ghc-events      = "latest";
             ghcid           = "latest";
-            hlint           = "latest";
             haskdogs        = "latest";
             hasktags        = "latest";
+            hlint           = "latest";
+            hoogle          = "latest";
             hp2pretty       = "latest";
             stylish-haskell = "latest";
+            threadscope     = "latest";
         };
         haskell-nix = {
             checkMaterialization = false;
@@ -21,8 +24,8 @@
             ];
             # DESIGN: https://github.com/input-output-hk/hackage.nix/blob/master/index-state-hashes.nix
             hackage.index = {
-                state = "2023-07-14T00:00:00Z";
-                sha256 = "afa144fe9ad51f3ee477e95bb31a7af34326fad9b43bd9132781b005ab3b0cd0";
+                state = "2023-07-29T00:00:00Z";
+                sha256 = "831cd45b2726cecd55751ccbffaeebdc354de5a2a2d3435079fe3b6e5941267c";
             };
             nixpkgs-pin = "nixpkgs-unstable";
         };
