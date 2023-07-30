@@ -113,7 +113,7 @@ in {
     services.avahi.publish.enable = true;
     services.avahi.publish.userServices = true;
     services.dbus.packages = [ pkgs.dconf ];
-    services.ddclient.enable = true;
+    services.ddclient.enable = false;  # DESIGN: Using UniFi router instead
     services.ddclient.domains = [ "jelly.dyndns.org" ];
     services.ddclient.passwordFile = "/etc/ddclient.key";
     services.ddclient.server = "members.dyndns.org";
