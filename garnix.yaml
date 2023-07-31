@@ -6,4 +6,5 @@ builds:
   - 'darwinConfigurations.*'
   - 'homeConfigurations.*'
   exclude: []
+  - 'homeConfigurations.cake'
 
