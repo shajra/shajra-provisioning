@@ -3,12 +3,12 @@ on:
   push:
   pull_request:
 jobs:
-  packages-linux:
+  pkgs-linux:
     strategy:
       matrix:
         infra: [nixpkgs, haskell-nix, shajra]
         set: [build, prebuilt]
-    name: "linux pkgs: ${{ matrix.infra }}: ${{ matrix.set }}"
+    name: "pkgs-linux: ${{ matrix.infra }}: ${{ matrix.set }}"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -29,22 +29,23 @@ jobs:
     - run: |
         nix --print-build-logs path-info \
             .#ci.${{ matrix.set }}.${{ matrix.infra }}
-  packages-darwin:
+  pkgs-darwin:
     strategy:
       matrix:
         infra: [nixpkgs, haskell-nix, shajra]
         set: [build, prebuilt]
-    name: "darwin pkgs: ${{ matrix.infra }}: ${{ matrix.set }}"
-    needs: [packages-linux]
+    name: "pkgs-darwin: ${{ matrix.infra }}: ${{ matrix.set }}"
+    needs: [pkgs-linux]
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v3
     - uses: DeterminateSystems/nix-installer-action@main
       with:
+        # DESIGN: cache.nixos.org explicit because Magix Nix Cache not appending it
         extra-conf: |
-          substituters = https://cache.iog.io
-          trusted-public-keys = hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=
-    - uses: DeterminateSystems/magic-nix-cache-action@main
+          substituters = https://cache.iog.io https://cache.nixos.org
+          trusted-public-keys = hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+    # DESIGN: no Magic Nix Cache because pkgs-linux gets too close to API limit
     - uses: cachix/cachix-action@v12
       with:
         name: shajra
@@ -57,8 +58,7 @@ jobs:
         nix --print-build-logs path-info \
             .#ci.${{ matrix.set }}.${{ matrix.infra }}
   installers-linux:
-    name: linux installers
-    needs: [packages-linux]
+    needs: [pkgs-linux]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -82,23 +82,3 @@ jobs:
     - run: ./home-manager  --flake .#cake-slim   build
     - run: ./home-manager  --flake .#hole-slim   build
     - run: ./home-manager  --flake .#shajra-slim build
-# DESIGN: Packages build on x86_64-darwin, but not provisioning
-#  installers-darwin:
-#    name: darwin installers
-#    needs: [packages-darwin]
-#    runs-on: macos-latest
-#    steps:
-#    - uses: actions/checkout@v3
-#    - uses: DeterminateSystems/nix-installer-action@main
-#      with:
-#        extra-conf: |
-#          substituters = https://cache.iog.io
-#          trusted-public-keys = hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=
-#    - uses: DeterminateSystems/magic-nix-cache-action@main
-#    - uses: cachix/cachix-action@v12
-#      with:
-#        name: shajra
-#        signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
-#    - run: cat ~/.config/nix/nix.conf
-#    - run: ./home-manager   --flake .#bagel-slim build
-#    - run: ./darwin-rebuild --flake .#bagel      build
