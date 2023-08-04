@@ -5,6 +5,6 @@ builds:
   - 'nixosConfigurations.*'
   - 'darwinConfigurations.*'
   - 'homeConfigurations.*'
-  exclude: []
+  exclude:
   - 'homeConfigurations.cake'
 

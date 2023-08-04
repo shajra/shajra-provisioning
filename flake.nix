@@ -7,9 +7,9 @@
         flake-parts.url   = github:hercules-ci/flake-parts;
         haskell-nix.url   = github:input-output-hk/haskell.nix;
         home-manager.url  = github:shajra/home-manager/feature/lieer-address-override;
+        nix-darwin.url    = github:LnL7/nix-darwin;
         nix-project.url   = github:shajra/nix-project;
         nur.url           = github:nix-community/NUR;
-        nix-darwin             = { url = github:LnL7/nix-darwin; flake = false; };
         colored_man_pages-fish = { url = github:PatrickF1/colored_man_pages.fish; flake = false; };
         delta                  = { url = github:dandavison/delta; flake = false; };
         dircolors-solarized    = { url = github:seebi/dircolors-solarized; flake = false; };

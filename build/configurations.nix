@@ -15,17 +15,12 @@ inputs: withSystem:
 
     darwinConfiguration = { system, path, privateModule ? {} }:
         withSystem system ({ config, ... }:
-            let pkgs = config.legacyPackages.infra.np.nixpkgs.system;
-                lib = pkgs.lib;
-            in import "${inputs.nix-darwin}/eval-config.nix"
-                { inherit lib; }
-                {
-                    inherit system pkgs;
-                    inputs = {};
-                    specialArgs.build = config.legacyPackages;
-                    modules = [ path privateModule ];
-                }
-            );
+            inputs.nix-darwin.lib.darwinSystem {
+                pkgs = config.legacyPackages.infra.np.nixpkgs.system;
+                specialArgs.build = config.legacyPackages;
+                modules = [ path privateModule ];
+            }
+        );
 
     homeConfiguration = { system, path, privateModule ? {} }:
         withSystem system ({ config, ... }:
