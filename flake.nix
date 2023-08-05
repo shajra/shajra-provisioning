@@ -38,7 +38,6 @@
                     build-pkgs = build.shajra-provision.infra.np.nixpkgs;
                     pkgs-home = build-pkgs.home;
                     pkgs-system = build-pkgs.system;
-                    bagel-system = config.flake.darwinConfigurations.bagel.system;
                 in {
                     packages.ci-prebuilt-nixpkgs    = build.shajra-provision.ci.prebuilt.nixpkgs;
                     packages.ci-prebuilt-haskellnix = build.shajra-provision.ci.prebuilt.haskell-nix;
@@ -72,7 +71,8 @@
                 };
             flake =
                 let configLib = import build/configurations.nix inputs withSystem;
-                in {
+                in rec {
+                    packages.aarch64-darwin.ci-darwinConfiguration-bagel = darwinConfigurations.bagel.system;
                     overlays.default = import build/overlay.nix inputs withSystem;
                     nixosConfigurations.cake = configLib.nixosConfiguration {
                         system = "x86_64-linux";
