@@ -12,5 +12,5 @@
 
 (when (modulep! +dante)
   ;; DESIGN: target latest for both
-  (package! dante :pin "914d4f21252a66fe526abedebe24703bc73397d9")
-  (package! attrap :pin "1019b86f5398dadef61efc76fefe8fa8be1193a8"))
+  (package! dante :pin "ca47f8cc1392c7045db7da8b4fafe86b7c044e90")
+  (package! attrap :pin "bb61a4bc3d85a76e807f1ecede17031b51c8caed"))

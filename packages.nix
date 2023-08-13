@@ -136,19 +136,14 @@ in {
         "t-rec"
     ];
 
-    nixpkgs.prebuilt.documentation.linux =
-        let
-            home = np.pick { linux = "home"; } [
-                "dia"
-                "freemind"
-                "gimp"
-                "inkscape"
-                "libreoffice"  # DESIGN: 2022-04-15: broke for Darwin
-            ];
-            stable = np.pick { linux = "stable"; } [
-                "peek"  # DESIGN: 2023-07-29: build broken in Unstable
-            ];
-        in home // stable;
+    nixpkgs.prebuilt.documentation.linux = np.pick { linux = "home"; } [
+        "dia"
+        "freemind"
+        "gimp"
+        "inkscape"
+        "libreoffice"  # DESIGN: 2022-04-15: broke for Darwin
+        "peek"
+    ];
 
     nixpkgs.prebuilt.programming.c.all = pickHome [
         "cmake"
