@@ -54,7 +54,7 @@ in {
         "fontpreview"
         "gnome.adwaita-icon-theme"
         "maim"
-        "microsoft-edge"
+        "microsoft-edge-beta"
         "pavucontrol"
         "simple-scan"
         "sxiv"
