@@ -35,6 +35,7 @@
         "iterm2"
         "karabiner-elements"
         "microsoft-edge"
+        "microsoft-edge-beta"
         "slack"
         "wireshark"
         "zoom"
