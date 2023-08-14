@@ -116,6 +116,7 @@ rebuild()
     nix build --no-link "$BOOTSTRAP"
     local result; result="$(nix path-info "$BOOTSTRAP")"
     env -i \
+        HOME="$HOME" \
         PATH="$PATH" \
         TERM="$TERM" \
         TERMINFO="''${TERMINFO:-}" \
