@@ -188,7 +188,6 @@ in {
     ];
 
     nixpkgs.prebuilt.sync = pickHome [
-        "tailscale"
         "unison"
     ];
 

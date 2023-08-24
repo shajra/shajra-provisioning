@@ -187,8 +187,6 @@ in {
     };
     */
 
-    services.tailscale.enable = true;
-
     services.udev.extraRules = ''
         # DESIGN: SSD enclosures hardcode the same IDs
         # USEFUL: udevadm info --name=/dev/sdX --query=property
