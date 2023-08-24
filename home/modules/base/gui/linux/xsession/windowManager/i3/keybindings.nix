@@ -3,7 +3,7 @@ config: pkgs: mod: modAlt: kitty:
 let
     autorandr = "${pkgs.autorandr}/bin/autorandr";
     awk = "${pkgs.gawk}/bin/awk";
-    browser = "${pkgs.microsoft-edge}/bin/microsoft-edge";
+    browser = "${pkgs.microsoft-edge-beta}/bin/microsoft-edge-beta";
     clipmenu = "${config.services.clipmenu.package}/bin/clipmenu";
     dunstctl = "${pkgs.dunst}/bin/dunstctl";
     dunst-osd = "${pkgs.dunst-osd}/bin/dunst-osd";
