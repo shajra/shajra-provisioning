@@ -18,6 +18,7 @@
         fzf-fish               = { url = github:PatrickF1/fzf.fish; flake = false; };
         haskell-hls-nix        = { url = github:shajra/haskell-hls-nix; flake = false; };
         haskell-tags-nix       = { url = github:shajra/haskell-tags-nix; flake = false; };
+        lieer                  = { url = github:gauteh/lieer; flake = false; };
         moneydance             = { url = https://infinitekind.com/stabledl/current/moneydance-linux.tar.gz; flake = false; };
         pointless-xcompose     = { url = github:leoboiko/pointless-xcompose; flake = false; };
         xcompose               = { url = github:kragen/xcompose; flake = false; };

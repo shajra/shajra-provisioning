@@ -12,7 +12,7 @@ let
 
     config = infraConfig.nixpkgs;
 
-    overlays = import ./overlays { inherit inputs inputs'; };
+    overlays = import ./overlays.nix { inherit inputs inputs'; };
 
     mkNixpkgs = pkgs: import pkgs.path { inherit config overlays system; };
 

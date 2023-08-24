@@ -1,5 +1,7 @@
 self: super:
 
-super.lib // {
-    colors = import ./colors.nix self;
+{
+    lib = super.lib // {
+        colors = import ./colors.nix self;
+    };
 }

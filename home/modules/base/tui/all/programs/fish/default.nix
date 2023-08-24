@@ -9,7 +9,7 @@ let
     colors = pkgs.lib.colors.transformColors (format id) config.theme.colors;
 
     fzf-preview-dir = pkgs.writers.writeDash "fzf-preview-dir" ''
-        "${pkgs.exa}/bin/exa" --color always \
+        "${pkgs.eza}/bin/eza" --color always \
                 --icons --group-directories-first -1 \
             | "${pkgs.coreutils}/bin/head" -300
     '';
@@ -256,11 +256,11 @@ in
         g = "git";
         ji = "__zoxide_zi";
         j = "zoxide-smart";
-        l1 = "exa --icons --group-directories-first -1";
-        la = "exa --icons --group-directories-first -lah";
-        l = "exa --icons --group-directories-first";
-        ll = "exa --icons --group-directories-first -l";
-        lt = "exa --icons --group-directories-first --tree";
+        l1 = "eza --icons --group-directories-first -1";
+        la = "eza --icons --group-directories-first -lah";
+        l = "eza --icons --group-directories-first";
+        ll = "eza --icons --group-directories-first -l";
+        lt = "eza --icons --group-directories-first --tree";
         nnn = "nnn -C";
         m = "man";
         p = "projects";

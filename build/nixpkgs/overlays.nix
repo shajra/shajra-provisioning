@@ -21,6 +21,7 @@ let
                 dircolors-solarized
                 direnv-nix-lorelei
                 fzf-fish
+                lieer
                 moneydance
                 pointless-xcompose
                 xcompose;
@@ -41,7 +42,7 @@ let
         in {
             sources = super.sources or {} // {
                 shajra-provisioning = builtins.path {
-                    path = ../../..;
+                    path = ../..;
                     name = "shajra-provisioning";
                     filter = path: type:
                         (rejectFile path type ".*[.](md|org)")
@@ -52,19 +53,23 @@ let
             };
         };
 
-    internal.overlay = self: super:
-        super.lib.mapAttrs
-            (p: t: import (./. + "/${p}") self super)
-            (builtins.readDir ./.);
+    internal.overlays =
+        builtins.attrValues
+            (builtins.mapAttrs
+                (p: t: import (./overlays + "/${p}"))
+                (builtins.readDir ./overlays));
 
-    internal.packages = import ../packages/overlay.nix;
+    internal.packages = self: super:
+        builtins.mapAttrs
+            (p: t: self.callPackage (./packages + "/${p}") {})
+            (builtins.readDir ./packages);
 
-in [
+in  [
     external.emacs
     external.nur
     external.sources
     external.packages
-    internal.overlay
+] ++ internal.overlays ++ [
     internal.sources
     internal.packages
 ]

@@ -72,7 +72,7 @@ in {
         "coreutils"
         "curl"
         "direnv"
-        "exa"
+        "eza"
         "fd"
         "file"
         "gnugrep"
@@ -168,7 +168,7 @@ in {
         "cabal2nix"
         "cabal-install"
         "stack"
-        "haskell.compiler.ghc945"
+        "haskell.compiler.ghc946"
         "haskellPackages.djinn"
     ];
 
@@ -267,28 +267,28 @@ in {
 
     haskell-nix.prebuilt.programming.haskell = {
         # DESIGN: don't use enough to want to think about a cache miss
-        #nix-tools = hn.nixpkgs.haskell-nix.nix-tools.ghc945;
+        #nix-tools = hn.nixpkgs.haskell-nix.nix-tools.ghc947;
     };
 
     haskell-nix.build.programming.haskell = when (! isDevBuild) (
         {}
-        // (hn.fromHackage "ghc945" "apply-refact")
-        // (hn.fromHackage "ghc945" "fast-tags")
-        // (hn.fromHackage "ghc945" "ghc-events")
-        // (hn.fromHackage "ghc945" "ghcid")
-        // (hn.fromHackage "ghc945" "haskdogs")
-        // (hn.fromHackage "ghc945" "hasktags")
-        // (hn.fromHackage "ghc945" "hlint")
-        // (hn.fromHackage "ghc945" "hoogle")
-        // (hn.fromHackage "ghc945" "hp2pretty")
-        // (hn.fromHackageCustomized "ghc945" "stylish-haskell" { configureArgs = "-f ghc-lib"; })
+        // (hn.fromHackage "ghc947" "apply-refact")
+        // (hn.fromHackage "ghc947" "fast-tags")
+        // (hn.fromHackage "ghc947" "ghc-events")
+        // (hn.fromHackage "ghc947" "ghcid")
+        // (hn.fromHackage "ghc947" "haskdogs")
+        // (hn.fromHackage "ghc947" "hasktags")
+        // (hn.fromHackage "ghc947" "hlint")
+        // (hn.fromHackage "ghc947" "hoogle")
+        // (hn.fromHackage "ghc947" "hp2pretty")
+        // (hn.fromHackageCustomized "ghc947" "stylish-haskell" { configureArgs = "-f ghc-lib"; })
 
         # DESIGN: a long compile for a niche tool
-        #// (hn.fromHackage "ghc945" "threadscope")
+        #// (hn.fromHackage "ghc947" "threadscope")
 
         # DESIGN: marked broken in Nixpkgs, doesn't seem to build with
         # Haskell.nix either (need to look for a modern alternative exists)
-        #// (hn.fromHackage "ghc945" "ghc-events-analyze")
+        #// (hn.fromHackage "ghc947" "ghc-events-analyze")
     );
 
     shajra.prebuilt = {};

@@ -31,7 +31,7 @@ self.nix-project-lib.writeShellCheckedExe progName
         atool
         bat
         coreutils
-        exa
+        eza
         ffmpeg
         ffmpegthumbnailer
         file
@@ -88,7 +88,7 @@ main()
     inode/directory)
         if [ -z "''${1##*/..*}" ]
         then echo
-        else exa -Fa --color always "$1"
+        else eza -Fa --color always "$1"
         fi
         ;;
     *)
