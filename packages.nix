@@ -170,6 +170,8 @@ in {
         "cabal2nix"
         "cabal-install"
         "stack"
+        # DESIGN: Remember to upgrade when 9.4.7 is in Nixpkgs
+        # nix build nixpkgs/master#haskell.compiler.ghc947
         "haskell.compiler.ghc946"
         "haskellPackages.djinn"
     ];
@@ -250,7 +252,7 @@ in {
     ];
 
     nixpkgs.build.programming.haskell = {}
-        # DESIGN: GHC 9.4.5 not cached; building Haskell tools with Haskell.nix
+        # DESIGN: not cached; building Haskell tools with Haskell.nix
         ;
 
     nixpkgs.build.unused.darwin = np.pick { darwin = "home"; } [
@@ -281,9 +283,11 @@ in {
         // (hn.fromHackage "ghc947" "haskdogs")
         // (hn.fromHackage "ghc947" "hasktags")
         // (hn.fromHackage "ghc947" "hlint")
-        // (hn.fromHackage "ghc947" "hoogle")
         // (hn.fromHackage "ghc947" "hp2pretty")
         // (hn.fromHackageCustomized "ghc947" "stylish-haskell" { configureArgs = "-f ghc-lib"; })
+
+        # DESIGN: 23-10-09: broken build, try again when 9.4.7 is in Nixpkgs
+        #// (hn.fromHackage "ghc947" "hoogle")
 
         # DESIGN: a long compile for a niche tool
         #// (hn.fromHackage "ghc947" "threadscope")
