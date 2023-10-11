@@ -20,10 +20,6 @@ in
     # DESIGN: DEBUG: removing to understand infinite recursion
     #programs.direnv-nix-lorelei.enable = true;
 
-    # DESIGN: https://github.com/doomemacs/doomemacs#prerequisites
-    # using emacs29 over emacs-unstable to hit Nixpkgs cache
-    programs.emacs.package = pkgs.emacs29;
-
     services.emacs = import services/emacs;
     services.gpg-agent.enable = true;
     services.gpg-agent.enableSshSupport = true;
