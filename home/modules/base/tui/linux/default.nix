@@ -20,10 +20,9 @@ in
     # DESIGN: DEBUG: removing to understand infinite recursion
     #programs.direnv-nix-lorelei.enable = true;
 
-    # DESIGN: Emacs 29+ (emacsUnstable) isn't supported
-    # Emacs 28 is now standard in nixpkgs-unstable
-    # https://github.com/doomemacs/doomemacs#prerequisites
-    #programs.emacs.package = pkgs.emacsUnstable;
+    # DESIGN: https://github.com/doomemacs/doomemacs#prerequisites
+    # using emacs29 over emacs-unstable to hit Nixpkgs cache
+    programs.emacs.package = pkgs.emacs29;
 
     services.emacs = import services/emacs;
     services.gpg-agent.enable = true;
