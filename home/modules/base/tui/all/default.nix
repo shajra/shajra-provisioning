@@ -39,7 +39,7 @@ in
         programs.direnv.enable = false;
         # DESIGN: eventually can move Lorelei back for Macs
         #programs.direnv-nix-lorelei.enable = true;
-        programs.emacs = import programs/emacs;
+        programs.emacs = import programs/emacs pkgs;
         programs.feh.enable = true;
         programs.fish = import programs/fish config pkgs;
         programs.fzf.enable = true;
