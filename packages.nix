@@ -264,9 +264,9 @@ in {
     ];
 
     nixpkgs.build.unused.linux = np.pick { linux = "home"; } [
-        # DESIGN: Not using because Doom doesn't support 29+
-        # https://github.com/doomemacs/doomemacs#prerequisites
-        #"emacsUnstable"
+        # DESIGN: https://github.com/doomemacs/doomemacs#prerequisites
+        # using emacs29 over emacs-unstable to hit Nixpkgs cache
+        "emacs29"
     ];
 
     haskell-nix.prebuilt.programming.haskell = {
