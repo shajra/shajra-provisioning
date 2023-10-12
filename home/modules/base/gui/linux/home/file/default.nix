@@ -1,7 +1,7 @@
 config: pkgs:
 
 let
-    makeLink = link: pkgs.runCommand "makeLink" {} "ln -s ${link} $out";
+    makeLink = config.lib.file.mkOutOfStoreSymlink;
 in
 
 {

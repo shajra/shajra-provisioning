@@ -2,7 +2,7 @@ i3status-exe: i3status-conf: colors: foreground: fontName:
 
 [{
     fonts = {
-        names = [ "${fontName}" ];
+        names = [ "${fontName}" "Font Awesome 6 Free" "Symbols Nerd Font" ];
         size = 9.0;
     };
     statusCommand = "${i3status-exe} ${i3status-conf}";

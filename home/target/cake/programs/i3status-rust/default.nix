@@ -104,8 +104,8 @@ in
                     {
                     button = "left";
                     cmd = ''
-                      ${dunstctl} set-paused toggle \
-                      && ${pkill} -u ${user} -SIGRTMIN+0 i3status-rs
+                        ${dunstctl} set-paused toggle \
+                        && ${pkill} -u ${user} -SIGRTMIN+0 i3status-rs
                     '';
                     }
                 ];
@@ -120,7 +120,7 @@ in
                 format = " $icon $timestamp.datetime(f:'%a %Y-%m-%d %l:%M %p') ";
                 }
             ];
-            icons = "material-nf";
+            icons = "awesome6";
             settings.theme = {
                 overrides = {
                     idle_bg             = colors.semantic.unifying;

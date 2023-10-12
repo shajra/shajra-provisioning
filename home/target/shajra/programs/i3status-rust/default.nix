@@ -54,7 +54,7 @@ in
                 {
                 block = "custom";
                 command  = "${i3-dunst} status";
-                clicks = [
+                click = [
                     {
                     button = "left";
                     cmd = ''

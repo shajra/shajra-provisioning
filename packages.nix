@@ -33,7 +33,7 @@ in {
         "emacs-all-the-icons-fonts"  # for Emacs, used automatically by Doom
         "etBook"                     # stylish font from Edward Tufte's books
         "fira"                       # variable font to complement Fira Code
-        "font-awesome_5"             # for i3status-rust icons
+        "font-awesome_6"             # for i3status-rust icons
         "freefont_ttf"               # a Unicode fallback font
         "hasklig"                    # font with Haskell ligatures
         "inconsolata-nerdfont"       # popular font, might like it

@@ -29,7 +29,7 @@ in
         bars = import ./bars.nix i3status-exe i3status-conf colors foreground fontName;
         colors = import ./colors.nix colors;
         fonts = {
-            names = ["${fontName}"];
+            names = ["${fontName}" ];
             size = 9.0;
         };
         gaps = import ./gaps.nix;
