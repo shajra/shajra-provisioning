@@ -21,7 +21,7 @@ in
 
     targets.genericLinux.enable = true;
 
-    xdg.configFile = import xdg/configFile;
+    xdg.configFile = import xdg/configFile config;
 
     xsession.windowManager.i3 = import xsession/windowManager/i3 config lib;
 }

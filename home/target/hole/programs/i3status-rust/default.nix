@@ -121,7 +121,7 @@ in
                 format = " $icon $timestamp.datetime(f:'%a %Y-%m-%d %l:%M %p') ";
                 }
             ];
-            icons = "material-nf";
+            icons = "awesome6";
             settings.theme = {
                 overrides = {
                     idle_bg             = colors.semantic.unifying;

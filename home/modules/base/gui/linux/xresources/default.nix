@@ -32,7 +32,7 @@ in
 
         "*background"  = colors.semantic.background;
         "*foreground"  = colors.semantic.foreground;
-        "*fading"      = 40;
+        "*fading"      = 30;
         "*fadeColor"   = colors.semantic.background;
         "*cursorColor" = colors.semantic.unifying;
 
