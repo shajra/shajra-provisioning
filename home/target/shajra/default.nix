@@ -8,6 +8,7 @@ in
 {
     imports = [
         ../../modules/base/gui/linux
+        ../../modules/programming/db
     ];
 
     home.file = import home/file config;

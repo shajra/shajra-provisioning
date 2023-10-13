@@ -1,11 +1,11 @@
--- Official docs: http://www.postgresql.org/docs/9.3/static/app-psql.html
+-- Official docs: https://www.postgresql.org/docs/current/index.html
 -- Unofficial docs: http://robots.thoughtbot.com/improving-the-command-line-postgres-experience
 
 -- Don't display the "helpful" message on startup.
 \set QUIET 1
 \pset null '[NULL]'
 
--- http://www.postgresql.org/docs/9.3/static/app-psql.html#APP-PSQL-PROMPTING
+-- https://www.postgresql.org/docs/current/app-psql.html#APP-PSQL-PROMPTING
 -- Alec's PROMPT1
 \set PROMPT1 '%[%033[1m%]%M %/%R%[%033[0m%]%x%# '
 -- Stuart's PROMPT1
