@@ -20,7 +20,9 @@ in
     # DESIGN: DEBUG: removing to understand infinite recursion
     #programs.direnv-nix-lorelei.enable = true;
 
-    services.emacs = import services/emacs;
+    # DESIGN: Doom loads up much faster these days
+    #services.emacs = import services/emacs;
+
     services.gpg-agent.enable = true;
     services.gpg-agent.enableSshSupport = true;
 
