@@ -88,7 +88,7 @@
   ;;(go +lsp +tree-sitter)
   ;;(graphql +lsp)
   (haskell +lsp)
-  (haskell-extn +dante +lsp)
+  ;;(haskell-extn +dante +lsp)
   ;;idris
   (json
     ;;+lsp
