@@ -158,7 +158,7 @@ in {
     nixpkgs.prebuilt.programming.db = pickHome [
         "postgresql"
         "schemaspy"
-        "sqlint"
+        #"sqlint"  # DESIGN: 2023-10-28: broken build
         "sqlite"
     ];
 
@@ -170,10 +170,18 @@ in {
         "cabal2nix"
         "cabal-install"
         "stack"
-        # DESIGN: Remember to upgrade when 9.4.7 is in Nixpkgs
-        # nix build nixpkgs/master#haskell.compiler.ghc947
-        "haskell.compiler.ghc946"
-        "haskellPackages.djinn"
+        "haskell.compiler.ghc947"
+        "haskell.packages.ghc947.apply-refact"
+        "haskell.packages.ghc947.djinn"
+        "haskell.packages.ghc947.fast-tags"
+        "haskell.packages.ghc947.ghc-events"
+        "haskell.packages.ghc947.ghcid"
+        "haskell.packages.ghc947.haskdogs"
+        "haskell.packages.ghc947.hasktags"
+        "haskell.packages.ghc947.hoogle"
+        "haskell.packages.ghc947.hlint"
+        "haskell.packages.ghc947.hp2pretty"
+        "haskell.packages.ghc947.stylish-haskell"
     ];
 
     nixpkgs.prebuilt.programming.java = pickHome [
@@ -276,21 +284,18 @@ in {
 
     haskell-nix.build.programming.haskell = when (! isDevBuild) (
         {}
-        // (hn.fromHackage "ghc947" "apply-refact")
-        // (hn.fromHackage "ghc947" "fast-tags")
-        // (hn.fromHackage "ghc947" "ghc-events")
-        // (hn.fromHackage "ghc947" "ghcid")
-        // (hn.fromHackage "ghc947" "haskdogs")
-        // (hn.fromHackage "ghc947" "hasktags")
-        // (hn.fromHackage "ghc947" "hlint")
-        // (hn.fromHackage "ghc947" "hp2pretty")
-        // (hn.fromHackageCustomized "ghc947" "stylish-haskell" { configureArgs = "-f ghc-lib"; })
-
-        # DESIGN: 23-10-09: broken build, try again when 9.4.7 is in Nixpkgs
+        # DESIGN: Nixpkgs-built binaries above are fine (maybe bloated)
+        #// (hn.fromHackage "ghc947" "apply-refact")
+        #// (hn.fromHackage "ghc947" "fast-tags")
+        #// (hn.fromHackage "ghc947" "ghc-events")
+        #// (hn.fromHackage "ghc947" "ghcid")
+        #// (hn.fromHackage "ghc947" "haskdogs")
+        #// (hn.fromHackage "ghc947" "hasktags")
+        #// (hn.fromHackage "ghc947" "hlint")
         #// (hn.fromHackage "ghc947" "hoogle")
-
-        # DESIGN: a long compile for a niche tool
+        #// (hn.fromHackage "ghc947" "hp2pretty")
         #// (hn.fromHackage "ghc947" "threadscope")
+        #// (hn.fromHackageCustomized "ghc947" "stylish-haskell" { configureArgs = "-f ghc-lib"; })
 
         # DESIGN: marked broken in Nixpkgs, doesn't seem to build with
         # Haskell.nix either (need to look for a modern alternative exists)
