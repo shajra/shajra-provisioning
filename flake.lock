@@ -35,11 +35,11 @@
         "nix-project": "nix-project"
       },
       "locked": {
-        "lastModified": 1698513092,
-        "narHash": "sha256-rliv0853L+L0uvMvNVv4V63c88cIPsovBXiQegxQTJw=",
+        "lastModified": 1698620478,
+        "narHash": "sha256-8CdWD30BZ/rYrvxPu211dyCCTGcBJsretsz4KQTX0gk=",
         "owner": "shajra",
         "repo": "bluos-nix",
-        "rev": "d3c308664499b168aaf255137d1522b6c2af18bf",
+        "rev": "e1ce52184abdda86744563b3147fd79cedee316d",
         "type": "github"
       },
       "original": {
@@ -186,11 +186,11 @@
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {
-        "lastModified": 1698488700,
-        "narHash": "sha256-I4K8SoXduZraQfaaPokxtk7YC6nmjslzc4X/xTWTmZ8=",
+        "lastModified": 1698605432,
+        "narHash": "sha256-fpvTThLMa9wlY4aAVz5+tbE9b7qnb+ldSnbX4rVpV8s=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "e70494fcb4466020552ee39b1d39f7910dee27f0",
+        "rev": "2b203b7f03b4494235afe7667dde4d65d231202d",
         "type": "github"
       },
       "original": {
@@ -305,11 +305,11 @@
         "nixpkgs-lib": "nixpkgs-lib_3"
       },
       "locked": {
-        "lastModified": 1696343447,
-        "narHash": "sha256-B2xAZKLkkeRFG5XcHHSXXcP7To9Xzr59KXeZiRf4vdQ=",
+        "lastModified": 1698579227,
+        "narHash": "sha256-KVWjFZky+gRuWennKsbo6cWyo7c/z/VgCte5pR9pEKg=",
         "owner": "hercules-ci",
         "repo": "flake-parts",
-        "rev": "c9afaba3dfa4085dbd2ccb38dfade5141e33d9d4",
+        "rev": "f76e870d64779109e41370848074ac4eaa1606ec",
         "type": "github"
       },
       "original": {
@@ -427,11 +427,11 @@
     "hackage": {
       "flake": false,
       "locked": {
-        "lastModified": 1698452518,
-        "narHash": "sha256-egyKXcZi6gynkC81yj6+3H8YzRUTSx/z6Tcox9BXkWU=",
+        "lastModified": 1698539207,
+        "narHash": "sha256-LpRXR0t2MegU8H9JRbytb23MUtqMUqJKxgH6Jk1+LeE=",
         "owner": "input-output-hk",
         "repo": "hackage.nix",
-        "rev": "156f8777093356764a8c09e6a8297b2926f84f6f",
+        "rev": "6226422cb8c0e2b9d624344260d23645ffeb7fbd",
         "type": "github"
       },
       "original": {
@@ -491,11 +491,11 @@
         "stackage": "stackage"
       },
       "locked": {
-        "lastModified": 1698454227,
-        "narHash": "sha256-tXcQ3sIiF3tzabmISEws2nKfLtaAmjdItM0zHeLHId8=",
+        "lastModified": 1698540593,
+        "narHash": "sha256-fSxnVeHBrRG6taoiQcrNZftI319yjqR22bmvatpFhuw=",
         "owner": "input-output-hk",
         "repo": "haskell.nix",
-        "rev": "653db3928bc9b2241381bf9ace618cd8a0e1632e",
+        "rev": "1fcec90161947c881faabb7576ea7cd66f80f97d",
         "type": "github"
       },
       "original": {
@@ -715,6 +715,7 @@
     "moneydance": {
       "flake": false,
       "locked": {
+        "lastModified": 1680309428,
         "narHash": "sha256-PetYJ/SQ4QLmmxjKszt1B4dvquydTUsxqERbABE/4Vk=",
         "type": "tarball",
         "url": "https://infinitekind.com/stabledl/current/moneydance-linux.tar.gz"
@@ -1045,11 +1046,11 @@
     },
     "nixpkgs-stable": {
       "locked": {
-        "lastModified": 1698288402,
-        "narHash": "sha256-jIIjApPdm+4yt8PglX8pUOexAdEiAax/DXW3S/Mb21E=",
+        "lastModified": 1698434055,
+        "narHash": "sha256-Phxi5mUKSoL7A0IYUiYtkI9e8NcGaaV5PJEaJApU1Ko=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "60b9db998f71ea49e1a9c41824d09aa274be1344",
+        "rev": "1a3c95e3b23b3cdb26750621c08cc2f1560cb883",
         "type": "github"
       },
       "original": {
@@ -1216,27 +1217,13 @@
         "type": "indirect"
       }
     },
-    "nixpkgs_5": {
-      "locked": {
-        "lastModified": 1698336494,
-        "narHash": "sha256-sO72WDBKyijYD1GcKPlGsycKbMBiTJMBCnmOxLAs880=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "808c0d8c53c7ae50f82aca8e7df263225cf235bf",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "type": "indirect"
-      }
-    },
     "nur": {
       "locked": {
-        "lastModified": 1698513999,
-        "narHash": "sha256-JFWbAmExdWkghvKLjbNdWq2oNyrg5qcxTcCHrN1MTeA=",
+        "lastModified": 1698615966,
+        "narHash": "sha256-q1VPpP8EcrZ+GNQUJ4dWAoHhs8qcIBuZywX3jnT7JK0=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "984c4715454a4f5fdd753a1b667893c206729ab5",
+        "rev": "c2f795e116a7e9bb92a48fe3a5b6350daf2ebe5f",
         "type": "github"
       },
       "original": {
@@ -1336,12 +1323,9 @@
       }
     },
     "shajra-private": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_5"
-      },
       "locked": {
-        "lastModified": 1688350837,
-        "narHash": "sha256-/hJcCTsnKngH+6RFxfMsp2SqGEchBMdHBF2JxrblCzo=",
+        "lastModified": 1698620710,
+        "narHash": "sha256-pFfK3VVD6igpqdWnQe1Tj3ADnCxG0tzTnKvNcAH12M4=",
         "path": "/home/tnks/src/shajra/shajra-private",
         "type": "path"
       },
@@ -1353,11 +1337,11 @@
     "stackage": {
       "flake": false,
       "locked": {
-        "lastModified": 1698451725,
-        "narHash": "sha256-//Qm2tLM3U71/g+3oefdezZsPQxaeb/1YjHMYn1eIUY=",
+        "lastModified": 1698538187,
+        "narHash": "sha256-n0BDH9D9EXjxeR2HgAe1oeDwdHOuJJg29cYktHqcyRA=",
         "owner": "input-output-hk",
         "repo": "stackage.nix",
-        "rev": "8fd5ceaad832c6d33fd88a684411c3daec2bd921",
+        "rev": "acae28932ea28d4132f7cf1718983a3ab7adf11b",
         "type": "github"
       },
       "original": {
