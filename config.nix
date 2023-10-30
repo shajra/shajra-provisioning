@@ -31,12 +31,6 @@
         };
         nixpkgs = {
             allowUnfree = true;
-            ungoogled-chromium = {
-                enablePepperFlash = false;
-            };
-            firefox = {
-                enableTridactylNative = true;
-            };
         };
     };
 
