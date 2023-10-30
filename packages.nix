@@ -158,7 +158,11 @@ in {
     nixpkgs.prebuilt.programming.db = pickHome [
         "postgresql"
         "schemaspy"
-        #"sqlint"  # DESIGN: 2023-10-28: broken build
+
+        # DESIGN: 2023-10-28: broken build
+        # test with: nix build nixpkgs#sqlint
+        #"sqlint"
+
         "sqlite"
     ];
 
@@ -216,11 +220,8 @@ in {
     ];
 
     nixpkgs.build.base.gui.darwin = np.pick { darwin = "home"; } [
-        # DESIGN: yabai broken for M1
-        # https://github.com/koekeishiya/yabai/issues/1054
+        # DESIGN: Nixpkgs seems to have given up on Yabai and Skhd
         #"yabai"
-
-        # DESIGN: Brew skhd seemed more stable for now
         #"skhd"
     ];
 
