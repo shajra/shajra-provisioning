@@ -10,7 +10,7 @@
  ;; run-type must be "executable"
  (run-target-short     . "home-manager")
  (run-target-long      . "bin/home-manager")
- (nix-latest           . "2.17")
+ (nix-latest           . "2.19")
  (nixos-latest         . "23.05")
  (platforms            . "\n\
 - Linux on x86-64 machines\n\

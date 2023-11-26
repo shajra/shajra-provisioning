@@ -158,11 +158,7 @@ in {
     nixpkgs.prebuilt.programming.db = pickHome [
         "postgresql"
         "schemaspy"
-
-        # DESIGN: 2023-10-28: broken build
-        # test with: nix build nixpkgs#sqlint
-        #"sqlint"
-
+        "sqlint"
         "sqlite"
     ];
 
@@ -174,18 +170,18 @@ in {
         "cabal2nix"
         "cabal-install"
         "stack"
-        "haskell.compiler.ghc947"
-        "haskell.packages.ghc947.apply-refact"
-        "haskell.packages.ghc947.djinn"
-        "haskell.packages.ghc947.fast-tags"
-        "haskell.packages.ghc947.ghc-events"
-        "haskell.packages.ghc947.ghcid"
-        "haskell.packages.ghc947.haskdogs"
-        "haskell.packages.ghc947.hasktags"
-        "haskell.packages.ghc947.hoogle"
-        "haskell.packages.ghc947.hlint"
-        "haskell.packages.ghc947.hp2pretty"
-        "haskell.packages.ghc947.stylish-haskell"
+        "haskell.compiler.ghc948"
+        "haskell.packages.ghc948.apply-refact"
+        "haskell.packages.ghc948.djinn"
+        "haskell.packages.ghc948.fast-tags"
+        "haskell.packages.ghc948.ghc-events"
+        "haskell.packages.ghc948.ghcid"
+        "haskell.packages.ghc948.haskdogs"
+        "haskell.packages.ghc948.hasktags"
+        "haskell.packages.ghc948.hoogle"
+        "haskell.packages.ghc948.hlint"
+        "haskell.packages.ghc948.hp2pretty"
+        "haskell.packages.ghc948.stylish-haskell"
     ];
 
     nixpkgs.prebuilt.programming.java = pickHome [
@@ -280,27 +276,27 @@ in {
 
     haskell-nix.prebuilt.programming.haskell = {
         # DESIGN: don't use enough to want to think about a cache miss
-        #nix-tools = hn.nixpkgs.haskell-nix.nix-tools.ghc947;
+        #nix-tools = hn.nixpkgs.haskell-nix.nix-tools.ghc948;
     };
 
     haskell-nix.build.programming.haskell = when (! isDevBuild) (
         {}
         # DESIGN: Nixpkgs-built binaries above are fine (maybe bloated)
-        #// (hn.fromHackage "ghc947" "apply-refact")
-        #// (hn.fromHackage "ghc947" "fast-tags")
-        #// (hn.fromHackage "ghc947" "ghc-events")
-        #// (hn.fromHackage "ghc947" "ghcid")
-        #// (hn.fromHackage "ghc947" "haskdogs")
-        #// (hn.fromHackage "ghc947" "hasktags")
-        #// (hn.fromHackage "ghc947" "hlint")
-        #// (hn.fromHackage "ghc947" "hoogle")
-        #// (hn.fromHackage "ghc947" "hp2pretty")
-        #// (hn.fromHackage "ghc947" "threadscope")
-        #// (hn.fromHackageCustomized "ghc947" "stylish-haskell" { configureArgs = "-f ghc-lib"; })
+        #// (hn.fromHackage "ghc948" "apply-refact")
+        #// (hn.fromHackage "ghc948" "fast-tags")
+        #// (hn.fromHackage "ghc948" "ghc-events")
+        #// (hn.fromHackage "ghc948" "ghcid")
+        #// (hn.fromHackage "ghc948" "haskdogs")
+        #// (hn.fromHackage "ghc948" "hasktags")
+        #// (hn.fromHackage "ghc948" "hlint")
+        #// (hn.fromHackage "ghc948" "hoogle")
+        #// (hn.fromHackage "ghc948" "hp2pretty")
+        #// (hn.fromHackage "ghc948" "threadscope")
+        #// (hn.fromHackageCustomized "ghc948" "stylish-haskell" { configureArgs = "-f ghc-lib"; })
 
         # DESIGN: marked broken in Nixpkgs, doesn't seem to build with
         # Haskell.nix either (need to look for a modern alternative exists)
-        #// (hn.fromHackage "ghc947" "ghc-events-analyze")
+        #// (hn.fromHackage "ghc948" "ghc-events-analyze")
     );
 
     shajra.prebuilt = {};
