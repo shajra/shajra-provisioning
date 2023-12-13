@@ -15,6 +15,7 @@ in
     home.homeDirectory = userConfig."${hostname}".homeDirectory;
     home.username = userConfig."${hostname}".username;
 
+    programs.fish = import programs/fish;
     programs.git = import programs/git lib;
     programs.i3status-rust = import programs/i3status-rust config pkgs;
 
