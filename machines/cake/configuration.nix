@@ -35,7 +35,7 @@ in {
         hplip
     ];
 
-    fonts.enableDefaultFonts = true;
+    fonts.enableDefaultPackages = true;
     fonts.enableGhostscriptFonts = true;
     fonts.fontDir.enable = true;
 
