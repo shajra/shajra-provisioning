@@ -682,6 +682,22 @@
         "url": "https://gitlab.haskell.org/hamishmack/iserv-proxy.git"
       }
     },
+    "kaleidoscope": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1702677816,
+        "narHash": "sha256-biXxJ9mMlvkJZAFgd+drLYRUNt+e0L7Fbwu5MsoT6/0=",
+        "owner": "keyboardio",
+        "repo": "Kaleidoscope",
+        "rev": "e6a0d44b6d2eb1516f50ece86175f76e4c654492",
+        "type": "github"
+      },
+      "original": {
+        "owner": "keyboardio",
+        "repo": "Kaleidoscope",
+        "type": "github"
+      }
+    },
     "lieer": {
       "flake": false,
       "locked": {
@@ -1330,6 +1346,7 @@
         "haskell-nix": "haskell-nix",
         "haskell-tags-nix": "haskell-tags-nix",
         "home-manager": "home-manager",
+        "kaleidoscope": "kaleidoscope",
         "lieer": "lieer",
         "moneydance": "moneydance",
         "nix-darwin": "nix-darwin",

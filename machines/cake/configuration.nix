@@ -200,6 +200,12 @@ in {
             SYMLINK="disk/by-path/$env{ID_PATH}", \
             SYMLINK+="disk/by-id/$env{ID_BUS}-$env{ID_SERIAL}"
         LABEL="ssd_dev_disk_by_id_end"
+
+        ${
+          let origFile = "${pkgs.sources.kaleidoscope}/etc/60-kaleidoscope.rules";
+              origRules = builtins.readFile origFile;
+          in builtins.replaceStrings ['', SYMLINK''] ['', MODE="0666", SYMLINK''] origRules
+        }
     '';
 
     services.xrdp.enable = true;
