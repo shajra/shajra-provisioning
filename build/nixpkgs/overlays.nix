@@ -21,6 +21,7 @@ let
                 dircolors-solarized
                 direnv-nix-lorelei
                 fzf-fish
+                kaleidoscope
                 lieer
                 moneydance
                 pointless-xcompose
