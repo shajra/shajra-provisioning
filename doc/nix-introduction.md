@@ -16,8 +16,6 @@
     - [Nix 2.0 and the new `nix` command](#sec-4-2-1)
     - [Flakes as an experiment](#sec-4-2-2)
 - [Encouraging development with flakes](#sec-5)
-- [Helping non-flakes users](#sec-6)
-- [Documenting an end user experience](#sec-7)
 
 
 # About this document<a id="sec-1"></a>
@@ -207,41 +205,3 @@ alias nix-flakes = nix --extra-experimental-features 'nix-command flakes'
 ```
 
 This way there's less to type interactively. Just don't script against this command, and there's no worry of scripts breaking if the flakes API changes.
-
-# Helping non-flakes users<a id="sec-6"></a>
-
-A few users make work in organizations or contribute to projects that disallow experimental features such as flakes.
-
-To buffer this compromise, this project uses and encourages the use of the [flake-compat](https://github.com/edolstra/flake-compat) project, which enables an end user who has opted not to enable flakes to at least access the flake's contents, packages or otherwise.
-
-With flake-compat, end users will have a normal (non-flake) Nix expression they can evaluate. However, since dependencies are managed with flakes, the project maintainer must have flakes enabled to manage dependencies (for example, updating to the latest dependencies with `nix flake update`).
-
-# Documenting an end user experience<a id="sec-7"></a>
-
-To deal with the transition of the Nix community to flake, this project provides two user guides:
-
--   [Nix Usage with Flakes (Recommended) ](nix-usage-flakes.md)
--   [Nix Usage without Flakes](nix-usage-noflakes.md)
-
-Links generally steer users to the recommended guide, which then links users to the non-flakes guide if they have the interest or need.
-
-The non-flakes guide intentionally avoids commands like `nix-shell` and `nix-channel`. These commands lead users to setting the `NIX_PATH` environment variable, which can lead to unreliable builds.
-
-Though this guide avoid the `flakes` experimental feature, it still invites end users to use the experimental `nix-command` to get the following subcommands:
-
--   `nix search`
--   `nix shell`
--   `nix run`
-
-In general, the non-flakes guide only explains usage of experimental `nix` subcommands when there exist no other alternatives, or when the alternatives are considered worse for new users.
-
-`nix search` simply has no good alternative within the set of non-experimental Nix tools, but it's too useful to not tell users about. Again, this is an example of the Nix community leading users to experimental features.
-
-`nix shell` and `nix run` are shown as improved alternatives to `nix-shell`. `nix-shell` is a complicated tool that has been historically used for a lot of different purposes:
-
--   debugging the build environments of packages
--   creating a developer environment for a package (`nix develop` does this better, but for only for flakes)
--   entering a shell with Nix-build executables on the path (`nix shell` does this better)
--   running arbitrary commands with Nix-build executables on the path (`nix run` does this better)
-
-To cover all of these scenarios, `nix-shell` became so complex it is hard to explain to new users. `nix-shell` is really only best for debugging builds, which is beyond the scope of the documentation provided by this project.

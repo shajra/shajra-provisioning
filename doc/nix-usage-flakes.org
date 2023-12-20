@@ -26,7 +26,7 @@ following macros and source code blocks (using Noweb).
 #+macro: run-attr-long {{{get(run-attr-long,=,=)}}}
 #+macro: run-name {{{get(run-target-short,“,”)}}}
 #+macro: run-target-short {{{get(run-target-short,=,=)}}}
-#+macro: run-target-long {{{get(run-target-long,=,=)}}}
+#+macro: run-target-long {{{get(run-target-short,=bin/,=)}}}
 #+macro: nix-latest {{{get(nix-latest)}}}
 #+macro: nixos-latest {{{get(nixos-latest)}}}
 #+macro: platforms {{{get(platforms)}}}
@@ -151,7 +151,6 @@ nix registry list
 #+RESULTS: nix-registry-list
 #+begin_example
 …
-global flake:nixpkgs github:NixOS/nixpkgs/nixpkgs-unstable
 global flake:templates github:NixOS/templates
 global flake:patchelf github:NixOS/patchelf
 global flake:poetry2nix github:nix-community/poetry2nix
@@ -159,6 +158,7 @@ global flake:nix-serve github:edolstra/nix-serve
 global flake:nickel github:tweag/nickel
 global flake:bundlers github:NixOS/bundlers
 global flake:pridefetch github:SpyHoodle/pridefetch
+global flake:systems github:nix-systems/default
 global flake:helix github:helix-editor/helix
 global flake:sops-nix github:Mic92/sops-nix
 #+end_example
@@ -202,22 +202,22 @@ git+file:///home/tnks/src/shajra/shajra-provisioning
 ├───apps
 │   ├───aarch64-darwin
 …
-│   └───default: Nixpkgs overlay
-└───packages
-    ├───aarch64-darwin
-    │   ├───ci: package 'shajra-provision-ci-all'
-    │   ├───home-manager: package 'home-manager'
-    │   ├───shajra-darwin-rebuild: package 'shajra-darwin-rebuild'
-    │   ├───shajra-home-manager: package 'shajra-home-manager'
-    │   └───shajra-nixos-rebuild: package 'shajra-nixos-rebuild'
-    ├───x86_64-darwin
-    │   ├───ci: package 'shajra-provision-ci-all'
-    │   ├───home-manager: package 'home-manager'
-    │   ├───shajra-darwin-rebuild: package 'shajra-darwin-rebuild'
-    │   ├───shajra-home-manager: package 'shajra-home-manager'
-    │   └───shajra-nixos-rebuild: package 'shajra-nixos-rebuild'
+    │   ├───ci-build-nixpkgs omitted (use '--all-systems' to show)
+    │   ├───ci-build-shajra omitted (use '--all-systems' to show)
+    │   ├───ci-prebuilt-haskellnix omitted (use '--all-systems' to show)
+    │   ├───ci-prebuilt-nixpkgs omitted (use '--all-systems' to show)
+    │   ├───ci-prebuilt-shajra omitted (use '--all-systems' to show)
+    │   ├───home-manager omitted (use '--all-systems' to show)
+    │   ├───shajra-darwin-rebuild omitted (use '--all-systems' to show)
+    │   ├───shajra-home-manager omitted (use '--all-systems' to show)
+    │   └───shajra-nixos-rebuild omitted (use '--all-systems' to show)
     └───x86_64-linux
-        ├───ci: package 'shajra-provision-ci-all'
+        ├───ci-build-haskellnix: package 'shajra-provision-ci-build-haskellnix'
+        ├───ci-build-nixpkgs: package 'shajra-provision-ci-build-nixpkgs'
+        ├───ci-build-shajra: package 'shajra-provision-ci-build-shajra'
+        ├───ci-prebuilt-haskellnix: package 'shajra-provision-ci-prebuilt-haskellnix'
+        ├───ci-prebuilt-nixpkgs: package 'shajra-provision-ci-prebuilt-nixpkgs'
+        ├───ci-prebuilt-shajra: package 'shajra-provision-ci-prebuilt-shajra'
         ├───home-manager: package 'home-manager'
         ├───shajra-darwin-rebuild: package 'shajra-darwin-rebuild'
         ├───shajra-home-manager: package 'shajra-home-manager'
@@ -299,15 +299,15 @@ nix search . | ansifilter
 
 #+results: nix-search-local
 #+begin_example
-,* packages.x86_64-linux.ci
+,* packages.x86_64-linux.ci-build-haskellnix
 
-,* packages.x86_64-linux.home-manager
-  A user environment configurator
+,* packages.x86_64-linux.ci-build-nixpkgs
 
-,* packages.x86_64-linux.shajra-darwin-rebuild
-  Controlled MacOS rebuild
+,* packages.x86_64-linux.ci-build-shajra
 
-,* packages.x86_64-linux.shajra-home-manager
+,* packages.x86_64-linux.ci-prebuilt-haskellnix
+
+,* packages.x86_64-linux.ci-prebuilt-nixpkgs
 …
 #+end_example
 
@@ -340,16 +340,19 @@ nix search nixpkgs 'gpu|opengl|accel' terminal | ansifilter
 
 #+RESULTS: nix-search-remote-concise
 #+begin_example
-,* legacyPackages.x86_64-linux.alacritty (0.11.0)
+,* legacyPackages.x86_64-linux.alacritty (0.12.3)
   A cross-platform, GPU-accelerated terminal emulator
 
 ,* legacyPackages.x86_64-linux.darktile (0.0.10)
   A GPU rendered terminal emulator designed for tiling window managers
 
-,* legacyPackages.x86_64-linux.kitty (0.27.1)
+,* legacyPackages.x86_64-linux.kitty (0.31.0)
   A modern, hackable, featureful, OpenGL based terminal emulator
 
-,* legacyPackages.x86_64-linux.wezterm (20221119-145034-49b9839f)
+,* legacyPackages.x86_64-linux.rio (0.0.33)
+  A hardware-accelerated GPU terminal emulator powered by WebGPU
+
+,* legacyPackages.x86_64-linux.wezterm (20230712-072601-f4abf8fd)
   GPU-accelerated cross-platform terminal emulator and multiplexer written by @wez and implemented in Rust
 #+end_example
 
@@ -366,8 +369,8 @@ nix search nixpkgs/nixos-<<get("nixos-latest")>>#wezterm | ansifilter
 #+end_src
 
 #+RESULTS: nix-search-remote-wezterm
-: * legacyPackages.x86_64-linux.wezterm (20220905-102802-7d4b8249)
-:   A GPU-accelerated cross-platform terminal emulator and multiplexer written by @wez and implemented in Rust
+: * legacyPackages.x86_64-linux.wezterm (20230712-072601-f4abf8fd)
+:   GPU-accelerated cross-platform terminal emulator and multiplexer written by @wez and implemented in Rust
 
 Here {{{get(nixos-latest,~/nixos-,~)}}} overrides the default =nixpkgs-unstable= branch of
 the registry entry, and the ~#wezterm~ suffix searches not just the flake, but a
@@ -445,7 +448,7 @@ readlink result*
 #+end_src
 
 #+RESULTS: nix-build-link
-: /nix/store/w7p01j6sdaav1cs5a0a2rklpndj6vv4r-home-manager
+: /nix/store/nzfbfrc5dpnh1hmncp0n3pb40z790b6j-home-manager
 
 Following these symlinks, we can see the files the project provides:
 
@@ -482,7 +485,7 @@ nix path-info .#<<get("package-attr-short")>>
 #+end_src
 
 #+results: nix-build-path
-: /nix/store/w7p01j6sdaav1cs5a0a2rklpndj6vv4r-home-manager
+: /nix/store/nzfbfrc5dpnh1hmncp0n3pb40z790b6j-home-manager
 
 ** Running commands in a shell
 
@@ -506,7 +509,7 @@ nix shell \
 #+end_src
 
 #+RESULTS: nix-shell
-: Usage: /nix/store/w7p01j6sdaav1cs5a0a2rklpndj6vv4r-home-manager/bin/home-manager [OPTION] COMMAND
+: Usage: /nix/store/nzfbfrc5dpnh1hmncp0n3pb40z790b6j-home-manager/bin/home-manager [OPTION] COMMAND
 : 
 : Options
 : 
@@ -579,7 +582,7 @@ nix run .#<<get("run-attr-short")>>  -- --help
 #+end_src
 
 #+RESULTS: nix-run
-: Usage: /nix/store/w7p01j6sdaav1cs5a0a2rklpndj6vv4r-home-manager/bin/home-manager [OPTION] COMMAND
+: Usage: /nix/store/nzfbfrc5dpnh1hmncp0n3pb40z790b6j-home-manager/bin/home-manager [OPTION] COMMAND
 : 
 : Options
 : 
@@ -597,9 +600,9 @@ nix search --json .#<<get("run-attr-short")>> | jq .
 #+RESULTS: nix-search-details
 : {
 :   "packages.x86_64-linux.home-manager": {
+:     "description": "A user environment configurator",
 :     "pname": "home-manager",
-:     "version": "",
-:     "description": "A user environment configurator"
+:     "version": ""
 : …
 
 In the JSON above, the “pname” field indicates the package's name. In practice,
@@ -638,11 +641,11 @@ all in the same invocation:
 nix shell --ignore-environment \
     nixpkgs#which \
     .#<<get("run-attr-short")>> \
-    --command which <<get("run-attr-short")>>
+    --command which <<get("run-target-short")>>
 #+end_src
 
 #+RESULTS: nix-shell-remote
-: /nix/store/w7p01j6sdaav1cs5a0a2rklpndj6vv4r-home-manager/bin/home-manager
+: /nix/store/nzfbfrc5dpnh1hmncp0n3pb40z790b6j-home-manager/bin/home-manager
 
 This is all a consequence of everything discussed in previous sections, but it's
 good to see clearly that what we do with local flake references can work just as
@@ -690,22 +693,21 @@ nix profile list --profile /tmp/nix-profile
 #+end_src
 
 #+RESULTS: nix-profile-list
-: 0 git+file:///home/tnks/src/shajra/shajra-provisioning#packages.x86_64-linux.home-manager git+file:///home/tnks/src/shajra/shajra-provisioning#packages.x86_64-linux.home-manager /nix/store/w7p01j6sdaav1cs5a0a2rklpndj6vv4r-home-manager
+: Index:              [1m0[0m
+: Flake attribute:    packages.x86_64-linux.home-manager
+: Original flake URL: git+file:///home/tnks/src/shajra/shajra-provisioning
+: Locked flake URL:   git+file:///home/tnks/src/shajra/shajra-provisioning
+: Store paths:        /nix/store/nzfbfrc5dpnh1hmncp0n3pb40z790b6j-home-manager
 
-The output of =nix profile list= is a bit verbose, but each line has three parts:
-- an index to use with other =nix profile= subcommands (like =nix profile remove=)
-- the specified installable reference
-- the resolved reference actually installed
-- the store path in =/nix/store=
-
-And if we want to uninstall a program from our profile, we do so by the index
+If we want to uninstall a program from our profile, we do so by the index from
+this list:
 
 #+name: nix-profile-remove
 #+begin_src sh :eval no :noweb yes
 nix profile remove 0
 #+end_src
 
-we can also provide a regex matching the full attribute path of the flake:
+We can also provide a regex matching the full attribute path of the flake:
 
 #+begin_src sh :eval no :noweb yes
 nix profile remove '.*<<get("package-attr-short")>>'

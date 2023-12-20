@@ -166,7 +166,7 @@ nix --version
 #+end_src
 
 #+RESULTS: nix-version
-: nix (Nix) 2.11.1
+: nix (Nix) 2.18.1
 
 The easiest way to turn on experimental features is to create a file
 =~/.config/nix/nix.conf= if it doesn't already exist, and in it put the

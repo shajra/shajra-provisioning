@@ -14,13 +14,12 @@
         delta                  = { url = github:dandavison/delta; flake = false; };
         dircolors-solarized    = { url = github:seebi/dircolors-solarized; flake = false; };
         direnv-nix-lorelei     = { url = github:shajra/direnv-nix-lorelei; flake = false; };
-        flake-compat           = { url = github:edolstra/flake-compat; flake = false; };
         fzf-fish               = { url = github:PatrickF1/fzf.fish; flake = false; };
         haskell-hls-nix        = { url = github:shajra/haskell-hls-nix; flake = false; };
         haskell-tags-nix       = { url = github:shajra/haskell-tags-nix; flake = false; };
         kaleidoscope           = { url = github:keyboardio/Kaleidoscope; flake = false; };
         lieer                  = { url = github:gauteh/lieer; flake = false; };
-        moneydance             = { url = https://infinitekind.com/stabledl/current/moneydance-linux.tar.gz; flake = false; };
+        moneydance             = { url = tarball+https://infinitekind.com/stabledl/current/moneydance-linux.tar.gz; flake = false; };
         pointless-xcompose     = { url = github:leoboiko/pointless-xcompose; flake = false; };
         xcompose               = { url = github:kragen/xcompose; flake = false; };
     };
