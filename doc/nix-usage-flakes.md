@@ -19,9 +19,7 @@
 
 This document explains how to take advantage of software provided by Nix for people new to [the Nix package manager](https://nixos.org/nix). This guide uses this project for examples, but it focused on introducing general Nix usage, which applies to other projects using Nix as well.
 
-This project supports a still-experimental feature of Nix called *flakes*, which this guide shows users how to use. [Another guide](../nix-usage-noflakes.md) explains how to do everything illustrated in this document, but without flakes.
-
-> **<span class="underline">NOTE:</span>** If you're new to flakes, please read the provided [supplemental introduction to Nix](../nix-introduction.md) to understand the experimental nature of flakes and how it may or may not affect you. Hopefully you'll find these trade-offs acceptable so you can take advantage of the improved experience flakes offer.
+This project requires an experimental feature of Nix called *flakes*. To understand more about what flakes are and the consequences of using a still-experimental feature of Nix, please see the provided [introduction to Nix](nix-introduction.md).
 
 # How this project uses Nix<a id="sec-2"></a>
 
@@ -84,7 +82,6 @@ nix registry list
 ```
 
     …
-    global flake:nixpkgs github:NixOS/nixpkgs/nixpkgs-unstable
     global flake:templates github:NixOS/templates
     global flake:patchelf github:NixOS/patchelf
     global flake:poetry2nix github:nix-community/poetry2nix
@@ -92,12 +89,13 @@ nix registry list
     global flake:nickel github:tweag/nickel
     global flake:bundlers github:NixOS/bundlers
     global flake:pridefetch github:SpyHoodle/pridefetch
+    global flake:systems github:nix-systems/default
     global flake:helix github:helix-editor/helix
     global flake:sops-nix github:Mic92/sops-nix
 
 For example, rather than referencing the flake on the `nixpkgs-unstable` branch of the Nixpkgs GitHub repository with `github:NixOS/nixpkgs/nixpkgs-unstable`, we can just use the simple identifier `nixpkgs`.
 
-If we want to point to a different branch, but still use an identifier from the registry, we can by extending it with the branch. For example, the flakes identifier `nixpkgs` is the same as `nixpkgs/nixpkgs-ustable`, but we can also use `nixpkgs/nixos-22.11` to override the branch and point to the NixOS 22.11 release branch.
+If we want to point to a different branch, but still use an identifier from the registry, we can by extending it with the branch. For example, the flakes identifier `nixpkgs` is the same as `nixpkgs/nixpkgs-ustable`, but we can also use `nixpkgs/nixos-23.11` to override the branch and point to the NixOS 23.11 release branch.
 
 Note, registries have mutable references, but for some of these references Nix knows how to repeatably rebuild the snapshot referenced. For example, when referencing a GitHub repository via a registry reference, Nix will take note of the commit ID of the snapshot retrieved.
 
@@ -115,22 +113,22 @@ nix flake show .
     ├───apps
     │   ├───aarch64-darwin
     …
-    │   └───default: Nixpkgs overlay
-    └───packages
-        ├───aarch64-darwin
-        │   ├───ci: package 'shajra-provision-ci-all'
-        │   ├───home-manager: package 'home-manager'
-        │   ├───shajra-darwin-rebuild: package 'shajra-darwin-rebuild'
-        │   ├───shajra-home-manager: package 'shajra-home-manager'
-        │   └───shajra-nixos-rebuild: package 'shajra-nixos-rebuild'
-        ├───x86_64-darwin
-        │   ├───ci: package 'shajra-provision-ci-all'
-        │   ├───home-manager: package 'home-manager'
-        │   ├───shajra-darwin-rebuild: package 'shajra-darwin-rebuild'
-        │   ├───shajra-home-manager: package 'shajra-home-manager'
-        │   └───shajra-nixos-rebuild: package 'shajra-nixos-rebuild'
+        │   ├───ci-build-nixpkgs omitted (use '--all-systems' to show)
+        │   ├───ci-build-shajra omitted (use '--all-systems' to show)
+        │   ├───ci-prebuilt-haskellnix omitted (use '--all-systems' to show)
+        │   ├───ci-prebuilt-nixpkgs omitted (use '--all-systems' to show)
+        │   ├───ci-prebuilt-shajra omitted (use '--all-systems' to show)
+        │   ├───home-manager omitted (use '--all-systems' to show)
+        │   ├───shajra-darwin-rebuild omitted (use '--all-systems' to show)
+        │   ├───shajra-home-manager omitted (use '--all-systems' to show)
+        │   └───shajra-nixos-rebuild omitted (use '--all-systems' to show)
         └───x86_64-linux
-            ├───ci: package 'shajra-provision-ci-all'
+            ├───ci-build-haskellnix: package 'shajra-provision-ci-build-haskellnix'
+            ├───ci-build-nixpkgs: package 'shajra-provision-ci-build-nixpkgs'
+            ├───ci-build-shajra: package 'shajra-provision-ci-build-shajra'
+            ├───ci-prebuilt-haskellnix: package 'shajra-provision-ci-prebuilt-haskellnix'
+            ├───ci-prebuilt-nixpkgs: package 'shajra-provision-ci-prebuilt-nixpkgs'
+            ├───ci-prebuilt-shajra: package 'shajra-provision-ci-prebuilt-shajra'
             ├───home-manager: package 'home-manager'
             ├───shajra-darwin-rebuild: package 'shajra-darwin-rebuild'
             ├───shajra-home-manager: package 'shajra-home-manager'
@@ -180,15 +178,15 @@ We can use the `nix search` command to see what package derivations a flake cont
 nix search .
 ```
 
-    * packages.x86_64-linux.ci
+    * packages.x86_64-linux.ci-build-haskellnix
     
-    * packages.x86_64-linux.home-manager
-      A user environment configurator
+    * packages.x86_64-linux.ci-build-nixpkgs
     
-    * packages.x86_64-linux.shajra-darwin-rebuild
-      Controlled MacOS rebuild
+    * packages.x86_64-linux.ci-build-shajra
     
-    * packages.x86_64-linux.shajra-home-manager
+    * packages.x86_64-linux.ci-prebuilt-haskellnix
+    
+    * packages.x86_64-linux.ci-prebuilt-nixpkgs
     …
 
 If a flake has a lot of packages, you can pass regexes to prune down the search. Returned values will match all the regexes provided. Also, we can search a remote repository as well for packages to install.
@@ -205,28 +203,31 @@ As discussed in a previous section, we can use the flakes registry identifier of
 nix search nixpkgs 'gpu|opengl|accel' terminal
 ```
 
-    * legacyPackages.x86_64-linux.alacritty (0.11.0)
+    * legacyPackages.x86_64-linux.alacritty (0.12.3)
       A cross-platform, GPU-accelerated terminal emulator
     
     * legacyPackages.x86_64-linux.darktile (0.0.10)
       A GPU rendered terminal emulator designed for tiling window managers
     
-    * legacyPackages.x86_64-linux.kitty (0.27.1)
+    * legacyPackages.x86_64-linux.kitty (0.31.0)
       A modern, hackable, featureful, OpenGL based terminal emulator
     
-    * legacyPackages.x86_64-linux.wezterm (20221119-145034-49b9839f)
+    * legacyPackages.x86_64-linux.rio (0.0.33)
+      A hardware-accelerated GPU terminal emulator powered by WebGPU
+    
+    * legacyPackages.x86_64-linux.wezterm (20230712-072601-f4abf8fd)
       GPU-accelerated cross-platform terminal emulator and multiplexer written by @wez and implemented in Rust
 
 If we're curious what version of WezTerm is available in NixOS's latest release, we can specialize the installable we're searching as follows:
 
 ```sh
-nix search nixpkgs/nixos-22.11#wezterm
+nix search nixpkgs/nixos-23.11#wezterm
 ```
 
-    * legacyPackages.x86_64-linux.wezterm (20220905-102802-7d4b8249)
-      A GPU-accelerated cross-platform terminal emulator and multiplexer written by @wez and implemented in Rust
+    * legacyPackages.x86_64-linux.wezterm (20230712-072601-f4abf8fd)
+      GPU-accelerated cross-platform terminal emulator and multiplexer written by @wez and implemented in Rust
 
-Here `/nixos-22.11` overrides the default `nixpkgs-unstable` branch of the registry entry, and the `#wezterm` suffix searches not just the flake, but a specific package named `wezterm`, which will either be found or not (there's no need for regexes to filter further).
+Here `/nixos-23.11` overrides the default `nixpkgs-unstable` branch of the registry entry, and the `#wezterm` suffix searches not just the flake, but a specific package named `wezterm`, which will either be found or not (there's no need for regexes to filter further).
 
 You may also notice that the Nixpkgs flake outputs packages under the `legacyPackages` attribute instead of the `packages`. The primary difference is that packages are flatly organized under `packages`, while `legacyPackages` can be an arbitrary tree. `legacyPackages` exists specifically for the Nixpkgs project, a central project to the Nix ecosystem that's existed long before flakes. Beyond Nixpkgs, don't worry about `legacyPackages`. Packages from all other flakes should generally be found under `packages`.
 
@@ -266,7 +267,7 @@ After a successful call of `nix build`, you'll see one or more symlinks for each
 readlink result*
 ```
 
-    /nix/store/w7p01j6sdaav1cs5a0a2rklpndj6vv4r-home-manager
+    /nix/store/nzfbfrc5dpnh1hmncp0n3pb40z790b6j-home-manager
 
 Following these symlinks, we can see the files the project provides:
 
@@ -294,7 +295,7 @@ It's common to configure these “result” symlinks as ignored in source contro
 nix path-info .#home-manager
 ```
 
-    /nix/store/w7p01j6sdaav1cs5a0a2rklpndj6vv4r-home-manager
+    /nix/store/nzfbfrc5dpnh1hmncp0n3pb40z790b6j-home-manager
 
 ## Running commands in a shell<a id="sec-4-6"></a>
 
@@ -310,7 +311,7 @@ nix shell \
     --command home-manager --help
 ```
 
-    Usage: /nix/store/w7p01j6sdaav1cs5a0a2rklpndj6vv4r-home-manager/bin/home-manager [OPTION] COMMAND
+    Usage: /nix/store/nzfbfrc5dpnh1hmncp0n3pb40z790b6j-home-manager/bin/home-manager [OPTION] COMMAND
     
     Options
     
@@ -360,7 +361,7 @@ Here's the `nix run` equivalent of the `nix shell` invocation from the previous 
 nix run .#home-manager  -- --help
 ```
 
-    Usage: /nix/store/w7p01j6sdaav1cs5a0a2rklpndj6vv4r-home-manager/bin/home-manager [OPTION] COMMAND
+    Usage: /nix/store/nzfbfrc5dpnh1hmncp0n3pb40z790b6j-home-manager/bin/home-manager [OPTION] COMMAND
     
     Options
     
@@ -375,9 +376,9 @@ nix search --json .#home-manager | jq .
 
     {
       "packages.x86_64-linux.home-manager": {
+        "description": "A user environment configurator",
         "pname": "home-manager",
-        "version": "",
-        "description": "A user environment configurator"
+        "version": ""
     …
 
 In the JSON above, the “pname” field indicates the package's name. In practice, this may or may not differ from flake output name of the installable.
@@ -407,7 +408,7 @@ nix shell --ignore-environment \
     --command which home-manager
 ```
 
-    /nix/store/w7p01j6sdaav1cs5a0a2rklpndj6vv4r-home-manager/bin/home-manager
+    /nix/store/nzfbfrc5dpnh1hmncp0n3pb40z790b6j-home-manager/bin/home-manager
 
 This is all a consequence of everything discussed in previous sections, but it's good to see clearly that what we do with local flake references can work just as well with remote flake references.
 
@@ -431,22 +432,19 @@ We can see this installation by querying what's been installed:
 nix profile list
 ```
 
-    0 git+file:///home/tnks/src/shajra/shajra-provisioning#packages.x86_64-linux.home-manager git+file:///home/tnks/src/shajra/shajra-provisioning#packages.x86_64-linux.home-manager /nix/store/w7p01j6sdaav1cs5a0a2rklpndj6vv4r-home-manager
+    Index:              [1m0[0m
+    Flake attribute:    packages.x86_64-linux.home-manager
+    Original flake URL: git+file:///home/tnks/src/shajra/shajra-provisioning
+    Locked flake URL:   git+file:///home/tnks/src/shajra/shajra-provisioning
+    Store paths:        /nix/store/nzfbfrc5dpnh1hmncp0n3pb40z790b6j-home-manager
 
-The output of `nix profile list` is a bit verbose, but each line has three parts:
-
--   an index to use with other `nix profile` subcommands (like `nix profile remove`)
--   the specified installable reference
--   the resolved reference actually installed
--   the store path in `/nix/store`
-
-And if we want to uninstall a program from our profile, we do so by the index
+If we want to uninstall a program from our profile, we do so by the index from this list:
 
 ```sh
 nix profile remove 0
 ```
 
-we can also provide a regex matching the full attribute path of the flake:
+We can also provide a regex matching the full attribute path of the flake:
 
 ```sh
 nix profile remove '.*home-manager'

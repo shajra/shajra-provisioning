@@ -104,11 +104,11 @@ As illustrated below, we can't rebind a name:
 nix eval --expr 'let a = 1; a = 2; in a' 2>&1 || true
 ```
 
-    error: attribute 'a' already defined at (string):1:5
+    error: attribute 'a' already defined at «string»:1:5
     
            at «string»:1:12:
     
-                1| let a = 1; a = 2; in a
+                1| let a = 1; a = 2;
                  |            ^
 
 Note that semicolons are mandatory in all Nix forms that have them, including let-expressions. Because of Nix's strict parsing you can neither elide semicolons, nor put extra ones.
@@ -136,13 +136,16 @@ nix eval --expr '
     in "${a_number} is a terrible number"' 2>&1 || true
 ```
 
-    error: cannot coerce an integer to a string
+    error:
+           … while evaluating a path segment
     
-           at «string»:3:9:
+             at «string»:3:9:
     
                 2|     let a_number = 42;
                 3|     in "${a_number} is a terrible number"
                  |         ^
+    
+           error: cannot coerce an integer to a string
 
 We can use a builtin `toString` function to coerce types to strings:
 
@@ -288,12 +291,20 @@ This basic pattern syntax is rigid, and we can't pass in a attribute set with at
 nix eval --expr '({ a }: a + 2 ) { a = 3; b = 4; }' 2>&1 || true
 ```
 
-    error: anonymous function at (string):1:2 called with unexpected argument 'b'
+    error:
+           … from call site
     
-           at «string»:1:1:
+             at «string»:1:1:
     
                 1| ({ a }: a + 2 ) { a = 3; b = 4; }
                  | ^
+    
+           error: function 'anonymous lambda' called with unexpected argument 'b'
+    
+           at «string»:1:2:
+    
+                1| ({ a }: a + 2 ) { a = 3; b = 4; }
+                 |  ^
            Did you mean a?
 
 If we want to relax the destructuring to accept sets with other attributes we can use a “&#x2026;” form:
@@ -402,13 +413,13 @@ nix eval --impure --expr '
 ```
 
     {
-      lastModified = 1678188176;
-      lastModifiedDate = "20230307112256";
-      narHash = "sha256-IH80NcLhwjGpIXEjHuV+NgaSC+Y/PXquxZ/C8Bl+CLk=";
-      outPath = "/nix/store/4hm39fpkqz41jqpz21yf98mcisb1k9bx-source";
-      rev = "ea2fca765c440fff1ff74e1463444dea7b819db2";
-      revCount = 808;
-      shortRev = "ea2fca7";
+      lastModified = 1695801302;
+      lastModifiedDate = "20230927075502";
+      narHash = "sha256-pP/DBhsYFpYQ7RqB4+1Iy9B1jPlC1rNT3aZhhr1Z9EU=";
+      outPath = "/nix/store/i0rgmq3dd0407n5b3jxkvs60gw3qpz1d-source";
+      rev = "917ea45b79de04f69059f42a8e2621f7caeae1c9";
+      revCount = 842;
+      shortRev = "917ea45";
       submodules = false;
     }
 

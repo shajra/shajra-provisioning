@@ -1,1 +1,1 @@
-#+include: "nix-usage-flakes-optional.org"
+#+include: "nix-usage-flakes-required.org"
