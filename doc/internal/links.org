@@ -30,7 +30,6 @@
 #+link: nix https://nixos.org/nix
 #+link: nix-darwin https://daiderd.com/nix-darwin
 #+link: nix-darwin-manual-conf https://daiderd.com/nix-darwin/manual/index.html#sec-options
-#+link: nix-flake-compat https://github.com/edolstra/flake-compat
 #+link: nix-flake-parts https://github.com/hercules-ci/flake-parts
 #+link: nix-install-manual https://nixos.org/manual/nix/stable/installation/installation.html
 #+link: nix-install-quick https://nixos.org/download.html#download-nix
@@ -41,7 +40,6 @@
 #+link: nixos-manual-conf-options https://nixos.org/manual/nixos/stable/index.html#ch-configuration
 #+link: nixos-manual-conf-syntax https://nixos.org/manual/nixos/stable/index.html#sec-configuration-file
 #+link: nixos-manual-rebuild https://nixos.org/manual/nixos/stable/index.html#sec-changing-config
-#+link: nixos-search https://search.nixos.org/packages
 #+link: nixpkgs https://github.com/NixOS/nixpkgs
 #+link: nixpkgs-manual https://nixos.org/nixpkgs/manual
 #+link: nix-project https://github.com/shajra/nix-project
