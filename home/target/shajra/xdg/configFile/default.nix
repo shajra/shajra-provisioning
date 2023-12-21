@@ -5,5 +5,4 @@ let
 in {
     "fish/completions/bake.fish".source = makeLink
         /nix/var/nix/profiles/default/config/fish/bake-completion.fish;
-    "nix/nix.conf".source = nix/nix.conf;
 }
