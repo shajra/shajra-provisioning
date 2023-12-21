@@ -10,6 +10,6 @@
     home.activation = import home/activation config lib pkgs;
     home.extraPackages = build.pkgs.lists.base.tui.darwin;
 
-    # DESIGN: don't think this is needed any more
-    #programs.macchina.package = build.pkgSets.base.tui.darwin.macchina;
+    # REVISIT: 23-12-21: pinned to stable because broot built was broken
+    programs.broot.package = build.infra.np.nixpkgs.stable.broot;
 }
