@@ -1,4 +1,4 @@
-{ lib, build, ... }:
+{ lib, build, pkgs, ... }:
 
 let
     userConfig = build.config.provision.user;
@@ -34,7 +34,7 @@ in
     home.homeDirectory = userConfig."${hostname}".homeDirectory;
     home.username = userConfig."${hostname}".username;
     programs.alacritty.settings.font.size = 18.0;
-    programs.fish = import programs/fish;
+    programs.fish = import programs/fish pkgs;
     programs.git = import programs/git lib;
     programs.kitty.extraConfig = "font_size 18";
 }
