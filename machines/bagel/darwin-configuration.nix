@@ -64,6 +64,7 @@ in {
     '';
 
     system.checks.verifyNixPath = false;
+    system.defaults.NSGlobalDomain.ApplePressAndHoldEnabled = false;
     system.stateVersion = 4;
 
 }

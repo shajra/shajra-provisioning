@@ -15,6 +15,7 @@
     programs.kitty = import programs/kitty config pkgs;
     programs.noti.enable = true;
     programs.urxvt = import programs/urxvt config pkgs;
+    programs.vscode = import programs/vscode config pkgs;
 
     xdg.configFile = import xdg/configFile config pkgs;
 }

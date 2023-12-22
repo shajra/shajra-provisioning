@@ -9,9 +9,9 @@ let
     #    all-cabal-hashes = sources.all-cabal-hashes;
     #};
 
-    external.emacs = inputs.emacs-overlay.overlays.default;
-
-    external.nur   = inputs.nur.overlay;
+    external.emacs  = inputs.emacs-overlay.overlays.default;
+    external.nur    = inputs.nur.overlay;
+    external.vscode = inputs.vscode-overlay.overlays.default;
 
     external.sources = self: super: {
         sources = super.sources or {} // {
@@ -68,6 +68,7 @@ let
 in  [
     external.emacs
     external.nur
+    external.vscode
     external.sources
     external.packages
 ] ++ internal.overlays ++ [
