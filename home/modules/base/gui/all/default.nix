@@ -1,12 +1,39 @@
-{ config, pkgs, build, ... }:
+{ config, lib, pkgs, build, ... }:
 
-{
+let
+
+    vscodeSettingsBase =
+        if pkgs.stdenv.hostPlatform.isDarwin
+        then "Library/Application Support"
+        else "${config.xdg.configHome}";
+
+    vscodeSettings = "${vscodeSettingsBase}/Code/User/settings.json";
+
+in {
     imports = [
         ../../../ubiquity
         ../../tui/all
     ];
 
     fonts.fontconfig.enable = true;
+
+    # DESIGN: not using programs.vscode.settings to let VSCode override
+    # settings.
+
+    home.activation.removeVscodeMutableUserSettings =
+        lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
+            $DRY_RUN_CMD rm -f "${vscodeSettings}"
+        '';
+
+    home.activation.makeVscodeUserSettingsMutable =
+        lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+            $DRY_RUN_CMD rm -f "${vscodeSettings}"
+            $DRY_RUN_CMD cat \
+              ${(pkgs.formats.json {}).generate
+                  "vscode-settings.json"
+                  config.programs.vscode.userSettings} \
+              > "${vscodeSettings}"
+        '';
 
     home.extraPackages = build.pkgs.lists.base.gui.all;
 
