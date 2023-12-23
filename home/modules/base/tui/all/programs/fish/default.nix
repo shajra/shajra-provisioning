@@ -223,7 +223,8 @@ in
 
     interactiveShellInit = ''
         umask 077
-        set EDITOR vim
+        set -gx EDITOR vim
+        set -gx COLORTERM truecolor
         fish_vi_key_bindings
         ${
             if isDarwin
