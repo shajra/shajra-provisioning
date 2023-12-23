@@ -19,6 +19,7 @@ in {
         pkgs.vscode-marketplace.gruntfuggly.todo-tree
         pkgs.vscode-marketplace.vscodevim.vim
     ];
+    # DESIGN: home.activation script will make this mutable
     userSettings = {
         "editor.fontFamily" = fonts.monospaced.code.name;
         "editor.fontLigatures" = true;
