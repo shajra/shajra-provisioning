@@ -96,7 +96,7 @@ in
                     set targets ~/src/"${if isDarwin then "work" else "shajra"}"
                 end
                 echo
-                for d in (fd --type d --hidden --glob .git $targets)
+                for d in (fd --type d --hidden --no-ignore-vcs --glob .git $targets)
                     pushd $d
                     cd ..
                     starship prompt; echo
