@@ -35,6 +35,11 @@ let
         org2gfm = inputs'.nix-project.packages.org2gfm;
     };
 
+    external.modules = self: super: {
+        homeModules.vscode-server =
+            inputs.vscode-server.homeModules.default;
+    };
+
     internal.sources = self: super:
         let rejectFile = path: type: regex:
                 type != "regular" || builtins.match regex path == null;
@@ -70,6 +75,7 @@ in  [
     external.nur
     external.vscode
     external.sources
+    external.modules
     external.packages
 ] ++ internal.overlays ++ [
     internal.sources
