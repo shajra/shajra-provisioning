@@ -152,7 +152,7 @@ in {
     services.xserver.xkbOptions = "lv3:ralt_switch_multikey";
     services.xserver.xkbVariant = "altgr-intl";
 
-    system.stateVersion = "23.05";
+    system.stateVersion = "23.11";
 
     time.timeZone = "US/Central";
 
