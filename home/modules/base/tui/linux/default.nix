@@ -25,6 +25,7 @@ in
 
     services.gpg-agent.enable = true;
     services.gpg-agent.enableSshSupport = true;
+    services.gpg-agent.pinentryFlavor = "gnome3";
 
     xdg.mimeApps = import xdg/mimeApps;
 }

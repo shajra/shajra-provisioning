@@ -143,7 +143,7 @@ in {
         "freemind"
         "gimp"
         "inkscape"
-        "libreoffice"  # DESIGN: 2022-04-15: broke for Darwin
+        "libreoffice"  # DESIGN: Sometimes has broken build on Darwin
         "peek"
     ];
 
@@ -172,7 +172,7 @@ in {
         "stack"
         "haskell.compiler.ghc963"
         "haskell.packages.ghc963.apply-refact"
-        # "haskell.packages.ghc963.djinn"  # DESIGN: 2023-12-20: broken
+        # "haskell.packages.ghc963.djinn"  # REVISIT: 2023-12-20: broken
         "haskell.packages.ghc963.fast-tags"
         "haskell.packages.ghc963.ghc-events"
         "haskell.packages.ghc963.ghcid"
@@ -216,7 +216,7 @@ in {
     ];
 
     nixpkgs.build.base.gui.darwin = np.pick { darwin = "home"; } [
-        # DESIGN: Nixpkgs seems to have given up on Yabai and Skhd
+        # REVISIT: Nixpkgs seems to have given up on Yabai and Skhd
         #"yabai"
         #"skhd"
     ];
@@ -261,15 +261,15 @@ in {
         ;
 
     nixpkgs.build.unused.darwin = np.pick { darwin = "home"; } [
-        # DESIGN: emacsMacport broken for M1
+        # REVISIT: emacsMacport broken for M1
         # https://github.com/NixOS/nixpkgs/issues/127902
-        # DESIGN: note emacsMacport doesn't have native compilation
+        # REVISIT: note emacsMacport doesn't have native compilation
         # https://github.com/railwaycat/homebrew-emacsmacport/issues/274
         #"emacsMacport"
     ];
 
     nixpkgs.build.unused.linux = np.pick { linux = "home"; } [
-        # DESIGN: https://github.com/doomemacs/doomemacs#prerequisites
+        # REVISIT: https://github.com/doomemacs/doomemacs#prerequisites
         # using emacs29 over emacs-unstable to hit Nixpkgs cache
         "emacs29"
     ];
@@ -294,7 +294,7 @@ in {
         #// (hn.fromHackage "ghc963" "threadscope")
         #// (hn.fromHackageCustomized "ghc963" "stylish-haskell" { configureArgs = "-f ghc-lib"; })
 
-        # DESIGN: marked broken in Nixpkgs, doesn't seem to build with
+        # REVISIT: marked broken in Nixpkgs, doesn't seem to build with
         # Haskell.nix either (need to look for a modern alternative exists)
         #// (hn.fromHackage "ghc963" "ghc-events-analyze")
     );
