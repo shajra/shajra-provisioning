@@ -267,7 +267,7 @@ After a successful call of `nix build`, you'll see one or more symlinks for each
 readlink result*
 ```
 
-    /nix/store/3yq7m1kgmkp4mkx2av8h3my22g0f135l-home-manager
+    /nix/store/1m12mjma68dw63d4m2rv5vmchy9402vx-home-manager
 
 Following these symlinks, we can see the files the project provides:
 
@@ -295,7 +295,7 @@ It's common to configure these “result” symlinks as ignored in source contro
 nix path-info .#home-manager
 ```
 
-    /nix/store/3yq7m1kgmkp4mkx2av8h3my22g0f135l-home-manager
+    /nix/store/1m12mjma68dw63d4m2rv5vmchy9402vx-home-manager
 
 ## Running commands in a shell<a id="sec-4-6"></a>
 
@@ -311,7 +311,7 @@ nix shell \
     --command home-manager --help
 ```
 
-    Usage: /nix/store/3yq7m1kgmkp4mkx2av8h3my22g0f135l-home-manager/bin/home-manager [OPTION] COMMAND
+    Usage: /nix/store/1m12mjma68dw63d4m2rv5vmchy9402vx-home-manager/bin/home-manager [OPTION] COMMAND
     
     Options
     
@@ -361,7 +361,7 @@ Here's the `nix run` equivalent of the `nix shell` invocation from the previous 
 nix run .#home-manager  -- --help
 ```
 
-    Usage: /nix/store/3yq7m1kgmkp4mkx2av8h3my22g0f135l-home-manager/bin/home-manager [OPTION] COMMAND
+    Usage: /nix/store/1m12mjma68dw63d4m2rv5vmchy9402vx-home-manager/bin/home-manager [OPTION] COMMAND
     
     Options
     
@@ -408,7 +408,7 @@ nix shell --ignore-environment \
     --command which home-manager
 ```
 
-    /nix/store/3yq7m1kgmkp4mkx2av8h3my22g0f135l-home-manager/bin/home-manager
+    /nix/store/1m12mjma68dw63d4m2rv5vmchy9402vx-home-manager/bin/home-manager
 
 This is all a consequence of everything discussed in previous sections, but it's good to see clearly that what we do with local flake references can work just as well with remote flake references.
 
@@ -436,7 +436,7 @@ nix profile list
     Flake attribute:    packages.x86_64-linux.home-manager
     Original flake URL: git+file:///home/tnks/src/shajra/shajra-provisioning
     Locked flake URL:   git+file:///home/tnks/src/shajra/shajra-provisioning
-    Store paths:        /nix/store/3yq7m1kgmkp4mkx2av8h3my22g0f135l-home-manager
+    Store paths:        /nix/store/1m12mjma68dw63d4m2rv5vmchy9402vx-home-manager
 
 If we want to uninstall a program from our profile, we do so by the index from this list:
 
