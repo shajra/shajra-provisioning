@@ -17,9 +17,12 @@ in {
 
     fonts.fontconfig.enable = true;
 
-    # DESIGN: not using programs.vscode.settings to let VSCode override
-    # settings.
-
+    # DESIGN: Allows VSCode to override settings, but everything will be lost
+    # upon a home-manager switch.
+    #
+    # REVISIT: Might want to complicate logic to more easily catch changes or
+    # maybe save them off as backups.
+    #
     home.activation.removeVscodeMutableUserSettings =
         lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
             $DRY_RUN_CMD rm -f "${vscodeSettings}"
