@@ -19,18 +19,69 @@ in {
         pkgs.vscode-marketplace.gruntfuggly.todo-tree
         pkgs.vscode-marketplace.vscodevim.vim
     ];
+
     # DESIGN: home.activation script will make this mutable
     userSettings = {
         "editor.fontFamily" = fonts.monospaced.code.name;
         "editor.fontLigatures" = true;
         "editor.fontSize" = 12;
         "files.trimTrailingWhitespace" = true;
-        "remote.SSH.useLocalServer" = false;
+        "grammarly.files.include" = [
+            "**/readme.md"
+              "**/README.md"
+              "**/*.txt"
+              "**/*.org"
+        ];
         "remote.SSH.remotePlatform".cake = "linux";
         "remote.SSH.remotePlatform".shajra = "linux";
+        "remote.SSH.useLocalServer" = false;
         "terminal.integrated.fontFamily" = fonts.monospaced.code.name;
         "terminal.integrated.fontSize" = 12;
-        "workbench.colorTheme" = "Solarized Light";
+        "vim.easymotion" = true;
         "vim.enableNeovim" = true;
+        "vim.normalModeKeyBindingsNonRecursive" = [
+          {
+              "before" = [ "<space>" ];
+              "commands" = [ "vspacecode.space" ];
+          }
+          {
+              "before" = ["," ];
+              "commands" = [
+                  "vspacecode.space"
+                  {
+                    "command" = "whichkey.triggerKey";
+                    "args" = "m";
+                  }
+              ];
+          }
+        ];
+        "vim.useSystemClipboard" = true;
+        "vim.visualModeKeyBindingsNonRecursive" = [
+            {
+               "before" = [ "<space>" ];
+                "commands" = [ "vspacecode.space" ];
+            }
+            {
+                "before" = [ "," ];
+                "commands" = [
+                    "vspacecode.space"
+                    {
+                        "command" = "whichkey.triggerKey";
+                        "args" = "m";
+                    }
+                ];
+            }
+            {
+                "before" = [ ">" ];
+                "commands" = [ "editor.action.indentLines" ];
+            }
+            {
+                "before" = [ "<" ];
+                "commands" = [ "editor.action.outdentLines" ];
+            }
+        ];
+        "whichkey.delay" = 250;
+        "window.menuBarVisibility" = "toggle";
+        "workbench.colorTheme" = "Solarized Light";
     };
 }

@@ -202,7 +202,7 @@ let
                 name =
                     if isDarwin
                     then "Source Serif 4"
-                    else "SourceSerif4";
+                    else "Source Serif 4";
                 package = pkgs.source-serif;
             };
         };
