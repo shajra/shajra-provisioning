@@ -34,24 +34,10 @@
 
 (add-to-list '+org-babel-mode-alist '(fish . shell))
 
-;; DESIGN: this is a hack to deal with the modeline getting too big.  See the
-;; code for ‘doom-modeline--font-height’ to get a glimpse at how this is just a
-;; hack on top of what is looks like already a hack.
-;;
-;; I believe that all the settings below in tandem should work fine across
-;; different computers and displays.
-;;
-(custom-set-faces!
-  '(mode-line :family "@theme_font_proportional@" :height 0.9)
-  '(mode-line-inactive :family "@theme_font_proportional@" :height 0.9))
-(advice-add #'doom-modeline--font-height :override #'(lambda () (progn 28)))
-
 ;; DESIGN: light override of Solarized Light theme
 ;;
 (custom-set-faces!
-  `(highlight :background ,(doom-color '@theme_color_highlight@))
-  `(cursor :background ,(doom-color '@theme_color_unifying@))
-  `(doom-themes-treemacs-file-face :foreground ,(doom-color '@theme_color_unifying@)))
+  `(cursor :background ,(doom-color '@theme_color_unifying@)))
 
 
 ;; Function calls
