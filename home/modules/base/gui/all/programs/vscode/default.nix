@@ -32,6 +32,7 @@ in {
               "**/*.txt"
               "**/*.org"
         ];
+        "problems.sortOrder" = "position";
         "remote.SSH.remotePlatform".cake = "linux";
         "remote.SSH.remotePlatform".shajra = "linux";
         "remote.SSH.useLocalServer" = false;
@@ -80,7 +81,7 @@ in {
                 "commands" = [ "editor.action.outdentLines" ];
             }
         ];
-        "whichkey.delay" = 250;
+        "whichkey.delay" = 350;
         "window.menuBarVisibility" = "toggle";
         "workbench.colorTheme" = "Solarized Light";
     };
