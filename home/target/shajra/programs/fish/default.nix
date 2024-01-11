@@ -1,4 +1,13 @@
 {
+    interactiveShellInit = ''
+        set --export --universal SFT_AUTH_SOCK (
+            find /var/run/sftd/client_trust_forwarding/shajra \
+            -type s -exec stat -c "%Y %n" {} \; \
+            | sort -n | tail -n 1 | awk '{print $2}'
+        )
+        set --erase --global SFT_AUTH_SOCK
+    '';
+
     shellAliases = {
         psql-brake-ro =
             ''PGPASSWORD=brakero psql --host=10.26.147.22 -U brakero brake'';
