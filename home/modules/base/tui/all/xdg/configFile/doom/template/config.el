@@ -27,7 +27,7 @@
  org-agenda-show-all-dates nil
  org-log-into-drawer t
  org-startup-folded 'content
- projectile-project-search-path '("~/src/work/" "~/src/shajra/")
+ projectile-project-search-path '(("~/src/work" . 2) ("~/src/shajra" . 2))
  warning-suppress-types '((with-editor))
  whitespace-line-column 79
  x-select-enable-clipboard (eq system-type 'darwin))
