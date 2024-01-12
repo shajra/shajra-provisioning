@@ -23,6 +23,10 @@
         lieer                  = { url = github:gauteh/lieer; flake = false; };
         moneydance             = { url = tarball+https://infinitekind.com/stabledl/current/moneydance-linux.tar.gz; flake = false; };
         pointless-xcompose     = { url = github:leoboiko/pointless-xcompose; flake = false; };
+        sf-symbols             = { url = https://devimages-cdn.apple.com/design/resources/download/SF-Symbols-5.dmg; flake = false; };
+        sketchybar-font-dist   = { url = https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v1.0.21/sketchybar-app-font.ttf; flake = false; };
+        sketchybar-font-src    = { url = github:kvndrsslr/sketchybar-app-font; flake = false; };
+        sketchybar-lua         = { url = github:FelixKratz/SbarLua; flake = false; };
         xcompose               = { url = github:kragen/xcompose; flake = false; };
     };
 

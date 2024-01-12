@@ -8,9 +8,10 @@ in {
         ../../tui/darwin
     ];
 
-    home.file = import home/file config pkgs;
     home.extraPackages = build.pkgs.lists.base.tui.darwin;
 
     programs.fish = import programs/fish pkgs;
     programs.kitty = import programs/kitty config kitty;
+
+    xdg.configFile = import xdg/configFile config pkgs;
 }

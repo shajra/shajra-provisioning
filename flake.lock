@@ -1418,10 +1418,26 @@
         "nix-project": "nix-project_2",
         "nur": "nur",
         "pointless-xcompose": "pointless-xcompose",
+        "sf-symbols": "sf-symbols",
         "shajra-private": "shajra-private",
+        "sketchybar-font-dist": "sketchybar-font-dist",
+        "sketchybar-font-src": "sketchybar-font-src",
+        "sketchybar-lua": "sketchybar-lua",
         "vscode-overlay": "vscode-overlay",
         "vscode-server": "vscode-server",
         "xcompose": "xcompose"
+      }
+    },
+    "sf-symbols": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-53aF5NbuuFo+2pukPER9SVEL2VKawlaEyObc8W10DJo=",
+        "type": "file",
+        "url": "https://devimages-cdn.apple.com/design/resources/download/SF-Symbols-5.dmg"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://devimages-cdn.apple.com/design/resources/download/SF-Symbols-5.dmg"
       }
     },
     "shajra-private": {
@@ -1434,6 +1450,50 @@
       "original": {
         "id": "shajra-private",
         "type": "indirect"
+      }
+    },
+    "sketchybar-font-dist": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-RGRfmAqQEzwr4j1mAJrgoPPX/CphRMkdT5JjB3lJB6w=",
+        "type": "file",
+        "url": "https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v1.0.21/sketchybar-app-font.ttf"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v1.0.21/sketchybar-app-font.ttf"
+      }
+    },
+    "sketchybar-font-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1703747113,
+        "narHash": "sha256-pN5YoC7c8xlMLo55S+V9znfhxyCS9gxjn3dqi2ovPzQ=",
+        "owner": "kvndrsslr",
+        "repo": "sketchybar-app-font",
+        "rev": "d901560923d997fa490a3a446b5120256f3b7d5f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kvndrsslr",
+        "repo": "sketchybar-app-font",
+        "type": "github"
+      }
+    },
+    "sketchybar-lua": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1704871500,
+        "narHash": "sha256-TNM6vJQEThKe91Ps+JH7MXVfoyrhwgRQa3fyuMfXQ48=",
+        "owner": "FelixKratz",
+        "repo": "SbarLua",
+        "rev": "260de153682ad01e918a894fa9b4ac9eadb41004",
+        "type": "github"
+      },
+      "original": {
+        "owner": "FelixKratz",
+        "repo": "SbarLua",
+        "type": "github"
       }
     },
     "stackage": {

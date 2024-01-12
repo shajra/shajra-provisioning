@@ -25,6 +25,10 @@ let
                 lieer
                 moneydance
                 pointless-xcompose
+                sf-symbols
+                sketchybar-font-dist
+                sketchybar-font-src
+                sketchybar-lua
                 xcompose;
         };
     };
