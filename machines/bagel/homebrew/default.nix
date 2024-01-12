@@ -12,12 +12,14 @@
         "homebrew/cask-versions"
         "homebrew/services"
         "koekeishiya/formulae"
+        "FelixKratz/formulae"
     ];
 
     brews = [
+        "borders"
+        "sketchybar"
         "skhd"
         "yabai"
-        "svn"  # DESIGN: needed for Source Code Pro
 
         # DESIGN: not needed for now
         #"kubernetes-cli"
@@ -26,9 +28,6 @@
     casks = [
         "discord"
         "firefox"
-        "font-awesome-terminal-fonts"
-        "font-fontawesome"
-        "font-source-code-pro"
         "google-chrome-beta"
         "iterm2"
         "karabiner-elements"

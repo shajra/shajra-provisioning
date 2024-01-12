@@ -22,21 +22,16 @@ kitty: jq:
 :: default    : yabai -m config active_window_border_color 0xffb58900; yabai -m config window_border_width  4
 :: passthru   : yabai -m config active_window_border_color 0xffd33682; yabai -m config window_border_width  8
 :: size     @ : yabai -m config active_window_border_color 0xff859900; yabai -m config window_border_width 12
-:: ins      @ : yabai -m config active_window_border_color 0xff268bd2; yabai -m config window_border_width 12
 
 # mode: returning home
-size, ins, passthru < lalt + shift - escape ; default
-size, ins, passthru < lalt         - escape ; default
-size, ins           <                escape ; default
-size, ins           <                return ; default
+size, passthru < lalt + shift - escape ; default
+size, passthru < lalt         - escape ; default
+size           <                escape ; default
+size           <                return ; default
 
 # mode: resizing, with toggle back
 lalt        - s ; size
 size < lalt - s ; default
-
-# mode: insertion, with toggle back
-lalt       - i ; ins
-ins < lalt - i ; default
 
 # mode: passthrough, with toggle back
 lalt            - escape ; passthru
@@ -44,13 +39,17 @@ passthru < lalt - escape ; default
 
 # open terminal
 #lalt - return : alacritty # no args
-lalt - return : ${kitty} --single-instance --wait-for-single-instance-window-close --directory ~
+lalt - return : "${kitty}" --single-instance --wait-for-single-instance-window-close --directory ~
 
 # focus window
-lalt - h : yabai -m window --focus west
-lalt - j : yabai -m window --focus south
-lalt - k : yabai -m window --focus north
-lalt - l : yabai -m window --focus east
+lalt - h : yabai -m window  --focus west  \
+        || yabai -m display --focus west
+lalt - j : yabai -m window  --focus south \
+        || yabai -m display --focus south
+lalt - k : yabai -m window  --focus north \
+        || yabai -m display --focus north
+lalt - l : yabai -m window  --focus east  \
+        || yabai -m display --focus east
 
 # increase window size
 size < lalt - h : yabai -m window --resize left:-20:0
@@ -65,17 +64,21 @@ size < lalt + shift - k : yabai -m window --resize top:0:20
 size < lalt + shift - l : yabai -m window --resize right:-20:0
 
 # set insertion point in focused container
-ins < lalt - i : yabai -m window --insert cancel
-ins < lalt - h : yabai -m window --insert west
-ins < lalt - j : yabai -m window --insert south
-ins < lalt - k : yabai -m window --insert north
-ins < lalt - l : yabai -m window --insert east
+lalt + cmd - i : yabai -m window --insert cancel
+lalt + cmd - h : yabai -m window --insert west
+lalt + cmd - j : yabai -m window --insert south
+lalt + cmd - k : yabai -m window --insert north
+lalt + cmd - l : yabai -m window --insert east
 
-# swap window
-lalt + shift - h : yabai -m window --swap west
-lalt + shift - j : yabai -m window --swap south
-lalt + shift - k : yabai -m window --swap north
-lalt + shift - l : yabai -m window --swap east
+# swap or move window
+lalt + shift - h : yabai -m window --swap west  \
+                || yabai -m window --move rel:-20:0
+lalt + shift - j : yabai -m window --swap south \
+                || yabai -m window --move rel:0:20
+lalt + shift - k : yabai -m window --swap north \
+                || yabai -m window --move rel:0:-20
+lalt + shift - l : yabai -m window --swap east  \
+                || yabai -m window --move rel:20:0
 
 # warp window
 lcmd + shift - h [
@@ -94,12 +97,6 @@ lcmd + shift - l [
     "google chrome beta" ~
     * : yabai -m window --warp east
 ]
-
-# move window
-lalt + cmd - h : yabai -m window --move rel:-20:0
-lalt + cmd - j : yabai -m window --move rel:0:20
-lalt + cmd - k : yabai -m window --move rel:0:-20
-lalt + cmd - l : yabai -m window --move rel:20:0
 
 # make floating window fill left-half of screen
 lalt + cmd + shift - h : yabai -m window --grid 1:2:0:0:1:1
@@ -159,51 +156,63 @@ lalt + shift - 9 : yabai -m window --space 9
 # send window to desktop and follow focus
 lcmd + shift - 0x2C [
     "google chrome beta" ~
-    * : yabai -m window --space last; yabai -m space --focus last
+    * : yabai -m window --space last \
+     && yabai -m space --focus last
 ]
 lcmd + shift - 0x2B [
     "google chrome beta" ~
-    * : yabai -m window --space prev; yabai -m space --focus prev
+    * : yabai -m window --space prev \
+     && yabai -m space --focus prev
 ]
 lcmd + shift - 0x2F [
     "google chrome beta" ~
-    * : yabai -m window --space next; yabai -m space --focus next
+    * : yabai -m window --space next \
+     && yabai -m space --focus next
 ]
 lcmd + shift - 1 [
     "google chrome beta" ~
-    * : yabai -m window --space  1; yabai -m space --focus 1
+    * : yabai -m window --space  1 \
+     && yabai -m space --focus 1
 ]
 lcmd + shift - 2 [
     "google chrome beta" ~
-    * : yabai -m window --space  2; yabai -m space --focus 2
+    * : yabai -m window --space  2 \
+     && yabai -m space --focus 2
 ]
 lcmd + shift - 3 [
     "google chrome beta" ~
-    * : yabai -m window --space  3; yabai -m space --focus 3
+    * : yabai -m window --space  3 \
+     && yabai -m space --focus 3
 ]
 lcmd + shift - 4 [
     "google chrome beta" ~
-    * : yabai -m window --space  4; yabai -m space --focus 4
+    * : yabai -m window --space  4 \
+     && yabai -m space --focus 4
 ]
 lcmd + shift - 5 [
     "google chrome beta" ~
-    * : yabai -m window --space  5; yabai -m space --focus 5
+    * : yabai -m window --space  5 \
+     && yabai -m space --focus 5
 ]
 lcmd + shift - 6 [
     "google chrome beta" ~
-    * : yabai -m window --space  6; yabai -m space --focus 6
+    * : yabai -m window --space  6 \
+     && yabai -m space --focus 6
 ]
 lcmd + shift - 7 [
     "google chrome beta" ~
-    * : yabai -m window --space  7; yabai -m space --focus 7
+    * : yabai -m window --space  7 \
+     && yabai -m space --focus 7
 ]
 lcmd + shift - 8 [
     "google chrome beta" ~
-    * : yabai -m window --space  8; yabai -m space --focus 8
+    * : yabai -m window --space  8 \
+     && yabai -m space --focus 8
 ]
 lcmd + shift - 9 [
     "google chrome beta" ~
-    * : yabai -m window --space  9; yabai -m space --focus 9
+    * : yabai -m window --space  9 \
+     && yabai -m space --focus 9
 ]
 
 # focus monitor
@@ -215,12 +224,12 @@ lalt + cmd - 2 : yabai -m display --focus 2
 lalt + cmd - 3 : yabai -m display --focus 3
 
 # send window to monitor and follow focus
-lalt + cmd + shift - 0x2C : yabai -m window --display last; yabai -m display --focus last
-lalt + cmd + shift - 0x2B : yabai -m window --display prev; yabai -m display --focus prev
-lalt + cmd + shift - 0x2F : yabai -m window --display next; yabai -m display --focus next
-lalt + cmd + shift - 1 : yabai -m window --display 1; yabai -m display --focus 1
-lalt + cmd + shift - 2 : yabai -m window --display 2; yabai -m display --focus 2
-lalt + cmd + shift - 3 : yabai -m window --display 3; yabai -m display --focus 3
+lalt + cmd + shift - 0x2C : yabai -m window --display last && yabai -m display --focus last
+lalt + cmd + shift - 0x2B : yabai -m window --display prev && yabai -m display --focus prev
+lalt + cmd + shift - 0x2F : yabai -m window --display next && yabai -m display --focus next
+lalt + cmd + shift - 1 : yabai -m window --display 1 && yabai -m display --focus 1
+lalt + cmd + shift - 2 : yabai -m window --display 2 && yabai -m display --focus 2
+lalt + cmd + shift - 3 : yabai -m window --display 3 && yabai -m display --focus 3
 
 # rotate tree
 lalt - r : yabai -m space --rotate 90
@@ -232,43 +241,47 @@ lalt - y : yabai -m space --mirror y-axis
 lalt - x : yabai -m space --mirror x-axis
 
 # toggle desktop offset
-lalt - o : yabai -m space --toggle padding; yabai -m space --toggle gap
+lalt - o : yabai -m space --toggle padding && yabai -m space --toggle gap
 
 # close window
 lalt - q : yabai -m window --close
 
 # toggle window parent zoom
-lalt - d : yabai -m window --toggle zoom-parent
+lalt - m : yabai -m window --toggle zoom-parent; \
+           sketchybar --trigger window_focus
 
 # toggle window fullscreen zoom
-lalt - f : yabai -m window --toggle zoom-fullscreen
+lalt - f : yabai -m window --toggle zoom-fullscreen; \
+           sketchybar --trigger window_focus
 
 # toggle window native fullscreen
-lalt + shift - space : yabai -m window --toggle native-fullscreen
-
-# toggle window border
-lalt - b : yabai -m window --toggle border
+lalt + shift - f : \
+    yabai -m window --toggle native-fullscreen; \
+    sketchybar --trigger window_focus
 
 # toggle window split type
 lalt - e : yabai -m window --toggle split
 
 # float / unfloat window and center on screen
-lalt - t : yabai -m window --toggle float;\
-           yabai -m window --grid 4:4:1:1:2:2
+lalt + shift - space : \
+    yabai -m window --toggle float &&   \
+    yabai -m window --grid 4:4:1:1:2:2; \
+    sketchybar --trigger window_focus
 
 # toggle sticky
 lalt + shift - s : yabai -m window --toggle sticky
 
 # toggle sticky, float and resize to picture-in-picture size
-lalt - p : yabai -m window --toggle sticky;\
-          yabai -m window --grid 5:5:4:0:1:1
+lalt - p : yabai -m window --toggle sticky && \
+           yabai -m window --grid 5:5:4:0:1:1 \
 
 # toggle mission control (application-level)
 lalt - a : yabai -m window --toggle expose
 
-# layouts
-lalt + shift - f : yabai -m space --layout float
-lcmd + shift - f : yabai -m space --layout bsp
+# DESIGN: not sure this is a good idea
+# layout
+#lalt + shift - f : yabai -m space --layout float
+#lcmd + shift - f : yabai -m space --layout bsp
 
 .blacklist [
     "VMware Fusion"

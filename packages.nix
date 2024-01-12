@@ -41,6 +41,8 @@ in {
         "noto-fonts-emoji"           # popular font, might like it
         "noto-fonts-extra"           # popular font, might like it
         "noto-fonts"                 # popular font, might like it
+        "sf-symbols"                 # font with application icons
+        "sketchybar-font"            # font with application icons
         "source-serif"               # serif font to complement Sauce Code Pro
         "symbola"                    # another Unicode fallback font
     ];
