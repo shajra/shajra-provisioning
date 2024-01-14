@@ -85,7 +85,7 @@
   ;;dhall
   emacs-lisp
   ;;(ess +lsp)
-  ;;(go +lsp +tree-sitter)
+  go
   ;;(graphql +lsp)
   (haskell +lsp)
   ;;(haskell-extn +dante +lsp)
@@ -99,6 +99,7 @@
   (latex
     ;;+lsp
   )
+  lua
   (markdown +grip)
   (nix
     +tree-sitter
