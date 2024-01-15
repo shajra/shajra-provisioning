@@ -18,7 +18,7 @@ local function space_selection(env)
     sbar.set(env.NAME, {
         icon = {highlight = env.SELECTED},
         label = {highlight = env.SELECTED},
-        background = {color = bg_color, corner_radius = 0}
+        background = {color = bg_color}
     })
 end
 
@@ -39,7 +39,10 @@ end
 for i = 1, 10, 1 do
     local space = sbar.add("space", {
         associated_space = i,
-        background = {color = colors.unselected.background},
+        background = {
+            color = colors.unselected.background,
+            corner_radius = 6
+        },
         icon = {
             string = i,
             padding_left = 10,
