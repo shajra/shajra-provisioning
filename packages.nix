@@ -189,6 +189,11 @@ in {
     nixpkgs.prebuilt.programming.java = pickHome [
     ];
 
+    nixpkgs.prebuilt.programming.lua = pickHome [
+        "luaformatter"
+        "lua5_4"
+    ];
+
     nixpkgs.prebuilt.programming.python = pickHome [
         "python3"
     ];
