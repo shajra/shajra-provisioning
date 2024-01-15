@@ -1,11 +1,11 @@
-kitty: jq:
+kitty: jq: colors:
 
 ''
 # Strategy for keybindings:
 #
 # - left-only modifiers are used to allow right-variants when conflicts
 # - lalt is used most often, lcmd as a small alternate
-# - h/j/k/l is used for directionality consitently
+# - h/j/k/l is used for consistent directionality
 # - digits are used for desktops and monitors
 # - where possible shift implies moving of some sort
 # - modifiers combinations are used in the following precedence:
@@ -19,9 +19,13 @@ kitty: jq:
 # codes should be.
 
 # define modes
-:: default    : yabai -m config active_window_border_color 0xffb58900; yabai -m config window_border_width  4
-:: passthru   : yabai -m config active_window_border_color 0xffd33682; yabai -m config window_border_width  8
-:: size     @ : yabai -m config active_window_border_color 0xff859900; yabai -m config window_border_width 12
+:: default    : \
+    borders \
+        width=8.0 \
+        active_color=${colors.window.selected.focused.border.window} ; \
+    sketchybar --bar border_color=${colors.semantic.unifying}
+:: passthru   : sketchybar --bar border_color=${colors.semantic.warning}
+:: size     @ : borders width=8.0 active_color=${colors.semantic.info}
 
 # mode: returning home
 size, passthru < lalt + shift - escape ; default

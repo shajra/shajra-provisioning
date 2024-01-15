@@ -42,7 +42,9 @@ in {
         } > "$out/emojis.lua"
         chmod +x "$out/sketchybarrc"
     '';
-    "skhd/skhdrc".text = import skhd/skhdrc.nix kitty jq;
-    "yabai/yabairc".source = yabai/yabairc;
+    "skhd/skhdrc".text = import skhd/skhdrc.nix kitty jq colors;
+    "yabai/yabairc".text = import yabai/yabairc.nix colors;
     "yabai/yabairc".executable = true;
+    "borders/bordersrc".text = import borders/bordersrc.nix colors;
+    "borders/bordersrc".executable = true;
 }

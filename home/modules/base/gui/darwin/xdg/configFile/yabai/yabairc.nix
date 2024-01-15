@@ -1,3 +1,6 @@
+colors:
+
+''
 #!/usr/bin/env sh
 
 # initialization
@@ -20,7 +23,7 @@ yabai -m config window_opacity_duration      0.2
 yabai -m config active_window_opacity        1.0
 yabai -m config normal_window_opacity        0.95
 yabai -m config window_animation_duration    0.3
-yabai -m config insert_feedback_color        0xff859900
+yabai -m config insert_feedback_color        ${colors.semantic.unifying}
 yabai -m config split_ratio                  0.50
 yabai -m config split_type                   auto
 yabai -m config auto_balance                 off
@@ -42,3 +45,4 @@ yabai -m config window_gap                   12
 yabai -m rule --add app="Emacs" role="AXTextField" subrole="AXStandardWindow" manage=on
 
 echo "yabai configuration loaded..."
+''
