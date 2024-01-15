@@ -23,6 +23,7 @@ in
         ../../modules/programming/general
         #../../modules/programming/haskell  # long build, not cached
         ../../modules/programming/java
+        ../../modules/programming/lua
         ../../modules/programming/python
         ../../modules/programming/scala
         ../../modules/programming/shell
