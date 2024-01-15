@@ -10,6 +10,7 @@ return {
         _10 = "􀊡",
         _0 = "􀊣"
     },
+    wifi = {connected = "􀙇", disconnected = "􀙈"},
     battery = {
         _100 = "􀛨",
         _75 = "􀺸",
