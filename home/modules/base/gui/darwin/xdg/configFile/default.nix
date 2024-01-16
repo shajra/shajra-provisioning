@@ -2,9 +2,6 @@ config: pkgs:
 
 let
 
-    kitty = "${config.programs.kitty.package}/bin/kitty";
-    jq    = "${pkgs.jq}/bin/jq";
-
     format = f: x: pkgs.lib.colors.format "0xff%R%G%B" (f x);
     id = x: x;
     foregroundFor = config.theme.colors.nominal.foregroundFor;
@@ -42,7 +39,7 @@ in {
         } > "$out/emojis.lua"
         chmod +x "$out/sketchybarrc"
     '';
-    "skhd/skhdrc".text = import skhd/skhdrc.nix kitty jq colors;
+    "skhd/skhdrc".text = import skhd/skhdrc.nix config pkgs colors;
     "yabai/yabairc".text = import yabai/yabairc.nix colors;
     "yabai/yabairc".executable = true;
     "borders/bordersrc".text = import borders/bordersrc.nix colors;
