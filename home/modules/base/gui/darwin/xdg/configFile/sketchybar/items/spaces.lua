@@ -23,8 +23,17 @@ local function space_selection(env)
 end
 
 local function space_windows_change(env)
+    local log = io.open("/Users/shajra/sketchy.log", "a")
+    local space, apps = nil, nil
+    if env.INFO then
+        space = env.INFO.space
+        apps = env.INFO.apps
+    else
+        space = tonumber(env.SPACE)
+        apps = load(env.APPS)()
+    end
     local app_emojis = {}
-    for name, _ in pairs(env.INFO.apps) do
+    for name, _ in pairs(apps) do
         table.insert(app_emojis, emojis[name] or ":default:")
     end
     icon_strip = "—"
@@ -32,7 +41,7 @@ local function space_windows_change(env)
         icon_strip = table.concat(app_emojis, " ")
     end
     sbar.animate("tanh", 10, function()
-        sbar.set(spaces[env.INFO.space], {label = icon_strip})
+        sbar.set(spaces[space], {label = icon_strip})
     end)
 end
 

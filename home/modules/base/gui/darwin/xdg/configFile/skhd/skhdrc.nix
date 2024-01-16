@@ -1,6 +1,42 @@
-kitty: jq: colors:
+config: pkgs: colors:
 
-''
+let
+
+    jq    = "${pkgs.jq}/bin/jq";
+    kitty = "${config.programs.kitty.package}/bin/kitty";
+
+    swap-script = pkgs.writeShellScriptBin "swap" ''
+        set -e
+        set -o pipefail
+
+        index() {
+            yabai -m query --spaces "''${@}" | ${jq} .index
+        }
+
+        apps() {
+            yabai -m query --windows "''${@}" \
+            | ${jq} -r '
+                reduce .[].app as $app ({}; .[$app] += 1)
+                | to_entries
+                | map("[\"" + .key + "\"]=" + (.value|tostring))
+                | "return{" + join(",") + "}"
+            '
+        }
+
+        OLD="$(index --space)"
+        index --space "$1" > /dev/null
+        NEW="$(index --space "$1")"
+        yabai -m space --swap "$1"
+        sketchybar --trigger space_change
+        sketchybar --trigger space_windows_change \
+            SPACE="$OLD" APPS="$(apps --space "$OLD")"
+        sketchybar --trigger space_windows_change \
+            SPACE="$NEW" APPS="$(apps --space "$NEW")"
+    '';
+
+    swap = "${swap-script}/bin/swap";
+
+in ''
 # Strategy for keybindings:
 #
 # - left-only modifiers are used to allow right-variants when conflicts
@@ -219,21 +255,19 @@ lcmd + shift - 9 [
      && yabai -m space --focus 9
 ]
 
-# focus monitor
-lalt + cmd - 0x2C : yabai -m display --focus last
-lalt + cmd - 0x2B : yabai -m display --focus prev
-lalt + cmd - 0x2F : yabai -m display --focus next
-lalt + cmd - 1 : yabai -m display --focus 1
-lalt + cmd - 2 : yabai -m display --focus 2
-lalt + cmd - 3 : yabai -m display --focus 3
-
-# send window to monitor and follow focus
-lalt + cmd + shift - 0x2C : yabai -m window --display last && yabai -m display --focus last
-lalt + cmd + shift - 0x2B : yabai -m window --display prev && yabai -m display --focus prev
-lalt + cmd + shift - 0x2F : yabai -m window --display next && yabai -m display --focus next
-lalt + cmd + shift - 1 : yabai -m window --display 1 && yabai -m display --focus 1
-lalt + cmd + shift - 2 : yabai -m window --display 2 && yabai -m display --focus 2
-lalt + cmd + shift - 3 : yabai -m window --display 3 && yabai -m display --focus 3
+# swap spaces
+lalt + cmd - 0x2C : ${swap} last
+lalt + cmd - 0x2B : ${swap} prev
+lalt + cmd - 0x2F : ${swap} next
+lalt + cmd - 1 : ${swap} 1
+lalt + cmd - 2 : ${swap} 2
+lalt + cmd - 3 : ${swap} 3
+lalt + cmd - 4 : ${swap} 4
+lalt + cmd - 5 : ${swap} 5
+lalt + cmd - 6 : ${swap} 6
+lalt + cmd - 7 : ${swap} 7
+lalt + cmd - 8 : ${swap} 8
+lalt + cmd - 9 : ${swap} 9
 
 # rotate tree
 lalt - r : yabai -m space --rotate 90
