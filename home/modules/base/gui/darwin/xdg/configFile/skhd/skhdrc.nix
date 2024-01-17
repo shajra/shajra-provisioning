@@ -5,36 +5,44 @@ let
     jq    = "${pkgs.jq}/bin/jq";
     kitty = "${config.programs.kitty.package}/bin/kitty";
 
-    swap-script = pkgs.writeShellScriptBin "swap" ''
-        set -e
-        set -o pipefail
-
-        index() {
-            yabai -m query --spaces "''${@}" | ${jq} .index
-        }
-
+    refresh-apps-script = pkgs.writeShellScriptBin "refresh-apps" ''
         apps() {
-            yabai -m query --windows "''${@}" \
-            | ${jq} -r '
+            yabai -m query --windows --space "$1" \
+            | "${jq}" -r '
                 reduce .[].app as $app ({}; .[$app] += 1)
                 | to_entries
                 | map("[\"" + .key + "\"]=" + (.value|tostring))
                 | "return{" + join(",") + "}"
             '
         }
-
-        OLD="$(index --space)"
-        index --space "$1" > /dev/null
-        NEW="$(index --space "$1")"
-        yabai -m space --swap "$1"
-        sketchybar --trigger space_change
-        sketchybar --trigger space_windows_change \
-            SPACE="$OLD" APPS="$(apps --space "$OLD")"
-        sketchybar --trigger space_windows_change \
-            SPACE="$NEW" APPS="$(apps --space "$NEW")"
+        yabai -m query --spaces --display | "${jq}" '.[].index' | while read -r space
+        do
+            sketchybar --trigger space_windows_change \
+                SPACE="$space" APPS="$(apps "$space")"
+        done
     '';
+    refresh-apps = "${refresh-apps-script}/bin/refresh-apps";
 
-    swap = "${swap-script}/bin/swap";
+    space-move-script = pkgs.writeShellScriptBin "space-move" ''
+        yabai -m space --move "$1" \
+        && sketchybar --trigger space_change \
+        && "${refresh-apps}"
+    '';
+    space-move = "${space-move-script}/bin/space-move";
+
+    space-create-script = pkgs.writeShellScriptBin "space-create" ''
+        set -e
+        set -o pipefail
+        INDEX="$(yabai -m query --spaces --space | "${jq}" '.index')"
+        yabai -m space --create
+        case "$1" in
+            next) yabai -m space last --move "$(($INDEX + 1))" ;;
+            prev) yabai -m space last --move "$INDEX"          ;;
+        esac
+        sketchybar --trigger space_change
+        "${refresh-apps}"
+    '';
+    space-create = "${space-create-script}/bin/space-create";
 
 in ''
 # Strategy for keybindings:
@@ -42,7 +50,7 @@ in ''
 # - left-only modifiers are used to allow right-variants when conflicts
 # - lalt is used most often, lcmd as a small alternate
 # - h/j/k/l is used for consistent directionality
-# - digits are used for desktops and monitors
+# - digits are used for spaces and monitors
 # - where possible shift implies moving of some sort
 # - modifiers combinations are used in the following precedence:
 #     - lalt
@@ -123,19 +131,19 @@ lalt + shift - l : yabai -m window --swap east  \
 # warp window
 lcmd + shift - h [
     "google chrome beta" ~
-    * : yabai -m window --warp west
+    *                    : yabai -m window --warp west
 ]
 lcmd + shift - j [
     "google chrome beta" ~
-    * : yabai -m window --warp south
+    *                    : yabai -m window --warp south
 ]
 lcmd + shift - k [
     "google chrome beta" ~
-    * : yabai -m window --warp north
+    *                    : yabai -m window --warp north
 ]
 lcmd + shift - l [
     "google chrome beta" ~
-    * : yabai -m window --warp east
+    *                    : yabai -m window --warp east
 ]
 
 # make floating window fill left-half of screen
@@ -149,23 +157,7 @@ lalt + cmd + shift - l : yabai -m window --grid 1:2:1:0:1:1
 lalt - 0 : yabai -m space --balance
 size < lalt - 0 : yabai -m space --balance
 
-# create desktop, move window and follow focus
-lalt + shift - n : yabai -m space --create;\
-           id="$(yabai -m query --spaces --display \
-               | "${jq}" 'map(select(."native-fullscreen" == 0))[-1].index')";\
-           yabai -m window --space $id;\
-           yabai -m space --focus $id
-
-# create desktop and follow focus
-lalt - n : yabai -m space --create;\
-           id="$(yabai -m query --spaces --display \
-               | "${jq}" 'map(select(."native-fullscreen" == 0))[-1].index')";\
-           yabai -m space --focus $id
-
-# destroy desktop
-lalt + shift - w : yabai -m space --destroy
-
-# fast focus desktop
+# fast focus space
 lalt - 0x2C : yabai -m space --focus last
 lalt - 0x2B : yabai -m space --focus prev
 lalt - 0x2F : yabai -m space --focus next
@@ -179,7 +171,7 @@ lalt - 7 : yabai -m space --focus 7
 lalt - 8 : yabai -m space --focus 8
 lalt - 9 : yabai -m space --focus 9
 
-# send window to desktop
+# move window to space
 lalt + shift - 0x2C : yabai -m window --space last
 lalt + shift - 0x2B : yabai -m window --space prev
 lalt + shift - 0x2F : yabai -m window --space next
@@ -193,81 +185,74 @@ lalt + shift - 7 : yabai -m window --space 7
 lalt + shift - 8 : yabai -m window --space 8
 lalt + shift - 9 : yabai -m window --space 9
 
-# send window to desktop and follow focus
+# move space
 lcmd + shift - 0x2C [
     "google chrome beta" ~
-    * : yabai -m window --space last \
-     && yabai -m space --focus last
+    *                    : "${space-move}" last
 ]
 lcmd + shift - 0x2B [
     "google chrome beta" ~
-    * : yabai -m window --space prev \
-     && yabai -m space --focus prev
+    *                    : "${space-move}" prev
 ]
 lcmd + shift - 0x2F [
     "google chrome beta" ~
-    * : yabai -m window --space next \
-     && yabai -m space --focus next
+    *                    : "${space-move}" next
 ]
 lcmd + shift - 1 [
     "google chrome beta" ~
-    * : yabai -m window --space  1 \
-     && yabai -m space --focus 1
+    *                    : "${space-move}" 1
 ]
 lcmd + shift - 2 [
     "google chrome beta" ~
-    * : yabai -m window --space  2 \
-     && yabai -m space --focus 2
+    *                    : "${space-move}" 2
 ]
 lcmd + shift - 3 [
     "google chrome beta" ~
-    * : yabai -m window --space  3 \
-     && yabai -m space --focus 3
+    *                    : "${space-move}" 3
 ]
 lcmd + shift - 4 [
     "google chrome beta" ~
-    * : yabai -m window --space  4 \
-     && yabai -m space --focus 4
+    *                    : "${space-move}" 4
 ]
 lcmd + shift - 5 [
     "google chrome beta" ~
-    * : yabai -m window --space  5 \
-     && yabai -m space --focus 5
+    *                    : "${space-move}" 5
 ]
 lcmd + shift - 6 [
     "google chrome beta" ~
-    * : yabai -m window --space  6 \
-     && yabai -m space --focus 6
+    *                    : "${space-move}" 6
 ]
 lcmd + shift - 7 [
     "google chrome beta" ~
-    * : yabai -m window --space  7 \
-     && yabai -m space --focus 7
+    *                    : "${space-move}" 7
 ]
 lcmd + shift - 8 [
     "google chrome beta" ~
-    * : yabai -m window --space  8 \
-     && yabai -m space --focus 8
+    *                    : "${space-move}" 8
 ]
 lcmd + shift - 9 [
     "google chrome beta" ~
-    * : yabai -m window --space  9 \
-     && yabai -m space --focus 9
+    *                    : "${space-move}" 9
 ]
 
-# swap spaces
-lalt + cmd - 0x2C : ${swap} last
-lalt + cmd - 0x2B : ${swap} prev
-lalt + cmd - 0x2F : ${swap} next
-lalt + cmd - 1 : ${swap} 1
-lalt + cmd - 2 : ${swap} 2
-lalt + cmd - 3 : ${swap} 3
-lalt + cmd - 4 : ${swap} 4
-lalt + cmd - 5 : ${swap} 5
-lalt + cmd - 6 : ${swap} 6
-lalt + cmd - 7 : ${swap} 7
-lalt + cmd - 8 : ${swap} 8
-lalt + cmd - 9 : ${swap} 9
+# create spaces
+lalt + cmd - 0x2C : "${space-create}" last
+lalt + cmd - 0x2B : "${space-create}" prev
+lalt + cmd - 0x2F : "${space-create}" next
+
+# send window to space and follow focus
+lalt + cmd + shift - 0x2C : yabai -m window --space  last && yabai -m space --focus last
+lalt + cmd + shift - 0x2B : yabai -m window --space  prev && yabai -m space --focus prev
+lalt + cmd + shift - 0x2F : yabai -m window --space  next && yabai -m space --focus next
+lalt + cmd + shift - 1    : yabai -m window --space  1    && yabai -m space --focus 1
+lalt + cmd + shift - 2    : yabai -m window --space  2    && yabai -m space --focus 2
+lalt + cmd + shift - 3    : yabai -m window --space  3    && yabai -m space --focus 3
+lalt + cmd + shift - 4    : yabai -m window --space  4    && yabai -m space --focus 4
+lalt + cmd + shift - 5    : yabai -m window --space  5    && yabai -m space --focus 5
+lalt + cmd + shift - 6    : yabai -m window --space  6    && yabai -m space --focus 6
+lalt + cmd + shift - 7    : yabai -m window --space  7    && yabai -m space --focus 7
+lalt + cmd + shift - 8    : yabai -m window --space  8    && yabai -m space --focus 8
+lalt + cmd + shift - 9    : yabai -m window --space  9    && yabai -m space --focus 9
 
 # rotate tree
 lalt - r : yabai -m space --rotate 90
@@ -278,11 +263,14 @@ lalt - y : yabai -m space --mirror y-axis
 # mirror tree x-axis
 lalt - x : yabai -m space --mirror x-axis
 
-# toggle desktop offset
+# toggle gap offset
 lalt - o : yabai -m space --toggle padding && yabai -m space --toggle gap
 
 # close window
 lalt - q : yabai -m window --close
+
+# destroy space
+lalt + cmd - q : yabai -m space --destroy
 
 # toggle window parent zoom
 lalt - m : yabai -m window --toggle zoom-parent; \
