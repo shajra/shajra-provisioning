@@ -26,7 +26,7 @@
     ];
 
     casks = [
-        # DESIGN: browsers hard to support in Nixpkgs for Darwin
+        "dash"
         "firefox"
         "google-chrome-beta"
         "microsoft-edge"
