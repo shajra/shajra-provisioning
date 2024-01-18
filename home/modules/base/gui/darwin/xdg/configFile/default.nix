@@ -38,6 +38,8 @@ in {
                 done
             done
             echo '    [".kitty-wrapped"] = ":terminal:",'
+            echo '    ["Google Chrome Beta"] = ":google_chrome:",'
+            echo '    ["Microsoft Edge Beta"] = ":microsoft_edge:",'
             echo "}"
         } > "$out/emojis.lua"
         chmod +x "$out/sketchybarrc"
