@@ -51,6 +51,7 @@ in {
     programs.zsh.enable = true;
     programs.fish.enable = true;
 
+    services.karabiner-elements.enable = true;
     services.nix-daemon.enable = true;
     services.skhd.enable = false;  # DESIGN: broken for M1
     services.skhd.package = pkgs.skhd;
