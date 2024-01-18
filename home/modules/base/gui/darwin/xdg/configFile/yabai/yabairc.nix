@@ -1,4 +1,4 @@
-colors:
+pkgs: colors:
 
 ''
 #!/usr/bin/env sh
@@ -7,13 +7,13 @@ colors:
 # DESIGN: https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)#macos-big-sur---automatically-load-scripting-addition-on-startup
 sudo yabai --load-sa
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
-yabai -m signal --add event=window_focused action="sketchybar --trigger window_focus"
+yabai -m signal --add event=window_focused action="${pkgs.sketchybar-window-focus}/bin/sketchybar-window-focus"
 
 
 # global settings (in order from 'man yabai')
 yabai -m config external_bar                 all:35:0
 yabai -m config mouse_follows_focus          off
-yabai -m config focus_follows_mouse          on
+yabai -m config focus_follows_mouse          off
 yabai -m config window_origin_display        default
 yabai -m config window_placement             second_child
 yabai -m config window_zoom_persist          on

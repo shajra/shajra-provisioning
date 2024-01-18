@@ -2,13 +2,12 @@ return {
     loading = "􀖇",
     apple = "􀣺",
     preferences = "􀺽",
-
     volume = {
         _100 = "􀊩",
         _66 = "􀊧",
         _33 = "􀊥",
         _10 = "􀊡",
-        _0 = "􀊣"
+        _0 = "􀊣",
     },
     wifi = {connected = "􀙇", disconnected = "􀙈"},
     battery = {
@@ -17,6 +16,13 @@ return {
         _50 = "􀺶",
         _25 = "􀛩",
         _0 = "􀛪",
-        charging = "􀢋"
-    }
+        charging = "􀢋",
+    },
+    yabai = {
+        stack = "􀏭",
+        fullscreen_zoom = "􀏜",
+        parent_zoom = "􀥃",
+        float = "􀢌",
+        grid = "􀧍",
+    },
 }
