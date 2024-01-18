@@ -48,6 +48,8 @@ in {
     ];
 
     nixpkgs.prebuilt.base.gui.darwin = np.pick { darwin = "home"; } [
+        "iterm2"
+        "karabiner-elements"
     ];
 
     nixpkgs.prebuilt.base.gui.linux = np.pick { linux = "home"; } [
@@ -63,8 +65,6 @@ in {
         "xclip"
         "xorg.xdpyinfo"
         "xorg.xev"
-        "zoom-us"
-
     ];
 
     nixpkgs.prebuilt.base.tui.all = pickHome [
@@ -116,14 +116,15 @@ in {
     ];
 
     nixpkgs.prebuilt.chat.gui.all = pickHome [
+        "discord"
+        "slack"
+        "zoom-us"
     ];
 
     nixpkgs.prebuilt.chat.gui.linux = np.pick { linux = "home"; } [
-        "discord"
         "element-desktop"
         "irccloud"
         "signal-desktop"
-        "slack"
     ];
 
     nixpkgs.prebuilt.chat.tui.all = pickHome [
@@ -166,6 +167,7 @@ in {
 
     nixpkgs.prebuilt.programming.general = pickHome [
         "gnumake"
+        "wireshark"
     ];
 
     nixpkgs.prebuilt.programming.haskell = pickHome [

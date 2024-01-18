@@ -26,19 +26,11 @@
     ];
 
     casks = [
-        "discord"
+        # DESIGN: browsers hard to support in Nixpkgs for Darwin
         "firefox"
         "google-chrome-beta"
-        "iterm2"
-        "karabiner-elements"
         "microsoft-edge"
         "microsoft-edge-beta"
-        "slack"
-        "wireshark"
-        "zoom"
-
-        # DESIGN: wanted, but broken for M1
-        #"kensington-trackball-works"
 
         # DESIGN: not needed for now
         #"docker"
@@ -46,6 +38,24 @@
         #"virtualbox"
         #"virtualbox-extension-pack"
     ];
+
+    # DESIGN: installed manually; haven't figure out with either Brew or Nix
+    # /Applications/'BluOS Controller.app'
+    # /Applications/'Chrome Remote Desktop Host Uninstaller.app'
+    # /Applications/DDPM
+    # /Applications/Dell
+    # /Applications/'HP Smart.app'
+    # /Applications/'Jabra Direct.app'
+    # /Applications/'Jabra Firmware Update.app'
+    # /Applications/'Jump Desktop.app'
+    # /Applications/Karabiner-Elements.app
+    # /Applications/Karabiner-EventViewer.app
+    # /Applications/'KensingtonWorks .app'
+    # /Applications/'Okta Verify.app'
+    # /Applications/'OpenVPN Connect.app'
+    # /Applications/'TigerVNC Viewer 1.11.0.app'
+    # /Applications/'Wacom Tablet.localized'
+    # /Applications/WireGuard.app
 
     # DESIGN: In case more cutting edge versions are needed
     #extraConfig = ''
