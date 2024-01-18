@@ -8,7 +8,7 @@ in {
         ../../tui/darwin
     ];
 
-    home.extraPackages = build.pkgs.lists.base.tui.darwin;
+    home.extraPackages = build.pkgs.lists.base.gui.darwin;
 
     programs.fish = import programs/fish pkgs;
     programs.kitty = import programs/kitty config kitty;
