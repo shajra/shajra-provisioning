@@ -17,6 +17,9 @@ in {
             --replace @SKETCHYBAR_LUA_SO@ "${pkgs.sketchybar-lua}"
         substituteInPlace "$out/colors.lua" \
             --replace @COLORS_UNIFYING@      "${colors.semantic.unifying}" \
+            --replace @COLORS_INFO@          "${colors.semantic.info}" \
+            --replace @COLORS_WARNING@       "${colors.semantic.warning}" \
+            --replace @COLORS_URGENT@        "${colors.semantic.urgent}" \
             --replace @COLORS_PRIMARY_BG@    "${colors.semantic.background}" \
             --replace @COLORS_PRIMARY_FG@    "${colors.semantic.foreground}" \
             --replace @COLORS_SECONDARY_BG@  "${colors.semantic.background_highlighted}" \
@@ -40,7 +43,7 @@ in {
         chmod +x "$out/sketchybarrc"
     '';
     "skhd/skhdrc".text = import skhd/skhdrc.nix config pkgs colors;
-    "yabai/yabairc".text = import yabai/yabairc.nix colors;
+    "yabai/yabairc".text = import yabai/yabairc.nix pkgs colors;
     "yabai/yabairc".executable = true;
     "borders/bordersrc".text = import borders/bordersrc.nix colors;
     "borders/bordersrc".executable = true;
