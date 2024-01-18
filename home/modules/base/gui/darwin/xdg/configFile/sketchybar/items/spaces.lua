@@ -23,7 +23,6 @@ local function space_selection(env)
 end
 
 local function space_windows_change(env)
-    local log = io.open("/Users/shajra/sketchy.log", "a")
     local space, apps = nil, nil
     if env.INFO then
         space = env.INFO.space
