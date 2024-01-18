@@ -39,6 +39,8 @@
         #"virtualbox-extension-pack"
     ];
 
+    # DESIGN: homebrew.masApps seems a bit too hacky
+
     # DESIGN: installed manually; haven't figured out with either Brew or Nix
     # /Applications/'BluOS Controller.app'
     # /Applications/'Chrome Remote Desktop Host Uninstaller.app'

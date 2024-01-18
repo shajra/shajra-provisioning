@@ -48,8 +48,13 @@ in {
     ];
 
     nixpkgs.prebuilt.base.gui.darwin = np.pick { darwin = "home"; } [
+    ] // np.pick { darwin = "unstable"; } [
+        # DESIGN: these are all Mac-only applications
+        "aldente"
+        "goku"
         "iterm2"
-        "karabiner-elements"
+        "raycast"
+        "shortcat"
     ];
 
     nixpkgs.prebuilt.base.gui.linux = np.pick { linux = "home"; } [
@@ -103,6 +108,13 @@ in {
         ]);
     };
 
+    nixpkgs.prebuilt.base.tui.darwin = np.pick { darwin = "home"; } [
+    ] // np.pick { darwin = "unstable"; } [
+        # DESIGN: these are all Mac-only applications
+        "asitop"
+        "mas"
+    ];
+
     nixpkgs.prebuilt.base.tui.linux = np.pick { linux = "home"; } [
         "entr"
         "fswatch"
@@ -110,9 +122,6 @@ in {
         "pciutils"
         "powertop"
         "usbutils"
-    ];
-
-    nixpkgs.prebuilt.base.tui.darwin = np.pick { darwin = "home"; } [
     ];
 
     nixpkgs.prebuilt.chat.gui.all = pickHome [
