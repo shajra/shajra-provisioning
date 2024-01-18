@@ -8,9 +8,16 @@
         set --erase --global SFT_AUTH_SOCK
     '';
 
+    functions = {
+        groq-mr-slack = {
+            description = "Notify team of merge request";
+            body = ''
+                echo "shajra: $(gr mr-get --format=short)" | slack '#infra-mr'
+            '';
+        };
+    };
+
     shellAliases = {
-        groq-mr-slack =
-            ''echo "shajra: $(gr mr-get --format=short)" | slack '#infra-mr'';
         psql-brake-ro =
             ''PGPASSWORD=brakero psql --host=10.26.147.22 -U brakero brake'';
         psql-brake-rw =
