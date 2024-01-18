@@ -39,7 +39,7 @@
         #"virtualbox-extension-pack"
     ];
 
-    # DESIGN: installed manually; haven't figure out with either Brew or Nix
+    # DESIGN: installed manually; haven't figured out with either Brew or Nix
     # /Applications/'BluOS Controller.app'
     # /Applications/'Chrome Remote Desktop Host Uninstaller.app'
     # /Applications/DDPM
