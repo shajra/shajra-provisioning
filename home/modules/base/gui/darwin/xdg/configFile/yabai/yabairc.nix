@@ -14,7 +14,7 @@ yabai -m signal --add event=window_focused action="${pkgs.sketchybar-window-focu
 yabai -m config external_bar                 all:35:0
 yabai -m config mouse_follows_focus          off
 yabai -m config focus_follows_mouse          off
-yabai -m config window_origin_display        default
+yabai -m config window_origin_display        focused
 yabai -m config window_placement             second_child
 yabai -m config window_zoom_persist          on
 yabai -m config window_shadow                float
