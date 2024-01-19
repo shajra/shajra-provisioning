@@ -1,3 +1,15 @@
-{
-    "raycast-shajra".source = ./raycast-shajra;
-}
+lib:
+
+let scripts = [
+        raycast-shajra/tmux-cake.applescript
+        raycast-shajra/tmux-shajra.applescript
+    ];
+
+    toConfig = path: {
+        "raycast-shajra/${baseNameOf path}" = {
+            source = path;
+            executable = true;
+        };
+    };
+
+in lib.attrsets.mergeAttrsList (map toConfig scripts)
