@@ -1,8 +1,13 @@
 #+title: Unmanaged MacOS iTerm2 Configuration
 
-Most of the configuration of iTerm2 that I require is in profiles. iTerm2 has a
-GUI for exporting and importing profiles. This [[./Profiles.json][./Profiles.json]] file is an
-untouched export from that interface.
+There's two configurations in iTerm that support an export/import options:
+
+- Settings → Keys (use [[./shajra.itermkeymap][shajra.itermkeymap]])
+- Settings → Profiles (use [[./Profiles.json][Profiles.json]]}
+
+Most configuration of iTerm2 that I require is in profiles. The keymap most
+importantly passes through Cmd+Enter as an escaped Enter, which works for Vim
+and Emacs.
 
 Other settings that I recall setting:
 - General: tmux: ☑️ Automatically bury the tmux session after connecting
