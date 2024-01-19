@@ -38,5 +38,5 @@ in
     programs.fish = import programs/fish pkgs;
     programs.git = import programs/git lib;
     programs.kitty.extraConfig = "font_size 18";
-    xdg.configFile = import xdg/configFile;
+    xdg.configFile = import xdg/configFile lib;
 }
