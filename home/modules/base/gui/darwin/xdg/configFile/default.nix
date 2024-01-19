@@ -9,7 +9,7 @@ let
     foreground = pkgs.lib.colors.transformColors (format foregroundFor) config.theme.colors;
 
 in {
-    "sketchybar".source = pkgs.runCommandNoCC "sketchybarrc" {} ''
+    "sketchybar".source = pkgs.runCommand "sketchybarrc" {} ''
         cp -r "${./sketchybar}" "$out"
         chmod -R +w "$out"
         substituteInPlace "$out/sketchybarrc" \
