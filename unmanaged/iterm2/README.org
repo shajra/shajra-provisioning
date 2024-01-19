@@ -1,0 +1,11 @@
+#+title: Unmanaged MacOS iTerm2 Configuration
+
+Most of the configuration of iTerm2 that I require is in profiles. iTerm2 has a
+GUI for exporting and importing profiles. This [[./Profiles.json][./Profiles.json]] file is an
+untouched export from that interface.
+
+Other settings that I recall setting:
+- General: tmux: ☑️ Automatically bury the tmux session after connecting
+- Advanced: Close tmux windows after detaching? Yes
+
+Those are most useful for me. I may have set others and forgotten.
