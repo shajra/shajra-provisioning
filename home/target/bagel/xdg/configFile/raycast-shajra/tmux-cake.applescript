@@ -6,8 +6,8 @@
 # @raycast.mode silent
 
 # Optional parameters:
-# @raycast.icon 🥯
+# @raycast.icon 🍰
 
 tell application "iTerm"
-    set newWindow to (create window with profile "tmux-shajra")
+    set newWindow to (create window with profile "tmux-cake")
 end tell
