@@ -44,6 +44,19 @@ let
     '';
     space-create = "${space-create-script}/bin/space-create";
 
+    space-destroy-script = pkgs.writeShellScriptBin "space-destroy" ''
+        set -e
+        set -o pipefail
+        INDEX="$(yabai -m query --spaces --space | "${jq}" '.index')"
+        yabai -m space --destroy
+        if [ "$INDEX" -gt 2 ]
+        then
+            yabai -m space --focus $((INDEX - 1))
+            "${window-focus}"
+        fi
+    '';
+    space-destroy = "${space-destroy-script}/bin/space-destroy";
+
     window-focus = "${pkgs.sketchybar-window-focus}/bin/sketchybar-window-focus";
 
 in ''
@@ -190,7 +203,7 @@ lalt + cmd - 0x2F : "${space-create}" next
 lalt - q : yabai -m window --close
 
 # destroy space
-lalt + cmd - q : yabai -m space --destroy
+lalt + cmd - q : "${space-destroy}"
 
 # balance size of windows
 lalt - 0 : yabai -m space --balance
