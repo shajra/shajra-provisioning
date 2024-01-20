@@ -5,32 +5,28 @@ let
     format = pkgs.lib.colors.format "%R%G%B";
     colors = pkgs.lib.colors.transformColors format config.theme.colors;
     colorName = c: pkgs.lib.colors.colorName c config.theme.colors.terminal;
-    doom.template = builtins.toPath (pkgs.substituteAllFiles {
-        src = ./doom/template;
-        files = builtins.map
-            (x: pkgs.lib.replaceStrings
-                [(builtins.toString ./doom/template + "/")]
-                [""]
-                (builtins.toString x))
-            (pkgs.lib.filesystem.listFilesRecursive ./doom/template);
+    doom.template = pkgs.substituteAllFiles {
+        src = ./doom;
+        files = ["config.el"];
         theme_font_mono_code    = config.theme.fonts.monospaced.code.name;
         theme_font_mono_serif   = config.theme.fonts.monospaced.serif.name;
         theme_font_proportional = config.theme.fonts.proportional.name;
         theme_doom_name         = config.theme.external.doom.name;
         theme_color_unifying    = colorName config.theme.colors.semantic.unifying;
         theme_color_highlight   = colorName config.theme.colors.semantic.highlight;
-    });
+    };
 
 in
 
 {
+    # DESIGN: rsync over symlinkJoin because symlinks disrupt Emacs autoloading
     doom.source = pkgs.runCommand "doom-source" {
         nativeBuildInputs = [ pkgs.rsync ];
-    } ''
-        rsync --archive "${doom.template}/" "${./doom/static}/" "$out"
-    '';
+    } ''rsync --archive "${doom.template}/" "${./doom}/" "$out"'';
+
     "fish/completions/devour.fish".source = fish/completions/devour.fish;
-    "fish/conf.d/direnv.fish".text = pkgs.callPackage fish/direnv.nix { cacheHome = config.xdg.cacheHome; };
+    "fish/conf.d/direnv.fish".text =
+        pkgs.callPackage fish/direnv.nix { cacheHome = config.xdg.cacheHome; };
     "fish/set-universal.fish".onChange = import fish/onChange.nix config;
     "fish/set-universal.fish".source = builtins.toPath (pkgs.substituteAll {
         src = fish/set-universal.fish;

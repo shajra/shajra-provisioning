@@ -1,6 +1,6 @@
-#!@LUA@/bin/lua
+#!@lua@/bin/lua
 
-package.cpath = package.cpath .. ";@SKETCHYBAR_LUA_SO@/?.so"
+package.cpath = package.cpath .. ";@sketchybar_lua_so@/?.so"
 sbar = require("sketchybar")
 require("init")
 sbar.hotload(true)
