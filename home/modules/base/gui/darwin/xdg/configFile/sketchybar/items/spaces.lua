@@ -39,18 +39,14 @@ local function space_windows_change(env)
     if next(app_emojis) ~= nil then
         icon_strip = table.concat(app_emojis, " ")
     end
-    sbar.animate("tanh", 10, function()
-        sbar.set(spaces[space], {label = icon_strip})
-    end)
+    sbar.animate("tanh", 10,
+                 function() sbar.set(spaces[space], {label = icon_strip}) end)
 end
 
 for i = 1, 10, 1 do
     local space = sbar.add("space", {
         associated_space = i,
-        background = {
-            color = colors.unselected.background,
-            corner_radius = 6
-        },
+        background = {color = colors.unselected.background, corner_radius = 6},
         icon = {
             string = i,
             padding_left = 10,

@@ -1,8 +1,8 @@
 return {
     unifying = tonumber("@colors_unifying@"),
-    info     = tonumber("@colors_info@"),
-    warning  = tonumber("@colors_warning@"),
-    urgent   = tonumber("@colors_urgent@"),
+    info = tonumber("@colors_info@"),
+    warning = tonumber("@colors_warning@"),
+    urgent = tonumber("@colors_urgent@"),
     primary = {
         background = tonumber("@colors_primary_bg@"),
         foreground = tonumber("@colors_primary_fg@")

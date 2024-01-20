@@ -1431,13 +1431,13 @@
     "sf-symbols": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-53aF5NbuuFo+2pukPER9SVEL2VKawlaEyObc8W10DJo=",
+        "narHash": "sha256-NElDo3Y+V5wiW7aJzY+wdEQ82Q750mQjKgrCVHunhkg=",
         "type": "file",
-        "url": "https://devimages-cdn.apple.com/design/resources/download/SF-Symbols-5.dmg"
+        "url": "https://devimages-cdn.apple.com/design/resources/download/SF-Symbols-5.1.dmg"
       },
       "original": {
         "type": "file",
-        "url": "https://devimages-cdn.apple.com/design/resources/download/SF-Symbols-5.dmg"
+        "url": "https://devimages-cdn.apple.com/design/resources/download/SF-Symbols-5.1.dmg"
       }
     },
     "shajra-private": {
