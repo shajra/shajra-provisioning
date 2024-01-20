@@ -1,1 +1,1 @@
-return {font = {family = "@FONT@", size = 18.0}, paddings = 3}
+return {font = {family = "@font_family@", size = 18.0}, paddings = 3}

@@ -1,22 +1,22 @@
 return {
-    unifying = tonumber("@COLORS_UNIFYING@"),
-    info     = tonumber("@COLORS_INFO@"),
-    warning  = tonumber("@COLORS_WARNING@"),
-    urgent   = tonumber("@COLORS_URGENT@"),
+    unifying = tonumber("@colors_unifying@"),
+    info     = tonumber("@colors_info@"),
+    warning  = tonumber("@colors_warning@"),
+    urgent   = tonumber("@colors_urgent@"),
     primary = {
-        background = tonumber("@COLORS_PRIMARY_BG@"),
-        foreground = tonumber("@COLORS_PRIMARY_FG@")
+        background = tonumber("@colors_primary_bg@"),
+        foreground = tonumber("@colors_primary_fg@")
     },
     secondary = {
-        background = tonumber("@COLORS_SECONDARY_BG@"),
-        foreground = tonumber("@COLORS_SECONDARY_FG@")
+        background = tonumber("@colors_secondary_bg@"),
+        foreground = tonumber("@colors_secondary_fg@")
     },
     selected = {
-        background = tonumber("@COLORS_SELECTED_BG@"),
-        foreground = tonumber("@COLORS_SELECTED_FG@")
+        background = tonumber("@colors_selected_bg@"),
+        foreground = tonumber("@colors_selected_fg@")
     },
     unselected = {
-        background = tonumber("@COLORS_UNSELECTED_BG@"),
-        foreground = tonumber("@COLORS_UNSELECTED_FG@")
+        background = tonumber("@colors_unselected_bg@"),
+        foreground = tonumber("@colors_unselected_fg@")
     }
 }

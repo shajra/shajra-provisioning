@@ -8,28 +8,32 @@ let
     colors = pkgs.lib.colors.transformColors (format id) config.theme.colors;
     foreground = pkgs.lib.colors.transformColors (format foregroundFor) config.theme.colors;
 
-in {
-    "sketchybar".source = pkgs.runCommand "sketchybarrc" {} ''
-        cp -r "${./sketchybar}" "$out"
-        chmod -R +w "$out"
-        substituteInPlace "$out/sketchybarrc" \
-            --replace @LUA@ "${pkgs.lua5_4}" \
-            --replace @SKETCHYBAR_LUA_SO@ "${pkgs.sketchybar-lua}"
-        substituteInPlace "$out/colors.lua" \
-            --replace @COLORS_UNIFYING@      "${colors.semantic.unifying}" \
-            --replace @COLORS_INFO@          "${colors.semantic.info}" \
-            --replace @COLORS_WARNING@       "${colors.semantic.warning}" \
-            --replace @COLORS_URGENT@        "${colors.semantic.urgent}" \
-            --replace @COLORS_PRIMARY_BG@    "${colors.semantic.background}" \
-            --replace @COLORS_PRIMARY_FG@    "${colors.semantic.foreground}" \
-            --replace @COLORS_SECONDARY_BG@  "${colors.semantic.background_highlighted}" \
-            --replace @COLORS_SECONDARY_FG@  "${colors.semantic.foreground}" \
-            --replace @COLORS_UNSELECTED_BG@ "${colors.window.unselected.background}" \
-            --replace @COLORS_UNSELECTED_FG@ "${colors.window.unselected.text}" \
-            --replace @COLORS_SELECTED_BG@   "${colors.window.selected.focused.background}" \
-            --replace @COLORS_SELECTED_FG@   "${colors.window.selected.focused.text}"
-        substituteInPlace "$out/settings.lua" \
-            --replace @FONT@ "${config.theme.fonts.proportional.name}"
+    sketchybar.template = pkgs.substituteAllFiles {
+        src = ./sketchybar;
+        files = [
+            "colors.lua"
+            "settings.lua"
+            "sketchybarrc"
+        ];
+        lua                  = pkgs.lua5_4;
+        sketchybar_lua_so    = pkgs.sketchybar-lua;
+        colors_unifying      = colors.semantic.unifying;
+        colors_info          = colors.semantic.info;
+        colors_warning       = colors.semantic.warning;
+        colors_urgent        = colors.semantic.urgent;
+        colors_primary_bg    = colors.semantic.background;
+        colors_primary_fg    = colors.semantic.foreground;
+        colors_secondary_bg  = colors.semantic.background_highlighted;
+        colors_secondary_fg  = colors.semantic.foreground;
+        colors_unselected_bg = colors.window.unselected.background;
+        colors_unselected_fg = colors.window.unselected.text;
+        colors_selected_bg   = colors.window.selected.focused.background;
+        colors_selected_fg   = colors.window.selected.focused.text;
+        font_family          = config.theme.fonts.proportional.name;
+    };
+
+    sketchybar.emojis = pkgs.runCommand "sketchybar-emojis" {} ''
+        mkdir -p "$out"
         {
             echo "return {"
             for f in "${pkgs.sources.sketchybar-font-src}/mappings/"*
@@ -42,8 +46,19 @@ in {
             echo '    ["Microsoft Edge Beta"] = ":microsoft_edge:",'
             echo "}"
         } > "$out/emojis.lua"
+    '';
+
+    sketchybar.rc = pkgs.runCommand "sketchybar-rc" {} ''
+        mkdir -p "$out"
+        cp ${sketchybar.template}/sketchybarrc "$out"
         chmod +x "$out/sketchybarrc"
     '';
+
+in {
+    "sketchybar".source = pkgs.symlinkJoin {
+        name = "sketchybar";
+        paths = with sketchybar; [ rc template emojis ./sketchybar ];
+    };
     "skhd/skhdrc".text = import skhd/skhdrc.nix config pkgs colors;
     "yabai/yabairc".text = import yabai/yabairc.nix pkgs colors;
     "yabai/yabairc".executable = true;
