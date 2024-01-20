@@ -1,4 +1,4 @@
-#!@lua@/bin/lua
+#!@lua@
 
 package.cpath = package.cpath .. ";@sketchybar_lua_so@/?.so"
 sbar = require("sketchybar")

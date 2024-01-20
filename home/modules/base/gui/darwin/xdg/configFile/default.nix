@@ -15,7 +15,9 @@ let
             "settings.lua"
             "sketchybarrc"
         ];
-        lua                  = pkgs.lua5_4;
+        lua                  = "${pkgs.lua5_4}/bin/lua";
+        timeout              = "${pkgs.coreutils}/bin/timeout";
+        ping                 = "${pkgs.inetutils}/bin/ping";
         sketchybar_lua_so    = pkgs.sketchybar-lua;
         colors_unifying      = colors.semantic.unifying;
         colors_info          = colors.semantic.info;

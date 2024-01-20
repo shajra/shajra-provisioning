@@ -5,11 +5,7 @@ local colors = require("colors")
 sbar.default({
     updates = "when_shown",
     icon = {
-        font = {
-            family = settings.font.family,
-            style = "Bold",
-            size = settings.font.size
-        },
+        font = {family = "SF Pro", style = "Bold", size = settings.font.size},
         color = colors.primary.foreground,
         padding_left = settings.paddings,
         padding_right = settings.paddings

@@ -1,5 +1,10 @@
+local settings = require("settings")
+
 local cal = sbar.add("item", {
-    icon = {padding_right = 0, font = {style = "Black"}},
+    icon = {
+        padding_right = 0,
+        font = {family = settings.font.family, style = "Black"}
+    },
     label = {width = 85, align = "right"},
     position = "right",
     update_freq = 15
