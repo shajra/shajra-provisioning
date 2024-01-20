@@ -34,34 +34,12 @@
 
 (add-to-list '+org-babel-mode-alist '(fish . shell))
 
+;; DESIGN: render Apple's San Francisco symbols
+(set-fontset-font t '(?􀀀 . ?􏿽) "SF Pro Display")
+
 ;; DESIGN: light override of Solarized Light theme
-;;
 (custom-set-faces!
   `(cursor :background ,(doom-color '@theme_color_unifying@)))
-
-
-;; Function calls
-
-(doom/set-indent-width 4)
-(global-display-fill-column-indicator-mode)
-(after! treemacs (treemacs-follow-mode))
-
-
-;; Hooks
-
-;; DESIGN: font with Haskell ligatures, but restricted to Haskell code
-(add-hook! haskell-mode
-  (setq buffer-face-mode-face '(:family "Hasklug Nerd Font"))
-  (buffer-face-mode))
-
-;; DESIGN: maybe redundant with the default, but using etags with xref
-(after! xref
-  (add-hook 'xref-backend-functions 'etags--xref-backend))
-
-;; DESIGN: Doom dashboard looks bad with an indicator
-;; DESIGN: consider deleting if it looks fine on a Mac (fixed upstream)
-;(add-hook! +doom-dashboard-mode :append
-;  (display-fill-column-indicator-mode -1))
 
 ;; DESIGN: need to load after Doom to change Doom settings
 (after! org-fancy-priorities
@@ -82,6 +60,25 @@
    '((?A . "🅐") (?B . "🅑") (?C . "🅒") (?D . "🅓")
      (?1 . "🌑") (?2 . "🌒") (?3 . "🌓") (?4 . "🌔") (?5 . "🌕"))))
 
+
+;; Function calls
+
+(doom/set-indent-width 4)
+(global-display-fill-column-indicator-mode)
+(after! treemacs (treemacs-follow-mode))
+
+
+;; Hooks
+
+;; DESIGN: font with Haskell ligatures, but restricted to Haskell code
+(add-hook! haskell-mode
+  (setq buffer-face-mode-face '(:family "Hasklug Nerd Font"))
+  (buffer-face-mode))
+
+;; DESIGN: maybe redundant with the default, but using etags with xref
+(after! xref
+  (add-hook 'xref-backend-functions 'etags--xref-backend))
+
 ;; DESIGN: not indenting by default for long prose, but indenting agenda items
 (add-hook! org-load :append
   (setq-default org-startup-indented nil))
@@ -89,6 +86,8 @@
   (if (+org-agenda-files-includes? (buffer-name))
       (org-indent-mode)))
 
-;; DESIGN: some configuration is more personal...
+
+;; Local configuration (some configuration is more personal...)
+
 (load! "managed" "~/.config/doom-local" t)
 (load! "unmanaged" "~/.config/doom-local" t)
