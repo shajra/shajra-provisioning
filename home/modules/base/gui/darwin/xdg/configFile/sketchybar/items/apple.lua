@@ -8,7 +8,7 @@ local apple_logo = sbar.add("item", {
     click_script = popup_toggle,
     icon = {
         string = icons.apple,
-        font = {style = "Black"},
+        font = {family = "SF Pro", style = "Black"},
         color = colors.primary.foreground
     },
     label = {drawing = false},
