@@ -62,17 +62,14 @@ let
 in ''
 # Strategy for keybindings:
 #
-# - left-only modifiers are used to allow right-variants when conflicts
-# - lalt is used most often, lcmd as a small alternate
-# - h/j/k/l is used for consistent directionality
-# - digits are used for spaces and monitors
-# - where possible shift implies moving of some sort
-# - modifiers combinations are used in the following precedence:
-#     - lalt
-#     - lalt       + shift
-#     - lcmd       + shift
-#     - lalt + cmd
-#     - lalt + cmd + shift
+# - 'lalt' is used consistently for all window management.
+# - 'ralt' is unused for keybindings outside of skhd.
+# - Where possible 'shift' implies moving of a window or space.
+# - Where possible 'cmd' indicates the target is a space.
+# - 'ctrl' indicates stacked windows are involved.
+# - 'h/j/k/l' is used consistently for west/south/north/east direction.
+# - ',/.' (think angle brackets) are used for next/prev.
+# - Digits are used for uniquely identifying spaces/displays.
 #
 # NOTE: some keys are mysterious codes.  Use "skhd -o" to discover what these
 # codes should be.
