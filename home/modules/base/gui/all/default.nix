@@ -17,25 +17,22 @@ in {
 
     fonts.fontconfig.enable = true;
 
-    # DESIGN: Allows VSCode to override settings, but everything will be lost
-    # upon a home-manager switch.
-    #
-    # REVISIT: Might want to complicate logic to more easily catch changes or
-    # maybe save them off as backups.
-    #
-    home.activation.removeVscodeMutableUserSettings =
+    # DESIGN: Allows VSCode to override settings, but we catch changes when
+    # performing a home-manager switch.
+    home.activation.restoreImmutableVscodeUserSettings =
         lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
-            $DRY_RUN_CMD rm -f "${vscodeSettings}"
+            DEST="${vscodeSettings}"
+            if test -e "$DEST" && test -e "$DEST.home-manager" \
+                && "${pkgs.diffutils}/bin/diff" -q "$DEST" "$DEST.home-manager"
+            then $DRY_RUN_CMD mv "$DEST.home-manager" "$DEST"
+            fi
         '';
 
     home.activation.makeVscodeUserSettingsMutable =
         lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-            $DRY_RUN_CMD rm -f "${vscodeSettings}"
-            $DRY_RUN_CMD cat \
-              ${(pkgs.formats.json {}).generate
-                  "vscode-settings.json"
-                  config.programs.vscode.userSettings} \
-              > "${vscodeSettings}"
+            DEST="${vscodeSettings}"
+            $DRY_RUN_CMD mv "$DEST" "$DEST.home-manager"
+            $DRY_RUN_CMD cat "$DEST.home-manager" > "$DEST"
         '';
 
     home.extraPackages = build.pkgs.lists.base.gui.all;

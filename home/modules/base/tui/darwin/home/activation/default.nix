@@ -1,4 +1,4 @@
-config: lib: nixpkgs:
+config: lib: pkgs:
 
 let
     home = config.home.homeDirectory;
@@ -25,4 +25,22 @@ in
         $DRY_RUN_CMD [ -e "$app_path" ] && rm -r "$app_path"
         $DRY_RUN_CMD mv "$tmp_path" "$app_path"
     '';
+
+    # DESIGN: Allows Karabiner to override settings, but we catch changes when
+    # performing a home-manager switch.
+    restoreImmutableKarabinerJson =
+        lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
+            DEST="${config.xdg.configHome}/karabiner/karabiner.json"
+            if test -e "$DEST" && test -e "$DEST.home-manager" \
+                && "${pkgs.diffutils}/bin/diff" -q "$DEST" "$DEST.home-manager"
+            then $DRY_RUN_CMD mv "$DEST.home-manager" "$DEST"
+            fi
+        '';
+
+    makeKarabinerJsonSettingsMutable =
+        lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+            DEST="${config.xdg.configHome}/karabiner/karabiner.json"
+            $DRY_RUN_CMD mv "$DEST" "$DEST.home-manager"
+            $DRY_RUN_CMD cat "$DEST.home-manager" > "$DEST"
+        '';
 }
