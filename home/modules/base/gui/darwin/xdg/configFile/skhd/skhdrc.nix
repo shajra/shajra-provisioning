@@ -59,6 +59,19 @@ let
 
     window-focus = "${pkgs.sketchybar-window-focus}/bin/sketchybar-window-focus";
 
+    window-cycle-script = pkgs.writeShellScriptBin "window-cycle" ''
+        yabai -m window --focus "$( \
+            yabai -m query --windows --space \
+            | "${jq}" -re "
+                sort_by(.frame.x, .frame.y, .id)
+                | map(select(.\"is-visible\"))
+                | $1
+                | nth(index(map(select(.\"has-focus\"))) - 1).id")"
+        "${window-focus}"
+    '';
+    window-cycle = "${window-cycle-script}/bin/window-cycle";
+
+
 in ''
 # Strategy for keybindings:
 #
@@ -196,6 +209,10 @@ lalt + cmd - 0x2C : "${space-create}" last
 lalt + cmd - 0x2B : "${space-create}" prev
 lalt + cmd - 0x2F : "${space-create}" next
 
+# cycle windows
+lalt         - tab : "${window-cycle}" reverse
+lalt + shift - tab : "${window-cycle}" '.'
+
 # close window
 lalt - q : yabai -m window --close
 
@@ -203,11 +220,12 @@ lalt - q : yabai -m window --close
 lalt + cmd - q : "${space-destroy}"
 
 # balance size of windows
-lalt - 0 : yabai -m space --balance
+lalt        - 0 : yabai -m space --balance
 size < lalt - 0 : yabai -m space --balance
 
 # rotate tree
-lalt - r : yabai -m space --rotate 90
+lalt         - r : yabai -m space --rotate 90
+lalt + shift - r : yabai -m space --rotate 270
 
 # mirror tree y-axis
 lalt - y : yabai -m space --mirror y-axis
