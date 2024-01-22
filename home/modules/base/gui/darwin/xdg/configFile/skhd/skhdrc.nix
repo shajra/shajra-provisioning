@@ -66,7 +66,11 @@ let
                 sort_by(.frame.x, .frame.y, .id)
                 | map(select(.\"is-visible\"))
                 | $1
-                | nth(index(map(select(.\"has-focus\"))) - 1).id")"
+                | if map(select(.\"has-focus\")) | length > 0
+                  then nth(index(map(select(.\"has-focus\"))) - 1)
+                  else .[0]
+                  end
+                | .id")"
         "${window-focus}"
     '';
     window-cycle = "${window-cycle-script}/bin/window-cycle";
