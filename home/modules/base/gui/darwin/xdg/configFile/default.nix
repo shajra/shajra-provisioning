@@ -19,6 +19,8 @@ let
         timeout              = "${pkgs.coreutils}/bin/timeout";
         ping                 = "${pkgs.inetutils}/bin/ping";
         sketchybar_lua_so    = pkgs.sketchybar-lua;
+        colors_blue          = colors.nominal.blue;
+        colors_red           = colors.nominal.red;
         colors_unifying      = colors.semantic.unifying;
         colors_info          = colors.semantic.info;
         colors_warning       = colors.semantic.warning;

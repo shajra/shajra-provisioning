@@ -20,6 +20,10 @@ sbar.default({
         padding_left = settings.paddings,
         padding_right = settings.paddings
     },
+    graph = {
+        color = colors.primary.foreground,
+        fill_color = colors.primary.foreground
+    },
     background = {height = 26, border_width = 4},
     popup = {
         background = {

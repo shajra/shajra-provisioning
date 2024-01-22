@@ -1,7 +1,7 @@
 local colors = require("colors")
 local icons = require("icons")
 
-local wifi = sbar.add("item", {
+local wifi = sbar.add("item", "wifi", {
     position = "right",
     icon = icons.wifi.disconnected,
     label = {width = "dynamic"}

@@ -1,7 +1,7 @@
 local icons = require("icons")
 local colors = require("colors")
 
-local yabai = sbar.add("item", {
+local yabai = sbar.add("item", "yabai", {
     icon = {color = colors.info, font = {style = "Bold"}, width = 0},
     label = {color = colors.info, width = 0}
 })

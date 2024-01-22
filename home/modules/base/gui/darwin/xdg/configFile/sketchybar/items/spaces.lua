@@ -44,7 +44,7 @@ local function space_windows_change(env)
 end
 
 for i = 1, 10, 1 do
-    local space = sbar.add("space", {
+    local space = sbar.add("space", "spaces." .. tostring(i), {
         associated_space = i,
         background = {color = colors.unselected.background, corner_radius = 6},
         icon = {
@@ -71,9 +71,9 @@ for i = 1, 10, 1 do
     space:subscribe("mouse.clicked", mouse_click)
 end
 
-sbar.add("bracket", spaces, {})
+sbar.add("bracket", "spaces", spaces, {})
 
-local space_creator = sbar.add("item", {
+local space_creator = sbar.add("item", "space_creator", {
     padding_left = 10,
     padding_right = 8,
     icon = {

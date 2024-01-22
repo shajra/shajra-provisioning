@@ -1,7 +1,7 @@
 local icons = require("icons")
 local settings = require("settings")
 
-local cake = sbar.add("item", {
+local cake = sbar.add("item", "cake", {
     position = "right",
     icon = {string = icons.cake, drawing = false},
     label = {drawing = false},

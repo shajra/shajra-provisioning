@@ -1,6 +1,6 @@
 local whitelist = {["Spotify"] = true, ["Music"] = true};
 
-local media = sbar.add("item", {
+local media = sbar.add("item", "media", {
     icon = {drawing = false},
     position = "center",
     updates = true
