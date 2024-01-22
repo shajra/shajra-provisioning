@@ -3,7 +3,11 @@ local settings = require("settings")
 
 local cake = sbar.add("item", "cake", {
     position = "right",
-    icon = {string = icons.cake, drawing = false},
+    icon = {
+        string = icons.cake,
+        font = { size = settings.font.size - 4},
+        drawing = false,
+    },
     label = {drawing = false},
     update_freq = 5
 })

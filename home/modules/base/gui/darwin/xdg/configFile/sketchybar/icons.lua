@@ -11,6 +11,7 @@ return {
     },
     cake = "🍰",
     cake = "􁖩",
+    cake = "􁖪",
     cpu = "􀫥",
     plug = {charging = "􀡸", not_charging = "􀡷􀊅"},
     preferences = "􀺽",

@@ -5,7 +5,7 @@
 #include <stdbool.h>
 #include <time.h>
 
-#define MAX_TOPPROC_LEN 28
+#define MAX_TOPPROC_LEN 100
 
 static const char TOPPROC[] = { "/bin/ps -Aceo pid,pcpu,comm -r" }; 
 static const char FILTER_PATTERN[] = { "com.apple." };
