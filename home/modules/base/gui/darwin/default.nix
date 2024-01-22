@@ -1,4 +1,4 @@
-{ config, pkgs, build, ... }:
+{ lib, config, pkgs, build, ... }:
 
 let kitty = build.infra.np.nixpkgs.master.kitty;
 in {
@@ -9,6 +9,8 @@ in {
     ];
 
     home.extraPackages = build.pkgs.lists.base.gui.darwin;
+
+    launchd = import ./launchd config pkgs;
 
     programs.fish = import programs/fish pkgs;
     programs.kitty = import programs/kitty config kitty;

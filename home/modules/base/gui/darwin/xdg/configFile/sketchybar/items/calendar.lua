@@ -1,6 +1,6 @@
 local settings = require("settings")
 
-local cal = sbar.add("item", {
+local cal = sbar.add("item", "calendar", {
     icon = {
         padding_right = 0,
         font = {family = settings.font.family, style = "Black"}

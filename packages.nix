@@ -284,6 +284,8 @@ in {
         # REVISIT: note emacsMacport doesn't have native compilation
         # https://github.com/railwaycat/homebrew-emacsmacport/issues/274
         #"emacsMacport"
+        "sketchybar-cpu"
+        "sketchybar-lua"
     ];
 
     nixpkgs.build.unused.linux = np.pick { linux = "home"; } [
