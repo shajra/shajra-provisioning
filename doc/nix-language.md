@@ -413,13 +413,13 @@ nix eval --impure --expr '
 ```
 
     {
-      lastModified = 1695801302;
-      lastModifiedDate = "20230927075502";
-      narHash = "sha256-pP/DBhsYFpYQ7RqB4+1Iy9B1jPlC1rNT3aZhhr1Z9EU=";
-      outPath = "/nix/store/i0rgmq3dd0407n5b3jxkvs60gw3qpz1d-source";
-      rev = "917ea45b79de04f69059f42a8e2621f7caeae1c9";
-      revCount = 842;
-      shortRev = "917ea45";
+      lastModified = 1705312282;
+      lastModifiedDate = "20240115095122";
+      narHash = "sha256-PPXqKY2hJng4DBVE0I4xshv/vGLUskL7jl53roB8UdU=";
+      outPath = "/nix/store/wjb45dlgycjw8759q43js031yjn5l0g5-source";
+      rev = "7c2f768bf9601268a4e71c2ebe91e2011918a70f";
+      revCount = 843;
+      shortRev = "7c2f768";
       submodules = false;
     }
 

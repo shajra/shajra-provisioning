@@ -1,4 +1,5 @@
 #+title: Unmanaged MacOS Configuration
+#+setupfile: ../doc/internal/links.org
 
 I'm grateful that Nix is able to configure so much of my systems, both Linux and
 MacOS included. However, the [[nix-darwin][Nix-darwin]] project can only go so far. The rest
