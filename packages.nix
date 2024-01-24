@@ -49,7 +49,7 @@ in {
 
     nixpkgs.prebuilt.base.gui.darwin = np.pick { darwin = "home"; } [
     ] // np.pick { darwin = "unstable"; } [
-        # DESIGN: these are all Mac-only applications
+        # DESIGN: these are all Mac-only applications; unstable is fine
         "aldente"
         "goku"
         "iterm2"
@@ -110,7 +110,7 @@ in {
 
     nixpkgs.prebuilt.base.tui.darwin = np.pick { darwin = "home"; } [
     ] // np.pick { darwin = "unstable"; } [
-        # DESIGN: these are all Mac-only applications
+        # DESIGN: these are all Mac-only applications; unstable is fine
         "asitop"
         "mas"
     ];
@@ -185,7 +185,7 @@ in {
         "stack"
         "haskell.compiler.ghc963"
         "haskell.packages.ghc963.apply-refact"
-        # "haskell.packages.ghc963.djinn"  # REVISIT: 2023-12-20: broken
+        # "haskell.packages.ghc963.djinn"  # REVISIT: 2024-01-24: broken
         "haskell.packages.ghc963.fast-tags"
         "haskell.packages.ghc963.ghc-events"
         "haskell.packages.ghc963.ghcid"

@@ -151,16 +151,16 @@ nix registry list
 #+RESULTS: nix-registry-list
 #+begin_example
 …
-global flake:templates github:NixOS/templates
+global flake:nixos-homepage github:NixOS/nixos-homepage
+global flake:nixos-search github:NixOS/nixos-search
+global flake:nixpkgs github:NixOS/nixpkgs/nixpkgs-unstable
+global flake:nur github:nix-community/NUR
 global flake:patchelf github:NixOS/patchelf
 global flake:poetry2nix github:nix-community/poetry2nix
-global flake:nix-serve github:edolstra/nix-serve
-global flake:nickel github:tweag/nickel
-global flake:bundlers github:NixOS/bundlers
 global flake:pridefetch github:SpyHoodle/pridefetch
-global flake:systems github:nix-systems/default
-global flake:helix github:helix-editor/helix
 global flake:sops-nix github:Mic92/sops-nix
+global flake:systems github:nix-systems/default
+global flake:templates github:NixOS/templates
 #+end_example
 
 For example, rather than referencing the flake on the =nixpkgs-unstable= branch
@@ -340,16 +340,16 @@ nix search nixpkgs 'gpu|opengl|accel' terminal | ansifilter
 
 #+RESULTS: nix-search-remote-concise
 #+begin_example
-,* legacyPackages.x86_64-linux.alacritty (0.12.3)
+,* legacyPackages.x86_64-linux.alacritty (0.13.1)
   A cross-platform, GPU-accelerated terminal emulator
 
-,* legacyPackages.x86_64-linux.darktile (0.0.10)
+,* legacyPackages.x86_64-linux.darktile (0.0.11)
   A GPU rendered terminal emulator designed for tiling window managers
 
-,* legacyPackages.x86_64-linux.kitty (0.31.0)
+,* legacyPackages.x86_64-linux.kitty (0.32.0)
   A modern, hackable, featureful, OpenGL based terminal emulator
 
-,* legacyPackages.x86_64-linux.rio (0.0.33)
+,* legacyPackages.x86_64-linux.rio (0.0.34)
   A hardware-accelerated GPU terminal emulator powered by WebGPU
 
 ,* legacyPackages.x86_64-linux.wezterm (20230712-072601-f4abf8fd)
@@ -448,7 +448,7 @@ readlink result*
 #+end_src
 
 #+RESULTS: nix-build-link
-: /nix/store/vh6wx2d9vs4j9acv48zvid5vx20p85w0-home-manager
+: /nix/store/bs7d07qayavy772y44pwnky49h41l8c4-home-manager
 
 Following these symlinks, we can see the files the project provides:
 
@@ -485,7 +485,7 @@ nix path-info .#<<get("package-attr-short")>>
 #+end_src
 
 #+results: nix-build-path
-: /nix/store/vh6wx2d9vs4j9acv48zvid5vx20p85w0-home-manager
+: /nix/store/bs7d07qayavy772y44pwnky49h41l8c4-home-manager
 
 ** Running commands in a shell
 
@@ -509,7 +509,7 @@ nix shell \
 #+end_src
 
 #+RESULTS: nix-shell
-: Usage: /nix/store/vh6wx2d9vs4j9acv48zvid5vx20p85w0-home-manager/bin/home-manager [OPTION] COMMAND
+: Usage: /nix/store/bs7d07qayavy772y44pwnky49h41l8c4-home-manager/bin/home-manager [OPTION] COMMAND
 : 
 : Options
 : 
@@ -582,7 +582,7 @@ nix run .#<<get("run-attr-short")>>  -- --help
 #+end_src
 
 #+RESULTS: nix-run
-: Usage: /nix/store/vh6wx2d9vs4j9acv48zvid5vx20p85w0-home-manager/bin/home-manager [OPTION] COMMAND
+: Usage: /nix/store/bs7d07qayavy772y44pwnky49h41l8c4-home-manager/bin/home-manager [OPTION] COMMAND
 : 
 : Options
 : 
@@ -645,7 +645,7 @@ nix shell --ignore-environment \
 #+end_src
 
 #+RESULTS: nix-shell-remote
-: /nix/store/vh6wx2d9vs4j9acv48zvid5vx20p85w0-home-manager/bin/home-manager
+: /nix/store/bs7d07qayavy772y44pwnky49h41l8c4-home-manager/bin/home-manager
 
 This is all a consequence of everything discussed in previous sections, but it's
 good to see clearly that what we do with local flake references can work just as
@@ -697,7 +697,7 @@ nix profile list --profile /tmp/nix-profile | ansifilter
 : Flake attribute:    packages.x86_64-linux.home-manager
 : Original flake URL: git+file:///home/tnks/src/shajra/shajra-provisioning
 : Locked flake URL:   git+file:///home/tnks/src/shajra/shajra-provisioning
-: Store paths:        /nix/store/vh6wx2d9vs4j9acv48zvid5vx20p85w0-home-manager
+: Store paths:        /nix/store/bs7d07qayavy772y44pwnky49h41l8c4-home-manager
 
 If we want to uninstall a program from our profile, we do so by the index from
 this list:
