@@ -19,6 +19,7 @@
         fzf-fish               = { url = github:PatrickF1/fzf.fish; flake = false; };
         haskell-hls-nix        = { url = github:shajra/haskell-hls-nix; flake = false; };
         haskell-tags-nix       = { url = github:shajra/haskell-tags-nix; flake = false; };
+        jankyborders           = { url = github:FelixKratz/JankyBorders; flake = false; };
         kaleidoscope           = { url = github:keyboardio/Kaleidoscope; flake = false; };
         lieer                  = { url = github:gauteh/lieer; flake = false; };
         moneydance             = { url = tarball+https://infinitekind.com/stabledl/current/moneydance-linux.tar.gz; flake = false; };

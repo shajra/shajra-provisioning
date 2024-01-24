@@ -22,6 +22,7 @@ let
                 direnv-nix-lorelei
                 fzf-fish
                 kaleidoscope
+                jankyborders
                 lieer
                 moneydance
                 pointless-xcompose
