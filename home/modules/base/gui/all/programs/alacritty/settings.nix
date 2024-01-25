@@ -31,9 +31,8 @@ in
         };
     };
 
-    draw_bold_text_with_bright_colors = false;
-
     colors = {
+        draw_bold_text_with_bright_colors = false;
         primary = {
             background = colors.semantic.background;
             foreground = colors.semantic.foreground;
