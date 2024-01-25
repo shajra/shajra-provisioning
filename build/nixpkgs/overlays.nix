@@ -22,6 +22,7 @@ let
                 direnv-nix-lorelei
                 fzf-fish
                 kaleidoscope
+                kitty-scrollback-nvim
                 lieer
                 moneydance
                 pointless-xcompose
