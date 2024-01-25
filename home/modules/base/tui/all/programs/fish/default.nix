@@ -45,29 +45,30 @@ let
     '';
 
     darwinInteractiveShellInit = ''
-        # NOTE: these keyscodes are mysterious.  Use "fish_key_reader -c" to
-        # discover what these codes should be.  They should be same as bindings
-        # for Linux, but with GUI instead of Alt for Darwin (because skhd is
-        # keybound heavily to Alt).
+        # DESIGN: these keyscodes are mysterious.  Use "fish_key_reader -c" to
+        # discover what these codes should be.  Use "bind" to see current
+        # bindings.  They should be same as bindings for Linux, but with GUI
+        # (9u) or Ctrl+GUI (13u) instead of Alt for Darwin (because skhd is
+        # keybound heavily to Alt, and MacOS uses GUI a lot).
         bind \e\[101\;9u  edit_command_buffer            # GUI+e
         bind \e\[46\;9u   history-token-search-backward  # GUI+.
         bind \e\[108\;9u  __fish_list_current_token      # GUI+l
-        bind \e\[104\;9u  __fish_man_page                # GUI+h
+        bind \e\[104\;13u  __fish_man_page               # GUI+Ctrl+h
         bind \e\[112\;9u  __fish_paginate                # GUI+p
         bind \e\[115\;9u  __fish_prepend_sudo            # GUI+s
         bind \e\[111\;9u  __fish_preview_current_file    # GUI+o
-        bind \e\[119\;9u  __fish_whatis_current_token    # GUI+w
+        bind \e\[119\;13u __fish_whatis_current_token    # GUI+Ctrl+w
         bind \e\[106\;9u fzf-cd-widget                   # GUI+j
         bind \e\[102\;9u _fzf_search_directory           # GUI+f
         if bind -M insert > /dev/null 2>&1
             bind -M insert \e\[101\;9u  edit_command_buffer
             bind -M insert \e\[46\;9u   history-token-search-backward
             bind -M insert \e\[108\;9u  __fish_list_current_token
-            bind -M insert \e\[104\;9u  __fish_man_page
+            bind -M insert \e\[104\;13u __fish_man_page
             bind -M insert \e\[112\;9u  __fish_paginate
             bind -M insert \e\[115\;9u  __fish_prepend_sudo
             bind -M insert \e\[111\;9u  __fish_preview_current_file
-            bind -M insert \e\[119\;9u  __fish_whatis_current_token
+            bind -M insert \e\[119\;13u __fish_whatis_current_token
             bind -M insert \e\[106\;9u fzf-cd-widget
             bind -M insert \e\[102\;9u _fzf_search_directory
         end
