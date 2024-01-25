@@ -1,9 +1,17 @@
 pkgs:
 
-{
+let
+
+    kitty-scrollback = pkgs.vimUtils.buildVimPlugin {
+        name = "kitty-scrollback.nvim";
+        src = pkgs.sources.kitty-scrollback-nvim;
+    };
+
+in {
     enable = true;
     plugins = with pkgs.vimPlugins; [
         fzf-vim
+        kitty-scrollback
         vim-grammarous
         vim-polyglot
     ];

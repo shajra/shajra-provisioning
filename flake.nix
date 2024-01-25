@@ -20,6 +20,7 @@
         haskell-hls-nix        = { url = github:shajra/haskell-hls-nix; flake = false; };
         haskell-tags-nix       = { url = github:shajra/haskell-tags-nix; flake = false; };
         kaleidoscope           = { url = github:keyboardio/Kaleidoscope; flake = false; };
+        kitty-scrollback-nvim  = { url = github:mikesmithgh/kitty-scrollback.nvim; flake = false; };
         lieer                  = { url = github:gauteh/lieer; flake = false; };
         moneydance             = { url = tarball+https://infinitekind.com/stabledl/current/moneydance-linux.tar.gz; flake = false; };
         pointless-xcompose     = { url = github:leoboiko/pointless-xcompose; flake = false; };

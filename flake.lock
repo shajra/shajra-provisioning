@@ -770,6 +770,22 @@
         "type": "github"
       }
     },
+    "kitty-scrollback-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1706103952,
+        "narHash": "sha256-zkmerUup4I7c9MSj+YQJYZuYI/HrokqLFI2HRceffnc=",
+        "owner": "mikesmithgh",
+        "repo": "kitty-scrollback.nvim",
+        "rev": "cb01085b9672ba90bdc4cf1aac37ef4ee093ec0d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mikesmithgh",
+        "repo": "kitty-scrollback.nvim",
+        "type": "github"
+      }
+    },
     "lieer": {
       "flake": false,
       "locked": {
@@ -1448,6 +1464,7 @@
         "haskell-tags-nix": "haskell-tags-nix",
         "home-manager": "home-manager",
         "kaleidoscope": "kaleidoscope",
+        "kitty-scrollback-nvim": "kitty-scrollback-nvim",
         "lieer": "lieer",
         "moneydance": "moneydance",
         "nix-darwin": "nix-darwin",

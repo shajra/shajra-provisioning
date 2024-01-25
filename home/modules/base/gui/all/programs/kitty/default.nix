@@ -21,34 +21,39 @@ let
 
     hintsInsert = type: "${hintsOpen type} --program -";
 
-    scrollbackNvim =
-        '' "${config.programs.neovim.package}/bin/nvim" ''
-        + '' -u NORC ''
-        + '' -c "map q :qa!<CR>" ''
-        + '' -c "terminal cat "<(cat)" - " ''
-        + '' -c "map i <Nop>" ''
-        + '' -c "set clipboard+=unnamedplus" ''
-        + '' -c "call cursor(CURSOR_LINE, CURSOR_COLUMN)" '';
+    scrollback.mouseMap =
+        "mouse_map kitty_mod+right press ungrabbed combine"
+        + " : mouse_select_command_output"
+        + " : kitty_scrollback_nvim --config ksb_builtin_last_visited_cmd_output";
+
+    scrollback.actionAlias = "kitty_scrollback_nvim kitten"
+        + " ${pkgs.sources.kitty-scrollback-nvim}/python/kitty_scrollback_nvim.py";
 
 in
 
 {
     enable = true;
     extraConfig = ''
-        scrollback_pager "${pkgs.bash}/bin/bash" -c '${scrollbackNvim}'
+        ${scrollback.mouseMap}
     '';
     font = config.theme.fonts.monospaced.code;
     keybindings = {
-        "ctrl+shift+e"         = hintsOpen   "url";
-        "ctrl+shift+p>f"       = hintsInsert "path";
-        "ctrl+shift+p>shift+f" = hintsOpen   "path";
-        "ctrl+shift+p>h"       = hintsInsert "hash";
-        "ctrl+shift+p>l"       = hintsInsert "line";
-        "ctrl+shift+p>n"       = hintsOpen   "linenum";
-        "ctrl+shift+p>w"       = hintsInsert "word";
-        "ctrl+shift+p>y"       = hintsOpen   "hyperlink";
+        "kitty_mod+e"         = hintsOpen   "url";
+        "kitty_mod+g"         = "kitty_scrollback_nvim --config ksb_builtin_last_cmd_output";
+        "kitty_mod+h"         = "kitty_scrollback_nvim";
+        "kitty_mod+p>f"       = hintsInsert "path";
+        "kitty_mod+p>h"       = hintsInsert "hash";
+        "kitty_mod+p>l"       = hintsInsert "line";
+        "kitty_mod+p>n"       = hintsOpen   "linenum";
+        "kitty_mod+p>shift+f" = hintsOpen   "path";
+        "kitty_mod+p>w"       = hintsInsert "word";
+        "kitty_mod+p>y"       = hintsOpen   "hyperlink";
     };
     settings = {
+        allow_remote_control = true;
+        listen_on = "unix:/tmp/kitty";
+        shell_integration = "enabled";
+        action_alias = scrollback.actionAlias;
 
         background              = colors.semantic.background;
         foreground              = colors.semantic.foreground;
