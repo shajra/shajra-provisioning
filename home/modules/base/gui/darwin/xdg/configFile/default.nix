@@ -45,7 +45,8 @@ let
                 do echo "    [$s]" = \"''${f##*/}\",
                 done
             done
-            echo '    [".kitty-wrapped"] = ":terminal:",'
+            echo '    [".kitty-wrapped"] = ":kitty:",'
+            echo '    ["iTerm2"] = ":iterm:",'
             echo '    ["Google Chrome Beta"] = ":google_chrome:",'
             echo '    ["Microsoft Edge Beta"] = ":microsoft_edge:",'
             echo "}"
