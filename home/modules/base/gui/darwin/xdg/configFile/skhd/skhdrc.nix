@@ -75,6 +75,24 @@ let
     '';
     window-cycle = "${window-cycle-script}/bin/window-cycle";
 
+    gaps-toggle-script = pkgs.writeShellScriptBin "gaps-toggle" ''
+        GAP_BIG=24
+        GAP_SLIM=12
+        GAP_SIZE="$(yabai -m config window_gap)"
+        if ! [ "$GAP_SIZE" -eq "$GAP_BIG" ]
+        then GAP_SIZE="$GAP_BIG"
+        else GAP_SIZE="$GAP_SLIM"
+        fi
+        yabai -m config                \
+            window_gap     "$GAP_SIZE" \
+               top_padding "$GAP_SIZE" \
+            bottom_padding "$GAP_SIZE" \
+              left_padding "$GAP_SIZE" \
+             right_padding "$GAP_SIZE" \
+        && sketchybar --bar margin="$GAP_SIZE"
+    '';
+    gaps-toggle = "${gaps-toggle-script}/bin/gaps-toggle";
+
 
 in ''
 # Strategy for keybindings:
@@ -257,6 +275,8 @@ lalt + shift - space : \
 
 # toggle sticky
 lalt + shift - s : yabai -m window --toggle sticky
+
+lalt - 0x2A : "${gaps-toggle}"
 
 # toggle sticky, float and resize to picture-in-picture size
 lalt - p : yabai -m window --toggle sticky && \
