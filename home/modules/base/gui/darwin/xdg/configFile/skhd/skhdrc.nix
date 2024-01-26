@@ -93,7 +93,6 @@ let
     '';
     gaps-toggle = "${gaps-toggle-script}/bin/gaps-toggle";
 
-
 in ''
 # Strategy for keybindings:
 #
@@ -225,6 +224,10 @@ lalt + shift + cmd - 9    : "${space-move}" 9
 # focus window within stack
 lalt + ctrl - 0x2B : yabai -m window --focus stack.prev
 lalt + ctrl - 0x2F : yabai -m window --focus stack.next
+
+# move window within stack
+lalt + shift + ctrl - 0x2B : yabai -m window --swap stack.prev && yabai -m window --focus stack.prev
+lalt + shift + ctrl - 0x2F : yabai -m window --swap stack.next && yabai -m window --focus stack.next
 
 # create spaces
 lalt + cmd - 0x2C : "${space-create}" last
