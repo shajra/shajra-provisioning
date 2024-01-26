@@ -89,7 +89,7 @@ let
             bottom_padding "$GAP_SIZE" \
               left_padding "$GAP_SIZE" \
              right_padding "$GAP_SIZE" \
-        && sketchybar --bar margin="$GAP_SIZE"
+        && sketchybar --bar margin="$((GAP_SIZE - 4))"
     '';
     gaps-toggle = "${gaps-toggle-script}/bin/gaps-toggle";
 
@@ -111,11 +111,10 @@ in ''
 # define modes
 :: default    : \
     borders \
-        width=8.0 \
         active_color=${colors.window.selected.focused.border.window} ; \
     sketchybar --bar border_color=${colors.semantic.unifying}
 :: passthru   : sketchybar --bar border_color=${colors.semantic.warning}
-:: size     @ : borders width=8.0 active_color=${colors.semantic.info}
+:: size     @ : borders active_color=${colors.semantic.info}
 
 # mode: returning home
 size, passthru < lalt + shift - escape ; default
