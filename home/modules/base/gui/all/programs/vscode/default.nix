@@ -25,6 +25,7 @@ in {
         "editor.fontFamily" = fonts.monospaced.code.name;
         "editor.fontLigatures" = true;
         "editor.fontSize" = 12;
+        "editor.minimap.enabled" = false;
         "files.trimTrailingWhitespace" = true;
         "grammarly.files.include" = [
             "**/readme.md"
