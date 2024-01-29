@@ -26,15 +26,15 @@ This project supports
 
 All we need to use this project is to install Nix, which this document covers. Nix can be installed on a variety of Linux and Mac systems. Nix can also be installed in Windows via the Windows Subsystem for Linux (WSL). Installation on WSL may involve steps not covered in this documentation, though.
 
-Note, some users may be using [NixOS](https://nixos.org), a Linux operating system built on top of Nix. Those users already have Nix and don't need to install it separately. To use this project, you don't need to use NixOS as well.
+Note, some users may be using [NixOS](https://nixos.org), a Linux operating system built on top of Nix. Those users already have Nix and don't need to install it separately. You don't need to use NixOS to use this project.
 
 # Level of commitment/risk<a id="sec-3"></a>
 
-Unless you're on NixOS, you're likely already using another package manager for your operating system already (APT, DNF, etc.). You don't have to worry about Nix or packages installed by Nix conflicting with anything already on your system. Running Nix along side other package managers is safe.
+Unless you're on NixOS, you're likely already using another package manager for your operating system (APT, DNF, etc.). You don't have to worry about Nix or packages installed by Nix conflicting with anything already on your system. Running Nix alongside other package managers is safe.
 
-All the files of a Nix package are located under `/nix` a directory, well isolated from any other package manager. Nix won't touch critical directories under `/usr` or `/var`. Nix then symlinks files under `/nix` to your home directory under dot-files like `~/.nix-profile`. There is also some light configuration under `/etc/nix`.
+All the files of a Nix package are located under `/nix` a directory, isolated from any other package manager. Nix won't touch critical directories under `/usr` or `/var`. Nix then symlinks files under `/nix` to your home directory under dot-files like `~/.nix-profile`. There is also some light configuration under `/etc/nix`.
 
-Hopefully this alleviates any worry about installing a complex program on your machine. Uninstallation is not too much more than deleting everything under `/nix`.
+Hopefully, this alleviates any worry about installing a complex program on your machine. Uninstallation is not too much more than deleting everything under `/nix`.
 
 # Nix package manager installation<a id="sec-4"></a>
 
@@ -54,7 +54,7 @@ The Nix manual describes [other methods of installing Nix](https://nixos.org/man
 
 # Cache setup<a id="sec-5"></a>
 
-This project pushes built Nix packages to [Cachix](https://cachix.org/) as part of its [continuous integration](https://github.com/shajra/shajra-provisioning/actions). It's recommended to configure Nix to use shajra.cachix.org as a Nix *substituter*. Once configured, Nix will pull down pre-built packages from Cachix, instead of building them locally (potentially saving a lot of time). This augments Nix's default substituter that pulls from cache.nixos.org.
+This project pushes built Nix packages to [Cachix](https://cachix.org/) as part of its [continuous integration](https://github.com/shajra/shajra-provisioning/actions). It's recommended to configure Nix to use shajra.cachix.org as a Nix *substituter*. Once configured, Nix can pull down pre-built packages from Cachix, instead of building them locally (potentially saving time). Cachix will augment Nix's default substituter that pulls from cache.nixos.org.
 
 You can configure shajra.cachix.org as a supplemental substituter with the following command:
 
@@ -69,7 +69,7 @@ Cachix is a service that anyone can use. You can call this command later to add 
 
 If you've just run a multi-user Nix installation and are not yet a trusted user in `/etc/nix/nix.conf`, this command may not work. But it will report back some options to proceed.
 
-One option sets you up as a trusted user, and installs Cachix configuration for Nix locally at `~/.config/nix/nix.conf`. This configuration will be available immediately, and any subsequent invocation of Nix commands will take advantage of the Cachix cache.
+One option sets you up as a trusted user and installs Cachix configuration for Nix locally at `~/.config/nix/nix.conf`. This configuration will be available immediately, and any subsequent invocation of Nix commands will take advantage of the Cachix cache.
 
 You can alternatively configure Cachix as a substituter globally by running the above command as a root user (say with `sudo`), which sets up Cachix directly in `/etc/nix/nix.conf`. The invocation may give further instructions upon completion.
 
@@ -84,13 +84,13 @@ The provided [introduction to Nix](nix-introduction.md) covers in detail what th
 
 As you can guess, the `flakes` feature enables flakes functionality in Nix. The `nix-command` feature enables a variety of subcommands of Nix's newer `nix` command-line tool, some of which allow us to work with flakes.
 
-If you don't enable experimental features globally, there is a switch to enable features local to just a single command-line invocation. For example, too use flakes-related commands we call `nix --extra-experimental-features 'nix-command flakes' …`. For users not enabling these features globally, this can be useful to set to a shell alias. Here's an example that works in most POSIX-compliant shells:
+If you don't enable experimental features globally, there is a switch to enable features local to just a single command-line invocation. For example, to use flakes-related commands, we call `nix --extra-experimental-features 'nix-command flakes' …`. When not configuring globally, setting an alias for this can be useful. The following command illustrates setting an alias in most POSIX-compliant shells:
 
 ```sh
 alias nix-flakes = nix --extra-experimental-features 'nix-command flakes'
 ```
 
-As discussed in the introduction, `nix-command` is actually enabled by default. You don't need to enable it explicitly (though you could disable it).
+As discussed in the introduction, `nix-command` is enabled by default. You don't need to enable it explicitly (though you could disable it).
 
 To use flakes there are two things we need to do:
 
@@ -105,7 +105,7 @@ nix --version
 
     nix (Nix) 2.18.1
 
-The easiest way to turn on experimental features is to create a file `~/.config/nix/nix.conf` if it doesn't already exist, and in it put the following line:
+The easiest way to turn on experimental features is to create a file `~/.config/nix/nix.conf` if it doesn't already exist, and in it, put the following line:
 
 ```text
 experimental-features = nix-command flakes
