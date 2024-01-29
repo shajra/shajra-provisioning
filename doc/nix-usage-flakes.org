@@ -3,7 +3,7 @@
 
 * Org-mode setup :noexport:
 
-This document is written in a project-agnostic way so it can be copied to other
+This document is written in a project-agnostic way to be copied to other
 projects that use Nix.
 
 ** Variables
@@ -52,7 +52,7 @@ an evaluation of a source code block.
 
 ** Setup action
 
-Next we perform some side-effects to set up the evaluation of the whole
+Next, we perform some side effects to set up the evaluation of the whole
 document.
 
 #+name: cleanup
@@ -65,8 +65,8 @@ rm --force /tmp/nix-profile*
 
 This document explains how to take advantage of software provided by Nix for
 people new to [[nix][the Nix package manager]]. This guide uses this project for
-examples, but it focused on introducing general Nix usage, which applies to
-other projects using Nix as well.
+examples but focuses on introducing general Nix usage, which also applies to
+other projects using Nix.
 
 #+include: "internal/nix-usage-flakes-include.org"
 
@@ -74,9 +74,8 @@ other projects using Nix as well.
 
 This project uses Nix to download all necessary dependencies and build
 everything from source. In this regard, Nix is helpful as not just a package
-manager, but also a build tool. Nix helps us get from raw source files to not
-only built executables, but all the way to a Nix package, which we can install
-with Nix if we like.
+manager but also a build tool. Nix helps us get from raw source files to built
+executables in a package we can install with Nix.
 
 Within this project, the various files with a ~.nix~ extension are Nix files,
 each of which contains an expression written in the [[nix-language-manual][Nix expression language]] used
@@ -96,7 +95,7 @@ Otherwise, see the provided [[file:nix-installation.org][Nix installation and co
 not yet set Nix up.
 
 To continue following this usage guide, you will need Nix's experimental flakes
-feature. You can enable this globally, or use an alias such as the following:
+feature. You can enable this globally or use an alias such as the following:
 
 #+begin_src sh :eval no
 alias nix-flakes = nix --extra-experimental-features 'nix-command flakes'
@@ -104,25 +103,25 @@ alias nix-flakes = nix --extra-experimental-features 'nix-command flakes'
 
 * Working with Nix
 
-Though covering Nix comprehensively is beyond the scope of this document, we'll
+Though comprehensively covering Nix is beyond the scope of this document, we'll
 go over a few commands illustrating some usage of Nix with this project.
 
 ** Referencing flake projects
 
-Most of this document illustrates use of the =nix= command, which provides a
+Most of this document illustrates usage of the =nix= command, which provides a
 number of subcommands and centralizes Nix usage.
 
 Many of the =nix= subcommands accept references to flake-enabled projects. A
-flake is written as just a Nix expression saved in a file named =flake.nix=.
-This file should be at the root of a project. We can reference both local and
-remote flake projects.
+flake is specified with a Nix expression saved in a file named =flake.nix=. This
+file should be at the root of a project. We can reference both local and remote
+flake projects.
 
-Here's some common forms we can use to reference flake projects:
+Here are some common forms we can use to reference flake projects:
 
 | Syntax                           | Location                                                       |
 |----------------------------------+----------------------------------------------------------------|
 | ~.~                              | flake in the current directory                                 |
-| ~<path>~                         | flake in some other filepath (must have a slash)               |
+| ~<path>~                         | flake in some other file path (must have a slash)              |
 | ~<registry>~                     | reference to flake from the registry (see =nix registry list=) |
 | ~git+<url>~                      | latest flake in the default branch of a Git repository         |
 | ~git+<url>?ref=<branch>~         | latest flake in a branch of a Git repository                   |
@@ -135,10 +134,10 @@ This table introduces an angle-bracket notation for syntactic forms with
 components that change with context. This notation is used throughout this
 document.
 
-Referencing local flake projects is easy enough with filepaths. But the URL-like
-notation for remote flake projects can get a touch verbose to type out.
-Furthermore, some of these references are not fixed. For example, Git branches
-point to different commits over time.
+Referencing local flake projects is easy enough with file paths. But the
+URL-like notation for remote flake projects can get verbose.  Furthermore, some
+of these references are not fixed. For example, Git branches point to different
+commits over time.
 
 To manage flake references, Nix provides a flakes registry. Upon installation
 this registry is prepopulated with some global entries:
@@ -165,18 +164,20 @@ global flake:templates github:NixOS/templates
 
 For example, rather than referencing the flake on the =nixpkgs-unstable= branch
 of the Nixpkgs GitHub repository with ~github:NixOS/nixpkgs/nixpkgs-unstable~,
-we can just use the simple identifier ~nixpkgs~.
+we can use the simpler identifier ~nixpkgs~.
 
-If we want to point to a different branch, but still use an identifier from the
-registry, we can by extending it with the branch. For example, the flakes
+If we want to point to a different branch but still use an identifier from the
+registry, we can do so by extending it with the branch. For example, the flakes
 identifier ~nixpkgs~ is the same as ~nixpkgs/nixpkgs-ustable~, but we can also
 use {{{get(nixos-latest,~nixpkgs/nixos-,~)}}} to override the branch and point
 to the NixOS {{{nixos-latest}}} release branch.
 
-Note, registries have mutable references, but for some of these references Nix
-knows how to repeatably rebuild the snapshot referenced. For example, when
-referencing a GitHub repository via a registry reference, Nix will take note of
-the commit ID of the snapshot retrieved.
+Note that registries have mutable references, but Nix knows how to rebuild the
+snapshot referenced for some of these references deterministically. For example,
+when referencing a GitHub repository via a registry reference, Nix will take
+note of the commit ID of the snapshot retrieved.  Nix typically stores this
+information required for reproducibility in a /lock file/ called =flake.lock=
+adjacent to =flake.nix=.
 
 ** Inspecting flake outputs
 
@@ -224,13 +225,13 @@ git+file:///home/tnks/src/shajra/shajra-provisioning
         └───shajra-nixos-rebuild: package 'shajra-nixos-rebuild'
 #+end_example
 
-Flake outputs are a organized in a tree of /attributes/. References to paths of
+Flake outputs are organized in a tree of /attributes/. References to paths of
 attributes are dot-delimited. There is a standard schema for the output
-attribute tree of flake. It's permitted to have outputs outside this schema.
+attribute tree of a flake. Nix permits outputs outside this schema.
 
-This document mostly focuses on packages provided by the =packages= output
-attribute. Notice that a flake provides packages for different (but often not
-all) system architectures.
+This document focuses on packages provided by the =packages= output attribute.
+Notice that a flake offers packages for different (but rarely all) system
+architectures.
 
 For commands like =nix flake show= that expect a flake reference as an argument,
 =.= is assumed as default if an argument isn't provided. So ~nix flake show~ is
@@ -278,15 +279,15 @@ for the provided name:
 
 Which attributes are searched depends on the =nix= subcommand called.
 
-For commands accepting installables as an argument, if none is provided, then
+For commands accepting installables as an argument, if none are provided, then
 =.= is assumed. Nix will attempt to read a =flake.nix= file in the current
-directory. If not found, Nix will continue searching parent directories
-recursively to find a =flake.nix= file.
+directory. If not found, Nix will recursively search parent directories to find
+a =flake.nix= file.
 
 ** Searching flakes for packages
 
 We can use the =nix search= command to see what package derivations a flake
-contains. For example from the root directory of this project, we can execute:
+contains. For example, from the root directory of this project, we can execute:
 
 #+begin_src sh :eval no
 nix search .
@@ -312,13 +313,12 @@ nix search . | ansifilter
 #+end_example
 
 If a flake has a lot of packages, you can pass regexes to prune down the search.
-Returned values will match all the regexes provided. Also, we can search a
-remote repository as well for packages to install.
+Returned values will match all the regexes provided.
 
-For example, Nixpkgs is a central repository for Nix providing several thousand
-packages. We can search the “nixpkgs-unstable” branch of [[nixpkgs][Nixpkgs' GitHub
-repository]] for packages that match both “gpu|opengl|accel” and “terminal” as
-follows:
+We can also search a remote repository for packages to install.  For example,
+Nixpkgs is a central repository for Nix, providing several thousand packages. We
+can search the “nixpkgs-unstable” branch of [[nixpkgs][Nixpkgs' GitHub repository]] for
+packages that match both “gpu|opengl|accel” and “terminal” as follows:
 
 #+name: nix-search-remote-verbose
 #+begin_src sh :results output silent :exports code
@@ -331,7 +331,7 @@ some typing:
 
 #+begin_src sh :eval no
 nix search nixpkgs 'gpu|opengl|accel' terminal
-#+end_src
++end_src
 
 #+name: nix-search-remote-concise
 #+begin_src sh :dir .. :results output :exports results
@@ -356,8 +356,8 @@ nix search nixpkgs 'gpu|opengl|accel' terminal | ansifilter
   GPU-accelerated cross-platform terminal emulator and multiplexer written by @wez and implemented in Rust
 #+end_example
 
-If we're curious what version of WezTerm is available in NixOS's latest release,
-we can specialize the installable we're searching as follows:
+If we're curious about what version of WezTerm is available in NixOS's latest
+release, we can specialize the installable we're searching as follows:
 
 #+begin_src sh :eval no :noweb yes
 nix search nixpkgs/nixos-<<get("nixos-latest")>>#wezterm
@@ -372,18 +372,18 @@ nix search nixpkgs/nixos-<<get("nixos-latest")>>#wezterm | ansifilter
 : * legacyPackages.x86_64-linux.wezterm (20230712-072601-f4abf8fd)
 :   GPU-accelerated cross-platform terminal emulator and multiplexer written by @wez and implemented in Rust
 
-Here {{{get(nixos-latest,~/nixos-,~)}}} overrides the default =nixpkgs-unstable= branch of
-the registry entry, and the ~#wezterm~ suffix searches not just the flake, but a
-specific package named ~wezterm~, which will either be found or not (there's no
-need for regexes to filter further).
+Here {{{get(nixos-latest,~/nixos-,~)}}} overrides the default =nixpkgs-unstable=
+branch of the registry entry, and the ~#wezterm~ suffix searches not just the
+flake, but a specific package named ~wezterm~, which will either be found or not
+(there's no need for regexes to filter further).
 
 You may also notice that the Nixpkgs flake outputs packages under the
 =legacyPackages= attribute instead of the =packages=. The primary difference is
 that packages are flatly organized under =packages=, while =legacyPackages= can
 be an arbitrary tree. =legacyPackages= exists specifically for the Nixpkgs
-project, a central project to the Nix ecosystem that's existed long before
-flakes. Beyond Nixpkgs, don't worry about =legacyPackages=. Packages from all
-other flakes should generally be found under =packages=.
+project, a central project to the Nix ecosystem that has existed long before
+flakes. Beyond Nixpkgs, you don't have to think much about =legacyPackages=.
+Packages from all other flakes should generally be found under =packages=.
 
 ** Building installables
 
@@ -413,15 +413,15 @@ We can build this package with =nix build= from the project root:
 nix build .#<<get("package-attr-short")>>
 #+end_src
 
-The positional arguments to =nix build= are /installables/ as discussed in prior
-sections. Here, the =.= indicates that our flake should be found from the
-current directory. Within this flake we look for a package with an attribute
+As discussed in prior sections, the positional arguments to =nix build= are
+/installables/. Here, the =.= indicates that our flake should be found from the
+current directory. Within this flake, we look for a package with an attribute
 name of {{{package-attr-short}}}. We didn't have to use the full attribute path
 {{{package-attr-long}}} because =nix build= will automatically look in the
 =packages= attribute for the system it detects we're on.
 
-If we omit the attribute path of our installable, Nix try to build a default
-package which it expects to find under the flake's =packages.<system>.default=.
+If we omit the attribute path of our installable, Nix tries to build a default
+package, which it expects to find under the flake's =packages.<system>.default=.
 For example, if we ran just ~nix build .~, Nix would expect to find a
 =flake.nix= in the current directory with an output providing a
 ~packages.<system>.default~ attribute with a package to build.
@@ -438,7 +438,7 @@ found there. Once a package is built, its content in =/nix/store= is read-only
 (until the package is garbage collected, discussed later).
 
 After a successful call of =nix build=, you'll see one or more symlinks for each
-package requested in the current working directory. These symlinks by default
+package requested in the current working directory. These symlinks, by default,
 have a name prefixed with “result” and point back to the respective build in
 =/nix/store=:
 
@@ -489,13 +489,13 @@ nix path-info .#<<get("package-attr-short")>>
 
 ** Running commands in a shell
 
-We can run commands in Nix-curated environments with =nix shell=. Nix will take
+We can run commands in Nix-curated environments with =nix shell=.  Nix will take
 executables found in packages, put them in an environment's =PATH=, and then
 execute a user-specified command.
 
-With =nix shell=, you don't even have to build the package first with =nix
-build= or mess around with “result” symlinks. =nix shell= will build any
-necessary packages required.
+With =nix shell=, you don't have to build the package first with =nix build= or
+mess around with “result” symlinks. =nix shell= will build any necessary
+packages required.
 
 For example, to get the help message for the {{{run-target-short}}} executable
 provided by the package selected by the {{{run-attr-short}}} attribute path
@@ -521,10 +521,11 @@ arguments to select packages to put on the =PATH=.
 
 The command to run within the shell is specified after the =--command= switch.
 =nix shell= runs the command in a shell set up with a =PATH= environment
-variable including all the =bin= directories provided by the selected packages.
+variable that includes all the =bin= directories provided by the selected
+packages.
 
-If you just want to enter an interactive shell with the set up =PATH=, you can
-drop the =--command= switch and following arguments.
+If you only want to enter an interactive shell with the configured =PATH=, you
+can drop the =--command= switch and following arguments.
 
 =nix shell= also supports an =--ignore-environment= flag that restricts =PATH=
 to only packages selected, rather than extending the =PATH= of the caller's
@@ -532,7 +533,7 @@ environment. With =--ignore-environment=, the invocation is more sandboxed.
 
 As with =nix build=, =nix shell= will select default packages for any
 installable that is only a flake reference. If no installable is provided to
-=nix shell=, the invocation will look for the default package in under the
+=nix shell=, the invocation will look for the default package under the
 =packages.<system>.default= attribute output by a flake assumed to be in the
 current directory. So, the following invocations are all equivalent:
 - ~nix shell~
@@ -545,15 +546,15 @@ The =nix run= command allows us to run executables from packages with a more
 concise syntax than =nix shell= with a =--command= switch.
 
 The main difference from =nix shell= is that =nix run= detects which executable
-to run from a package. If we want something other than what can be detected,
-then we have to continuing using =nix shell= with =--command=.
+to run from a package. If we want something other than what can be detected, we
+must continue using =nix shell= with =--command=.
 
 As with other =nix= subcommands, =nix run= accepts an installable as an argument
-(but only one). If none if provided, then =.= is assumed.
+(but only one). If none is provided, then =.= is assumed.
 
 If the provided installable is only a flake reference with no package selected,
-then =nix run= searches the following flake output attribute paths in order for
-something to run:
+then =nix run= searches the following flake output attribute paths, in order,
+for something to run:
 
 - =apps.<system>.default=
 - =packages.<system>.default=
@@ -605,8 +606,9 @@ nix search --json .#<<get("run-attr-short")>> | jq .
 :     "version": ""
 : …
 
-In the JSON above, the “pname” field indicates the package's name. In practice,
-this may or may not differ from flake output name of the installable.
+The “pname” field in the JSON above indicates the package's name. In practice,
+the package's name may or may not differ from flake output name of the
+installable.
 
 =nix run= works because the package selected by the output attribute name
 {{{run-attr-short}}} selects a package with a package name {{{run-name}}} that
@@ -619,9 +621,9 @@ using =nix shell= with =--command=.
 
 In the examples above, we've used selected packages from this project's flake,
 like {{{get(run-attr-short,=.#,=)}}}. But one benefit of flakes is that we can
-refer to remote flakes just as easily, like =nixpkgs#hello=. This means we can
-build quickly build environments with =nix shell= or run commands with =nix run=
-without committing to install software.
+refer to remote flakes just as easily, like =nixpkgs#hello=.  Referencing remote
+flakes helps us quickly build environments with =nix shell= or run commands with
+=nix run= without committing to install software.
 
 Here's a small example.
 
@@ -633,7 +635,7 @@ nix run nixpkgs#hello
 #+RESULTS: nix-run-remote
 : Hello, world!
 
-When using =nix shell=, we can even mix local flake reference with remote ones,
+When using =nix shell=, we can even mix local flake references with remote ones,
 all in the same invocation:
 
 #+name: nix-shell-remote
@@ -647,21 +649,20 @@ nix shell --ignore-environment \
 #+RESULTS: nix-shell-remote
 : /nix/store/bs7d07qayavy772y44pwnky49h41l8c4-home-manager/bin/home-manager
 
-This is all a consequence of everything discussed in previous sections, but it's
-good to see clearly that what we do with local flake references can work just as
-well with remote flake references.
+What we do with local flake references can work just as well with remote flake
+references.
 
 ** Installing and uninstalling programs
 
-We've seen that we can build programs with =nix build= and then execute them
-using the “result” symlink (=result/bin/*=). Additionally, we've seen that you
-can run programs with =nix shell= and =nix run=. But these additional steps and
-switches/arguments can feel extraneous. It would be nice if we could just have
-the programs on our =PATH=. This is what =nix profile= is for.
+We've seen that we can build programs with =nix build= and execute them using
+the “result” symlink (=result/bin/*=). Additionally, we've seen that you can run
+programs with =nix shell= and =nix run=. But these additional steps and
+switches/arguments can feel extraneous. It would be nice to have the programs on
+our =PATH=. This is what =nix profile= is for.
 
-=nix profile= maintains a symlink tree, called a /profile/, of installed
-programs. The default profile is at =~/.nix-profile=. For non-root users, if
-this doesn't exist, =nix profile= will create it as a symlink pointing to
+=nix profile= maintains a symlink tree of installed programs called a /profile/.
+The default profile is at =~/.nix-profile=. For non-root users, if this doesn't
+exist, =nix profile= will create it as a symlink pointing to
 =/nix/var/nix/profiles/per-user/$USER/profile=. But you can point =nix profile=
 to another profile at any writable location with the =--profile= switch.
 
@@ -719,8 +720,8 @@ nix profile remove --profile /tmp/nix-profile '.*<<get("package-attr-short")>>'
 #+end_src
 
 Also, if you look at the symlink-resolved location for your profile, you'll see
-that Nix retains the symlink trees of previous generations of your profile. In
-fact you can even rollback to a previous profile with the =nix profile rollback=
+that Nix retains the symlink trees of previous generations of your profile. You
+can even roll back to an earlier profile with the =nix profile rollback=
 subcommand. You can delete old generations of your profile with the =nix profile
 wipe-history= subcommand.
 
@@ -736,11 +737,12 @@ be removed by =nix store gc= can be found by starting with symlinks stored as
   - =/nix/var/nix/manifests=.
 
 For each package, Nix is aware of all files that reference back to other
-packages in =/nix/store=, whether in text files or binaries. This helps Nix
-assure that dependencies of packages reachable from GC roots won't be deleted.
+packages in =/nix/store=, whether in text files or binaries. This dependency
+tracking helps Nix ensure that dependencies of packages reachable from GC roots
+won't be deleted by garbage collection.
 
 Each “result” symlink created by a =nix build= invocation has a symlink in
-=/nix/var/nix/gcroots/auto= pointing back it. So we've got symlinks in
+=/nix/var/nix/gcroots/auto= pointing back to it. So we've got symlinks in
 =/nix/var/nix/gcroots/auto= pointing to “result” symlinks in our projects, which
 then reference the actual built project in =/nix/store=. These chains of
 symlinks prevent packages built by =nix build= from being garbage collected.
@@ -750,9 +752,9 @@ delete the “result” symlink created before calling =nix store gc=. Breaking
 symlink chains under =/nix/var/nix/gcroots= removes protection from garbage
 collection. =nix store gc= will clean up broken symlinks when it runs.
 
-Note that everything under =/nix/var/nix/profiles= is considered a GC root as
-well. This is why users by convention use this location to store their Nix
-profiles with =nix profile=.
+Everything under =/nix/var/nix/profiles= is also considered a GC root.  This is
+why users, by convention, use this location to store their Nix profiles with
+=nix profile=.
 
 Also, note if you delete a “result*” link and call =nix store gc=, though some
 garbage may be reclaimed, you may find that an old profile is keeping the
@@ -764,7 +766,7 @@ any running processes. In the case of =nix run= no garbage collection root
 symlink is created under =/nix/var/nix/gcroots=, but while =nix run= is running
 =nix store gc= won't delete packages needed by the running command. However,
 once the =nix run= call exits, any packages pulled from a substituter or built
-locally are candidates for deletion by =nix store gc=. If you called =nix run=
+locally are candidates for deletion by =nix store gc=.  If you called =nix run=
 again after garbage collecting, those packages may be pulled or built again.
 
 * Next steps
@@ -782,7 +784,7 @@ respective man pages for more.
 We didn't cover much of [[nixpkgs][Nixpkgs]], the gigantic repository of community-curated
 Nix expressions.
 
-The Nix ecosystem is vast. This project and documentation illustrates just a
+The Nix ecosystem is vast. This project and documentation illustrate only a
 small sample of what Nix can do.
 
 * Org-mode teardown :noexport:

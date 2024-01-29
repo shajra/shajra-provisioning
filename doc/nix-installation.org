@@ -3,7 +3,7 @@
 
 * Org-mode setup :noexport:
 
-This document is written in a project-agnostic way so it can be copied to other
+This document is written in a project-agnostic way to be copied to other
 projects that use Nix.
 
 ** Variables
@@ -42,23 +42,23 @@ installed in Windows via the Windows Subsystem for Linux (WSL). Installation on
 WSL may involve steps not covered in this documentation, though.
 
 Note, some users may be using [[nixos][NixOS]], a Linux operating system built on top of
-Nix. Those users already have Nix and don't need to install it separately. To
-use this project, you don't need to use NixOS as well.
+Nix. Those users already have Nix and don't need to install it separately. You
+don't need to use NixOS to use this project.
 
 * Level of commitment/risk
 
 Unless you're on NixOS, you're likely already using another package manager for
-your operating system already (APT, DNF, etc.). You don't have to worry about
-Nix or packages installed by Nix conflicting with anything already on your
-system. Running Nix along side other package managers is safe.
+your operating system (APT, DNF, etc.). You don't have to worry about Nix or
+packages installed by Nix conflicting with anything already on your system.
+Running Nix alongside other package managers is safe.
 
-All the files of a Nix package are located under =/nix= a directory, well
-isolated from any other package manager. Nix won't touch critical directories
-under =/usr= or =/var=. Nix then symlinks files under =/nix= to your home
-directory under dot-files like =~/.nix-profile=. There is also some light
-configuration under =/etc/nix=.
+All the files of a Nix package are located under =/nix= a directory, isolated
+from any other package manager. Nix won't touch critical directories under
+=/usr= or =/var=. Nix then symlinks files under =/nix= to your home directory
+under dot-files like =~/.nix-profile=. There is also some light configuration
+under =/etc/nix=.
 
-Hopefully this alleviates any worry about installing a complex program on your
+Hopefully, this alleviates any worry about installing a complex program on your
 machine. Uninstallation is not too much more than deleting everything under
 =/nix=.
 
@@ -93,9 +93,9 @@ the Nix manual]].
 
 This project pushes built Nix packages to [[cachix][Cachix]] as part of its [[github-actions][continuous
 integration]]. It's recommended to configure Nix to use shajra.cachix.org as a
-Nix /substituter/. Once configured, Nix will pull down pre-built packages from
-Cachix, instead of building them locally (potentially saving a lot of time).
-This augments Nix's default substituter that pulls from cache.nixos.org.
+Nix /substituter/. Once configured, Nix can pull down pre-built packages from
+Cachix, instead of building them locally (potentially saving time). Cachix will
+augment Nix's default substituter that pulls from cache.nixos.org.
 
 You can configure shajra.cachix.org as a supplemental substituter with the
 following command:
@@ -115,7 +115,7 @@ If you've just run a multi-user Nix installation and are not yet a trusted user
 in =/etc/nix/nix.conf=, this command may not work. But it will report back some
 options to proceed.
 
-One option sets you up as a trusted user, and installs Cachix configuration for
+One option sets you up as a trusted user and installs Cachix configuration for
 Nix locally at =~/.config/nix/nix.conf=. This configuration will be available
 immediately, and any subsequent invocation of Nix commands will take advantage
 of the Cachix cache.
@@ -139,18 +139,18 @@ As you can guess, the =flakes= feature enables flakes functionality in Nix. The
 command-line tool, some of which allow us to work with flakes.
 
 If you don't enable experimental features globally, there is a switch to enable
-features local to just a single command-line invocation. For example, too use
-flakes-related commands we call ~nix --extra-experimental-features 'nix-command
-flakes' …~. For users not enabling these features globally, this can be useful
-to set to a shell alias. Here's an example that works in most POSIX-compliant
-shells:
+features local to just a single command-line invocation. For example, to use
+flakes-related commands, we call ~nix --extra-experimental-features 'nix-command
+flakes' …~.  When not configuring globally, setting an alias for this can be
+useful. The following command illustrates setting an alias in most
+POSIX-compliant shells:
 
 #+begin_src sh :eval no
 alias nix-flakes = nix --extra-experimental-features 'nix-command flakes'
 #+end_src
 
-As discussed in the introduction, =nix-command= is actually enabled by default.
-You don't need to enable it explicitly (though you could disable it).
+As discussed in the introduction, =nix-command= is enabled by default.  You
+don't need to enable it explicitly (though you could disable it).
 
 To use flakes there are two things we need to do:
 1. make sure the version of Nix we're on is at least 2.4
@@ -169,7 +169,7 @@ nix --version
 : nix (Nix) 2.18.1
 
 The easiest way to turn on experimental features is to create a file
-=~/.config/nix/nix.conf= if it doesn't already exist, and in it put the
+=~/.config/nix/nix.conf= if it doesn't already exist, and in it, put the
 following line:
 
 #+begin_src text :eval no

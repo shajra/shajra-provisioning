@@ -13,9 +13,9 @@ rm --recursive --force nix_example
 This document is a quick introduction to the Nix programming language.
 
 You can use the [[nix][Nix]] command-line tools without understanding the programming
-language (also called Nix). However, learning the Nix language, will allow you
-to develop your own Nix packages and read the source code of others. A lot of
-this code is in [[nixpkgs][Nixpkgs]], a centralized repository of Nix code for the entire Nix
+language (also called Nix). However, learning the Nix language will allow you to
+develop your own Nix packages and read the source code of others. A lot of this
+code is in [[nixpkgs][Nixpkgs]], a centralized repository of Nix code for the entire Nix
 ecosystem.
 
 The Nix community has recently developed [[nix-language-tutorial][a tutorial for the language]], which may
@@ -29,9 +29,9 @@ relative to other general-purpose programming languages.
 
 You can read this document without following along on your own computer.
 
-If you do want to follow along, you need to [[file:nix-installation.org][install Nix]]. When installing Nix you
-will need to have the =nix-command= experimental feature enabled to follow along
-with this document. You won't need =flakes= enabled, though.
+If you do want to follow along, you need to [[file:nix-installation.org][install Nix]]. When installing Nix,
+you must enable the =nix-command= experimental feature to follow along with this
+document. You won't need =flakes= enabled, though.
 
 * Primitive literals
 
@@ -46,7 +46,7 @@ nix eval --expr '1 + 1'
 #+RESULTS:
 : 2
 
-Note, we just have to quote our entire expression for a shell invocation. For an
+Note we have to quote our entire expression for a shell invocation. For an
 interactive session where this quoting isn't needed, you can use the =nix repl=
 command.
 
@@ -110,8 +110,8 @@ nix eval --expr '"a" + "b"'
 
 Because of Nix's foundation as a “functional” programming language, you can't
 repeatedly bind values to variables as you may in other “imperative” languages.
-When we bind a value to a name, it's permanently bound for the entire scope the
-name exists within. We manage these scopes of bound names with
+When we bind a value to a name, it's permanently bound for the entire scope
+within which the name exists. We manage these scopes of bound names with
 /let-expressions/:
 
 #+begin_src sh :results output :exports both
@@ -139,14 +139,14 @@ nix eval --expr 'let a = 1; a = 2; in a' 2>&1 || true
 :              |            ^
 
 Note that semicolons are mandatory in all Nix forms that have them, including
-let-expressions. Because of Nix's strict parsing you can neither elide
-semicolons, nor put extra ones.
+let-expressions. Because of Nix's strict parsing, you can neither elide
+semicolons nor put extra ones.
 
 * String interpolation
 
-Sometimes we build up small code snippets inline in a Nix expression, so it's
+Sometimes, we build up small code snippets inline in a Nix expression, so it's
 useful to have string interpolation support. Similar to shell scripting, the
-syntax for this follows:
+syntax for this is as follows:
 
 #+begin_src sh :results output :exports both
 nix eval --expr '
@@ -158,7 +158,7 @@ nix eval --expr '
 #+RESULTS:
 : "FooBar is a terrible name"
 
-String interpolation is supported by both normal and multi-line strings.
+Both simple and multi-line strings support string interpolation.
 
 You can only interpolate strings into strings. For instance, interpolating an
 integer won't work:
@@ -194,17 +194,17 @@ nix eval --expr '
 #+RESULTS:
 : "42 is a terrible number"
 
-Note that unlike shell scripts, the curly braces are not optional for string
-interpolation in Nix. This works out in our favor if we're writing shell scripts
-inline in a Nix expression, because we can use ~$name~ for shell string
+Note that, unlike shell scripts, the curly braces are not optional for string
+interpolation in Nix. Curly braces can help when writing shell scripts inline
+within a Nix expression because we can use ~$name~ for shell string
 interpolation and ~${nix_expr}~ for Nix string interpolation. If this is not
-enough, within multiline strings, we can suppress interpolation with by using
+enough, within multiline strings, we can suppress interpolation by using
 =''${…}= instead of just =${…}=.
 
-This is a little tedious to illustrate in a shell example without dealing with
-quote delimiting. In the following example, the shell will interpolate, but not
-the final Nix expression because we have =''$= instead of just =$= in our final
-string:
+Illustrating this syntax in a shell example without dealing with
+quote-delimiting. In the following example, =FROM_SHELL= is interpolated by the
+shell, but =NOT_EXPANDED_BY_NIX= is not because we have =''$= instead of just
+=$= in our final string:
 
 #+begin_src sh :results output :exports both
 FROM_SHELL='${NOT_EXPANDED_BY_NIX}'
@@ -231,7 +231,7 @@ nix eval --expr "''In $FROM_SHELL expansion still happens.''" 2>&1 || true
 
 * Functions
 
-Nix has first class functions. Nix's functions take in only one argument at a
+Nix has first-class functions. Nix's functions take in only one argument at a
 time, and use a colon to separate the parameter name from the body of the
 function. Furthermore, Nix uses whitespace for function application:
 
@@ -254,8 +254,9 @@ nix eval --expr '(a: b: a + b) 1 2'
 #+RESULTS:
 : 3
 
-In this case, when we apply ~1~ to ~a: b: a + b~, we get another function. When
-we apply ~2~ to this resultant function, we finally get our answer ~3~.
+In this case, we get another function when we apply the function ~a: b: a + b~
+to the argument ~1~. When we apply this resultant function to ~2~, we finally
+get our answer ~3~.
 
 If you've heard of /currying a function/ in other languages with n-ary
 functions, you may recognize this technique.
@@ -308,9 +309,9 @@ nix eval --expr '{ a = 1; b = 2; }.b'
 : { a = 1; b = 2; }
 : 2
 
-Note, =builtins= is just an attribute set that is in scope by default. And
-=typeOf= is just an attribute that maps to a function that returns a string
-indicating the type of the argument.
+Note, =builtins= is just an attribute set in scope by default. And =typeOf= is
+just an attribute that maps to a function that returns a string indicating the
+type of the argument.
 
 Often used in Nix expressions, we can overlay sets on top of each other with the
 =//= operator:
@@ -356,7 +357,7 @@ nix eval --expr '({ a, b }: a + b ) { a = 1; b = 2; }'
 #+RESULTS:
 : 3
 
-This basic pattern syntax is rigid, and we can't pass in a attribute set with
+This basic pattern syntax is rigid, and we can't pass in an attribute set with
 attributes that don't match the pattern:
 
 #+begin_src sh :results output :exports both
@@ -382,7 +383,7 @@ error:
        Did you mean a?
 #+end_example
 
-If we want to relax the destructuring to accept sets with other attributes we
+If we want to relax the destructuring to accept sets with other attributes, we
 can use a “...” form:
 
 #+begin_src sh :results output :exports both
@@ -393,7 +394,7 @@ nix eval --expr '({ a, ...}: a + 2 ) { a = 3; b = 4; }'
 : 5
 
 When destructuring, we can still bind the whole set to a name if we want to
-using a “@” form.
+using an “@” form.
 
 #+begin_src sh :results output :exports both
 nix eval --expr '(s@{ a, b }: a + s.b ) { a = 2; b = 3; }'
@@ -402,7 +403,7 @@ nix eval --expr '(s@{ a, b }: a + s.b ) { a = 2; b = 3; }'
 #+RESULTS:
 : 5
 
-Attribute sets also support an additional syntactic convenience when pulling in
+Attribute sets also support an additional syntactic convenience when pulling
 locally bound values as attributes, which comes up a lot in Nix. For example,
 consider the way we're using ~a = a~ here:
 
@@ -413,8 +414,8 @@ nix eval --expr 'let a = 3; in { a = a; }'
 #+RESULTS:
 : { a = 3; }
 
-Rather than worrying about spelling the same name correctly both sides of
-the ‘=’ for an attribute setting, we can use the =inherit= keyword:
+Rather than worrying about spelling the same name correctly, both sides of the
+‘=’ for an attribute setting, we can use the =inherit= keyword:
 
 #+begin_src sh :results output :exports both
 nix eval --expr 'let a = 3; in { inherit a; }'
@@ -426,7 +427,7 @@ nix eval --expr 'let a = 3; in { inherit a; }'
 * Paths
 
 Because the Nix language was designed for building packages, file paths come up
-frequently in Nix expressions. Nix conveniently has a /path/ type, indicated by
+frequently in Nix expressions. Nix conveniently has a /path/ type indicated by
 identifiers with at least one slash:
 
 #+begin_src sh :results output :exports both
@@ -442,29 +443,28 @@ nix eval --expr '/some/filepath'
 
 #+begin_quote
 *WARNING:* This section discusses a language feature of Nix that should be
-avoided in Nix expressions. Use of this feature can lead to subtle build
-breakages depending on how you've set the =NIX_PATH= environment variable. This
-section is included only to explain the feature if you encounter it in other's
-code.
+avoided in Nix expressions. This feature can lead to subtle build breakages
+depending on how you've set the =NIX_PATH= environment variable.  This section
+only explains the feature if you encounter it in someone else's code.
 #+end_quote
 
-Up until now, all the Nix expressions we've seen have been purely deterministic.
-=1 + 1= will always evaluate to =2=. This is a valuable property for a build
-tool. If a Nix expression describes how to build a package, we want to build
-it consistently every time.
+Until now, all the Nix expressions we've seen have been purely deterministic.
+=1 + 1= will always evaluate to =2=.  Determinism is a valuable property for a
+build tool. If a Nix expression describes how to build a package, we want to
+build it consistently every time.
 
-Unfortunately, Nix has a special environment variable =NIX_PATH= which can
+Unfortunately, Nix has a special environment variable =NIX_PATH= that can
 provide mutable path references. For expressions that use the syntax described
 in this section, Nix expressions may reference paths that could change
 dynamically based on how =NIX_PATH= has been set. Builds relying on this are
 intrinsically non-deterministic.
 
-=NIX_PATH= is a legacy environment variable, that the ecosystem is slowly
-working to phase out. To assist with this, the =nix= command requires an
-=--impure= switch to evaluate an expressions that access mutable paths.
+=NIX_PATH= is a legacy environment variable the Nix ecosystem is slowly working
+to phase out. As part of this phase-out, the =nix= command requires an
+=--impure= switch to evaluate expressions that access mutable paths.
 
 As with =PATH=, the settings within =NIX_PATH= are colon-delimited, with earlier
-settings taking precedence over later ones. There are two forms for setting
+settings taking precedence over later ones. There are two forms of setting
 =NIX_PATH=:
 
 - ~<name>=<filepath>~
@@ -487,8 +487,7 @@ If we create some files or folders there:
 mkdir --parents /tmp/some.d/path
 #+end_src
 
-Then we can access them using our name as a path prefix in our angle
-brackets:
+Then we can access them using our name as a path prefix in our angle brackets:
 
 #+begin_src sh :results output :exports both
 NIX_PATH=temporary=/tmp nix eval --impure --expr '<temporary/some.d/path>'
@@ -497,10 +496,10 @@ NIX_PATH=temporary=/tmp nix eval --impure --expr '<temporary/some.d/path>'
 #+RESULTS:
 : /tmp/some.d/path
 
-If we use the second form for =NIX_PATH=, can specify directories without a
-name. These directories are then used as candidate prefixes until an existent
-path if found. For example, we can consider =/tmp= as a path prefix when looking
-up =some.d/path= to find =/tmp/some.d/path=:
+You can specify directories without a name using the second form for =NIX_PATH=.
+These directories are then used as candidate prefixes until an existent path is
+found. For example, we can consider =/tmp= as a path prefix when looking up
+=some.d/path= to find =/tmp/some.d/path=:
 
 #+begin_src sh :results output :exports both
 NIX_PATH=/tmp nix eval --impure --expr '<some.d/path>'
@@ -509,19 +508,19 @@ NIX_PATH=/tmp nix eval --impure --expr '<some.d/path>'
 #+RESULTS:
 : /tmp/some.d/path
 
-Now you know about the angle bracket syntax, but please never use it. It's
+You now know about the angle bracket syntax, but please never use it. It's
 generally caused the Nix community grief. The Nix community looks bad when a
 build system advertising deterministic builds fails to do so. There's almost
 always a better way to accomplish what you might with mutable path references.
 
 * Other (mutable) dangers
 
-There's other ways to have mutable references in Nix, but the angle notation
+There are other ways to have mutable references in Nix, but the angle notation
 discussed in the prior section is the most common found across various projects
 and legacy documentation.
 
-For instance, it's possible to use some functions found on the =builtins= set to
-fetch files from the internet. Here's one such example:
+For instance, it's possible to use some functions on the =builtins= set to fetch
+files from the internet. Here's one such example:
 
 #+begin_src sh :eval no :exports code
 nix eval --impure --expr '
@@ -553,15 +552,15 @@ nix eval --impure --expr '
 }
 #+end_example
 
-Notice that because we're referencing a URL on the internet that might change
+Notice that because we're referencing a URL on the internet, possibly volatile,
 =nix eval= forces us to use the =--impure= switch to perform this evaluation.
 
-In general, exercise caution any time calling a nix command with =--impure=.
+In general, exercise caution when calling a nix command with =--impure=.
 
 * Importing
 
-We can import paths. If the path is a file, it's loaded as a Nix expression. If
-it's a directory, a file called “default.nix” is loaded within it.
+We can import paths. If the path is a file, it's loaded as a Nix expression.
+If it's a directory, a file called “default.nix” is loaded within it.
 
 The Nixpkgs source code, for example, has a =default.nix= file at its root, so
 we can import a path directly to it
@@ -580,8 +579,8 @@ nix eval --file ./nix_example
 #+RESULTS:
 : 3
 
-We also see here use of the =--file= switch with =nix=. This is useful when an
-expression is saved in a file.
+Here we also see the usage of the =--file= switch with =nix=.  This switch is
+useful when an expression is saved in a file.
 
 * Org-mode Cleanup :noexport:
 
