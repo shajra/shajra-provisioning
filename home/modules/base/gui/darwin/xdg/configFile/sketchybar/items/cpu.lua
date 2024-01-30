@@ -4,10 +4,8 @@ local icons = require("icons")
 local graph_width = 75
 local graph_y_offset = 5
 
--- DESIGN: Lua API doesn't yet support adding graphs
--- https://github.com/FelixKratz/SbarLua/issues/6
-os.execute("sketchybar --add graph cpu.user right " .. graph_width)
-sbar.set("cpu.user", {
+sbar.add("graph", "cpu.user", graph_width, {
+    position = "right",
     width = 0,  -- subsequent items will overlap
     graph = {
         color = colors.blue,
@@ -19,10 +17,8 @@ sbar.set("cpu.user", {
     label = {drawing = false},
 })
 
--- DESIGN: Lua API doesn't yet support adding graphs
--- https://github.com/FelixKratz/SbarLua/issues/6
-os.execute("sketchybar --add graph cpu.sys right " .. graph_width)
-sbar.set("cpu.sys", {
+sbar.add("graph", "cpu.sys", graph_width, {
+    position = "right",
     width = graph_width,
     graph = {
         color = colors.red,
