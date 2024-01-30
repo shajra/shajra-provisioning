@@ -5,28 +5,10 @@ let
     jq    = "${pkgs.jq}/bin/jq";
     kitty = "${config.programs.kitty.package}/bin/kitty";
 
-    refresh-apps-script = pkgs.writeShellScriptBin "refresh-apps" ''
-        apps() {
-            yabai -m query --windows --space "$1" \
-            | "${jq}" -r '
-                reduce .[].app as $app ({}; .[$app] += 1)
-                | to_entries
-                | map("[\"" + .key + "\"]=" + (.value|tostring))
-                | "return{" + join(",") + "}"
-            '
-        }
-        yabai -m query --spaces --display | "${jq}" '.[].index' | while read -r space
-        do
-            sketchybar --trigger space_windows_change \
-                SPACE="$space" APPS="$(apps "$space")"
-        done
-    '';
-    refresh-apps = "${refresh-apps-script}/bin/refresh-apps";
-
     space-move-script = pkgs.writeShellScriptBin "space-move" ''
-        yabai -m space --move "$1" \
-        && sketchybar --trigger space_change \
-        && "${refresh-apps}"
+        yabai -m space --move "$1"
+        sketchybar --trigger space_change
+        sketchybar --trigger space_windows_change
     '';
     space-move = "${space-move-script}/bin/space-move";
 
@@ -40,7 +22,7 @@ let
             prev) yabai -m space last --move "$INDEX"          ;;
         esac
         sketchybar --trigger space_change
-        "${refresh-apps}"
+        sketchybar --trigger space_windows_change
     '';
     space-create = "${space-create-script}/bin/space-create";
 
