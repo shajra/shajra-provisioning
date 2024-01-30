@@ -53,7 +53,7 @@ platforms:
 
 Where I've listed multiple applications, my primary is listed first. Notably,
 for Macs, I'm using iTerm2, which does not configure easily with Nix. However, I
-use it because it's native tmux integration with its =-CC= switch is too useful
+use it because its native tmux integration with its =-CC= switch is too useful
 when working with remote machines.
 
 The second table below covers tools common to the terminal experience in all
