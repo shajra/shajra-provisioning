@@ -55,10 +55,10 @@
         #     ❯ readlink -f "$(which sketchybar)"
         #     /opt/homebrew/Cellar/sketchybar/2.19.6/bin/sketchybar
         #
-        { name = "borders"; }
+        { name = "borders";    args = ["HEAD"]; restart_service = "changed"; }
         { name = "sketchybar"; args = ["HEAD"]; restart_service = "changed"; }
-        { name = "skhd"; }
-        { name = "yabai"; }
+        { name = "skhd";       args = ["HEAD"]; }
+        { name = "yabai";      args = ["HEAD"]; }
 
         # DESIGN: not needed for now
         #"kubernetes-cli"
