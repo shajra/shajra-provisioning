@@ -90,7 +90,7 @@ Here are some constraints I tried to solve for:
   - Legible fonts and color contrast
   - Some aesthetic elegance
   - Leaning into what's easy (avoid twisted hacks)
-  - Visual minimal without limiting ergonomics or function.
+  - Visually minimal without limiting ergonomics or function.
 
 These constraints are all in addition to the larger goal of this project, which
 is to manage everything with Nix. Many fancy configurations exist but with a
