@@ -40,7 +40,7 @@ The first of these tables covers GUI tools that vary between Linux and Mac platf
 | Color temperature      | [Gammastep](https://gitlab.com/chinstrap/gammastep)                                                                                              | MacOS-native Night Shift                                                                                      |
 | Package management     | [Nix](https://nixos.org/nix)                                                                                                                     | [Nix](https://nixos.org/nix) + [Homebrew](https://brew.sh/)                                                   |
 
-Where I've listed multiple applications, my primary is listed first. Notably, for Macs, I'm using iTerm2, which does not configure easily with Nix. However, I use it because it's native tmux integration with its `-CC` switch is too useful when working with remote machines.
+Where I've listed multiple applications, my primary is listed first. Notably, for Macs, I'm using iTerm2, which does not configure easily with Nix. However, I use it because its native tmux integration with its `-CC` switch is too useful when working with remote machines.
 
 The second table below covers tools common to the terminal experience in all platforms:
 
