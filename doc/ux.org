@@ -1,5 +1,6 @@
 #+title: Design and User Experience
 #+setupfile: internal/links.org
+#+options: ^:nil
 
 [[file:./screenshot.linux.png]]
 [[file:./screenshot.mac.png]]

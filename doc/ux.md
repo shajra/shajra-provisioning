@@ -52,7 +52,7 @@ The second table below covers tools common to the terminal experience in all pla
 | Smart directory jumping                       | [zoxide](https://github.com/ajeetdsouza/zoxide)                                                                                          |
 | Fuzzy selection/launcher                      | [fzf](https://github.com/junegunn/fzf)                                                                                                   |
 | Project/directory-level environment variables | [direnv](https://direnv.net/) + [Lorelei](https://github.com/shajra/direnv-nix-lorelei)                                                  |
-| Man-page coloring                             | [colored<sub>man</sub><sub>pages</sub>](https://github.com/PatrickF1/colored_man_pages.fish) Fish extension                              |
+| Man-page coloring                             | [colored\_man\_pages](https://github.com/PatrickF1/colored_man_pages.fish) Fish extension                                                |
 | Terminal welcome message                      | [macchina](https://lib.rs/crates/macchina)                                                                                               |
 | Syntax-highlighted Git diffs                  | [Delta](https://github.com/dandavison/delta)                                                                                             |
 | Kitty history scrollback                      | [kitty-scrollback.nvim](https://github.com/mikesmithgh/kitty-scrollback.nvim)                                                            |
