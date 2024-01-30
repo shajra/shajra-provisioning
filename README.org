@@ -76,7 +76,8 @@ extraordinarily concise and declarative. Here's an example:
 }
 #+end_src
 
-You can see this configuration concretely in the [[file:./home][./home]] and [[file:./doc][./doc]] directories.
+You can see this configuration concretely in the [[file:./home][./home]] and [[file:./machines][./machines]]
+directories.
 
 These configuration modules also provide a battery of checking to make sure
 settings are valid and congruent.

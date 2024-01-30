@@ -53,7 +53,7 @@ Each project gives us a community-curated catalog of configuration modules that 
 }
 ```
 
-You can see this configuration concretely in the [./home](./home) and [./doc](./doc) directories.
+You can see this configuration concretely in the [./home](./home) and [./machines](./machines) directories.
 
 These configuration modules also provide a battery of checking to make sure settings are valid and congruent.
 
