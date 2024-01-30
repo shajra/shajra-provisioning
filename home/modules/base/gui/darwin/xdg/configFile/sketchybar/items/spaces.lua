@@ -23,14 +23,8 @@ local function space_selection(env)
 end
 
 local function space_windows_change(env)
-    local space, apps = nil, nil
-    if env.INFO then
-        space = env.INFO.space
-        apps = env.INFO.apps
-    else
-        space = tonumber(env.SPACE)
-        apps = load(env.APPS)()
-    end
+    local space = env.INFO.space
+    local apps = env.INFO.apps
     local app_emojis = {}
     for name, _ in pairs(apps) do
         table.insert(app_emojis, emojis[name] or ":default:")
