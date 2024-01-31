@@ -5,6 +5,22 @@ let
     sources = pkgs.sources;
     module-lorelei = (import sources.direnv-nix-lorelei).direnv-nix-lorelei-home;
 
+    # DESIGN: Gives freedom to chose the pin entry program explicitly, rather
+    # than rely on built-in fallbacks.  Gnome3's curses fallback is not
+    # convenient, but using Gnome3 as a default for Solarized theming.
+    pinentry = pkgs.writeShellScriptBin "pinentry" ''
+        case "$PINENTRY_USER_DATA" in
+            curses) PINENTRY="${pkgs.pinentry.curses}" ;;
+            emacs)  PINENTRY="${pkgs.pinentry.emacs}"  ;;
+            gnome3) PINENTRY="${pkgs.pinentry.gnome3}" ;;
+            gtk2)   PINENTRY="${pkgs.pinentry.gtk2}"   ;;
+            qt)     PINENTRY="${pkgs.pinentry.qt}"     ;;
+            tty)    PINENTRY="${pkgs.pinentry.tty}"    ;;
+            *)      PINENTRY="${pkgs.pinentry.gnome3}" ;;
+        esac
+        exec "$PINENTRY/bin/pinentry" "''${@}"
+    '';
+
 in
 
 {
@@ -25,7 +41,10 @@ in
 
     services.gpg-agent.enable = true;
     services.gpg-agent.enableSshSupport = true;
-    services.gpg-agent.pinentryFlavor = "gnome3";
+    services.gpg-agent.extraConfig = ''
+        allow-loopback-pinentry
+        pinentry-program "${pinentry}/bin/pinentry"
+    '';
 
     xdg.mimeApps = import xdg/mimeApps;
 }

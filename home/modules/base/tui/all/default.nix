@@ -41,7 +41,7 @@ in
         #programs.direnv-nix-lorelei.enable = true;
         programs.emacs = import programs/emacs pkgs;
         programs.feh.enable = true;
-        programs.fish = import programs/fish config pkgs;
+        programs.fish = import programs/fish config pkgs lib;
         programs.fzf.enable = true;
         programs.gh.enable = true;
         programs.git = import programs/git sources.delta;
