@@ -1,4 +1,4 @@
-config: pkgs:
+config: pkgs: lib:
 
 let
 
@@ -18,6 +18,8 @@ let
         "${pkgs.bat}/bin/bat" --color always --style numbers --wrap never \
             --line-range :300
     '';
+
+    gpg-connect-agent = "${config.programs.gpg.package}/bin/gpg-connect-agent";
 
     man-colored = pkgs.runCommand "man-colored" {} ''
         cp -r "${pkgs.sources.colored_man_pages-fish}" "$out"
@@ -80,6 +82,26 @@ in
     enable = true;
 
     functions = {
+        # DESIGN: This disablement of DBUS_SESSION_BUS_ADDRESS is only needed
+        # for gpg-agent's ssh-agent emulation with Gnome3 pin entry, which I
+        # only stick with for Solarized theming.  Qt pin entry has the same
+        # behavior out of the box without disabling DBus.  If using Qt, Home
+        # Manager's services.gpg-agent.enableSshSupport would make the
+        # updatestartuptty call.  We wouldn't need to call this function from
+        # interactiveShellInit below.  Still, it's useful to have the
+        # updatestartuptty call wrapped up as a function to grab back control.
+        gpg-pinentry-claim = {
+            description = "Set terminal to accept pinentry requests";
+            body = ''
+                if set -q SSH_CONNECTION
+                    set --global --export PINENTRY_USER_DATA tty
+                    DBUS_SESSION_BUS_ADDRESS=/dev/null \
+                        ${gpg-connect-agent} updatestartuptty /bye
+                else
+                        ${gpg-connect-agent} updatestartuptty /bye
+                end
+            '';
+        };
         system-info = {
             description = "A summary of system information";
             body = ''
@@ -222,7 +244,7 @@ in
         set fzf_dir_opts --preview-window nowrap
     '';
 
-    interactiveShellInit = ''
+    interactiveShellInit = lib.mkAfter ''
         umask 077
         set -gx EDITOR vim
         set -gx COLORTERM truecolor
@@ -233,6 +255,7 @@ in
             else linuxInteractiveShellInit
         }
         system-info
+        gpg-pinentry-claim > /dev/null
     '';
 
     plugins = [
