@@ -111,6 +111,10 @@
                         system = "x86_64-linux";
                         path   = home/target/shajra;
                     };
+                    homeConfigurations.shajra-lab = configLib.homeConfiguration {
+                        system = "x86_64-linux";
+                        path   = home/target/shajra/lab.nix;
+                    };
 
                     # DESIGN: "Slim" configurations below are for CI. These omit
                     # packages built independently, which helps avoid hitting
