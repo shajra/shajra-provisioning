@@ -97,7 +97,7 @@ To use flakes there are two things we need to do:
 1.  make sure the version of Nix we're on is at least 2.4
 2.  enable both the `nix-command` and `flakes` experimental features.
 
-Since the latest release of Nix is already at 2.19, if you installed Nix recently as per the instructions above, you should be on a recent-enough version:
+Since the latest release of Nix is already at 2.20, if you installed Nix recently as per the instructions above, you should be on a recent-enough version:
 
 ```sh
 nix --version
