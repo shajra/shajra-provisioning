@@ -91,8 +91,6 @@
     # /Applications/'Jabra Direct.app'
     # /Applications/'Jabra Firmware Update.app'
     # /Applications/'Jump Desktop.app'
-    # /Applications/Karabiner-Elements.app
-    # /Applications/Karabiner-EventViewer.app
     # /Applications/'KensingtonWorks .app'
     # /Applications/'Okta Verify.app'
     # /Applications/'OpenVPN Connect.app'
