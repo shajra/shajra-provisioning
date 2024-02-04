@@ -15,10 +15,10 @@ let
 
     # DESIGN: Sometimes it's easier to keep the mod-key depressed.
     bindingsForDirection = key: dir: {
-        "${key}"               = "resize grow   ${dir} 1 px or 1 ppt";
-        "${mod}+${key}"        = "resize grow   ${dir} 1 px or 1 ppt";
-        "Shift+${key}"         = "resize shrink ${dir} 1 px or 1 ppt";
-        "${mod}+Shift+${key}"  = "resize shrink ${dir} 1 px or 1 ppt";
+        "${key}"               = "resize grow   ${dir} 5 px or 1 ppt";
+        "${mod}+${key}"        = "resize grow   ${dir} 5 px or 1 ppt";
+        "Shift+${key}"         = "resize shrink ${dir} 5 px or 1 ppt";
+        "${mod}+Shift+${key}"  = "resize shrink ${dir} 5 px or 1 ppt";
     };
 
     directionBindings =
@@ -35,7 +35,7 @@ in {
 
         "${mod}+Escape"       = "mode \"default\"";
         "${mod}+Shift+Escape" = "mode \"default\"";
-        "${mod}+r"            = "mode \"default\"";
+        "${mod}+s"            = "mode \"default\"";
         "Escape"              = "mode \"default\"";
         "Return"              = "mode \"default\"";
     };
