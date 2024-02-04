@@ -68,6 +68,7 @@ in {
         "simple-scan"
         "sxiv"
         "xclip"
+        "xdotool"
         "xorg.xdpyinfo"
         "xorg.xev"
     ];
@@ -183,18 +184,18 @@ in {
         "cabal2nix"
         "cabal-install"
         "stack"
-        "haskell.compiler.ghc963"
-        "haskell.packages.ghc963.apply-refact"
-        # "haskell.packages.ghc963.djinn"  # REVISIT: 2024-01-24: broken
-        "haskell.packages.ghc963.fast-tags"
-        "haskell.packages.ghc963.ghc-events"
-        "haskell.packages.ghc963.ghcid"
-        "haskell.packages.ghc963.haskdogs"
-        "haskell.packages.ghc963.hasktags"
-        "haskell.packages.ghc963.hoogle"
-        "haskell.packages.ghc963.hlint"
-        "haskell.packages.ghc963.hp2pretty"
-        "haskell.packages.ghc963.stylish-haskell"
+        "haskell.compiler.ghc964"
+        "haskell.packages.ghc964.apply-refact"
+        # "haskell.packages.ghc964.djinn"  # REVISIT: 2024-02-04: broken
+        "haskell.packages.ghc964.fast-tags"
+        "haskell.packages.ghc964.ghc-events"
+        "haskell.packages.ghc964.ghcid"
+        "haskell.packages.ghc964.haskdogs"
+        "haskell.packages.ghc964.hasktags"
+        "haskell.packages.ghc964.hoogle"
+        "haskell.packages.ghc964.hlint"
+        "haskell.packages.ghc964.hp2pretty"
+        "haskell.packages.ghc964.stylish-haskell"
     ];
 
     nixpkgs.prebuilt.programming.java = pickHome [
@@ -234,7 +235,7 @@ in {
     ];
 
     nixpkgs.build.base.gui.darwin = np.pick { darwin = "home"; } [
-        # REVISIT: Nixpkgs seems to have given up on Yabai and Skhd
+        # REVISIT: Waiting for Nixpkgs to have Mac SDK 14
         #"yabai"
         #"skhd"
     ];
@@ -296,27 +297,27 @@ in {
 
     haskell-nix.prebuilt.programming.haskell = {
         # DESIGN: don't use enough to want to think about a cache miss
-        #nix-tools = hn.nixpkgs.haskell-nix.nix-tools.ghc963;
+        #nix-tools = hn.nixpkgs.haskell-nix.nix-tools.ghc964;
     };
 
     haskell-nix.build.programming.haskell = when (! isDevBuild) (
         {}
         # DESIGN: Nixpkgs-built binaries above are fine (maybe bloated)
-        #// (hn.fromHackage "ghc963" "apply-refact")
-        #// (hn.fromHackage "ghc963" "fast-tags")
-        #// (hn.fromHackage "ghc963" "ghc-events")
-        #// (hn.fromHackage "ghc963" "ghcid")
-        #// (hn.fromHackage "ghc963" "haskdogs")
-        #// (hn.fromHackage "ghc963" "hasktags")
-        #// (hn.fromHackage "ghc963" "hlint")
-        #// (hn.fromHackage "ghc963" "hoogle")
-        #// (hn.fromHackage "ghc963" "hp2pretty")
-        #// (hn.fromHackage "ghc963" "threadscope")
-        #// (hn.fromHackageCustomized "ghc963" "stylish-haskell" { configureArgs = "-f ghc-lib"; })
+        #// (hn.fromHackage "ghc964" "apply-refact")
+        #// (hn.fromHackage "ghc964" "fast-tags")
+        #// (hn.fromHackage "ghc964" "ghc-events")
+        #// (hn.fromHackage "ghc964" "ghcid")
+        #// (hn.fromHackage "ghc964" "haskdogs")
+        #// (hn.fromHackage "ghc964" "hasktags")
+        #// (hn.fromHackage "ghc964" "hlint")
+        #// (hn.fromHackage "ghc964" "hoogle")
+        #// (hn.fromHackage "ghc964" "hp2pretty")
+        #// (hn.fromHackage "ghc964" "threadscope")
+        #// (hn.fromHackageCustomized "ghc964" "stylish-haskell" { configureArgs = "-f ghc-lib"; })
 
         # REVISIT: marked broken in Nixpkgs, doesn't seem to build with
         # Haskell.nix either (need to look for a modern alternative exists)
-        #// (hn.fromHackage "ghc963" "ghc-events-analyze")
+        #// (hn.fromHackage "ghc964" "ghc-events-analyze")
     );
 
     shajra.prebuilt = {};

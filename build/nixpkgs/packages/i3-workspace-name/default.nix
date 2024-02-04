@@ -8,6 +8,23 @@
 let
     progName = "i3-workspace-name";
     meta.description = "Change I3 workspace name interactively";
+
+    jqSwapTemplate = cond: op: ''
+        .
+        | to_entries as $workspaces
+        | $workspaces[]
+        | select(.value.focused==true) as $focused
+        |   if ($focused.key ${cond})
+            then
+                $workspaces[]
+                | select(.key == ($focused.key ${op} 1))
+                | .value.name
+            else empty
+            end
+    '';
+    jqSwapPrev = jqSwapTemplate "> 0" "-";
+    jqSwapNext = jqSwapTemplate "< ($workspaces | length) - 1" "+";
+
 in
 
 nix-project-lib.writeShellCheckedExe progName
@@ -28,11 +45,30 @@ set -o pipefail
 
 main()
 {
-    local input; input="$(get_input)"
+    case "''${1:-}" in
+        prev|next) rename_space "jq_$1"   ;;
+        [0-9]|10)  rename_space echo "$1" ;;
+        *)         rename_space get_input ;;
+    esac
+}
+
+rename_space()
+{
+    local input; input="$("$@")"
     local trimmed_input; trimmed_input="$(trim "$input")"
     if [ -n "$trimmed_input" ]
     then smart_rename "$trimmed_input"
     fi
+}
+
+jq_prev() {
+    i3-msg -t get_workspaces \
+    | jq --raw-output '${jqSwapPrev}';
+}
+
+jq_next() {
+    i3-msg -t get_workspaces \
+    | jq --raw-output '${jqSwapNext}';
 }
 
 get_input()
@@ -78,17 +114,17 @@ name_exists()
 
 rename()
 {
-    orig="$1"
-    new="$2"
+    local orig="$1"
+    local new="$2"
     i3-msg "rename workspace \"$orig\" to \"$new\""
 }
 
 trim()
 {
-    suffix_trimmed="''${1%%*( )}"
+    local suffix_trimmed="''${1%%*( )}"
     echo "''${suffix_trimmed##*( )}"
 }
 
 
-main
+main "$@"
 ''
