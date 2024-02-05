@@ -4,6 +4,7 @@
 #+link: clipmenu https://github.com/cdown/clipmenu
 #+link: delta https://github.com/dandavison/delta
 #+link: direnv https://direnv.net/
+#+link: disko https://github.com/nix-community/disko
 #+link: docstring https://en.wikipedia.org/wiki/Docstring
 #+link: doom https://github.com/hlissner/doom-emacs
 #+link: dunst https://dunst-project.org/
@@ -21,6 +22,8 @@
 #+link: i3status-rust https://github.com/greshake/i3status-rust
 #+link: iterm2 https://iterm2.com/
 #+link: jankyborders https://github.com/FelixKratz/JankyBorders
+#+link: key-altgr https://en.wikipedia.org/wiki/AltGr_key
+#+link: key-compose https://en.wikipedia.org/wiki/Compose_key
 #+link: kitty https://sw.kovidgoyal.net/kitty/
 #+link: kitty-scrollback https://github.com/mikesmithgh/kitty-scrollback.nvim
 #+link: lorelei https://github.com/shajra/direnv-nix-lorelei
@@ -36,15 +39,15 @@
 #+link: nix-language-manual https://nixos.org/manual/nix/stable/language/index.html
 #+link: nix-language-tutorial https://nixos.org/guides/nix-language.html
 #+link: nix-learn https://nixos.org/learn.html
+#+link: nix-project https://github.com/shajra/nix-project
+#+link: nix-project-dev https://github.com/shajra/nix-project/blob/main/doc/project-developing.md
+#+link: nix-uninstall https://nixos.org/manual/nix/stable/installation/installing-binary.html#uninstalling
 #+link: nixos https://nixos.org
 #+link: nixos-manual-conf-options https://nixos.org/manual/nixos/stable/index.html#ch-configuration
 #+link: nixos-manual-conf-syntax https://nixos.org/manual/nixos/stable/index.html#sec-configuration-file
 #+link: nixos-manual-rebuild https://nixos.org/manual/nixos/stable/index.html#sec-changing-config
 #+link: nixpkgs https://github.com/NixOS/nixpkgs
 #+link: nixpkgs-manual https://nixos.org/nixpkgs/manual
-#+link: nix-project https://github.com/shajra/nix-project
-#+link: nix-project-dev https://github.com/shajra/nix-project/blob/main/doc/project-developing.md
-#+link: nix-uninstall https://nixos.org/manual/nix/stable/installation/installing-binary.html#uninstalling
 #+link: raycast https://www.raycast.com/
 #+link: raycast-clipboard https://www.raycast.com/extensions/clipboard-history
 #+link: repl https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop

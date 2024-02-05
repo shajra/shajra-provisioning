@@ -1,9 +1,6 @@
-There's two configurations in iTerm that support an export/import options:
+There's some configuration in iTerm that support export/import options. Most import for are iTerm2 profiles:
 
--   Settings → Keys (use [shajra.itermkeymap](./shajra.itermkeymap))
 -   Settings → Profiles (use [Profiles.json](./Profiles.json)}
-
-Most configuration of iTerm2 that I require is in profiles. The keymap most importantly passes through Cmd+Enter as an escaped Enter, which works for Vim and Emacs.
 
 Other settings that I recall setting:
 
