@@ -40,7 +40,7 @@ main()
 
 configure_dpi()
 {
-    echo "*dpi: $DPI" > "$XRESOURCES"
+    { echo "*dpi: $DPI"; echo "Xft.dpi: $DPI"; } > "$XRESOURCES"
     xrdb -merge "$XRESOURCES"
     xrandr --dpi "$DPI"
 }
