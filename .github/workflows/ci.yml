@@ -11,14 +11,14 @@ jobs:
     name: "pkgs-linux: ${{ matrix.infra }}: ${{ matrix.set }}"
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: DeterminateSystems/nix-installer-action@main
       with:
         extra-conf: |
           substituters = https://cache.iog.io
           trusted-public-keys = hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=
     - uses: DeterminateSystems/magic-nix-cache-action@main
-    - uses: cachix/cachix-action@v12
+    - uses: cachix/cachix-action@v14
       with:
         name: shajra
         signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
@@ -38,7 +38,7 @@ jobs:
     needs: [pkgs-linux]
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: DeterminateSystems/nix-installer-action@main
       with:
         # DESIGN: cache.nixos.org explicit because Magix Nix Cache not appending it
@@ -46,7 +46,7 @@ jobs:
           substituters = https://cache.iog.io https://cache.nixos.org
           trusted-public-keys = hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
     # DESIGN: no Magic Nix Cache because pkgs-linux gets too close to API limit
-    - uses: cachix/cachix-action@v12
+    - uses: cachix/cachix-action@v14
       with:
         name: shajra
         signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
@@ -61,14 +61,14 @@ jobs:
     needs: [pkgs-linux]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: DeterminateSystems/nix-installer-action@main
       with:
         extra-conf: |
           substituters = https://cache.iog.io
           trusted-public-keys = hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=
     - uses: DeterminateSystems/magic-nix-cache-action@main
-    - uses: cachix/cachix-action@v12
+    - uses: cachix/cachix-action@v14
       with:
         name: shajra
         signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
