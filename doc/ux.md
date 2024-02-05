@@ -1,13 +1,14 @@
 - [Computer setup with NixOS-style modules](#sec-1)
-- [Applications used](#sec-2)
-- [Some goals](#sec-3)
-- [Theming](#sec-4)
-  - [Color Selection](#sec-4-1)
-  - [Color and font configuration with Nix](#sec-4-2)
-  - [Application cohesion](#sec-4-3)
-- [Limitations of the UX](#sec-5)
-- [Brew](#sec-6)
-- [What sucks](#sec-7)
+- [Some goals](#sec-2)
+- [Applications used](#sec-3)
+- [Keybindings](#sec-4)
+- [Theming](#sec-5)
+  - [Color Selection](#sec-5-1)
+  - [Color and font configuration with Nix](#sec-5-2)
+  - [Application cohesion](#sec-5-3)
+- [Limitations of the UX](#sec-6)
+- [Brew](#sec-7)
+- [What sucks](#sec-8)
 
 ![img](./screenshot.linux.png) ![img](./screenshot.mac.png)
 
@@ -21,7 +22,28 @@ Most of the time, I get what I need from upstream NixOS-style modules alone. Occ
 
 The rest of this document highlights some of the setup this project does. The document explains my rationale for personal preferences, admittedly slipping into advocacy for things I enjoy. I've just put in more hours than I care to admit into this, and I feel like sharing. And after over twenty years of setting up computers, this is a way to reflect on some choices.
 
-# Applications used<a id="sec-2"></a>
+# Some goals<a id="sec-2"></a>
+
+Here are some constraints I tried to solve for:
+
+-   Keybindings
+    -   Vim-style
+    -   Composable, making mnemonic sense
+    -   Consistent across applications and window management (and even OS)
+-   Application selection and configuration
+    -   Modern mix of both expert- and beginner-friendly features
+    -   Reasonable resource consumption (keep old machines out of landfills)
+    -   Graphics are okay if they work better than text
+-   Theming
+    -   Consistent across applications and window management (and even OS)
+    -   Legible fonts and color contrast
+    -   Some aesthetic elegance
+    -   Leaning into what's easy (avoid twisted hacks)
+    -   Visually minimal without limiting ergonomics or function.
+
+These constraints are all in addition to the larger goal of this project, which is to manage everything with Nix. Many fancy configurations exist but with a mess of supporting code. I'm somewhat satisfied with how everything turned out.
+
+# Applications used<a id="sec-3"></a>
 
 The following tables have some links to all the third-party tools that have been integrated by this project.
 
@@ -57,34 +79,47 @@ The second table below covers tools common to the terminal experience in all pla
 | Syntax-highlighted Git diffs                  | [Delta](https://github.com/dandavison/delta)                                                                                             |
 | Kitty history scrollback                      | [kitty-scrollback.nvim](https://github.com/mikesmithgh/kitty-scrollback.nvim)                                                            |
 
-# Some goals<a id="sec-3"></a>
+# Keybindings<a id="sec-4"></a>
 
-Here are some constraints I tried to solve for:
+I'm happy that a lot of my keybindings are consistent between Linux and Mac environments, so much so that I sometimes forget what platform I'm on.
 
--   Keybindings
-    -   Vim-style
-    -   Composable, making mnemonic sense
-    -   Consistent across applications and window management (and even OS)
--   Application selection and configuration
-    -   Modern mix of both expert- and beginner-friendly features
-    -   Reasonable resource consumption (keep old machines out of landfills)
-    -   Graphics are okay if they work better than text
--   Theming
-    -   Consistent across applications and window management (and even OS)
-    -   Legible fonts and color contrast
-    -   Some aesthetic elegance
-    -   Leaning into what's easy (avoid twisted hacks)
-    -   Visually minimal without limiting ergonomics or function.
+Talking about keys between Macs and non-Mac keyboards can be annoying because there have been some historic divergences. A useful simplification, the USB HID tables, force these divergences to converge with modern USB-based keyboards:
 
-These constraints are all in addition to the larger goal of this project, which is to manage everything with Nix. Many fancy configurations exist but with a mess of supporting code. I'm somewhat satisfied with how everything turned out.
+| USB HID key | Non-Mac key | Mac key     |
+|----------- |----------- |----------- |
+| `GUI`       | `⊞ Windows` | `⌘ Command` |
+| `Alt`       | `⎇ Alt`     | `⌥ Option`  |
+| `Control`   | `^ Control` | `^ Control` |
+| `Shift`     | `⇧ Shift`   | `⇧ Shift`   |
 
-# Theming<a id="sec-4"></a>
+For each of these keys, we get both a left and right variant.
+
+In general, I've come to expect the following conventions with my keybindings:
+
+| USB HID key       | Side          | Purpose                     |
+|----------------- |------------- |--------------------------- |
+| `GUI`             | left          | custom window management    |
+| `GUI`             | right         | standard MacOS bindings     |
+| `Alt`             | left          | application shortcuts       |
+| `Alt`             | right         | special character entry     |
+| `Control`         | left or right | application shortcuts       |
+| `Shift=+=Control` | `^ Control`   | terminal emulator shortcuts |
+
+Having conventions like this helps with my recall of shortcuts as well as the fluidity of their usage. It's even nicer when it's consistent across operating systems.
+
+In Linux, settling on the `Windows` (`GUI`) key for my shortcuts for `i3` window management is natural because no default shortcuts in Linux use the `Windows` key. On Macs, the corresponding `Command` key is used quite a bit for MacOS shortcuts. So I configure `skhd` to use only the right `Command` key for `yabai` window management.
+
+By default, Macs use the `Option` key for special character input. Similarly, Linux is often configured such that the right `Alt` key is used to emulate the legacy [`Compose`](https://en.wikipedia.org/wiki/Compose_key) key or [`Alt Graph`](https://en.wikipedia.org/wiki/AltGr_key) key, for special characters. In Linux, this leaves the left `Alt` key for application shortcuts. In this spirit, some terminal emulators running in MacOS, such as iTerm2 and Kitty, can be configured to emit escaped codes with the right `Alt` key, the same as Linux.
+
+Finally, terminal emulators are a little special because we don't want their shortcuts to override the terminal application running within them, which might have shortcuts of their own. By convention, many terminal emulators use `Shift=+=Control`, leaving other modifier combinations for applications.
+
+# Theming<a id="sec-5"></a>
 
 It can be nice when colors are consistent across different applications, though not all applications make it easy or possible. The pictures at the top of this document illustrate how I theme my Linux and Mac environments.
 
 The Mac screenshot is a bit disingenuous. I don't use a wallpaper day-to-day because I find MacOS's transparency of unfocused windows distracting. I also don't have that wide a gap between windows. But it all makes for a nice screenshot.
 
-## Color Selection<a id="sec-4-1"></a>
+## Color Selection<a id="sec-5-1"></a>
 
 The color theme is [Solarized Light](https://ethanschoonover.com/solarized/). I like the thought put into considering the [CIELAB lightness](https://en.wikipedia.org/wiki/CIELAB_color_space) values when considering how readable various combinations of foreground and backgrounds would be.
 
@@ -96,7 +131,7 @@ I feel like Solarized is misunderstood. If you regard Solarized as a retro color
 
 Still, my adoption of Solarized Light is a bit jaded. I lean towards the gold and green hues. Combine that with the stolen snowman image, and I call it “Terminal Capitalism.”
 
-## Color and font configuration with Nix<a id="sec-4-2"></a>
+## Color and font configuration with Nix<a id="sec-5-2"></a>
 
 This project extends Nixpkgs with [a small overlay](../build/nixpkgs/overlays/lib/colors.nix) providing a way to specify a color palette (starting with Solarized). This overlay also provides some functions for manipulating colors and palettes.
 
@@ -110,19 +145,19 @@ None of this is wildly exotic, but I think it's a nice illustration of using the
 
 There's no dark theme yet, but the infrastructure is all there to make and select it in the Home Manager theme module.
 
-## Application cohesion<a id="sec-4-3"></a>
+## Application cohesion<a id="sec-5-3"></a>
 
 I was surprised by how many applications render as bordered boxes with possibly rounded corners. Set a background color, foreground color, and the radius for the corner, and different applications seem to be from the same product suite.
 
 I'm also pleased by how my Macbook looks and feels like a Linux environment. Though having such a small user pool, Yabai and SketchyBar feel surprisingly stable, with active communities working through defects and features.
 
-# Limitations of the UX<a id="sec-5"></a>
+# Limitations of the UX<a id="sec-6"></a>
 
 Tools like Doom Emacs have an approach to UX that I especially like. You can start with a key like the spacebar. And that gives you a menu of keys you can hit next. It's essentially a menu, but the path of the menu traversal becomes the efficient keybindings you memorize for the next time. Notably, the expert doesn't do something different from the beginner. The expert does what the beginner does, only faster.
 
 It would be great if this convergence of the expert and beginner experience could be done beyond editors. I've worked so hard to have these keybindings for window management that have some elegance or are slightly intuitive. But beginners can't discover any of them easily. I have this problem because I'm not doing much more than just stringing together the same applications that everyone else is stringing together. This project is great for me and others with my specific taste for UX choices. I think other people could be included if there were more discovery.
 
-# Brew<a id="sec-6"></a>
+# Brew<a id="sec-7"></a>
 
 Ideally, we'd install and configure everything with Nix. Unfortunately, for a few programs, there's no Nix expression yet for MacOS. So we have to fall back to a package manager like [Homebrew](https://brew.sh/). This includes programs like Firefox and Chromium.
 
@@ -130,7 +165,7 @@ Though it's not ideal, Home Manager supports control over Homebrew. Assuming you
 
 At least we can get some automation, even if we don't get Nix's precision.
 
-# What sucks<a id="sec-7"></a>
+# What sucks<a id="sec-8"></a>
 
 When looking for an application, there's sometimes an alternative from the [Suckless](https://suckless.org) community. I'm using the word “community” loosely to include both upstream authors and users, but not everyone completely. What I'm about to say is based on my experiences with the community in aggregate and the tendencies I've witnessed.
 
