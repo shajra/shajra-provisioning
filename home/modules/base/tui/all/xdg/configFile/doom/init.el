@@ -61,7 +61,6 @@
   emacs-direnv
   docker
   (eval +overlay)   ; run code, run (also, repls)
-  gist              ; interacting with github gists
   lookup            ; navigate your code and its documentation
   (lsp +peek)       ; M-x vscode
   magit             ; a git porcelain for Emacs
@@ -72,7 +71,7 @@
   tree-sitter       ; syntax and parsing, sitting in a tree...
 
   :os
-  (:if IS-MAC macos) ; improve compatibility with macOS
+  (:if (featurep :system 'macos) macos) ; improve compatibility with macOS
   tty                ; improve the terminal Emacs experience
 
   :lang
