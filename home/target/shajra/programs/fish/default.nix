@@ -1,14 +1,20 @@
 {
     interactiveShellInit = ''
-        set --export --universal SFT_AUTH_SOCK (
-            find /var/run/sftd/client_trust_forwarding/shajra \
-            -type s -exec stat -c "%Y %n" {} \; \
-            | sort -n | tail -n 1 | awk '{print $2}'
-        )
-        set --erase --global SFT_AUTH_SOCK
+        sft-update
     '';
 
     functions = {
+        sft-update = {
+            description = "Use latest SFT socket";
+            body = ''
+                set --export --universal SFT_AUTH_SOCK (
+                    find /var/run/sftd/client_trust_forwarding/shajra \
+                    -type s -exec stat -c "%Y %n" {} \; \
+                    | sort -n | tail -n 1 | awk '{print $2}'
+                )
+                set --erase --global SFT_AUTH_SOCK || true
+            '';
+        };
         groq-mr-slack = {
             description = "Notify team of merge request";
             body = ''
