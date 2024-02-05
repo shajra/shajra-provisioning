@@ -99,6 +99,7 @@ in {
         "tmux"
         "tree"
         "unzip"
+        "w3m"
         "wemux"
         "wget"
         "which"
