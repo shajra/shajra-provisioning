@@ -16,7 +16,20 @@
         "type": "github"
       }
     },
-    "bluos-controller-packed": {
+    "bluos-controller-mac-zip": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1706550524,
+        "narHash": "sha256-ne2s82HuC5nxZHrH8SVaihczZotiOHQG1Sn7IiwP8dU=",
+        "type": "tarball",
+        "url": "https://content-bluesound-com.s3.amazonaws.com/uploads/2024/01/BluOS-Controller-4.2.1-MacOS.zip"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://content-bluesound-com.s3.amazonaws.com/uploads/2024/01/BluOS-Controller-4.2.1-MacOS.zip"
+      }
+    },
+    "bluos-controller-win-zip": {
       "flake": false,
       "locked": {
         "lastModified": 1706550342,
@@ -31,16 +44,17 @@
     },
     "bluos-nix": {
       "inputs": {
-        "bluos-controller-packed": "bluos-controller-packed",
+        "bluos-controller-mac-zip": "bluos-controller-mac-zip",
+        "bluos-controller-win-zip": "bluos-controller-win-zip",
         "flake-parts": "flake-parts",
         "nix-project": "nix-project"
       },
       "locked": {
-        "lastModified": 1707098428,
-        "narHash": "sha256-mPz0DCE0IKLXCTZezU7FbCbk7W7+fB+mj2ZsLSt7nRA=",
+        "lastModified": 1707269728,
+        "narHash": "sha256-4fnUb0fV9aR0wdUMQHxMdsXRook5+2yG1G8v4f80UgY=",
         "owner": "shajra",
         "repo": "bluos-nix",
-        "rev": "23dfa5ed813341999f86ff532a77c1fbfa37a623",
+        "rev": "905173ef26cb20aab56c8fb3f836485e8a4f5930",
         "type": "github"
       },
       "original": {
