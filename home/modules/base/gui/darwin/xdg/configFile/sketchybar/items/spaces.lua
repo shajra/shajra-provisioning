@@ -2,6 +2,7 @@ local colors = require("colors")
 local emojis = require("emojis")
 local settings = require("settings")
 local spaces = {}
+local focused_display = nil
 
 local function mouse_click(env)
     if env.BUTTON == "right" then
@@ -12,13 +13,38 @@ local function mouse_click(env)
     end
 end
 
+function contains(display_mask, display)
+    return display_mask & (1 << display) ~= 0
+end
+
 local function space_selection(env)
-    local bg_color = env.SELECTED == "true" and colors.selected.background or
-                         colors.unselected.background
+    local is_selected = env.SELECTED == "true"
+    local displays =
+        tonumber(sbar.query(env.NAME).geometry.associated_display_mask)
+    local is_focused = not focused_display or contains(displays, focused_display)
+    local bg_color, fg_color
+    if is_selected
+    then
+        if is_focused
+        then
+            bg_color = colors.selected.focused.background
+            fg_color = colors.selected.focused.foreground
+        else
+            bg_color = colors.selected.unfocused.background
+            fg_color = colors.selected.unfocused.foreground
+        end
+    else
+        bg_color = colors.unselected.background
+        fg_color = colors.unselected.foreground
+    end
+    local fg_props = {
+        highlight = env.SELECTED,
+        highlight_color = fg_color
+    }
     sbar.set(env.NAME, {
-        icon = {highlight = env.SELECTED},
-        label = {highlight = env.SELECTED},
-        background = {color = bg_color}
+        icon  = fg_props,
+        label = fg_props,
+        background = {color = bg_color},
     })
 end
 
@@ -35,6 +61,11 @@ local function space_windows_change(env)
     end
     sbar.animate("tanh", 10,
                  function() sbar.set(spaces[space], {label = icon_strip}) end)
+end
+
+local function display_change(env)
+    focused_display = tonumber(env.INFO)
+    sbar.trigger("space_change")
 end
 
 for i = 1, 10, 1 do
@@ -82,3 +113,4 @@ space_creator:subscribe("mouse.clicked", function(_)
     os.execute("yabai -m space --create && sketchybar --trigger space_change")
 end)
 space_creator:subscribe("space_windows_change", space_windows_change)
+space_creator:subscribe("display_change", display_change)

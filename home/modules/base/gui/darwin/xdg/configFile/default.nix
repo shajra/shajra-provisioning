@@ -15,24 +15,26 @@ let
             "settings.lua"
             "sketchybarrc"
         ];
-        lua                  = "${pkgs.lua5_4}/bin/lua";
-        timeout              = "${pkgs.coreutils}/bin/timeout";
-        ping                 = "${pkgs.inetutils}/bin/ping";
-        sketchybar_lua_so    = pkgs.sketchybar-lua;
-        colors_blue          = colors.nominal.blue;
-        colors_red           = colors.nominal.red;
-        colors_unifying      = colors.semantic.unifying;
-        colors_info          = colors.semantic.info;
-        colors_warning       = colors.semantic.warning;
-        colors_urgent        = colors.semantic.urgent;
-        colors_primary_bg    = colors.semantic.background;
-        colors_primary_fg    = colors.semantic.foreground;
-        colors_secondary_bg  = colors.semantic.background_highlighted;
-        colors_secondary_fg  = colors.semantic.foreground;
-        colors_unselected_bg = colors.window.unselected.background;
-        colors_unselected_fg = colors.window.unselected.text;
-        colors_selected_bg   = colors.window.selected.focused.background;
-        colors_selected_fg   = colors.window.selected.focused.text;
+        lua                = "${pkgs.lua5_4}/bin/lua";
+        timeout            = "${pkgs.coreutils}/bin/timeout";
+        ping               = "${pkgs.inetutils}/bin/ping";
+        sketchybar_lua_so  = pkgs.sketchybar-lua;
+        colors_blue         = colors.nominal.blue;
+        colors_red          = colors.nominal.red;
+        colors_unifying     = colors.semantic.unifying;
+        colors_info         = colors.semantic.info;
+        colors_warning      = colors.semantic.warning;
+        colors_urgent       = colors.semantic.urgent;
+        colors_primary_bg   = colors.semantic.background;
+        colors_primary_fg   = colors.semantic.foreground;
+        colors_secondary_bg = colors.semantic.background_highlighted;
+        colors_secondary_fg = colors.semantic.foreground;
+        colors_unselected_bg         = colors.window.unselected.background;
+        colors_unselected_fg         = colors.window.unselected.text;
+        colors_selected_focused_bg   = colors.window.selected.focused.background;
+        colors_selected_focused_fg   = colors.window.selected.focused.text;
+        colors_selected_unfocused_bg = colors.window.selected.unfocused.background;
+        colors_selected_unfocused_fg = colors.window.selected.unfocused.text;
         font_family          = config.theme.fonts.proportional.name;
     };
 

@@ -118,17 +118,17 @@ lcmd - j : yabai -m window  --focus south || yabai -m display --focus south
 lcmd - k : yabai -m window  --focus north || yabai -m display --focus north
 lcmd - l : yabai -m window  --focus east  || yabai -m display --focus east
 
-# swap window, or move if floating
-lcmd + shift - h : yabai -m window --swap west  || yabai -m window --move rel:-20:0
-lcmd + shift - j : yabai -m window --swap south || yabai -m window --move rel:0:20
-lcmd + shift - k : yabai -m window --swap north || yabai -m window --move rel:0:-20
-lcmd + shift - l : yabai -m window --swap east  || yabai -m window --move rel:20:0
+# warp window, or move if floating
+lcmd + shift - h : yabai -m window --warp west  || $(yabai -m window --display west  && yabai -m display --focus west  && yabai -m window --warp last)  || yabai -m window --move rel:-20:0 ; "${window-focus}"
+lcmd + shift - j : yabai -m window --warp south || $(yabai -m window --display south && yabai -m display --focus south)                                 || yabai -m window --move rel:0:20  ; "${window-focus}"
+lcmd + shift - k : yabai -m window --warp north || $(yabai -m window --display north && yabai -m display --focus north)                                 || yabai -m window --move rel:0:-20 ; "${window-focus}"
+lcmd + shift - l : yabai -m window --warp east  || $(yabai -m window --display east  && yabai -m display --focus east  && yabai -m window --warp first) || yabai -m window --move rel:20:0  ; "${window-focus}"
 
-# warp window or fit to grid if floating
-lcmd + shift + alt - h : yabai -m window --warp west  || yabai -m window --grid 1:2:0:0:1:1 ; "${window-focus}"
-lcmd + shift + alt - j : yabai -m window --warp south                                       ; "${window-focus}"
-lcmd + shift + alt - k : yabai -m window --warp north || yabai -m window --grid 1:1:0:0:1:1 ; "${window-focus}"
-lcmd + shift + alt - l : yabai -m window --warp east  || yabai -m window --grid 1:2:1:0:1:1 ; "${window-focus}"
+# swap window or fit to grid if floating
+lcmd + shift + alt - h : yabai -m window --swap west  || yabai -m window --grid 1:2:0:0:1:1 ; "${window-focus}"
+lcmd + shift + alt - j : yabai -m window --swap south                                       ; "${window-focus}"
+lcmd + shift + alt - k : yabai -m window --swap north || yabai -m window --grid 1:1:0:0:1:1 ; "${window-focus}"
+lcmd + shift + alt - l : yabai -m window --swap east  || yabai -m window --grid 1:2:1:0:1:1 ; "${window-focus}"
 
 # stack window
 lcmd + shift + ctrl - h : yabai -m window  west --stack $(yabai -m query --windows --window | jq -r '.id') ; "${window-focus}"
