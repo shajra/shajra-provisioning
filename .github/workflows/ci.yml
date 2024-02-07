@@ -8,6 +8,12 @@ jobs:
       matrix:
         infra: [nixpkgs, haskell-nix, shajra]
         set: [build, prebuilt]
+        exclude:
+        # DESIGN: There's too much (GitHub caps resources and fails the job),
+        # and this category should already be cached in third-party
+        # substituters.
+        - infra: nixpkgs
+          set: prebuilt
     name: "pkgs-linux: ${{ matrix.infra }}: ${{ matrix.set }}"
     runs-on: ubuntu-latest
     steps:
@@ -34,6 +40,12 @@ jobs:
       matrix:
         infra: [nixpkgs, haskell-nix, shajra]
         set: [build, prebuilt]
+        exclude:
+        # DESIGN: There's too much (GitHub caps resources and fails the job),
+        # and this category should already be cached in third-party
+        # substituters.
+        - infra: nixpkgs
+          set: prebuilt
     name: "pkgs-darwin: ${{ matrix.infra }}: ${{ matrix.set }}"
     needs: [pkgs-linux]
     runs-on: macos-latest
