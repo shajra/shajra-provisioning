@@ -6,7 +6,19 @@ let
     kitty = "${config.programs.kitty.package}/bin/kitty";
 
     space-move-script = pkgs.writeShellScriptBin "space-move" ''
-        yabai -m space --move "$1"
+        INDEX="$(yabai -m query --spaces --space | "${jq}" '.index')"
+        yabai -m space --move "$1" || {
+            case "$1" in
+                next)
+                    yabai -m space --display next \
+                    && yabai -m space --move "$((INDEX))"
+                    ;;
+                prev)
+                    yabai -m space --display prev \
+                    && yabai -m space --move "$((INDEX))"
+                    ;;
+            esac
+        }
         sketchybar --trigger space_change
         sketchybar --trigger space_windows_change
     '';
@@ -18,7 +30,7 @@ let
         INDEX="$(yabai -m query --spaces --space | "${jq}" '.index')"
         yabai -m space --create
         case "$1" in
-            next) yabai -m space last --move "$(($INDEX + 1))" ;;
+            next) yabai -m space last --move "$((INDEX + 1))" ;;
             prev) yabai -m space last --move "$INDEX"          ;;
         esac
         sketchybar --trigger space_change
