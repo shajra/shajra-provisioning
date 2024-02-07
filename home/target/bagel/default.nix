@@ -9,6 +9,7 @@ in
     imports = [
         ../../modules/base/gui/darwin
 
+        ../../modules/audio/gui/all
         ../../modules/audio/tui/all
 
         ../../modules/chat/gui/all

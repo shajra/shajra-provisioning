@@ -8,7 +8,7 @@ in
     imports = [
         ../../modules/base/gui/linux
 
-        ../../modules/audio/gui/linux
+        ../../modules/audio/gui/all
         ../../modules/audio/tui/all
         ../../modules/audio/tui/linux
 

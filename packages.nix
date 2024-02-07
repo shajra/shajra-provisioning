@@ -341,7 +341,7 @@ in {
             haskell-hls-tags    = tags.haskell-tags-nix-exe;
         };
 
-    shajra.build.audio.gui.linux = when (! isDarwin) {
+    shajra.build.audio.gui.all = {
         inherit (inputs'.bluos-nix.packages) bluos-controller;
     };
 
