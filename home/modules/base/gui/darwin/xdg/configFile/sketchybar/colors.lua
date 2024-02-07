@@ -20,8 +20,14 @@ return {
         foreground = tonumber("@colors_secondary_fg@")
     },
     selected = {
-        background = tonumber("@colors_selected_bg@"),
-        foreground = tonumber("@colors_selected_fg@")
+        focused = {
+            background = tonumber("@colors_selected_focused_bg@"),
+            foreground = tonumber("@colors_selected_focused_fg@")
+        },
+        unfocused = {
+            background = tonumber("@colors_selected_unfocused_bg@"),
+            foreground = tonumber("@colors_selected_unfocused_fg@")
+        },
     },
     unselected = {
         background = tonumber("@colors_unselected_bg@"),
