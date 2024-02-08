@@ -37,6 +37,30 @@ jobs:
     - run: |
         nix --print-build-logs path-info \
             .#ci.${{ matrix.set }}.${{ matrix.infra }}
+  installers-linux:
+    needs: [pkgs-linux]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: DeterminateSystems/nix-installer-action@main
+      with:
+        # DESIGN: cache.nixos.org explicit because Magix Nix Cache not appending it
+        extra-conf: |
+          substituters = https://cache.iog.io https://cache.nixos.org
+          trusted-public-keys = hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+    # DESIGN: no Magic Nix Cache because pkgs-linux gets too close to API limit
+    - uses: cachix/cachix-action@v14
+      with:
+        name: shajra
+        signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
+    - run: cat ~/.config/nix/nix.conf
+    - run: nix run .#nixosConfigurations.cake.nixos-rebuild -- --flake .#cake build
+  delay:
+    name: "pause: 1.5 hr"
+    needs: [installers-linux]
+    runs-on: ubuntu-latest
+    steps:
+    - run: sleep 90m
   pkgs-darwin:
     strategy:
       matrix:
@@ -49,7 +73,7 @@ jobs:
         - infra: nixpkgs
           set: prebuilt
     name: "pkgs-darwin: ${{ matrix.infra }}: ${{ matrix.set }}"
-    needs: [pkgs-linux]
+    needs: [delay]
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v4
@@ -70,21 +94,3 @@ jobs:
     - run: |
         nix --print-build-logs path-info \
             .#ci.${{ matrix.set }}.${{ matrix.infra }}
-  installers-linux:
-    needs: [pkgs-linux]
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - uses: DeterminateSystems/nix-installer-action@main
-      with:
-        # DESIGN: cache.nixos.org explicit because Magix Nix Cache not appending it
-        extra-conf: |
-          substituters = https://cache.iog.io https://cache.nixos.org
-          trusted-public-keys = hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
-    # DESIGN: no Magic Nix Cache because pkgs-linux gets too close to API limit
-    - uses: cachix/cachix-action@v14
-      with:
-        name: shajra
-        signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
-    - run: cat ~/.config/nix/nix.conf
-    - run: nix run .#nixosConfigurations.cake.nixos-rebuild -- --flake .#cake build
