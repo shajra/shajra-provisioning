@@ -15,6 +15,11 @@ let
         darwin = "home";
     };
 
+    pickUnstable = np.pick {
+        linux  = "unstable";
+        darwin = "unstable";
+    };
+
 in {
 
     nixpkgs.prebuilt.audio.tui.all = pickHome [
@@ -186,17 +191,6 @@ in {
         "cabal-install"
         "stack"
         "haskell.compiler.ghc964"
-        "haskell.packages.ghc964.apply-refact"
-        # "haskell.packages.ghc964.djinn"  # REVISIT: 2024-02-04: broken
-        "haskell.packages.ghc964.fast-tags"
-        "haskell.packages.ghc964.ghc-events"
-        "haskell.packages.ghc964.ghcid"
-        "haskell.packages.ghc964.haskdogs"
-        "haskell.packages.ghc964.hasktags"
-        "haskell.packages.ghc964.hoogle"
-        "haskell.packages.ghc964.hlint"
-        "haskell.packages.ghc964.hp2pretty"
-        "haskell.packages.ghc964.stylish-haskell"
     ];
 
     nixpkgs.prebuilt.programming.java = pickHome [
@@ -276,9 +270,20 @@ in {
         "lan-cake"
     ];
 
-    nixpkgs.build.programming.haskell = {}
-        # DESIGN: not cached; building Haskell tools with Haskell.nix
-        ;
+    nixpkgs.build.programming.haskell = pickUnstable [
+        # DESIGN: coming from Nixpkgs, but not cached
+        "haskell.packages.ghc964.apply-refact"
+        # "haskell.packages.ghc964.djinn"  # REVISIT: 2024-02-04: broken
+        "haskell.packages.ghc964.fast-tags"
+        "haskell.packages.ghc964.ghc-events"
+        "haskell.packages.ghc964.ghcid"
+        "haskell.packages.ghc964.haskdogs"
+        "haskell.packages.ghc964.hasktags"
+        "haskell.packages.ghc964.hoogle"
+        "haskell.packages.ghc964.hlint"
+        "haskell.packages.ghc964.hp2pretty"
+        "haskell.packages.ghc964.stylish-haskell"
+    ];
 
     nixpkgs.build.unused.darwin = np.pick { darwin = "home"; } [
         # REVISIT: emacsMacport broken for M1
