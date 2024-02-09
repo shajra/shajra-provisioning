@@ -2,8 +2,6 @@ name: "CI"
 on:
   push:
   pull_request:
-  schedule:
-  - cron: '0 0 * * *'
 jobs:
   pkgs-linux:
     strategy:
@@ -56,11 +54,11 @@ jobs:
     - run: cat ~/.config/nix/nix.conf
     - run: nix run .#nixosConfigurations.cake.nixos-rebuild -- --flake .#cake build
   delay:
-    name: "pause: 1.5 hr"
+    name: "pause: 3 hr"
     needs: [installers-linux]
     runs-on: ubuntu-latest
     steps:
-    - run: sleep 90m
+    - run: sleep 3h
   pkgs-darwin:
     strategy:
       matrix:
