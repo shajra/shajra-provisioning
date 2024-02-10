@@ -68,7 +68,7 @@ in {
         "fontpreview"
         "gnome.adwaita-icon-theme"
         "maim"
-        "microsoft-edge-beta"
+        "microsoft-edge-dev"
         "pavucontrol"
         "simple-scan"
         "sxiv"
@@ -129,6 +129,11 @@ in {
         "pciutils"
         "powertop"
         "usbutils"
+    ];
+
+    nixpkgs.prebuilt.centralized = np.pick { linux = "home"; } [
+        "buku"
+        "bukubrow"
     ];
 
     nixpkgs.prebuilt.chat.gui.all = pickHome [
