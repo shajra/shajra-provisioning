@@ -11,7 +11,7 @@ let
     user = config.home.username;
     wpa_gui = "${pkgs.wpa_supplicant_gui}/bin/wpa_gui";
 
-    i3-zfs-health = pkgs.writeShellScriptBin "i3-zfs-health" ''
+    i3-zfs-health = pkgs.writers.writeDash "i3-zfs-health" ''
         HEALTH="$(zpool list -H -o health cake)"
         if [ "$HEALTH" != "ONLINE" ]
         then STATE=Critical; echo "{\"state\":\"$STATE\",\"text\":\"$HEALTH\"}"
@@ -37,7 +37,7 @@ in
                 block = "custom";
                 format = " $text ";
                 json = true;
-                command = "${i3-zfs-health}/bin/i3-zfs-health";
+                command = "${i3-zfs-health}";
                 hide_when_empty = true;
                 }
                 {

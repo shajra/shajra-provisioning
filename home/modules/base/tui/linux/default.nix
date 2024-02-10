@@ -8,7 +8,7 @@ let
     # DESIGN: Gives freedom to chose the pin entry program explicitly, rather
     # than rely on built-in fallbacks.  Gnome3's curses fallback is not
     # convenient, but using Gnome3 as a default for Solarized theming.
-    pinentry = pkgs.writeShellScriptBin "pinentry" ''
+    pinentry = pkgs.writers.writeDash "pinentry" ''
         case "$PINENTRY_USER_DATA" in
             curses) PINENTRY="${pkgs.pinentry.curses}" ;;
             emacs)  PINENTRY="${pkgs.pinentry.emacs}"  ;;
@@ -43,7 +43,7 @@ in
     services.gpg-agent.enableSshSupport = true;
     services.gpg-agent.extraConfig = ''
         allow-loopback-pinentry
-        pinentry-program "${pinentry}/bin/pinentry"
+        pinentry-program "${pinentry}"
     '';
 
     xdg.mimeApps = import xdg/mimeApps;
