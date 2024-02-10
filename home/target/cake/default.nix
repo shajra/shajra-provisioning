@@ -12,6 +12,8 @@ in
         ../../modules/audio/tui/all
         ../../modules/audio/tui/linux
 
+        ../../modules/centralized
+
         ../../modules/chat/gui/all
         ../../modules/chat/gui/linux
         ../../modules/chat/tui/all

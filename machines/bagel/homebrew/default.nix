@@ -69,7 +69,7 @@
         "firefox"
         "google-chrome-beta"
         "microsoft-edge"
-        "microsoft-edge-beta"
+        "microsoft-edge-dev"
 
         # DESIGN: not needed for now
         #"docker"
