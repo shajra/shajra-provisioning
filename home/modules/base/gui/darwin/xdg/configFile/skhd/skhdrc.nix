@@ -27,11 +27,12 @@ let
     space-create-script = pkgs.writeShellScriptBin "space-create" ''
         set -e
         set -o pipefail
-        INDEX="$(yabai -m query --spaces --space | "${jq}" '.index')"
+        CURRENT="$(yabai -m query --spaces --space | "${jq}" '.index')"
+        LAST="$(yabai -m query --spaces --display | "${jq}" 'map(.index)|max')"
         yabai -m space --create
         case "$1" in
-            next) yabai -m space last --move "$((INDEX + 1))" ;;
-            prev) yabai -m space last --move "$INDEX"          ;;
+            next) yabai -m space "$((LAST + 1))" --move "$((CURRENT + 1))" ;;
+            prev) yabai -m space "$((LAST + 1))" --move "$CURRENT"          ;;
         esac
         sketchybar --trigger space_change
         sketchybar --trigger space_windows_change
