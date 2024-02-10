@@ -5,7 +5,7 @@ let
     jq    = "${pkgs.jq}/bin/jq";
     kitty = "${config.programs.kitty.package}/bin/kitty";
 
-    space-move-script = pkgs.writeShellScriptBin "space-move" ''
+    space-move = pkgs.writers.writeDash "space-move" ''
         INDEX="$(yabai -m query --spaces --space | "${jq}" '.index')"
         yabai -m space --move "$1" || {
             case "$1" in
@@ -22,9 +22,8 @@ let
         sketchybar --trigger space_change
         sketchybar --trigger space_windows_change
     '';
-    space-move = "${space-move-script}/bin/space-move";
 
-    space-create-script = pkgs.writeShellScriptBin "space-create" ''
+    space-create = pkgs.writers.writeDash "space-create" ''
         set -e
         set -o pipefail
         CURRENT="$(yabai -m query --spaces --space | "${jq}" '.index')"
@@ -37,9 +36,8 @@ let
         sketchybar --trigger space_change
         sketchybar --trigger space_windows_change
     '';
-    space-create = "${space-create-script}/bin/space-create";
 
-    space-destroy-script = pkgs.writeShellScriptBin "space-destroy" ''
+    space-destroy = pkgs.writers.writeDash "space-destroy" ''
         set -e
         set -o pipefail
         INDEX="$(yabai -m query --spaces --space | "${jq}" '.index')"
@@ -50,11 +48,10 @@ let
             "${window-focus}"
         fi
     '';
-    space-destroy = "${space-destroy-script}/bin/space-destroy";
 
     window-focus = "${pkgs.sketchybar-window-focus}/bin/sketchybar-window-focus";
 
-    window-cycle-script = pkgs.writeShellScriptBin "window-cycle" ''
+    window-cycle = pkgs.writers.writeDash "window-cycle" ''
         yabai -m window --focus "$( \
             yabai -m query --windows --space \
             | "${jq}" -re "
@@ -68,9 +65,8 @@ let
                 | .id")"
         "${window-focus}"
     '';
-    window-cycle = "${window-cycle-script}/bin/window-cycle";
 
-    gaps-toggle-script = pkgs.writeShellScriptBin "gaps-toggle" ''
+    gaps-toggle = pkgs.writers.writeDash "gaps-toggle" ''
         GAP_BIG=24
         GAP_SLIM=12
         GAP_SIZE="$(yabai -m config window_gap)"
@@ -86,7 +82,6 @@ let
              right_padding "$GAP_SIZE" \
         && sketchybar --bar margin="$((GAP_SIZE - 4))"
     '';
-    gaps-toggle = "${gaps-toggle-script}/bin/gaps-toggle";
 
 in ''
 # Strategy for keybindings:
