@@ -5,6 +5,45 @@ let
     jq    = "${pkgs.jq}/bin/jq";
     kitty = "${config.programs.kitty.package}/bin/kitty";
 
+    gaps-toggle = pkgs.writers.writeDash "gaps-toggle" ''
+        GAP_BIG=24
+        GAP_SLIM=12
+        GAP_SIZE="$(yabai -m config window_gap)"
+        if ! [ "$GAP_SIZE" -eq "$GAP_BIG" ]
+        then GAP_SIZE="$GAP_BIG"
+        else GAP_SIZE="$GAP_SLIM"
+        fi
+        yabai -m config                \
+            window_gap     "$GAP_SIZE" \
+               top_padding "$GAP_SIZE" \
+            bottom_padding "$GAP_SIZE" \
+              left_padding "$GAP_SIZE" \
+             right_padding "$GAP_SIZE" \
+        && sketchybar --bar margin="$((GAP_SIZE - 4))"
+    '';
+
+    space-create = pkgs.writers.writeDash "space-create" ''
+        CURRENT="$(yabai -m query --spaces --space | "${jq}" '.index')"
+        LAST="$(yabai -m query --spaces --display | "${jq}" 'map(.index)|max')"
+        yabai -m space --create
+        case "$1" in
+            next) yabai -m space "$((LAST + 1))" --move "$((CURRENT + 1))" ;;
+            prev) yabai -m space "$((LAST + 1))" --move "$CURRENT"          ;;
+        esac
+        sketchybar --trigger space_change
+        sketchybar --trigger space_windows_change
+    '';
+
+    space-destroy = pkgs.writers.writeDash "space-destroy" ''
+        INDEX="$(yabai -m query --spaces --space | "${jq}" '.index')"
+        yabai -m space --destroy
+        if [ "$INDEX" -gt 2 ]
+        then
+            yabai -m space --focus $((INDEX - 1))
+            "${window-focus}"
+        fi
+    '';
+
     space-move = pkgs.writers.writeDash "space-move" ''
         INDEX="$(yabai -m query --spaces --space | "${jq}" '.index')"
         yabai -m space --move "$1" || {
@@ -23,33 +62,14 @@ let
         sketchybar --trigger space_windows_change
     '';
 
-    space-create = pkgs.writers.writeDash "space-create" ''
-        set -e
-        set -o pipefail
-        CURRENT="$(yabai -m query --spaces --space | "${jq}" '.index')"
-        LAST="$(yabai -m query --spaces --display | "${jq}" 'map(.index)|max')"
-        yabai -m space --create
-        case "$1" in
-            next) yabai -m space "$((LAST + 1))" --move "$((CURRENT + 1))" ;;
-            prev) yabai -m space "$((LAST + 1))" --move "$CURRENT"          ;;
-        esac
-        sketchybar --trigger space_change
-        sketchybar --trigger space_windows_change
-    '';
-
-    space-destroy = pkgs.writers.writeDash "space-destroy" ''
-        set -e
-        set -o pipefail
-        INDEX="$(yabai -m query --spaces --space | "${jq}" '.index')"
-        yabai -m space --destroy
-        if [ "$INDEX" -gt 2 ]
-        then
-            yabai -m space --focus $((INDEX - 1))
-            "${window-focus}"
+    window-close = pkgs.writers.writeDash "window-close" ''
+        OLD="$(yabai -m query --spaces --space | "${jq}" '.index')"
+        yabai -m window --close
+        NEW="$(yabai -m query --spaces --space | "${jq}" '.index')"
+        if ! [ "$OLD" = "$NEW" ]
+        then yabai -m space --focus "$OLD"
         fi
     '';
-
-    window-focus = "${pkgs.sketchybar-window-focus}/bin/sketchybar-window-focus";
 
     window-cycle = pkgs.writers.writeDash "window-cycle" ''
         yabai -m window --focus "$( \
@@ -66,22 +86,7 @@ let
         "${window-focus}"
     '';
 
-    gaps-toggle = pkgs.writers.writeDash "gaps-toggle" ''
-        GAP_BIG=24
-        GAP_SLIM=12
-        GAP_SIZE="$(yabai -m config window_gap)"
-        if ! [ "$GAP_SIZE" -eq "$GAP_BIG" ]
-        then GAP_SIZE="$GAP_BIG"
-        else GAP_SIZE="$GAP_SLIM"
-        fi
-        yabai -m config                \
-            window_gap     "$GAP_SIZE" \
-               top_padding "$GAP_SIZE" \
-            bottom_padding "$GAP_SIZE" \
-              left_padding "$GAP_SIZE" \
-             right_padding "$GAP_SIZE" \
-        && sketchybar --bar margin="$((GAP_SIZE - 4))"
-    '';
+    window-focus = "${pkgs.sketchybar-window-focus}/bin/sketchybar-window-focus";
 
 in ''
 # Strategy for keybindings:
@@ -231,7 +236,7 @@ lcmd + alt - 0x2F : "${space-create}" next
 lcmd - return : "${kitty}" --single-instance --wait-for-single-instance-window-close --directory ~
 
 # close window
-lcmd - q : yabai -m window --close
+lcmd - q : "${window-close}"
 
 # destroy space
 lcmd + alt - q : "${space-destroy}"
