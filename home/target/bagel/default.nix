@@ -30,6 +30,8 @@ in
         ../../modules/programming/shell
 
         #../../modules/sync  # Ocaml not built/cached
+
+        ../../modules/video/all
     ];
 
     home.file = import home/file userConfig hostname;

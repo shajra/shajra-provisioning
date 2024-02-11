@@ -36,6 +36,8 @@ in
         ../../modules/programming/shell
 
         ../../modules/sync
+
+        ../../modules/video/all
     ];
 
     home.file = import home/file config pkgs userConfig;
