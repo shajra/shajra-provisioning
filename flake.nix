@@ -132,6 +132,10 @@
                         system = "aarch64-darwin";
                         path   = home/target/bagel/slim.nix;
                     };
+                    homeConfigurations.bagel-fake-slim = configLib.homeConfiguration {
+                        system = "x86_64-darwin";
+                        path   = home/target/bagel/slim.nix;
+                    };
                     homeConfigurations.shajra-slim = configLib.homeConfiguration {
                         system = "x86_64-linux";
                         path   = home/target/shajra/slim.nix;
