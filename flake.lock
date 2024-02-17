@@ -50,11 +50,11 @@
         "nix-project": "nix-project"
       },
       "locked": {
-        "lastModified": 1707269728,
-        "narHash": "sha256-4fnUb0fV9aR0wdUMQHxMdsXRook5+2yG1G8v4f80UgY=",
+        "lastModified": 1708149532,
+        "narHash": "sha256-0DmtgZvhzTZADcMJugvLpqo7Lkq4PUGwnTg0YRDj2Jw=",
         "owner": "shajra",
         "repo": "bluos-nix",
-        "rev": "905173ef26cb20aab56c8fb3f836485e8a4f5930",
+        "rev": "d20740b611ad15de1cf805f208c95358808b6c8e",
         "type": "github"
       },
       "original": {
