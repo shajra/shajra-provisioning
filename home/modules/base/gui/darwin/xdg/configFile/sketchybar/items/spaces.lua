@@ -3,6 +3,7 @@ local emojis = require("emojis")
 local settings = require("settings")
 local spaces = {}
 local focused_display = nil
+local session_restore = {}
 
 local function mouse_click(env)
     if env.BUTTON == "right" then
@@ -59,8 +60,28 @@ local function space_windows_change(env)
     if next(app_emojis) ~= nil then
         icon_strip = table.concat(app_emojis, " ")
     end
-    sbar.animate("tanh", 10,
+    if spaces[space]
+    then sbar.animate("tanh", 10,
                  function() sbar.set(spaces[space], {label = icon_strip}) end)
+    end
+    local handle = assert(io.popen("@display_count@"))
+    local display_count = tonumber(assert(handle:read("a")))
+    handle:close()
+    handle = assert(io.popen("@session_save@"))
+    session_restore[display_count] = assert(handle:read("a"))
+    handle:close()
+end
+
+local function display_topology_changed(delta_old)
+    return function (env)
+        local handle = assert(io.popen("@display_count@"))
+        local display_count = tonumber(assert(handle:read("a")))
+        handle:close()
+        restore = session_restore[display_count + delta_old]
+        if restore
+        then os.execute(restore)
+        end
+    end
 end
 
 local function display_change(env)
@@ -114,3 +135,5 @@ space_creator:subscribe("mouse.clicked", function(_)
 end)
 space_creator:subscribe("space_windows_change", space_windows_change)
 space_creator:subscribe("display_change", display_change)
+space_creator:subscribe("display_added", display_topology_changed(-1))
+space_creator:subscribe("display_removed", display_topology_changed(1))

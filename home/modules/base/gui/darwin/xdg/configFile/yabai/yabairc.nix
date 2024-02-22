@@ -34,6 +34,14 @@ yabai -m signal --add \
     event=window_destroyed \
     action="${window-destroyed}" \
     label=window_destroyed
+yabai -m signal --add \
+    event=display_removed \
+    action="sketchybar --trigger display_removed; sketchybar --trigger space_windows_change" \
+    label=display_removed
+yabai -m signal --add \
+    event=display_added \
+    action="sketchybar --trigger display_added; sketchybar --trigger space_windows_change" \
+    label=display_added
 
 # global settings (in order from 'man yabai')
 yabai -m config external_bar              all:35:0
