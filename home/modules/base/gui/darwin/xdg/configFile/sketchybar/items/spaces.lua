@@ -4,6 +4,8 @@ local settings = require("settings")
 local spaces = {}
 local focused_display = nil
 local session_restore = {}
+local session_timestamp = {}
+local max_display_count = 1
 
 local function mouse_click(env)
     if env.BUTTON == "right" then
@@ -20,14 +22,13 @@ end
 
 local function space_selection(env)
     local is_selected = env.SELECTED == "true"
-    local displays =
-        tonumber(sbar.query(env.NAME).geometry.associated_display_mask)
-    local is_focused = not focused_display or contains(displays, focused_display)
+    local displays = tonumber(sbar.query(env.NAME).geometry
+                                  .associated_display_mask)
+    local is_focused = not focused_display or
+                           contains(displays, focused_display)
     local bg_color, fg_color
-    if is_selected
-    then
-        if is_focused
-        then
+    if is_selected then
+        if is_focused then
             bg_color = colors.selected.focused.background
             fg_color = colors.selected.focused.foreground
         else
@@ -38,14 +39,11 @@ local function space_selection(env)
         bg_color = colors.unselected.background
         fg_color = colors.unselected.foreground
     end
-    local fg_props = {
-        highlight = env.SELECTED,
-        highlight_color = fg_color
-    }
+    local fg_props = {highlight = env.SELECTED, highlight_color = fg_color}
     sbar.set(env.NAME, {
-        icon  = fg_props,
+        icon = fg_props,
         label = fg_props,
-        background = {color = bg_color},
+        background = {color = bg_color}
     })
 end
 
@@ -60,27 +58,50 @@ local function space_windows_change(env)
     if next(app_emojis) ~= nil then
         icon_strip = table.concat(app_emojis, " ")
     end
-    if spaces[space]
-    then sbar.animate("tanh", 10,
-                 function() sbar.set(spaces[space], {label = icon_strip}) end)
+    if spaces[space] then
+        sbar.animate("tanh", 10, function()
+            sbar.set(spaces[space], {label = icon_strip})
+        end)
     end
     local handle = assert(io.popen("@display_count@"))
     local display_count = tonumber(assert(handle:read("a")))
     handle:close()
     handle = assert(io.popen("@session_save@"))
     session_restore[display_count] = assert(handle:read("a"))
+    session_timestamp[display_count] = os.clock()
     handle:close()
+    if display_count > max_display_count
+    then max_display_count = display_count
+    end
 end
 
-local function display_topology_changed(delta_old)
-    return function (env)
+local function display_added(display_count)
+    return display_count - 1, 1, -1
+end
+
+local function display_removed(display_count)
+    return display_count + 1, max_display_count, 1
+end
+
+local function display_count_change(range)
+    return function(env)
+        local restore = nil
+        local max_timestamp = nil
         local handle = assert(io.popen("@display_count@"))
         local display_count = tonumber(assert(handle:read("a")))
         handle:close()
-        restore = session_restore[display_count + delta_old]
-        if restore
-        then os.execute(restore)
+        local first, last, step = range(display_count)
+        for display_count = first, last, step
+        do
+            if session_timestamp[display_count]
+                and (max_timestamp == null
+                     or session_timestamp[display_count] > max_timestamp)
+            then
+                max_timestamp = session_timestamp[display_count]
+                restore = session_restore[display_count]
+            end
         end
+        if restore then os.execute(restore) end
     end
 end
 
@@ -135,5 +156,5 @@ space_creator:subscribe("mouse.clicked", function(_)
 end)
 space_creator:subscribe("space_windows_change", space_windows_change)
 space_creator:subscribe("display_change", display_change)
-space_creator:subscribe("display_added", display_topology_changed(-1))
-space_creator:subscribe("display_removed", display_topology_changed(1))
+space_creator:subscribe("display_added", display_count_change(display_added))
+space_creator:subscribe("display_removed", display_count_change(display_removed))

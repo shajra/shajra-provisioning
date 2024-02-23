@@ -1,7 +1,5 @@
 return {
-    transparent = function (color)
-        return (color & 0x00FFFFFF) | 0x8F000000
-    end,
+    transparent = function(color) return (color & 0x00FFFFFF) | 0x8F000000 end,
 
     blue = tonumber("@colors_blue@"),
     red = tonumber("@colors_red@"),
@@ -27,7 +25,7 @@ return {
         unfocused = {
             background = tonumber("@colors_selected_unfocused_bg@"),
             foreground = tonumber("@colors_selected_unfocused_fg@")
-        },
+        }
     },
     unselected = {
         background = tonumber("@colors_unselected_bg@"),
