@@ -3,6 +3,5 @@
 package.cpath = package.cpath .. ";@sketchybar_lua_so@/?.so"
 sbar = require("sketchybar")
 require("init")
-os.execute("launchctl start org.nix-community.home.sketchybar-cpu")
 sbar.hotload(true)
 sbar.event_loop()
