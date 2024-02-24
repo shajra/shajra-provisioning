@@ -5,6 +5,7 @@ return {
     red = tonumber("@colors_red@"),
 
     unifying = tonumber("@colors_unifying@"),
+    good = tonumber("@colors_good@"),
     info = tonumber("@colors_info@"),
     warning = tonumber("@colors_warning@"),
     urgent = tonumber("@colors_urgent@"),

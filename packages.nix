@@ -158,7 +158,7 @@ in {
         "nodePackages.textlint"
         "pandoc"
         "proselint"
-        "python310Packages.grip"
+        "python3Packages.grip"
         "t-rec"
     ];
 

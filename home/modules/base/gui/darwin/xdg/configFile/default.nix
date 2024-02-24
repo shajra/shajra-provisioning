@@ -32,17 +32,20 @@ let
             "colors.lua"
             "settings.lua"
             "sketchybarrc"
+            "items/cpu.lua"
             "items/spaces.lua"
         ];
-        lua                = "${pkgs.lua5_4}/bin/lua";
-        timeout            = "${pkgs.coreutils}/bin/timeout";
-        ping               = "${pkgs.inetutils}/bin/ping";
-        session_save       = "${session-save}";
-        display_count      = "${display-count}";
-        sketchybar_lua_so  = pkgs.sketchybar-lua;
+        lua                 = "${pkgs.lua5_4}/bin/lua";
+        timeout             = "${pkgs.coreutils}/bin/timeout";
+        ping                = "${pkgs.inetutils}/bin/ping";
+        session_save        = "${session-save}";
+        display_count       = "${display-count}";
+        sketchybar_lua_so   = pkgs.sketchybar-lua;
+        sketchybar_cpu      = "${pkgs.sketchybar-cpu}/bin/sketchybar-cpu";
         colors_blue         = colors.nominal.blue;
         colors_red          = colors.nominal.red;
         colors_unifying     = colors.semantic.unifying;
+        colors_good         = colors.semantic.good;
         colors_info         = colors.semantic.info;
         colors_warning      = colors.semantic.warning;
         colors_urgent       = colors.semantic.urgent;

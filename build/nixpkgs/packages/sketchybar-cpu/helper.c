@@ -1,31 +1,33 @@
 #include "cpu.h"
 #include "sketchybar.h"
+#include <stdio.h>
 
 struct cpu g_cpu;
 
-void handler(env env) {
-  // Environment variables passed from sketchybar can be accessed as seen below
-  char* name = env_get_value_for_key(env, "NAME");
-  char* sender = env_get_value_for_key(env, "SENDER");
-  char* info = env_get_value_for_key(env, "INFO");
-  char* selected = env_get_value_for_key(env, "SELECTED");
-
-  if ((strcmp(name, "cpu.percent") == 0)) {
-    // CPU graph updates
-    cpu_update(&g_cpu);
-
-    if (strlen(g_cpu.command) > 0) sketchybar(g_cpu.command);
-  }
-}
-
 int main (int argc, char** argv) {
-  cpu_init(&g_cpu);
-
-  if (argc < 2) {
-    printf("Usage: helper \"<bootstrap name>\"\n");
+  float update_freq = 1;
+  if (argc < 3 || (sscanf(argv[2], "%f", &update_freq) != 1)) {
+    printf("Usage: helper \"<event-name>\" \"<update_freq>\"\n");
     exit(1);
   }
+  cpu_init(&g_cpu);
 
-  event_server_begin(handler, argv[1]);
+  char event_message[512];
+  snprintf(event_message, 512, "--add event %s", argv[1]);
+  sketchybar(event_message);
+
+  char trigger_message[512];
+  for (;;) {
+    if (getppid() == 1) exit(0);
+    cpu_update(&g_cpu);
+    snprintf(trigger_message, 512, "--trigger %s LOAD=%d USER=%d SYSTEM=%d",
+                                   argv[1],
+                                   g_cpu.load_percentage,
+                                   g_cpu.user_percentage,
+                                   g_cpu.system_percentage);
+
+    sketchybar(trigger_message);
+    usleep(update_freq * 1000000);
+  }
   return 0;
 }

@@ -3,12 +3,6 @@
 #include <unistd.h>
 #include <mach/mach.h>
 #include <stdbool.h>
-#include <time.h>
-
-#define MAX_TOPPROC_LEN 100
-
-static const char TOPPROC[] = { "/bin/ps -Aceo pid,pcpu,comm -r" }; 
-static const char FILTER_PATTERN[] = { "com.apple." };
 
 struct cpu {
   host_t host;
@@ -17,14 +11,15 @@ struct cpu {
   host_cpu_load_info_data_t prev_load;
   bool has_prev_load;
 
-  char command[256];
+  uint32_t load_percentage;
+  uint32_t user_percentage;
+  uint32_t system_percentage;
 };
 
 static inline void cpu_init(struct cpu* cpu) {
   cpu->host = mach_host_self();
   cpu->count = HOST_CPU_LOAD_INFO_COUNT;
   cpu->has_prev_load = false;
-  snprintf(cpu->command, 100, "");
 }
 
 static inline void cpu_update(struct cpu* cpu) {
@@ -56,66 +51,16 @@ static inline void cpu_update(struct cpu* cpu) {
                                                       + delta_user
                                                       + delta_idle);
 
-    double total_perc = user_perc + sys_perc;
+    cpu->load_percentage = (user_perc + sys_perc) * 100.;
+    cpu->user_percentage = user_perc * 100.;
+    cpu->system_percentage = sys_perc * 100.;
+    if (cpu->load_percentage >= 100) cpu->load_percentage = 99;
 
-    FILE* file;
-    char line[1024];
-
-    file = popen(TOPPROC, "r");
-    if (!file) {
-      printf("Error: TOPPROC command errored out...\n" );
-      return;
-    }
-
-    fgets(line, sizeof(line), file);
-    fgets(line, sizeof(line), file);
-
-    char* start = strstr(line, FILTER_PATTERN);
-    char topproc[MAX_TOPPROC_LEN + 4];
-    uint32_t caret = 0;
-    for (int i = 0; i < sizeof(line); i++) {
-      if (start && i == start - line) {
-        i+=9;
-        continue;
-      }
-
-      if (caret >= MAX_TOPPROC_LEN && caret <= MAX_TOPPROC_LEN + 2) {
-        topproc[caret++] = '.';
-        continue;
-      }
-      if (caret > MAX_TOPPROC_LEN + 2) break;
-      topproc[caret++] = line[i];
-      if (line[i] == '\0') break;
-    }
-
-    topproc[MAX_TOPPROC_LEN + 3] = '\0';
-
-    pclose(file);
-
-    char color[16];
-    if (total_perc >= .7) {
-      snprintf(color, 16, "%s", getenv("COLOR_EXTREME"));
-    } else if (total_perc >= .3) {
-      snprintf(color, 16, "%s", getenv("COLOR_HIGH"));
-    } else if (total_perc >= .1) {
-      snprintf(color, 16, "%s", getenv("COLOR_NORMAL"));
-    } else {
-      snprintf(color, 16, "%s", getenv("COLOR_LOW"));
-      topproc[0] = '\0';
-    }
-
-    snprintf(cpu->command, 256, "--push cpu.sys %.2f "
-                                "--push cpu.user %.2f "
-                                "--set cpu.top label='%s' "
-                                "--set cpu.percent label=%.0f%% label.color=%s ",
-                                sys_perc,
-                                user_perc,
-                                topproc,
-                                total_perc*100.,
-                                color          );
   }
   else {
-    snprintf(cpu->command, 256, "");
+    cpu->load_percentage = 0;
+    cpu->user_percentage = 0;
+    cpu->system_percentage = 0;
   }
 
   cpu->prev_load = cpu->load;

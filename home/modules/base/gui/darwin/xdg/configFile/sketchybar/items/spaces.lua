@@ -70,14 +70,12 @@ local function space_windows_change(env)
     session_restore[display_count] = assert(handle:read("a"))
     session_timestamp[display_count] = os.clock()
     handle:close()
-    if display_count > max_display_count
-    then max_display_count = display_count
+    if display_count > max_display_count then
+        max_display_count = display_count
     end
 end
 
-local function display_added(display_count)
-    return display_count - 1, 1, -1
-end
+local function display_added(display_count) return display_count - 1, 1, -1 end
 
 local function display_removed(display_count)
     return display_count + 1, max_display_count, 1
@@ -91,12 +89,10 @@ local function display_count_change(range)
         local display_count = tonumber(assert(handle:read("a")))
         handle:close()
         local first, last, step = range(display_count)
-        for display_count = first, last, step
-        do
-            if session_timestamp[display_count]
-                and (max_timestamp == null
-                     or session_timestamp[display_count] > max_timestamp)
-            then
+        for display_count = first, last, step do
+            if session_timestamp[display_count] and
+                (max_timestamp == null or session_timestamp[display_count] >
+                    max_timestamp) then
                 max_timestamp = session_timestamp[display_count]
                 restore = session_restore[display_count]
             end
