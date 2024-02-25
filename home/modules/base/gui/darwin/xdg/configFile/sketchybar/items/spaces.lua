@@ -98,6 +98,7 @@ local function display_count_change(range)
             end
         end
         if restore then os.execute(restore) end
+        sbar.trigger("space_windows_change")
     end
 end
 

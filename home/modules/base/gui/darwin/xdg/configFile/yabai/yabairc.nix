@@ -36,11 +36,11 @@ yabai -m signal --add \
     label=window_destroyed
 yabai -m signal --add \
     event=display_removed \
-    action="sketchybar --trigger display_removed; sketchybar --trigger space_windows_change" \
+    action="sketchybar --trigger display_removed" \
     label=display_removed
 yabai -m signal --add \
     event=display_added \
-    action="sketchybar --trigger display_added; sketchybar --trigger space_windows_change" \
+    action="sketchybar --trigger display_added" \
     label=display_added
 
 # global settings (in order from 'man yabai')
