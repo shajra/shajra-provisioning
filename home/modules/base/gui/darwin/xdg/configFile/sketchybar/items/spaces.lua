@@ -20,7 +20,7 @@ function contains(display_mask, display)
     return display_mask & (1 << display) ~= 0
 end
 
-local function space_selection(env)
+local function space_change(env)
     local is_selected = env.SELECTED == "true"
     local displays = tonumber(sbar.query(env.NAME).geometry
                                   .associated_display_mask)
@@ -131,7 +131,7 @@ for i = 1, 10, 1 do
         }
     })
     spaces[i] = space.name
-    space:subscribe("space_change", space_selection)
+    space:subscribe("space_change", space_change)
     space:subscribe("mouse.clicked", mouse_click)
 end
 
