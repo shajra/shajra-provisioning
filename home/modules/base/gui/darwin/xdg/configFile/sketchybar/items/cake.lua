@@ -13,9 +13,10 @@ local cake = sbar.add("item", "cake", {
 })
 
 local function update()
-    local drawing = false
-    if os.execute(settings.cake_check) then drawing = true end
-    cake:set({icon = {drawing = drawing}})
+    local command = "if " .. settings.cake_check ..
+                        "; then echo true; else echo false; fi"
+    sbar.exec(settings.cake_check,
+              function(result) cake:set({icon = {drawing = result}}) end)
 end
 
 cake:subscribe("routine", update)

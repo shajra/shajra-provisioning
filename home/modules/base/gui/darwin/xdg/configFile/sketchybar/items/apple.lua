@@ -17,6 +17,6 @@ local apple_prefs = sbar.add("item", "apple.prefs", {
 })
 
 apple_prefs:subscribe("mouse.clicked", function(_)
-    os.execute("open -a 'System Preferences'")
+    sbar.exec("open -a 'System Preferences'")
     apple_logo:set({popup = {drawing = false}})
 end)

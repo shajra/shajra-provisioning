@@ -21,25 +21,23 @@ end
 wifi:subscribe("wifi_change", function(env)
     local cmd =
         "/System/Library/PrivateFrameworks/Apple80211.framework/Resources/airport -I"
-    local handle = assert(io.popen(cmd))
-    local report = assert(handle:read("a"))
-    handle:close()
-    local ssid = report:match("[ \n]+SSID: *([^ \n]+)")
-    if ssid then
-        handle = assert(io.popen("ipconfig getifaddr en0"))
-        local ip = assert(handle:read("a"))
-        handle:close()
-        wifi:set({
-            icon = icons.wifi.connected,
-            label = ssid .. " (" .. ip .. ")"
-        })
-        respect_verbosity()
-    else
-        wifi:set({
-            icon = icons.wifi.disconnected,
-            label = {string = "", width = 0}
-        })
-    end
+    sbar.exec(cmd, function(report)
+        local ssid = report:match("[ \n]+SSID: *([^ \n]+)")
+        if ssid then
+            sbar.exec("ipconfig getifaddr en0", function(ip)
+                wifi:set({
+                    icon = icons.wifi.connected,
+                    label = ssid .. " (" .. ip .. ")"
+                })
+                respect_verbosity()
+            end)
+        else
+            wifi:set({
+                icon = icons.wifi.disconnected,
+                label = {string = "", width = 0}
+            })
+        end
+    end)
 end)
 
 wifi:subscribe("mouse.clicked", function(env)
