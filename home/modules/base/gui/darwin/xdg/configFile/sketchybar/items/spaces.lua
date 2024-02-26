@@ -9,10 +9,10 @@ local max_display_count = 1
 
 local function mouse_click(env)
     if env.BUTTON == "right" then
-        os.execute("yabai -m space --destroy " .. env.SID ..
-                       " && sketchybar --trigger space_change")
+        sbar.exec("yabai -m space --destroy " .. env.SID ..
+                      " && sketchybar --trigger space_change")
     else
-        os.execute("yabai -m space --focus " .. env.SID)
+        sbar.exec("yabai -m space --focus " .. env.SID)
     end
 end
 
@@ -63,16 +63,16 @@ local function space_windows_change(env)
             sbar.set(spaces[space], {label = icon_strip})
         end)
     end
-    local handle = assert(io.popen("@display_count@"))
-    local display_count = tonumber(assert(handle:read("a")))
-    handle:close()
-    handle = assert(io.popen("@session_save@"))
-    session_restore[display_count] = assert(handle:read("a"))
-    session_timestamp[display_count] = os.clock()
-    handle:close()
-    if display_count > max_display_count then
-        max_display_count = display_count
-    end
+    sbar.exec("@display_count@", function(display_count_str)
+        local display_count = tonumber(display_count_str)
+        sbar.exec("@session_save@", function(restore)
+            session_restore[display_count] = restore
+            session_timestamp[display_count] = os.clock()
+            if display_count > max_display_count then
+                max_display_count = display_count
+            end
+        end)
+    end)
 end
 
 local function display_added(display_count) return display_count - 1, 1, -1 end
@@ -83,22 +83,22 @@ end
 
 local function display_count_change(range)
     return function(env)
-        local restore = nil
-        local max_timestamp = nil
-        local handle = assert(io.popen("@display_count@"))
-        local display_count = tonumber(assert(handle:read("a")))
-        handle:close()
-        local first, last, step = range(display_count)
-        for display_count = first, last, step do
-            if session_timestamp[display_count] and
-                (max_timestamp == null or session_timestamp[display_count] >
-                    max_timestamp) then
-                max_timestamp = session_timestamp[display_count]
-                restore = session_restore[display_count]
+        sbar.exec("@display_count@", function(display_count_str)
+            local display_count = tonumber(display_count_str)
+            local restore = nil
+            local max_timestamp = nil
+            local first, last, step = range(display_count)
+            for display_count = first, last, step do
+                if session_timestamp[display_count] and
+                    (max_timestamp == null or session_timestamp[display_count] >
+                        max_timestamp) then
+                    max_timestamp = session_timestamp[display_count]
+                    restore = session_restore[display_count]
+                end
             end
-        end
-        if restore then os.execute(restore) end
-        sbar.trigger("space_windows_change")
+            if restore then sbar.exec(restore) end
+            sbar.trigger("space_windows_change")
+        end)
     end
 end
 
@@ -149,7 +149,7 @@ local space_creator = sbar.add("item", "space_creator", {
 })
 
 space_creator:subscribe("mouse.clicked", function(_)
-    os.execute("yabai -m space --create && sketchybar --trigger space_change")
+    sbar.exec("yabai -m space --create && sketchybar --trigger space_change")
 end)
 space_creator:subscribe("space_windows_change", space_windows_change)
 space_creator:subscribe("display_change", display_change)
