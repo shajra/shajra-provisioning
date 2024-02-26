@@ -1568,11 +1568,11 @@
     "sketchybar-lua": {
       "flake": false,
       "locked": {
-        "lastModified": 1708888460,
-        "narHash": "sha256-8vixKPE0OZ+7PSgdI5Goq5NhadFK3KpRd+AmQtpHXbQ=",
+        "lastModified": 1708929295,
+        "narHash": "sha256-VvMCIjRNWgJxfvHEoCQ0hsIWEV9/08CUqs/ADh4IGzQ=",
         "owner": "FelixKratz",
         "repo": "SbarLua",
-        "rev": "19a66adb76ef08ec4d2ce906cbf752d1e0560b81",
+        "rev": "64a6e0d0017cd0bff4926ad4ded6d0c0b458e69d",
         "type": "github"
       },
       "original": {
