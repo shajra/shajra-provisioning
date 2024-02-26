@@ -5,6 +5,7 @@
 struct cpu g_cpu;
 
 int main (int argc, char** argv) {
+  alarm(0);
   float update_freq = 1;
   if (argc < 3 || (sscanf(argv[2], "%f", &update_freq) != 1)) {
     printf("Usage: helper \"<event-name>\" \"<update_freq>\"\n");
