@@ -30,7 +30,6 @@ in
         programs.bottom = import programs/bottom config;
         programs.bat.config = { theme = config.theme.external.bat.name; };
         programs.bat.enable = true;
-        programs.broot = import programs/broot config pkgs;
         programs.dircolors.enable = true;
         programs.dircolors.extraConfig = config.theme.external.dircolors.extraConfig;
         # DESIGN: Not using the Direnv module because Home Manager automatically
@@ -53,11 +52,12 @@ in
         programs.lesspipe.enable = true;
         programs.man.generateCaches = true;
         programs.neovim = import programs/neovim pkgs;
-        programs.nnn.enable = true;
         programs.readline = import programs/readline;
         programs.skim.enable = true;
         programs.starship = import programs/starship;
         programs.tealdeer.enable = true;
+        programs.yazi.enable = true;
+        programs.yazi.enableFishIntegration = true;
         programs.zoxide.enable = true;
 
         xdg.configFile = import xdg/configFile config pkgs;
