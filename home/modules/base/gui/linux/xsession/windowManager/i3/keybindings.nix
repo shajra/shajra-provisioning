@@ -14,6 +14,7 @@ let
     i3-scratchpad = "${pkgs.i3-scratchpad}/bin/i3-scratchpad";
     pkill = "${pkgs.procps}/bin/pkill";
     rofi = "${config.programs.rofi.finalPackage}/bin/rofi";
+    rofi-pass = "${config.programs.rofi.pass.package}/bin/rofi-pass";
     user = config.home.username;
 
     rofi-clip = pkgs.writers.writeDash "rofi-clip" ''
@@ -187,6 +188,9 @@ in
 
     # clipboard management
     "${mod}+c" = ''exec CM_LAUNCHER=${rofi-clip} ${clipmenu}'';
+
+    # password management
+    "${mod}+p" = ''exec ${rofi-pass}'';
 
     # PulseAudio controls
     "XF86AudioRaiseVolume" = ''exec --no-startup-id ${dunst-osd} volume up'';
