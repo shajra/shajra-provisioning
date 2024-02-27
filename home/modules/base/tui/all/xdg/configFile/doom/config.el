@@ -41,6 +41,10 @@
 (custom-set-faces!
   `(cursor :background ,(doom-color '@theme_color_unifying@)))
 
+;; DESIGN: Doom strips down projectile project root discovery for performance
+(after! projectile
+  (add-to-list 'projectile-project-root-files-bottom-up ".jj"))
+
 ;; DESIGN: need to load after Doom to change Doom settings
 (after! org-fancy-priorities
   (setq-default
