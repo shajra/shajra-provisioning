@@ -230,8 +230,6 @@ in
     ];
 
     shellAliases = {
-        brd = "broot-dir";
-        brt = "broot-tree";
         c = "bat";
         d = "devour";
         ec = "emacsclient -c -n";
@@ -246,7 +244,6 @@ in
         l = "eza --icons --group-directories-first";
         ll = "eza --icons --group-directories-first -l";
         lt = "eza --icons --group-directories-first --tree";
-        nnn = "nnn -C";
         m = "man";
         p = "projects";
         unison = "unison -ui text";
