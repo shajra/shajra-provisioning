@@ -9,6 +9,7 @@ in
     imports = [
         ../../modules/base/gui/linux
         ../../modules/programming/db
+        ../../modules/work
     ];
 
     home.file = import home/file config;
@@ -33,7 +34,6 @@ in
     ];
 
     programs.fish = import programs/fish;
-    programs.git = import programs/git lib;
     programs.i3status-rust = import programs/i3status-rust config pkgs;
 
     services.gammastep.enable = lib.mkForce false;

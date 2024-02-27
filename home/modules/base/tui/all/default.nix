@@ -53,6 +53,7 @@ in
         programs.home-manager.enable = false;
         programs.htop.enable = true;
         programs.jq = import programs/jq;
+        programs.jujutsu = import programs/jujutsu;
         programs.lesspipe.enable = true;
         programs.man.generateCaches = true;
         programs.neovim = import programs/neovim pkgs;

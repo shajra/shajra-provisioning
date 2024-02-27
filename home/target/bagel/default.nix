@@ -32,6 +32,8 @@ in
         #../../modules/sync  # Ocaml not built/cached
 
         ../../modules/video/all
+
+        ../../modules/work
     ];
 
     home.file = import home/file userConfig hostname;
@@ -39,7 +41,6 @@ in
     home.username = userConfig."${hostname}".username;
     programs.alacritty.settings.font.size = 18.0;
     programs.fish = import programs/fish pkgs;
-    programs.git = import programs/git lib;
     programs.kitty.extraConfig = "font_size 18";
     xdg.configFile = import xdg/configFile lib;
 }
