@@ -27,9 +27,13 @@ in
         home.file = import home/file config;
 
         programs.bash.enable = true;
-        programs.bottom = import programs/bottom config;
-        programs.bat.config = { theme = config.theme.external.bat.name; };
         programs.bat.enable = true;
+        programs.bat.config.theme = config.theme.external.bat.name;
+        programs.bottom.enable = true;
+        programs.bottom.settings.flags.color = config.theme.external.bottom.name;
+        programs.btop.enable = true;
+        programs.btop.settings.color_theme = config.theme.external.btop.name;
+        programs.carapace.enable = true;
         programs.dircolors.enable = true;
         programs.dircolors.extraConfig = config.theme.external.dircolors.extraConfig;
         # DESIGN: Not using the Direnv module because Home Manager automatically

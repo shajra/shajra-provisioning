@@ -155,6 +155,10 @@ let
                 description = "Name of theme for Bottom.";
                 type = lib.types.str;
             };
+            btop.name = lib.mkOption {
+                description = "Name of theme for Btop.";
+                type = lib.types.str;
+            };
             dircolors.extraConfig = options.programs.dircolors.extraConfig;
             doom.name = lib.mkOption {
                 description = "Name of theme for Doom Emacs.";
@@ -308,6 +312,7 @@ let
         external = {
             bat.name = "Solarized (light)";
             bottom.name = "gruvbox-light";
+            btop.name = "solarized_light";
             dircolors.extraConfig = builtins.readFile
                 "${pkgs.sources.dircolors-solarized}/dircolors.ansi-light";
             doom.name = "doom-solarized-light";
