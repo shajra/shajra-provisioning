@@ -39,7 +39,31 @@
 
 ;; DESIGN: light override of Solarized Light theme
 (custom-set-faces!
-  `(cursor :background ,(doom-color '@theme_color_unifying@)))
+  `(cursor :background ,(doom-color '@theme_color_unifying@))
+  '(term-color-black         :foreground "#@theme_color_normal_black@")
+  '(term-color-black         :background "#@theme_color_normal_black@")
+  '(term-color-white         :foreground "#@theme_color_normal_white@")
+  '(term-color-white         :background "#@theme_color_normal_white@")
+  '(term-color-bright-black  :foreground "#@theme_color_bright_black@")
+  '(term-color-bright-black  :background "#@theme_color_bright_black@")
+  '(term-color-bright-white  :foreground "#@theme_color_bright_white@")
+  '(term-color-bright-white  :background "#@theme_color_bright_white@")
+  '(ansi-color-black         :foreground "#@theme_color_normal_black@")
+  '(ansi-color-black         :background "#@theme_color_normal_black@")
+  '(ansi-color-white         :foreground "#@theme_color_normal_white@")
+  '(ansi-color-white         :background "#@theme_color_normal_white@")
+  '(ansi-color-bright-black  :foreground "#@theme_color_bright_black@")
+  '(ansi-color-bright-black  :background "#@theme_color_bright_black@")
+  '(ansi-color-bright-white  :foreground "#@theme_color_bright_white@")
+  '(ansi-color-bright-white  :background "#@theme_color_bright_white@")
+  '(vterm-color-black        :foreground "#@theme_color_normal_black@")
+  '(vterm-color-black        :background "#@theme_color_normal_black@")
+  '(vterm-color-white        :foreground "#@theme_color_normal_white@")
+  '(vterm-color-white        :background "#@theme_color_normal_white@")
+  '(vterm-color-bright-black :foreground "#@theme_color_bright_black@")
+  '(vterm-color-bright-black :background "#@theme_color_bright_black@")
+  '(vterm-color-bright-white :foreground "#@theme_color_bright_white@")
+  '(vterm-color-bright-white :background "#@theme_color_bright_white@"))
 
 ;; DESIGN: Doom strips down projectile project root discovery for performance
 (after! projectile

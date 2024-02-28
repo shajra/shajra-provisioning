@@ -13,7 +13,10 @@ let
         theme_font_proportional = config.theme.fonts.proportional.name;
         theme_doom_name         = config.theme.external.doom.name;
         theme_color_unifying    = colorName config.theme.colors.semantic.unifying;
-        theme_color_highlight   = colorName config.theme.colors.semantic.highlight;
+        theme_color_normal_black = colors.terminal.normal.black;
+        theme_color_normal_white = colors.terminal.normal.white;
+        theme_color_bright_black = colors.terminal.bright.black;
+        theme_color_bright_white = colors.terminal.bright.white;
     };
 
 in
