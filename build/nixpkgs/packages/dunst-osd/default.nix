@@ -27,7 +27,7 @@ set -eu
 set -o pipefail
 
 
-. "${nix-project-lib.scriptCommon}/share/nix-project/common.bash"
+. "${nix-project-lib.scriptCommon}/share/nix-project/common.sh"
 
 
 print_usage()
