@@ -12,7 +12,6 @@
         nix-project.url    = github:shajra/nix-project;
         nur.url            = github:nix-community/NUR;
         vscode-server.url  = github:nix-community/nixos-vscode-server;
-        colored_man_pages-fish = { url = github:PatrickF1/colored_man_pages.fish; flake = false; };
         delta                  = { url = github:dandavison/delta; flake = false; };
         dircolors-solarized    = { url = github:seebi/dircolors-solarized; flake = false; };
         direnv-nix-lorelei     = { url = github:shajra/direnv-nix-lorelei; flake = false; };

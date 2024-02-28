@@ -91,7 +91,6 @@ platforms:
 | Smart directory jumping                       | [[zoxide][zoxide]]                                 |
 | Fuzzy selection/launcher                      | [[fzf][fzf]]                                    |
 | Project/directory-level environment variables | [[direnv][direnv]] + [[lorelei][Lorelei]]                       |
-| Man-page coloring                             | [[fish-man-colored][colored_man_pages]] Fish extension       |
 | Terminal welcome message                      | [[macchina][macchina]]                               |
 | Syntax-highlighted Git diffs                  | [[delta][Delta]]                                  |
 | Kitty history scrollback                      | [[kitty-scrollback][kitty-scrollback.nvim]]                  |

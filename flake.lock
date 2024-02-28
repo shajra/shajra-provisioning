@@ -130,22 +130,6 @@
         "type": "github"
       }
     },
-    "colored_man_pages-fish": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1651274650,
-        "narHash": "sha256-ii9gdBPlC1/P1N9xJzqomrkyDqIdTg+iCg0mwNVq2EU=",
-        "owner": "PatrickF1",
-        "repo": "colored_man_pages.fish",
-        "rev": "f885c2507128b70d6c41b043070a8f399988bc7a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "PatrickF1",
-        "repo": "colored_man_pages.fish",
-        "type": "github"
-      }
-    },
     "delta": {
       "flake": false,
       "locked": {
@@ -1484,7 +1468,6 @@
     "root": {
       "inputs": {
         "bluos-nix": "bluos-nix",
-        "colored_man_pages-fish": "colored_man_pages-fish",
         "delta": "delta",
         "dircolors-solarized": "dircolors-solarized",
         "direnv-nix-lorelei": "direnv-nix-lorelei",
