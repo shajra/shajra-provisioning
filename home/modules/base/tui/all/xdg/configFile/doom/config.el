@@ -13,6 +13,12 @@
    )
 ;;)
 
+;; DESIGN: Recommended by `doom doctor`
+(setq-default
+ shell-file-name (executable-find "bash")
+ vterm-shell (executable-find "fish")
+ explicit-shell-file-name (executable-find "fish"))
+
 (setq-default
  dante-methods '(alt-stack-project alt-cabal)
  doom-large-file-size-alist '(("/TAGS\\([.]local\\)?$". 50.0) ("." . 1.0))

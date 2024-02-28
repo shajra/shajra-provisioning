@@ -15,17 +15,20 @@
   hl-todo             ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
   indent-guides       ; highlighted indent columns
   (ligatures          ; ligatures and symbols to make your code pretty again
-    ;;+extra          ; removed to stremline performance
+    +extra            ;     consider removing if performance impacted
   )
   modeline            ; snazzy, Atom-inspired modeline, plus API
   nav-flash           ; blink cursor line after big motions
   ophints             ; highlight the region an operation acts on
   (popup +defaults)   ; tame sudden yet inevitable temporary windows
-  treemacs            ; a project drawer, like neotree but cooler
+  (treemacs +lsp)     ; a project drawer, like neotree but cooler
   unicode             ; extended unicode support for various languages
-  (vc-gutter +pretty) ; vcs diff in the fringe
+  (vc-gutter          ; vcs diff in the fringe
+   +diff-hl           ;     possibly better/newer
+   +pretty)           ;     maybe reasonable improvements
   vi-tilde-fringe     ; fringe tildes to mark beyond EOB
-  window-select       ; visually switch windows
+  (window-select      ; visually switch windows
+   +numbers)          ;     maybe useful
   ;;workspaces        ; tab emulation, persistence & separate workspaces
   zen                 ; distraction-free coding or writing
 
@@ -40,9 +43,10 @@
   word-wrap           ; soft wrapping with language-aware indent
 
   :emacs
-  dired               ; making dired pretty [functional]
+  (dired              ; making dired pretty [functional]
+   +icons +ranger)    ;     icons are nice; we'll see if +ranger feels bulky
   electric            ; smarter, keyword-based electric-indent
-  ibuffer             ; interactive buffer management
+  (ibuffer +icons)    ; interactive buffer management
   undo                ; persistent, smarter undo for your inevitable mistakes
   vc                  ; version-control and Emacs, sitting in a tree
 
@@ -59,14 +63,15 @@
 
   :tools
   emacs-direnv
-  docker
+  docker            ; +lsp available
   (eval +overlay)   ; run code, run (also, repls)
-  lookup            ; navigate your code and its documentation
+  (lookup           ; navigate your code and its documentation
+   +dictionary      ;     may help from needing the browser as much
+   +offline)        ;     shouldn't take too much space
   (lsp +peek)       ; M-x vscode
   magit             ; a git porcelain for Emacs
   make              ; run make tasks from Emacs
-  rgb               ; creating color strings
-  taskrunner        ; taskrunner for all your projects
+  terraform         ; +lsp available
   tmux              ; an API for interacting with tmux
   tree-sitter       ; syntax and parsing, sitting in a tree...
 
@@ -75,73 +80,38 @@
   tty                ; improve the terminal Emacs experience
 
   :lang
-  (cc
-    ;;+lsp
-    +tree-sitter
-  )
-  ;;coq
-  data
-  ;;dhall
-  emacs-lisp
-  ;;(ess +lsp)
-  go
+  (cc +tree-sitter)         ; +lsp available
+  ;;coq                     ; no module flags
+  data                      ; no module flags
+  ;;dhall                   ; no module flags
+  emacs-lisp                ; no module flags
+  ;;(ess +tree-sitter +lsp)
+  (go +tree-sitter)         ; +lsp available
   ;;(graphql +lsp)
-  (haskell +lsp)
+  (haskell +tree-sitter +lsp)
   ;;(haskell-extn +dante +lsp)
   ;;idris
-  (json
-    ;;+lsp
-    +tree-sitter
-  )
-  ;;(java +lsp +tree-sitter)
-  ;;(javascript +lsp +tree-sitter)
-  (latex
-    ;;+lsp
-  )
-  lua
+  (java +tree-sitter)       ; +lsp available
+  (javascript +tree-sitter) ; +lsp available
+  (json +tree-sitter)       ; +lsp available
+  (latex +latexmk)          ; +lsp available
+  (lua +tree-sitter)        ; +lsp available
   (markdown +grip)
-  (nix
-    +tree-sitter
-  )
+  (nix +tree-sitter +lsp)
   ;;(ocaml +lsp +tree-sitter)
-  (org
-    ;;+hugo
-    +pretty
-    ;;+present
-  )
-  plantuml
+  (org +pretty)             ; there's a lot more flags, but they seem frivolous
+  plantuml                  ; no module flags
   ;;(purescript +lsp)
-  (python
-    ;;+conda
-    ;;+cython
-    ;;+lsp
-    ;;+poetry
-    ;;+pyright
-    +tree-sitter
-  )
-  (racket
-    ;;+lsp
-    ;;+xp
-  )
+  (python +tree-sitter)     ; +lsp, +poetry, and others available
+  (racket)                  ; +lsp and +xp available
   (rest +jq)
-  ;;(ruby +lsp +tree-sitter)
-  (rust
-    ;;+lsp
-  )
-  ;;(scala +lsp +tree-sitter)
-  (sh
-    +fish
-    ;;+lsp
-    +tree-sitter
-  )
-  ;;sml
-  (web
-    ;;+lsp
-    +tree-sitter
-  )
-  (yaml
-    ;;+lsp
-  )
+  (ruby +tree-sitter)       ; +lsp and others available
+  (rust +tree-sitter)       ; +lsp available
+  (scala +tree-sitter)      ; +lsp available
+  (sh +fish +tree-sitter)   ; +lsp available
+  ;;sml                     ; no module flags
+  (web +tree-sitter)        ; +lsp available
+  (yaml +tree-sitter)       ; +lsp available
 
   :email
   ;;(mu4e +org +gmail)
