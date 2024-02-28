@@ -188,6 +188,7 @@ in {
 
     nixpkgs.prebuilt.programming.general = pickHome [
         "gnumake"
+        "nil"
         "wireshark"
     ];
 
