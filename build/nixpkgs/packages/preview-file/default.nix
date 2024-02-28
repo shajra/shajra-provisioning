@@ -250,7 +250,7 @@ hash_for()
 
 detect_terminal()
 {
-    local terminal="''${PREVIEW_FILE_AS:-default}"
+    local terminal=default
     if    [ "''${TERM:-}" = "xterm-kitty" ] \
        || [ -n "''${KITTY_WINDOW_ID:-}" ]
     then terminal=kitty
@@ -259,7 +259,7 @@ detect_terminal()
        || [ -n "''${ITERM_SESSION_ID:-}" ]
     then terminal=iterm
     fi
-    echo "$terminal"
+    echo"''${PREVIEW_FILE_AS:-$terminal}"
 }
 
 dimensions()
