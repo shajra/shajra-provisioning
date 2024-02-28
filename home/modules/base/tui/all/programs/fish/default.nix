@@ -4,13 +4,8 @@ let
 
     fzf-preview-dir = pkgs.writers.writeDash "fzf-preview-dir" ''
         "${pkgs.eza}/bin/eza" --color always \
-                --icons --group-directories-first -1 \
+                --icons --group-directories-first -1 "$1" \
             | "${pkgs.coreutils}/bin/head" -300
-    '';
-
-    fzf-preview-file = pkgs.writers.writeDash "fzf-preview-dir" ''
-        "${pkgs.bat}/bin/bat" --color always --style numbers --wrap never \
-            --line-range :300
     '';
 
     gpg-connect-agent = "${config.programs.gpg.package}/bin/gpg-connect-agent";
@@ -139,8 +134,8 @@ in
     };
 
     shellInit = ''
-        set fzf_preview_dir_cmd  "${fzf-preview-dir}
-        set fzf_preview_file_cmd "${fzf-preview-file}
+        set fzf_preview_dir_cmd  "${fzf-preview-dir}"
+        set fzf_preview_file_cmd "${pkgs.fzf-preview-file}/bin/fzf-preview-file"
         set fzf_dir_opts --preview-window nowrap
     '';
 
