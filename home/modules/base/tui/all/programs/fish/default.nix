@@ -19,22 +19,6 @@ let
 
     gpg-connect-agent = "${config.programs.gpg.package}/bin/gpg-connect-agent";
 
-    man-colored = pkgs.runCommand "man-colored" {} ''
-        cp -r "${pkgs.sources.colored_man_pages-fish}" "$out"
-        chmod -R +w "$out"
-
-        # DESIGN: Renaming to avoid infinite recursion when wrapping
-        mv "$out/functions/man.fish" "$out/functions/man-colored.fish"
-        substituteInPlace "$out/functions/man-colored.fish" \
-            --replace 'function man'  'function man-colored' \
-
-        # DESIGN: Make colors Solarized Light
-        substituteInPlace "$out/functions/cless.fish" \
-            --replace '0280A5' '${colors.nominal.cyan}' \
-            --replace '5BA502' '${colors.nominal.green}' \
-            --replace 'F0CB02' '${colors.nominal.yellow}'
-    '';
-
 in
 
 {
@@ -128,19 +112,6 @@ in
                 end
             '';
         };
-        man = {
-            description = "Color man pages with a reasonable width";
-            body = ''
-                set --export MANWIDTH (
-                    if [ $COLUMNS -gt 80 ]
-                        echo 80
-                    else
-                        echo $COLUMNS
-                    end
-                )
-                man-colored $argv
-            '';
-        };
         path-rebuild = {
             description = "Rebuild fish_user_paths";
             body = ''
@@ -219,10 +190,6 @@ in
     '';
 
     plugins = [
-        {
-            name = "man-colored";
-            src = man-colored;
-        }
         {
             name = "fzf" ;
             src = pkgs.sources.fzf-fish;

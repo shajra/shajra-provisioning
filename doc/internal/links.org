@@ -10,7 +10,6 @@
 #+link: dunst https://dunst-project.org/
 #+link: fhs https://www.pathname.com/fhs/
 #+link: fish https://fishshell.com/
-#+link: fish-man-colored https://github.com/PatrickF1/colored_man_pages.fish
 #+link: fzf https://github.com/junegunn/fzf
 #+link: gammastep https://gitlab.com/chinstrap/gammastep
 #+link: github-actions https://github.com/shajra/shajra-provisioning/actions

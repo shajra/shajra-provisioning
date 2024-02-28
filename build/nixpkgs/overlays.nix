@@ -16,7 +16,6 @@ let
     external.sources = self: super: {
         sources = super.sources or {} // {
             inherit (inputs)
-                colored_man_pages-fish
                 delta
                 dircolors-solarized
                 direnv-nix-lorelei
