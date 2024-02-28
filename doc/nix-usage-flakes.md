@@ -109,7 +109,7 @@ We can use `nix flake show` to see the outputs provided by any flake, local or r
 nix flake show .
 ```
 
-    git+file:///home/tnks/src/shajra/shajra-provisioning
+    git+file:///home/tnks/src/shajra/shajra-provisioning.git
     ├───apps
     │   ├───aarch64-darwin
     …
@@ -272,7 +272,7 @@ After a successful call of `nix build`, you'll see one or more symlinks for each
 readlink result*
 ```
 
-    /nix/store/jldgvkchmsd7bgx2bdp52gwzxk7m0jii-home-manager
+    /nix/store/vszfl3fclr1kr4jnj7hmpx2dd6c7n6fk-home-manager
 
 Following these symlinks, we can see the files the project provides:
 
@@ -300,7 +300,7 @@ It's common to configure these “result” symlinks as ignored in source contro
 nix path-info .#home-manager
 ```
 
-    /nix/store/jldgvkchmsd7bgx2bdp52gwzxk7m0jii-home-manager
+    /nix/store/vszfl3fclr1kr4jnj7hmpx2dd6c7n6fk-home-manager
 
 ## Running commands in a shell<a id="sec-4-6"></a>
 
@@ -316,7 +316,7 @@ nix shell \
     --command home-manager --help
 ```
 
-    Usage: /nix/store/jldgvkchmsd7bgx2bdp52gwzxk7m0jii-home-manager/bin/home-manager [OPTION] COMMAND
+    Usage: /nix/store/vszfl3fclr1kr4jnj7hmpx2dd6c7n6fk-home-manager/bin/home-manager [OPTION] COMMAND
     
     Options
     
@@ -366,7 +366,7 @@ Here's the `nix run` equivalent of the `nix shell` invocation from the previous 
 nix run .#home-manager  -- --help
 ```
 
-    Usage: /nix/store/jldgvkchmsd7bgx2bdp52gwzxk7m0jii-home-manager/bin/home-manager [OPTION] COMMAND
+    Usage: /nix/store/vszfl3fclr1kr4jnj7hmpx2dd6c7n6fk-home-manager/bin/home-manager [OPTION] COMMAND
     
     Options
     
@@ -413,7 +413,7 @@ nix shell --ignore-environment \
     --command which home-manager
 ```
 
-    /nix/store/jldgvkchmsd7bgx2bdp52gwzxk7m0jii-home-manager/bin/home-manager
+    /nix/store/vszfl3fclr1kr4jnj7hmpx2dd6c7n6fk-home-manager/bin/home-manager
 
 What we do with local flake references can work just as well with remote flake references.
 
@@ -439,9 +439,9 @@ nix profile list
 
     Index:              0
     Flake attribute:    packages.x86_64-linux.home-manager
-    Original flake URL: git+file:///home/tnks/src/shajra/shajra-provisioning
-    Locked flake URL:   git+file:///home/tnks/src/shajra/shajra-provisioning
-    Store paths:        /nix/store/jldgvkchmsd7bgx2bdp52gwzxk7m0jii-home-manager
+    Original flake URL: git+file:///home/tnks/src/shajra/shajra-provisioning.git
+    Locked flake URL:   git+file:///home/tnks/src/shajra/shajra-provisioning.git
+    Store paths:        /nix/store/vszfl3fclr1kr4jnj7hmpx2dd6c7n6fk-home-manager
 
 If we want to uninstall a program from our profile, we do so by the index from this list:
 
