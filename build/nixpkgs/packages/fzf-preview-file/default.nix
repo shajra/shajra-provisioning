@@ -5,6 +5,7 @@
 , file
 , gawk
 , gnused
+, imgcat
 , kitty
 }:
 
@@ -15,6 +16,7 @@ let
 
 in
 
+# DESIGN: https://github.com/junegunn/fzf/blob/master/bin/fzf-preview.sh
 nix-project-lib.writeShellCheckedExe progName
 {
     inherit meta;
@@ -26,8 +28,13 @@ nix-project-lib.writeShellCheckedExe progName
         file
         gawk
         gnused
+        imgcat
         kitty
     ];
+
+    # DESIGN: needed for imgcat to work
+    pathPure = false;
+
 }
 ''
 set -eu
@@ -112,6 +119,9 @@ preview_file()
                 --place="$dim@0x0"     \
                 "$FILE"                \
             | sed '$d'
+        elif [ -n "''${ALACRITTY_WINDOW_ID:-}" ]
+        then
+            imgcat --width "''${dim%x*}" --height "''${dim#*x}" --depth 24bit "$FILE"
         else
             chafa -f sixel -s "$dim" "$FILE"
         fi
@@ -125,11 +135,20 @@ calculate_dimensions()
     if [ "$dim" = x ]
     then
         dim="$(stty size < /dev/tty | awk '{print $2 "x" $1}')"
-    elif [ -z "''${KITTY_WINDOW_ID:-}" ] \
-        && (( FZF_PREVIEW_TOP + FZF_PREVIEW_LINES \
-            == $(stty size < /dev/tty | awk '{print $1}') ))
+    fi
+    if [ -n "''${FZF_PREVIEW_COLUMNS:-}" ] && [ -n "''${FZF_PREVIEW_LINES:-}" ]
     then
-        dim="''${FZF_PREVIEW_COLUMNS:-}x$((FZF_PREVIEW_LINES - 1))"
+        if     [ -z "''${KITTY_WINDOW_ID:-}" ] \
+            && [ -n "''${FZF_PREVIEW_TOP:-}" ] \
+            && (( FZF_PREVIEW_TOP + FZF_PREVIEW_LINES \
+                == $(stty size < /dev/tty | awk '{print $1}') ))
+        then
+            dim="''${FZF_PREVIEW_COLUMNS:-}x$((FZF_PREVIEW_LINES - 1))"
+        fi
+        if [ -n "''${ALACRITTY_WINDOW_ID:-}" ]
+        then
+            dim="$((FZF_PREVIEW_COLUMNS - 1))x$FZF_PREVIEW_LINES"
+        fi
     fi
     echo "$dim"
 }
