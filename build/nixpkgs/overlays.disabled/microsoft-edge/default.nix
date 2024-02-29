@@ -2,7 +2,7 @@ self: super:
 
 # DESIGN: Can't update as a flake, so running this script
 #
-# NIX_PATH=nixpkgs=/home/tnks/src/external/nixpkgs /home/tnks/src/external/nixpkgs/pkgs/applications/networking/browsers/microsoft-edge/update.py
+# NIX_PATH=nixpkgs=~/src/external/nixpkgs ~/src/external/nixpkgs/pkgs/applications/networking/browsers/microsoft-edge/update.py
 #
 let
 
