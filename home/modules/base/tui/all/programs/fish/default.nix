@@ -2,10 +2,6 @@ config: pkgs: lib:
 
 let
 
-    format = f: x: pkgs.lib.colors.format "%R%G%B" (f x);
-    id = x: x;
-    colors = pkgs.lib.colors.transformColors (format id) config.theme.colors;
-
     fzf-preview-dir = pkgs.writers.writeDash "fzf-preview-dir" ''
         "${pkgs.eza}/bin/eza" --color always \
                 --icons --group-directories-first -1 \
@@ -51,32 +47,6 @@ in
                 "${config.programs.macchina.package}/bin/macchina" --theme shajra
                 # DESIGN: not messing with color_bars for now
                 #"${pkgs.coreutils}/bin/cat" "${./color_bars.txt}"
-            '';
-        };
-        projects = {
-            description = "Status of my projects";
-            body = ''
-                if set -q argv[1]
-                    set targets $argv
-                else
-                    set targets ~/src/shajra
-                end
-                echo
-                for d in (fd --type d --hidden --no-ignore-vcs --glob .git $targets)
-                    pushd $d
-                    cd ..
-                    starship prompt; echo
-                    set main (git rev-parse main 2>/dev/null)
-                    set next (git rev-parse user/shajra/next 2>/dev/null)
-                    if [ "$main" != "main" ] && [ "$next" != "user/shajra/next" ]
-                        if [ "$main" = "$next" ]
-                            printf "    \x1b[32m☑ main = next\x1b[0m\n"
-                        else
-                            printf "    \x1b[33m☒ main ≠ next\x1b[0m\n"
-                        end
-                    end
-                    popd
-                end | grep --color=never '^ \| on ' |  sed -e 's/^/    /'
             '';
         };
         broot-dir = {
@@ -212,7 +182,7 @@ in
         ll = "eza --icons --group-directories-first -l";
         lt = "eza --icons --group-directories-first --tree";
         m = "man";
-        p = "projects";
+        p = "${pkgs.jj-projects}/bin/jj-projects -b main -b user/shajra/next ~/src/shajra";
         unison = "unison -ui text";
         view = "vim -R";
         v = "vim";
