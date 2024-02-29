@@ -96,6 +96,7 @@ in {
         "nixfmt"
         "paperkey"
         "patchelf"
+        "preview-file"
         "procps"
         "pstree"
         "ripgrep"

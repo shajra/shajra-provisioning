@@ -2,12 +2,6 @@ config: pkgs: lib:
 
 let
 
-    fzf-preview-dir = pkgs.writers.writeDash "fzf-preview-dir" ''
-        "${pkgs.eza}/bin/eza" --color always \
-                --icons --group-directories-first -1 "$1" \
-            | "${pkgs.coreutils}/bin/head" -300
-    '';
-
     gpg-connect-agent = "${config.programs.gpg.package}/bin/gpg-connect-agent";
 
 in
@@ -16,6 +10,16 @@ in
     enable = true;
 
     functions = {
+        # DESIGN: magic string to clear out Kitty; safe for other terminals
+        # https://github.com/junegunn/fzf/issues/3228#issuecomment-1803402184
+        __fzf_search_directory = {
+            description = "Fuzzy find a file w/ Kitty image clear";
+            body = ''
+                _fzf_search_directory
+                printf "\x1b_Ga=d,d=A\x1b\\"
+            '';
+        };
+
         # DESIGN: This disablement of DBUS_SESSION_BUS_ADDRESS is only needed
         # for gpg-agent's ssh-agent emulation with Gnome3 pin entry, which I
         # only stick with for Solarized theming.  Qt pin entry has the same
@@ -134,8 +138,8 @@ in
     };
 
     shellInit = ''
-        set fzf_preview_dir_cmd  "${fzf-preview-dir}"
-        set fzf_preview_file_cmd "${pkgs.fzf-preview-file}/bin/fzf-preview-file"
+        set fzf_preview_dir_cmd  "${pkgs.preview-file}/bin/preview-file"
+        set fzf_preview_file_cmd "${pkgs.preview-file}/bin/preview-file"
         set fzf_dir_opts --preview-window nowrap
     '';
 
@@ -145,10 +149,10 @@ in
         set -gx COLORTERM truecolor
         fish_vi_key_bindings
         bind \ej fzf-cd-widget
-        bind \ef _fzf_search_directory
+        bind \ef __fzf_search_directory
         if bind -M insert > /dev/null 2>&1
             bind -M insert \ej fzf-cd-widget
-            bind -M insert \ef _fzf_search_directory
+            bind -M insert \ef __fzf_search_directory
         end
         system-info
         gpg-pinentry-claim > /dev/null
