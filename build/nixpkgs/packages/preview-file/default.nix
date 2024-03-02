@@ -123,6 +123,11 @@ preview_clear()
         # DESIGN: https://github.com/junegunn/fzf/issues/3228#issuecomment-1803402184
         printf "\x1b_Ga=d,d=A\x1b\\"
         ;;
+    default)
+        echo
+        # DESIGN: This magic string is a general textual clear for terminals.
+        printf "\e[H\e[2J"
+        ;;
     esac
 }
 
@@ -161,7 +166,16 @@ draw()
         case "$(detect_terminal)" in
         kitty) chafa --format kitty --view-size "$(dimensions)" "$1" ;;
         iterm) chafa --format iterm --view-size "$(dimensions)" "$1" ;;
-        *)     chafa                --view-size "$(dimensions)" "$1" ;;
+        *)
+            # DESIGN: Extra clear and sleep is because of a race condition on
+            # long loads.  This is only a problem for ASCII/ANSI rendering.
+            # Slowing rendering intentionally is less than ideal, but 250ms is
+            # tolerable.  Also, will be using Kitty or iTerm2 most of the time
+            # anyway.
+            timeout 0.25s sleep 1 || true
+            preview_clear
+            chafa --view-size "$(dimensions)" "$1"
+            ;;
         esac
     else file "$FILE"
     fi
