@@ -143,20 +143,40 @@ in
         set fzf_dir_opts --preview-window nowrap
     '';
 
-    interactiveShellInit = lib.mkAfter ''
-        umask 077
-        set -gx EDITOR vim
-        set -gx COLORTERM truecolor
-        fish_vi_key_bindings
-        bind \ej fzf-cd-widget
-        bind \ef __fzf_search_directory
-        if bind -M insert > /dev/null 2>&1
-            bind -M insert \ej fzf-cd-widget
-            bind -M insert \ef __fzf_search_directory
-        end
-        system-info
-        gpg-pinentry-claim > /dev/null
-    '';
+    interactiveShellInit =
+        let early = ''
+                set -gx EDITOR vim
+                set -gx COLORTERM truecolor
+                fish_vi_key_bindings
+                system-info
+            '';
+            late = lib.mkAfter ''
+                umask 077
+
+                # DESIGN: Rebinding to "j" for "jump" because base/gui/linux
+                # will bind to "c" for "clipboard".
+                bind \ej fzf-cd-widget
+
+                # DESIGN: Rebinding PatrickF1/fzf.fish's history search, which
+                # is nicer than the standard fzf function. Home Manager's fzf
+                # module had a later precedence than the plugins of this module.
+                bind \cr _fzf_search_history
+
+                # DESIGN: Wrapping with hack for rendering images correctly.
+                # Also, rebinding to not require extra Ctrl modifier.
+                bind   \ef __fzf_search_directory
+                bind \e\cf __fzf_search_directory
+
+                if bind -M insert > /dev/null 2>&1
+                    bind -M insert   \ej   fzf-cd-widget
+                    bind -M insert   \cr  _fzf_search_history
+                    bind -M insert   \ef __fzf_search_directory
+                    bind -M insert \e\cf __fzf_search_directory
+                end
+
+                gpg-pinentry-claim > /dev/null
+            '';
+        in lib.mkMerge [ early late ];
 
     plugins = [
         {
