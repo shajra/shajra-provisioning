@@ -47,7 +47,9 @@ in
         programs.fish = import programs/fish config pkgs lib;
         programs.fzf.enable = true;
         programs.gh.enable = true;
+        programs.gh-dash.enable = true;
         programs.git = import programs/git sources.delta;
+        programs.gitui.enable = true;
         # DESIGN: not using Home-manager module because all it does it tie
         # the executable to dynamic configuration.
         programs.home-manager.enable = false;
@@ -58,7 +60,6 @@ in
         programs.man.generateCaches = true;
         programs.neovim = import programs/neovim pkgs;
         programs.readline = import programs/readline;
-        programs.skim.enable = true;
         programs.starship = import programs/starship;
         programs.tealdeer.enable = true;
         programs.yazi.enable = true;
