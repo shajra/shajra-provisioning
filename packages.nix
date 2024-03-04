@@ -156,7 +156,6 @@ in {
         "graphviz"
         "imagemagick"
         "nodePackages.textlint"
-        "pandoc"
         "proselint"
         "python3Packages.grip"
         "t-rec"
