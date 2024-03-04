@@ -99,7 +99,6 @@ in {
         "preview-file"
         "procps"
         "pstree"
-        "ripgrep"
         "rsync"
         "scc"
         "tmux"
