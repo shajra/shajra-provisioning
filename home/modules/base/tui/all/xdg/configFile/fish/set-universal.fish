@@ -3,6 +3,7 @@ set --export --universal FZF_DEFAULT_OPTS "
     --layout=reverse
     --border
     --height=90%
+    --preview='@preview_file@ {}'
     --preview-window=wrap
     --bind='ctrl-p:toggle-preview'
     --color=fg:#@theme_foreground@

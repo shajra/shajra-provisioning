@@ -33,6 +33,7 @@ in
     "fish/set-universal.fish".onChange = import fish/onChange.nix config;
     "fish/set-universal.fish".source = builtins.toPath (pkgs.substituteAll {
         src = fish/set-universal.fish;
+        preview_file = "${pkgs.preview-file}/bin/preview-file";
         theme_background        = colors.semantic.background;
         theme_background_hl     = colors.semantic.background_highlighted;
         theme_foreground_sh     = colors.semantic.foreground_shadowed;
