@@ -51,8 +51,10 @@ in {
     programs.fish = import programs/fish;
     programs.kitty = import programs/kitty config pkgs;
     programs.noti.enable = true;
+    programs.sioyek.enable = true;
     programs.urxvt = import programs/urxvt config pkgs;
     programs.vscode = import programs/vscode config pkgs;
+    programs.zathura.enable = true;
 
     xdg.configFile = import xdg/configFile config pkgs;
 }
