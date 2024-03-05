@@ -166,9 +166,10 @@ draw()
     if [ -f "$1" ]
     then
         case "$(detect_terminal)" in
-        *-sixels)      chafa --format sixels --view-size "$(dimensions)" "$1" ;;
-        kitty|kitty-*) chafa --format kitty  --view-size "$(dimensions)" "$1" ;;
-        iterm|iterm-*) chafa --format iterm  --view-size "$(dimensions)" "$1" ;;
+        *-sixels)      chafa --format sixels  --view-size "$(dimensions)" "$1" ;;
+        *-symbols)     chafa --format symbols --view-size "$(dimensions)" "$1" ;;
+        kitty|kitty-*) chafa --format kitty   --view-size "$(dimensions)" "$1" ;;
+        iterm|iterm-*) chafa --format iterm   --view-size "$(dimensions)" "$1" ;;
         *)
             # DESIGN: Extra clear and sleep is because of a race condition on
             # long loads.  This is only a problem for ASCII/ANSI rendering.
