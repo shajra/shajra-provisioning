@@ -123,7 +123,9 @@ preview_clear()
         # DESIGN: https://github.com/junegunn/fzf/issues/3228#issuecomment-1803402184
         printf "\x1b_Ga=d,d=A\x1b\\"
         ;;
-    default)
+    iterm)
+        ;;
+    *)
         echo
         # DESIGN: This magic string is a general textual clear for terminals.
         printf "\e[H\e[2J"
@@ -247,10 +249,13 @@ hash_for()
 
 detect_terminal()
 {
-    local terminal=default
-    if [ "''${TERM:-}" = "xterm-kitty" ] || [ -n "''${KITTY_WINDOW_ID:-}" ]
+    local terminal="''${PREVIEW_FILE_AS:-default}"
+    if    [ "''${TERM:-}" = "xterm-kitty" ] \
+       || [ -n "''${KITTY_WINDOW_ID:-}" ]
     then terminal=kitty
-    elif [ "''${LC_TERMINAL:-}" = "iTerm2" ] || [ "''${TERM_PROGRAM:-}" = "iTerm.app" ]
+    elif  [ "''${TERM_PROGRAM:-}" = "iTerm.app" ] \
+       || [ "''${LC_TERMINAL:-}"  = "iTerm2"    ] \
+       || [ -n "''${ITERm_SESSION_ID:-}" ]
     then terminal=iterm
     fi
     echo "$terminal"
@@ -267,8 +272,9 @@ dimensions()
     if [ -n "''${FZF_PREVIEW_COLUMNS:-}" ] && [ -n "''${FZF_PREVIEW_LINES:-}" ]
     then
         case "$(detect_terminal)" in
-        kitty)   dim="$((FZF_PREVIEW_COLUMNS + 2))x$FZF_PREVIEW_LINES" ;;
-        default) dim="$((FZF_PREVIEW_COLUMNS - 1))x$FZF_PREVIEW_LINES" ;;
+        kitty) dim="$((FZF_PREVIEW_COLUMNS + 2))x$FZF_PREVIEW_LINES" ;;
+        iterm) ;;
+        *) dim="$((FZF_PREVIEW_COLUMNS - 1))x$FZF_PREVIEW_LINES" ;;
         esac
     fi
     echo "$dim"
