@@ -119,11 +119,11 @@ prep_cache_dir()
 preview_clear()
 {
     case "$(detect_terminal)" in
-    kitty)
+    kitty|kitty-*)
         # DESIGN: https://github.com/junegunn/fzf/issues/3228#issuecomment-1803402184
         printf "\x1b_Ga=d,d=A\x1b\\"
         ;;
-    iterm)
+    iterm|iterm-*)
         ;;
     *)
         echo
@@ -166,8 +166,9 @@ draw()
     if [ -f "$1" ]
     then
         case "$(detect_terminal)" in
-        kitty) chafa --format kitty --view-size "$(dimensions)" "$1" ;;
-        iterm) chafa --format iterm --view-size "$(dimensions)" "$1" ;;
+        *-sixels)      chafa --format sixels --view-size "$(dimensions)" "$1" ;;
+        kitty|kitty-*) chafa --format kitty  --view-size "$(dimensions)" "$1" ;;
+        iterm|iterm-*) chafa --format iterm  --view-size "$(dimensions)" "$1" ;;
         *)
             # DESIGN: Extra clear and sleep is because of a race condition on
             # long loads.  This is only a problem for ASCII/ANSI rendering.
@@ -272,8 +273,8 @@ dimensions()
     if [ -n "''${FZF_PREVIEW_COLUMNS:-}" ] && [ -n "''${FZF_PREVIEW_LINES:-}" ]
     then
         case "$(detect_terminal)" in
-        kitty) dim="$((FZF_PREVIEW_COLUMNS + 2))x$FZF_PREVIEW_LINES" ;;
-        iterm) ;;
+        kitty|kitty-*) dim="$((FZF_PREVIEW_COLUMNS + 2))x$FZF_PREVIEW_LINES" ;;
+        iterm|iterm-*) ;;
         *) dim="$((FZF_PREVIEW_COLUMNS - 1))x$FZF_PREVIEW_LINES" ;;
         esac
     fi
