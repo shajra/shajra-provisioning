@@ -1,6 +1,12 @@
-{
+config:
+
+let gpgconf = "${config.programs.gpg.package}/bin/gpgconf";
+in {
     interactiveShellInit = ''
         sft-update
+
+        # DESIGN: We don't want the socket set by Ubuntu's `sshd`
+        set -gx SSH_AUTH_SOCK "$("${gpgconf}" --list-dirs agent-ssh-socket)"
     '';
 
     functions = {
