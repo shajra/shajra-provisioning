@@ -101,7 +101,6 @@ in {
         "pstree"
         "rsync"
         "scc"
-        "tmux"
         "tree"
         "unzip"
         "w3m"
