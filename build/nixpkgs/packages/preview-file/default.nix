@@ -256,7 +256,7 @@ detect_terminal()
     then terminal=kitty
     elif  [ "''${TERM_PROGRAM:-}" = "iTerm.app" ] \
        || [ "''${LC_TERMINAL:-}"  = "iTerm2"    ] \
-       || [ -n "''${ITERm_SESSION_ID:-}" ]
+       || [ -n "''${ITERM_SESSION_ID:-}" ]
     then terminal=iterm
     fi
     echo "$terminal"
