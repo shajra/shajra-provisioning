@@ -259,7 +259,7 @@ detect_terminal()
        || [ -n "''${ITERM_SESSION_ID:-}" ]
     then terminal=iterm
     fi
-    echo"''${PREVIEW_FILE_AS:-$terminal}"
+    echo "''${PREVIEW_FILE_AS:-$terminal}"
 }
 
 dimensions()
