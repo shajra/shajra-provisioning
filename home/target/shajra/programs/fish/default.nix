@@ -24,7 +24,26 @@ in {
         groq-mr-slack = {
             description = "Notify team of merge request";
             body = ''
-                echo "shajra: $(gr mr-get --format=short)" | slack '#infra-mr'
+                argparse 'h/help' 's/send' -- $argv
+                if set -ql _flag_help
+                    echo "Usage: groq-mr-slack [-h|--help] [-s|--send]"
+                    echo "  -h, --help: Display this help message"
+                    echo "  -s, --send: Send message to Slack (otherwise dry run)"
+                    return 0
+                end
+                set message (gr mr-get --format=short)
+                if test -z "$message"
+                    echo "ERROR: No message to send" >&2
+                    return 1
+                else
+                    set message "shajra: $message"
+                end
+                if set -ql _flag_send
+                    echo $message | slack '#infra-mr'
+                else
+                    echo "DRY RUN: $message"
+                    echo "use --send to actually send"
+                end
             '';
         };
     };
