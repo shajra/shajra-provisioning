@@ -72,6 +72,7 @@ in {
         "pavucontrol"
         "simple-scan"
         "sxiv"
+        "tor-browser"
         "xclip"
         "xdotool"
         "xorg.xdpyinfo"
