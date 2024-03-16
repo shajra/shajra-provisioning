@@ -33,7 +33,6 @@ in
         programs.bottom.settings.flags.color = config.theme.external.bottom.name;
         programs.btop.enable = true;
         programs.btop.settings.color_theme = config.theme.external.btop.name;
-        programs.carapace.enable = true;
         programs.dircolors.enable = true;
         programs.dircolors.extraConfig = config.theme.external.dircolors.extraConfig;
         # DESIGN: Not using the Direnv module because Home Manager automatically
