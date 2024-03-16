@@ -6,5 +6,5 @@ in
 
 {
     ".moneydance/Documents/tnks.moneydance".source = makeLink
-        "${config.home.homeDirectory}/doc/shared/sensitive/finance/moneydance";
+        "${config.home.homeDirectory}/doc/finance/moneydance";
 }

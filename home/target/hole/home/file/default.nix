@@ -7,5 +7,5 @@ in
 {
     ".unison/default.prf".text = import unison/default.prf.nix userConfig;
     ".moneydance/Documents/tnks.moneydance".source = makeLink
-        "${config.home.homeDirectory}/doc/shared/sensitive/finance/moneydance";
+        "${config.home.homeDirectory}/doc/finance/moneydance";
 }
