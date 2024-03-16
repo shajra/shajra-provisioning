@@ -185,11 +185,11 @@
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {
-        "lastModified": 1710809834,
-        "narHash": "sha256-mbG58NJrXi0/MqLBlMXoBsu0tj3MJ2AOFcvuuUhEyFg=",
+        "lastModified": 1710811873,
+        "narHash": "sha256-epMpeR86jl3m8ZBfZ1yPVyhp/somXvDFjNlFZfY5A2o=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "d7bb0442d385bd42a66257c5d6079972591172d8",
+        "rev": "4e137ce1885720e787775fcfe6560826470c032c",
         "type": "github"
       },
       "original": {
@@ -1510,12 +1510,10 @@
     },
     "shajra-private": {
       "locked": {
-        "lastModified": 1702999846,
-        "narHash": "sha256-KBOhWkU39n8Og1D1CaFf67ReS3MXLUWGpbAVbA6cy4Q=",
-        "owner": "shajra",
-        "repo": "empty",
-        "rev": "a5d71e382bfc85f6e3ed135ff35f16c83aa62828",
-        "type": "github"
+        "lastModified": 1703403775,
+        "narHash": "sha256-QHvYcT9XO+kPaPofpVqQLPeZOOQ6NhxnfTHFSspuN74=",
+        "path": "/home/shajra/src/shajra-private",
+        "type": "path"
       },
       "original": {
         "id": "shajra-private",
