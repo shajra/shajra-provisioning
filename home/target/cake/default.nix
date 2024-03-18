@@ -9,23 +9,18 @@ in
         ../../modules/base/gui/linux
 
         ../../modules/audio/gui/all
-        ../../modules/audio/tui/all
         ../../modules/audio/tui/linux
 
         ../../modules/centralized
 
-        ../../modules/chat/gui/all
         ../../modules/chat/gui/linux
-        ../../modules/chat/tui/all
 
-        ../../modules/documentation/all
         ../../modules/documentation/linux
 
         ../../modules/finance
 
         ../../modules/os/nixos
 
-        ../../modules/programming/c/all
         ../../modules/programming/c/linux
         ../../modules/programming/db
         ../../modules/programming/general
@@ -37,7 +32,7 @@ in
 
         ../../modules/sync
 
-        ../../modules/video/all
+        ../../modules/video/linux
     ];
 
     home.file = import home/file config pkgs userConfig;

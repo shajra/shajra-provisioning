@@ -1,5 +1,6 @@
 {
     imports = [
         ../../../ubiquity
+        ../all
     ];
 }
