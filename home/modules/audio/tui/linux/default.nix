@@ -1,6 +1,10 @@
 { build, ... }:
 
 {
-    imports = [ ../../../ubiquity ];
+    imports = [
+        ../../../ubiquity
+        ../all
+    ];
+
     home.extraPackages = build.pkgs.lists.audio.tui.linux;
 }
