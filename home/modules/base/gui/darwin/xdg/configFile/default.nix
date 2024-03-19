@@ -66,8 +66,12 @@ let
         mkdir -p "$out"
         {
             echo "return {"
-            for f in "${pkgs.sources.sketchybar-font-src}/mappings/"*
-            do cat $f | sed 's/ *| */\n/g' | while read -r s
+            "${pkgs.findutils}/bin/find" \
+                "${pkgs.sources.sketchybar-font-src}/mappings" \
+                -type f \
+                -mindepth 1 \
+                -maxdepth 1 | while read -r f
+            do cat $f | sed 's/ *| */\n/g;s/[*]//g' | while read -r s
                 do echo "    [$s]" = \"''${f##*/}\",
                 done
             done
