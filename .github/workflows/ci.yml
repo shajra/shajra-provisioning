@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - uses: cachix/install-nix-action@v25
+    - uses: cachix/install-nix-action@v26
       with:
         extra_nix_config: |
           substituters = https://cache.nixos.org https://nix-community.cachix.org https://haskell-language-server.cachix.org https://cache.iog.io
@@ -38,7 +38,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v4
-    - uses: cachix/install-nix-action@v25
+    - uses: cachix/install-nix-action@v26
       with:
         extra_nix_config: |
           substituters = https://cache.nixos.org https://nix-community.cachix.org https://haskell-language-server.cachix.org https://cache.iog.io
@@ -61,7 +61,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - uses: cachix/install-nix-action@v25
+    - uses: cachix/install-nix-action@v26
       with:
         extra_nix_config: |
           substituters = https://cache.nixos.org https://nix-community.cachix.org https://haskell-language-server.cachix.org https://cache.iog.io
@@ -80,7 +80,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v4
-    - uses: cachix/install-nix-action@v25
+    - uses: cachix/install-nix-action@v26
       with:
         extra_nix_config: |
           substituters = https://cache.nixos.org https://nix-community.cachix.org https://haskell-language-server.cachix.org https://cache.iog.io

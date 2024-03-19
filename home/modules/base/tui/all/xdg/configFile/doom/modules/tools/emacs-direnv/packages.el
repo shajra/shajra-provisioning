@@ -2,4 +2,4 @@
 
 
 ;; DESIGN: target latest
-(package! direnv :pin "14f74269af34f8c30ab4a521eff290b74460daed")
+(package! direnv :pin "c0bf3b81c7a97e2a0d06d05495e86848254fcc1f")

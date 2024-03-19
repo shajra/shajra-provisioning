@@ -289,7 +289,7 @@ in {
     nixpkgs.build.programming.haskell = pickUnstable [
         # DESIGN: coming from Nixpkgs, but not cached
         "haskell.packages.ghc964.apply-refact"
-        # "haskell.packages.ghc964.djinn"  # REVISIT: 2024-02-04: broken
+        "haskell.packages.ghc964.djinn"
         "haskell.packages.ghc964.fast-tags"
         "haskell.packages.ghc964.ghc-events"
         "haskell.packages.ghc964.ghcid"
