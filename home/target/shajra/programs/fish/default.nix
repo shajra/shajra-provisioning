@@ -49,13 +49,18 @@ in {
     };
 
     shellAliases = {
-        psql-brake-ro =
+        groq-reset =
+            ''sft-update; gpg-pinentry-claim'';
+        psql-brake-prod-ro =
             ''PGPASSWORD=brakero psql --host=10.26.147.22 -U brakero brake'';
-        psql-brake-rw =
+        psql-brake-prod-rw =
             ''PGPASSWORD=(berglas access gs://infra-secrets/pg-brake-brakerw) \
                 psql --host=10.26.147.22 -U brakerw brake'';
-        psql-brake-admin =
+        psql-brake-prod-admin =
             ''PGPASSWORD=(berglas access gs://infra-secrets/pg-brake-admin-postgres) \
                 psql --host=10.26.147.22 -U postgres brake'';
+        psql-brake-test-admin =
+            ''PGPASSWORD=(berglas access gs://infra-secrets/pg-load-test-admin-postgres) \
+                psql --host=10.26.147.35 -U postgres brake'';
     };
 }
