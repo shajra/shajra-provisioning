@@ -190,6 +190,7 @@ in {
 
     nixpkgs.prebuilt.programming.db = pickHome [
         "postgresql"
+        "pgformatter"
         "schemaspy"
         "sqlint"
         "sqlite"
