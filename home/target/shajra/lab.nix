@@ -14,7 +14,6 @@ in
     home.homeDirectory = userConfig."${hostname}".homeDirectory;
     home.username = userConfig."${hostname}".username;
 
-    nix.package = pkgs.nix;  # Only used for configuration generation
     nix.settings.extra-experimental-features = ["nix-command" "flakes"];
     nix.settings.extra-substituters = [
         "https://shajra.cachix.org"
