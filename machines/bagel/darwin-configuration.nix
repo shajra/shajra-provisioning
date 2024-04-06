@@ -25,7 +25,6 @@ in {
     nix.extraOptions = ''
         experimental-features = nix-command flakes
     '';
-    nix.package = pkgs.nixFlakes;
     nix.settings.substituters = [
         "https://shajra.cachix.org"
         "https://cache.garnix.io"

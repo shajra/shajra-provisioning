@@ -61,7 +61,6 @@ in {
     nix.extraOptions = ''
         experimental-features = nix-command flakes
     '';
-    nix.package = pkgs.nixFlakes;
     nix.settings.auto-optimise-store = true;
     nix.settings.sandbox = "relaxed";
     nix.settings.substituters = [
