@@ -1,13 +1,13 @@
 - [About this document](#sec-1)
 - [Problems addressed by Nix](#sec-2)
-  - [Managed build](#sec-2-1)
+  - [Complete build](#sec-2-1)
   - [Reliable build](#sec-2-2)
   - [Reliable deployment](#sec-2-3)
   - [Version conflicts](#sec-2-4)
   - [Polyglot programming](#sec-2-5)
-  - [Complete distributed cache of builds](#sec-2-6)
+  - [Distributed cache of builds](#sec-2-6)
 - [Nix at a high level](#sec-3)
-  - [Nix the package mangager](#sec-3-1)
+  - [Nix the package manager](#sec-3-1)
   - [Nix the build system](#sec-3-2)
   - [Nixpkgs](#sec-3-3)
 - [Frustrations acknowledged](#sec-4)
@@ -15,20 +15,23 @@
   - [Confusion of stability](#sec-4-2)
     - [Nix 2.0 and the new `nix` command](#sec-4-2-1)
     - [Flakes as an experiment](#sec-4-2-2)
+  - [A few gaps in determinism](#sec-4-3)
 - [Encouraging development with flakes](#sec-5)
+  - [Limiting usage of experimental APIs](#sec-5-1)
+  - [Keeping Nix version consistent](#sec-5-2)
 
 
 # About this document<a id="sec-1"></a>
 
 This document introduces the [Nix package manager](https://nixos.org/nix) and highlights some motivations to use Nix. It also covers the tradeoffs of using Nix and experimental features in Nix, such as *flakes*.
 
-This document tries to capture enthusiasm while being honest about frustrations. Nix is a clear pioneer of an architectural approach that users will demand in the future. However, users need clear information up front where they are likely to face challenges.
+This document tries to capture enthusiasm while being honest about frustrations. Nix is a pioneer of an architectural approach that users will demand in the future. However, users need clear information up front where they are likely to face challenges.
 
 # Problems addressed by Nix<a id="sec-2"></a>
 
 The following sections cover various problems that Nix's architecture addresses.
 
-## Managed build<a id="sec-2-1"></a>
+## Complete build<a id="sec-2-1"></a>
 
 When dealing with a new software project, wrangling dependencies can be a chore. Modern build systems for specific programming languages often don't manage system dependencies. For example, Python's `pip install` will download and install needed Python dependencies but may fail if the system doesn't provide shared libraries required for foreign function calls. Adding complexity, different operating systems have differing names for these system packages and install them with various commands (`apt`, `dnf`, etc.). This variation makes automation difficult. Consequently, many software projects only provide documentation as a surrogate for automation, which creates even more room for error.
 
@@ -44,13 +47,13 @@ Once we've built some software and are ready to deploy it, it's not always obvio
 
 ## Version conflicts<a id="sec-2-4"></a>
 
-Another complication we face is when an operating system only allows one version of a system library to be installed at a time. When this happens, we may be forced to make difficult choices if we need two programs requiring different system dependency versions.
+Another complication we face is when an operating system only allows one installed version of a system library at a time. When this happens, we may be forced to make difficult choices if we need two programs requiring different system dependency versions.
 
 ## Polyglot programming<a id="sec-2-5"></a>
 
 It can be tedious to synthesize libraries and programs from different language ecosystems to make a new program for a unified user experience. For example, the world of machine learning often requires the mixing of C/C++, Python, and even basic shell scripts. These hybrid applications tend to be fragile.
 
-## Complete distributed cache of builds<a id="sec-2-6"></a>
+## Distributed cache of builds<a id="sec-2-6"></a>
 
 Various build systems provide repositories for pre-built packages, which helps users save time by downloading packages instead of building them. We want this experience unified across all programming language ecosystems and system dependencies.
 
@@ -66,7 +69,7 @@ Even if we have a library or system dependency installed, it shouldn't interfere
 
 Our build should get everything we need, all the way down to the system-level dependencies, irrespective of which programming language the dependencies have been authored in. If anything has been pre-built, we should download a cached result.
 
-Above and beyond the problems discussed above, Nix has a precisely deterministic build, broadly guaranteeing reproducibility. If the package builds on one system, it should build on all systems, regardless of what's installed. Furthermore, multiple systems independently building the same package will often produce bit-for-bit identical builds.
+Above and beyond the problems discussed above, Nix has a precisely deterministic build, generally guaranteeing reproducibility. If the package builds on one system, it should build on all systems, regardless of what's installed. Furthermore, multiple systems independently building the same package will often produce bit-for-bit identical builds.
 
 Nix is also able to copy the transitive closure of a package's dependencies ergonomically from one system to another.
 
@@ -75,23 +78,23 @@ In broad strokes, Nix is a technology that falls into two categories:
 -   package manager
 -   build tool.
 
-## Nix the package mangager<a id="sec-3-1"></a>
+## Nix the package manager<a id="sec-3-1"></a>
 
 As a package manager, Nix does what most package managers do. Nix provides a suite of command-line tools to search registries of known packages, as well as install and uninstall them.
 
 Packages can provide both executables and plain files alike. Installation entails putting these files into a good location for the package manager and the user. Nix has an elegant way of storing everything under `/nix/store`, discussed more below.
 
-Significantly, the Nix package manager doesn't differentiate between system- and user-level installations. All builds and installations are hermetic and can't conflict with one another.
+Notably, the Nix package manager doesn't differentiate between system- and user-level installations. All packages end up in `/nix/store`. These packages are hermetic and can't conflict with one another. To save space, packages often share common elements via symlinks to other packages in `/nix/store`.
 
 As a convenience, Nix has tools to help users put the executables provided by packages on their environment's `PATH`. This way, users don't have to find executables installed in `/nix/store`.
 
 ## Nix the build system<a id="sec-3-2"></a>
 
-Nix combines the features of a package manager with those of a build tool. If a package or any of its dependencies (including low-level system dependencies) aren't found in a *Nix substituter*, Nix builds them locally. Otherwise, Nix downloads pre-built package and dependencies cached in the substituter. We only need the Nix package manager and a network connection to build or download any package.
+Nix combines the features of a package manager with those of a build tool. If a package or any of its dependent packages (including low-level system dependencies) aren't found in a *Nix substituter*, Nix builds them locally. Otherwise, Nix downloads pre-built packages cached in the substituter. We only need the Nix package manager and a network connection to build or download any package.
 
 Every Nix package is specified by a *Nix expression*, written in a small programming language also called Nix. This expression specifies everything needed to build the package down to the system-level. These expressions are saved in files with a ".nix" extension.
 
-Some software provides these Nix expressions as part of their source. If some software doesn't offer a Nix expression, you can always use an externally authored expression.
+Nix-friendly software will provide these Nix expressions as part of their source. If some software doesn't offer a Nix expression, you can always use an externally authored expression.
 
 What makes Nix unique is that these expressions specify a way to build that's
 
@@ -113,9 +116,9 @@ Finally, all packages are stored in `/nix/store` by their hash. This simple sche
 
 Nix expressions help us create highly controlled environments to build packages precisely. However, Nix still calls the conventional build tools of various programming language ecosystems. Under the cover, Nix is ultimately a strictly controlled execution of Bash scripts orchestrating these tools.
 
-To keep the Nix expressions for each package concise, the Nix community curates a [Git repository of Nix expressions called Nixpkgs](https://github.com/NixOS/nixpkgs). Most Nix expressions for packages will start with a snapshot of Nixpkgs as a dependency, which provides library support to help keep Nix expressions compact.
+The Nix community curates a [Git repository of Nix expressions called Nixpkgs](https://github.com/NixOS/nixpkgs). This repository has Nix expressions for all the packages provided by the [NixOS](https://nixos.org) operating system, as well as common Nix expressions used to build packages.
 
-This way, the complexity of shell scripting and calls to language-specific tooling can be mostly kept hidden away from general Nix authors. The Nix language lets us work with packages from any language ecosystem in a uniform way.
+Most Nix expressions for packages will start with a snapshot of Nixpkgs as a dependency. This way, the complexity of shell scripting and calls to language-specific tooling can be kept mostly hidden away from Nix packaging expressions.
 
 # Frustrations acknowledged<a id="sec-4"></a>
 
@@ -142,7 +145,7 @@ These groups don't need to be at odds. Unfortunately, Nix has released experimen
 
 ### Nix 2.0 and the new `nix` command<a id="sec-4-2-1"></a>
 
-An early complaint of Nix was the non-intuitiveness of Nix's original assortment of command-line tools. To address this, Nix 2.0 introduced a unifying tool called `nix`. Despite appreciable improvements in user experience, the newer `nix` command has taken some time to get enough functionality to replace the older tools (`nix-build`, `nix-shell`, `nix-store`, etc.). For a while, it's ended up yet another tool to learn.
+An early complaint of Nix was the non-intuitiveness of Nix's original assortment of command-line tools. To address this, Nix 2.0 introduced a unifying CLI tool called `nix`. Despite appreciable improvements in user experience, the newer `nix` command has taken some time to get enough functionality to replace the older tools (`nix-build`, `nix-shell`, `nix-store`, etc.). For a while, it's ended up yet another tool to learn.
 
 If you look at the manpage for the latest release of `nix`, there's a clear warning at the top:
 
@@ -170,11 +173,11 @@ Though Nix expressions have an incredible potential to be precise and reproducib
 
 The motivation for these relaxations of determinism has been a quick way to let personal computing users have a convenient way to manage their environments. Some people are careful to avoid accidentally having non-deterministic builds. Still, accidents have occurred frequently enough for the community to want better. It's frustrating to have a broken build because someone else set an environment variable incorrectly.
 
-Nix 2.4 corrected this by introducing an experimental feature called *flakes*. Users still have a primarily ergonomic way to manage their environments, but builds are more strictly deterministic. Determinism is a significant reason many turn to Nix in the first place. A nice benefit of strictly enforced determinism is the ability to cache evaluations of Nix expressions, which can be expensive to compute.
+Nix 2.4 corrected this by introducing an experimental feature called *flakes*. Flakes provide an ergonomic way to manage build environments, with more guarantees of determinism. A nice benefit of strictly enforced determinism is the ability to cache evaluations of Nix expressions, which can be expensive to compute.
 
 All this is generally good news. Flakes address problems that industrial users of Nix have long had to deal with.
 
-However, flakes are an experimental feature that users need to enable explicitly. Similar to the `nix` command, the inputs and outputs of flake-related subcommands might change slightly. Such changes have already happened.
+However, flakes are an experimental feature that users need to enable explicitly. Similar to the `nix` command, across versions, the inputs and outputs of flake-related subcommands might change slightly. Furthermore, the hashes computed by flakes can change as well. Such changes have already happened.
 
 On top of this, because flakes are experimental, documentation of flakes is fractured in the official documentation. It almost seems like the Nix developers are delaying proper documentation until there's a declaration of stability. A preferred alternative would be developing documentation concurrently with the implementation, using the documentation's comprehensibility to inform the software's design. Good opportunities for redesign can be found in features that prove difficult to explain.
 
@@ -188,18 +191,38 @@ However, if industrial users move to flakes to address these problems, we have t
 -   we have to be ready for the flakes API to change, as it's technically experimental
 -   we have to accept some added training hurdles since the documentation of flakes is tucked behind documentation of non-flake usage.
 
+## A few gaps in determinism<a id="sec-4-3"></a>
+
+Nix offers world-class build determinism, especially with flakes. But it's important to understand that this determinism is not infallible. To date, no build system can claim to provide flawless determinism.
+
+Known gaps involve corner cases like the following. Consider a hypothetical compiler that can auto-detect that a build machine has many cores, and enables an optimization upon detection incompatible with machines with fewer cores. While Nix will generate different hashes if the platform architecture changes, say from X86 to ARM, it will not consider a machine with many cores different from one with fewer. So our example optimizing compiler could cause a frustrating problem. A local build on a machine with few cores may work as expected. But if a cache had a optimized build from a machine with many cores, it would be pulled down for the same hash, as a substitute for a local build. This optimization would lead to defects running on the wrong machine.
+
+Note that in general, we benefit from downloading and running packages built on more powerful machines, and in almost all cases, the clever optimizations of various compilers are portable.
+
+Lapses in determinism caused by Nix expressions in Nixpkgs are generally considered defects and handled through GitHub issues. Some may argue that this is the best that we can do.
+
+Most people will never encounter such corner cases in practice, but it's important to understand the limitations of an otherwise extremely strong guarantee of determinism.
+
 # Encouraging development with flakes<a id="sec-5"></a>
 
 This project encourages the development of Nix projects using flakes. The benefits seem to outweigh the risks of instability. This choice is not made lightly, and this document is an exercise of due diligence to inform users of compromises.
 
-Flakes are the future in Nix. They significantly address prior pains. Furthermore, enough people worldwide are using them that we have some confidence that the Nix commands are reliable as implemented. APIs have not changed too frequently, and changes don't invalidate anything fundamental, like data stored in `/nix/store`.
+Flakes are the future in Nix. They significantly address prior pains. Furthermore, enough people worldwide are using them that we have some confidence that the Nix commands are robust.
 
-There might be documentation and training hurdles with flakes, but it's not much better not to use flakes.
+Using Nix with flakes should lead to a mostly pleasant experience. There are some things to look out for, though.
 
-Usage of both the new `nix` command and flakes has almost no risk beyond slight breakage of some scripts. By calling `nix` with a few extra arguments `--extra-experimental-features 'nix-command flakes'` we can access flakes commands for single invocations without enabling flakes globally. You can even make an alias for your shell that might look like the following:
+## Limiting usage of experimental APIs<a id="sec-5-1"></a>
+
+If you write scripts that call `nix` commands or use flakes, they may break slightly if you upgrade to a newer version of Nix. For example, the formatting of standard output for a command might change.
+
+By calling `nix` with a few extra arguments `--extra-experimental-features 'nix-command flakes'` we can access flakes commands for single invocations without enabling flakes globally. You can even make an alias for your shell that might look like the following:
 
 ```sh
 alias nix-flakes = nix --extra-experimental-features 'nix-command flakes'
 ```
 
-This way, there's less to type interactively. Just don't script against this command, and there's no worry of scripts breaking if the flakes API changes.
+This way, there's less to type interactively. Just don't script against this command, so there's no worry of scripts breaking due to experimental features.
+
+## Keeping Nix version consistent<a id="sec-5-2"></a>
+
+You may find that you need to pin the version of Nix to the same version for all your machines (because hashes could change between versions, which are saved in `flake.lock` files).
