@@ -27,6 +27,7 @@ in {
         "editor.fontSize" = 12;
         "editor.minimap.enabled" = false;
         "files.trimTrailingWhitespace" = true;
+        "git.openRepositoryInParentFolders" = "always";
         "grammarly.files.include" = [
             "**/readme.md"
               "**/README.md"
