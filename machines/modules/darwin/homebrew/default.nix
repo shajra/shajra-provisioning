@@ -82,7 +82,6 @@
     # REVISIT: installed manually; haven't figured out with either Homebrew or
     # Nix
     #
-    # /Applications/'BluOS Controller.app'
     # /Applications/'Chrome Remote Desktop Host Uninstaller.app'
     # /Applications/DDPM
     # /Applications/Dell
