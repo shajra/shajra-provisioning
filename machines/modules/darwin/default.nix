@@ -1,12 +1,17 @@
-{ pkgs, ... }:
+{ build, config, pkgs, ... }:
 
-{
+let
+
+    hostname = config.networking.hostName;
+    superUser = build.config.provision.user."${hostname}".username;
+
+in {
     # DESIGN: for when the day Yabai builds in Nix again
     #environment.etc."sudoers.d/yabai".text = ''
     #    shajra ALL = (root) NOPASSWD: ${pkgs.yabai}/bin/yabai --load-sa
     #'';
     environment.etc."sudoers.d/yabai".text = ''
-        shajra ALL = (root) NOPASSWD: /opt/homebrew/Cellar/yabai/*/bin/yabai --load-sa
+        ${superUser} ALL = (root) NOPASSWD: /opt/homebrew/Cellar/yabai/*/bin/yabai --load-sa
     '';
 
     environment.systemPackages = [];
@@ -35,7 +40,11 @@
     '';
 
     system.checks.verifyNixPath = false;
+
     system.defaults.NSGlobalDomain.ApplePressAndHoldEnabled = false;
+    system.defaults.NSGlobalDomain._HIHideMenuBar = true;
+    system.defaults.dock.autohide = true;
+
     system.stateVersion = 4;
 
 }

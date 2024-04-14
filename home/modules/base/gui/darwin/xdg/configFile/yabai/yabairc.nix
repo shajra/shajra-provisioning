@@ -75,6 +75,7 @@ yabai -m config window_gap                12
 
 # custom rules
 #yabai -m rule --add app=Emacs title='^.+$' manage=on
+yabai -m rule --add app="emacs" role="AXTextField" subrole="AXStandardWindow" manage=on
 yabai -m rule --add app="Emacs" role="AXTextField" subrole="AXStandardWindow" manage=on
 
 echo "yabai configuration loaded..."
