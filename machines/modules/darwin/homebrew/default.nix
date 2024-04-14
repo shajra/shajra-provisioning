@@ -9,7 +9,6 @@
 
     taps =  [
         "homebrew/bundle"
-        "homebrew/cask-drivers"
         "homebrew/cask-fonts"
         "homebrew/cask-versions"
         "homebrew/services"
