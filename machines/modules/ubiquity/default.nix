@@ -31,5 +31,5 @@ in {
     #nixpkgs.overlays = infra.np.overlays;
 
     programs.fish.enable = true;
-    time.timeZone = "US/Central";
+    time.timeZone = "America/Chicago";
 }
