@@ -83,28 +83,28 @@
                     overlays.default = import build/overlay.nix inputs withSystem;
                     nixosConfigurations.cake = configLib.nixosConfiguration {
                         system = "x86_64-linux";
-                        path   = machines/cake/configuration.nix;
-                    };
-                    nixosConfigurations.hole = configLib.nixosConfiguration {
-                        system = "x86_64-linux";
-                        path   = machines/hole/configuration.nix;
+                        path   = machines/target/cake;
                     };
                     darwinConfigurations.bagel = configLib.darwinConfiguration {
                         system = "aarch64-darwin";
-                        path   = machines/bagel/darwin-configuration.nix;
+                        path   = machines/target/bagel;
+                    };
+                    darwinConfigurations.lemon = configLib.darwinConfiguration {
+                        system = "aarch64-darwin";
+                        path   = machines/target/lemon;
+                    };
+                    homeConfigurations.bagel = configLib.homeConfiguration {
+                        system = "aarch64-darwin";
+                        path   = home/target/bagel;
                     };
                     homeConfigurations.cake = configLib.homeConfiguration {
                         system = "x86_64-linux";
                         path   = home/target/cake;
                         privateModule = shajra-private.homeModules.cake;
                     };
-                    homeConfigurations.hole = configLib.homeConfiguration {
-                        system = "x86_64-linux";
-                        path   = home/target/hole;
-                    };
-                    homeConfigurations.bagel = configLib.homeConfiguration {
+                    homeConfigurations.lemon = configLib.homeConfiguration {
                         system = "aarch64-darwin";
-                        path   = home/target/bagel;
+                        path   = home/target/lemon;
                     };
                     homeConfigurations.shajra = configLib.homeConfiguration {
                         system = "x86_64-linux";
@@ -119,14 +119,6 @@
                     # packages built independently, which helps avoid hitting
                     # job time and disk space limits in GitHub Actions.
 
-                    homeConfigurations.cake-slim = configLib.homeConfiguration {
-                        system = "x86_64-linux";
-                        path   = home/target/cake/slim.nix;
-                    };
-                    homeConfigurations.hole-slim = configLib.homeConfiguration {
-                        system = "x86_64-linux";
-                        path   = home/target/hole/slim.nix;
-                    };
                     homeConfigurations.bagel-slim = configLib.homeConfiguration {
                         system = "aarch64-darwin";
                         path   = home/target/bagel/slim.nix;
@@ -134,6 +126,18 @@
                     homeConfigurations.bagel-fake-slim = configLib.homeConfiguration {
                         system = "x86_64-darwin";
                         path   = home/target/bagel/slim.nix;
+                    };
+                    homeConfigurations.cake-slim = configLib.homeConfiguration {
+                        system = "x86_64-linux";
+                        path   = home/target/cake/slim.nix;
+                    };
+                    homeConfigurations.lemon-slim = configLib.homeConfiguration {
+                        system = "aarch64-darwin";
+                        path   = home/target/lemon/slim.nix;
+                    };
+                    homeConfigurations.lemon-fake-slim = configLib.homeConfiguration {
+                        system = "x86_64-darwin";
+                        path   = home/target/lemon/slim.nix;
                     };
                     homeConfigurations.shajra-slim = configLib.homeConfiguration {
                         system = "x86_64-linux";

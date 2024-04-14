@@ -53,21 +53,17 @@
             };
         };
         user = {
+            bagel = rec {
+                homeDirectory = "/Users/${username}";
+                username = "shajra";
+            };
             cake = rec {
                 homeDirectory = "/home/${username}";
                 username = "tnks";
             };
-            jelly = rec {
-                homeDirectory = "/home/${username}";
-                username = "tnks";
-            };
-            hole = rec {
-                homeDirectory = "/home/${username}";
-                username = "tnks";
-            };
-            bagel = rec {
+            lemon = rec {
                 homeDirectory = "/Users/${username}";
-                username = "shajra";
+                username = "tnks";
             };
             shajra = rec {
                 homeDirectory = "/home/${username}";
