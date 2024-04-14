@@ -85,21 +85,22 @@ man home-configuration.nix
 
 The following table gives an overview of this project's layout and includes pointers of where to change code to suit your needs:
 
-| File/Directory           | Change    | Description                                                |
-|------------------------ |--------- |---------------------------------------------------------- |
-| `build`                  |           | Nix code to build packages                                 |
-| `build/nixpkgs/overlays` | Yes       | Custom Nixpkgs overlays                                    |
-| `build/nixpkgs/packages` | Yes       | Custom packages                                            |
-| `config.nix`             | Yes       | Top-level project configuration                            |
-| `darwin-rebuild`         |           | Script to provision MacOS system-level                     |
-| `flake.lock`             | Generated | Generated file locking dependencies                        |
-| `flake.nix`              | Yes       | Declares the OS and home directory configurations          |
-| `home-manager`           |           | Script to configure a home directory                       |
-| `home/modules`           | Yes       | Modules to assist building up home directory configuration |
-| `home/target/$HOSTNAME`  | Yes       | Home directory configuration by target machine hostname    |
-| `machines/$HOSTNAME`     | Yes       | System-level configuration by target machine hostname      |
-| `nixos-rebuild`          |           | Script to provision NixOS system-level                     |
-| `packages.nix`           | Yes       | Selected packages for provisioning                         |
+| File/Directory              | Change    | Description                                                |
+|--------------------------- |--------- |---------------------------------------------------------- |
+| `build`                     |           | Nix code to build packages                                 |
+| `build/nixpkgs/overlays`    | Yes       | Custom Nixpkgs overlays                                    |
+| `build/nixpkgs/packages`    | Yes       | Custom packages                                            |
+| `config.nix`                | Yes       | Top-level project configuration                            |
+| `darwin-rebuild`            |           | Script to provision MacOS system-level                     |
+| `flake.lock`                | Generated | Generated file locking dependencies                        |
+| `flake.nix`                 | Yes       | Declares the OS and home directory configurations          |
+| `home-manager`              |           | Script to configure a home directory                       |
+| `home/modules`              | Yes       | Modules to assist building up home directory configuration |
+| `home/target/$HOSTNAME`     | Yes       | Home directory configuration by target machine hostname    |
+| `machines/modules`          | Yes       | Modules to assist building up system-level configuration   |
+| `machines/target/$HOSTNAME` | Yes       | System-level configuration by target machine hostname      |
+| `nixos-rebuild`             |           | Script to provision NixOS system-level                     |
+| `packages.nix`              | Yes       | Selected packages for provisioning                         |
 
 The entrypoint for all flake-enabled projects is a file called [flake.nix](../flake.nix) at the project's root.
 
@@ -142,7 +143,7 @@ We use NixOS library calls from Nixpkgs to build `nixConfigurations`. Similarly,
 
 Each wrapper script for `nixos-rebuild`, `darwin-rebuild`, and `home-manager` by default guesses what module to load by inspecting the hostname of the caller's computer. Each script provides a `--flake` switch to override this inspection.
 
-This is why the directories under `home/target` and `machines` have funny names (they are the hostnames of my machines).
+This is why the directories under `home/target` and `machines/target` have funny names (they are the hostnames of my machines).
 
 It's unlikely that your machines have hostnames that match mine, so you can just create new configurations in sibling directories named after your machines.
 
