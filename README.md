@@ -66,15 +66,15 @@ The only prerequisite should be the installation of the Nix package manager, aft
 On a NixOS machine:
 
 ```sh
-nix run github:shajra/shajra-provisioning/shajra-nixos-rebuild switch
-nix run github:shajra/shajra-provisioning/shajra-home-manager switch
+nix run github:shajra/shajra-provisioning#shajra-nixos-rebuild switch
+nix run github:shajra/shajra-provisioning#shajra-home-manager switch
 ```
 
 On MacOS with Nix installed:
 
 ```sh
-nix run github:shajra/shajra-provisioning/shajra-darwin-rebuild switch
-nix run github:shajra/shajra-provisioning/shajra-home-manager switch
+nix run github:shajra/shajra-provisioning#shajra-darwin-rebuild switch
+nix run github:shajra/shajra-provisioning#shajra-home-manager switch
 ```
 
 Managing the home directory with a separate command from the command for system-level configuration is a design decision to help with system stability. We can experiment more with our user-level configuration without accidentally breaking the whole system. We don't even need to use the system-level provisioning if we don't want to, and we can use Home Manager alone.

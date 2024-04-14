@@ -95,15 +95,15 @@ You'd attempt to turn your computer into mine.
 On a NixOS machine:
 
 #+begin_src sh :eval no
-nix run github:shajra/shajra-provisioning/shajra-nixos-rebuild switch
-nix run github:shajra/shajra-provisioning/shajra-home-manager switch
+nix run github:shajra/shajra-provisioning#shajra-nixos-rebuild switch
+nix run github:shajra/shajra-provisioning#shajra-home-manager switch
 #+end_src
 
 On MacOS with Nix installed:
 
 #+begin_src sh :eval no
-nix run github:shajra/shajra-provisioning/shajra-darwin-rebuild switch
-nix run github:shajra/shajra-provisioning/shajra-home-manager switch
+nix run github:shajra/shajra-provisioning#shajra-darwin-rebuild switch
+nix run github:shajra/shajra-provisioning#shajra-home-manager switch
 #+end_src
 
 Managing the home directory with a separate command from the command for
