@@ -8,6 +8,6 @@
 # Optional parameters:
 # @raycast.icon 🥼
 
-tell application "iTerm"
+tell application "iTerm2"
     set newWindow to (create window with profile "tmux-lab-srv38")
 end tell
