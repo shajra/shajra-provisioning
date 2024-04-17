@@ -111,19 +111,25 @@ in ''
 :: passthru   : sketchybar --bar border_color=${colors.semantic.warning}
 :: size     @ : borders active_color=${colors.semantic.info}
 
+# REVISIT: Return all references to cmd back to lcmd This has been done only for
+# `cmd ... - escape`, because the Kaleidoscope firmware for my keyboards has a
+# defect that breaks my preferred keymapping.  Rather than change the
+# keymapping, I'm relaxing the keybinding here to cover more on the Mac side.
+# See https://github.com/keyboardio/Kaleidoscope/issues/1395
+
 # mode: returning home
-size, passthru < lcmd + shift - escape ; default
-size, passthru < lcmd         - escape ; default
-size           <                escape ; default
-size           <                return ; default
+size, passthru < cmd + shift - escape ; default
+size, passthru < cmd         - escape ; default
+size           <               escape ; default
+size           <               return ; default
 
 # mode: resizing, with toggle back
 lcmd        - s ; size
 size < lcmd - s ; default
 
 # mode: passthrough, with toggle back
-lcmd            - escape ; passthru
-passthru < lcmd - escape ; default
+cmd            - escape ; passthru
+passthru < cmd - escape ; default
 
 # focus window
 lcmd - h : yabai -m window  --focus west  || yabai -m display --focus west
