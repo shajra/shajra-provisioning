@@ -19,10 +19,8 @@ local function respect_verbosity()
 end
 
 wifi:subscribe("wifi_change", function(env)
-    local cmd =
-        "/System/Library/PrivateFrameworks/Apple80211.framework/Resources/airport -I"
-    sbar.exec(cmd, function(report)
-        local ssid = report:match("[ \n]+SSID: *([^ \n]+)")
+    sbar.exec("ipconfig getsummary en0", function(report)
+        local ssid = report:match("[ \n]+SSID *: *([^ \n]+)")
         if ssid then
             sbar.exec("ipconfig getifaddr en0", function(ip)
                 wifi:set({
