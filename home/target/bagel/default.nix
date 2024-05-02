@@ -32,8 +32,6 @@ in
         #../../modules/sync  # Ocaml not built/cached
 
         ../../modules/video/all
-
-        ../../modules/work
     ];
 
     home.file = import home/file userConfig hostname;
