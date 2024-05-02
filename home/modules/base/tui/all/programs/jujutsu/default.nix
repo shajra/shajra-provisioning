@@ -7,7 +7,7 @@
         };
         ui.default-command = "l";
         revset-aliases = {
-            "interesting()" = "ancestors(mine() ~ ::trunk(), 2) | trunk() | @";
+            "interesting()" = "ancestors(author(\"Sukant Hajra\") ~ ::trunk(), 2) | trunk() | @";
         };
         aliases = {
             l = ["log" "-r" "interesting()"];
