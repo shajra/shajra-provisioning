@@ -35,7 +35,6 @@ in
         ../../modules/video/linux
     ];
 
-    home.file = import home/file config pkgs userConfig;
     home.homeDirectory = userConfig.cake.homeDirectory;
     home.username = userConfig.cake.username;
     programs.alacritty.settings.font.size = 11.0;
