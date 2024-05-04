@@ -301,7 +301,7 @@ in {
         "haskell.packages.ghc964.stylish-haskell"
     ];
 
-    nixpkgs.build.unused.darwin = np.pick { darwin = "home"; } [
+    nixpkgs.build.uncategorized.darwin = np.pick { darwin = "home"; } [
         # REVISIT: emacsMacport broken for M1
         # https://github.com/NixOS/nixpkgs/issues/127902
         # REVISIT: note emacsMacport doesn't have native compilation
@@ -311,7 +311,7 @@ in {
         "sketchybar-lua"
     ];
 
-    nixpkgs.build.unused.linux = np.pick { linux = "home"; } [
+    nixpkgs.build.uncategorized.linux = np.pick { linux = "home"; } [
         # REVISIT: https://github.com/doomemacs/doomemacs#prerequisites
         # using emacs29 over emacs-unstable to hit Nixpkgs cache
         "emacs29"
