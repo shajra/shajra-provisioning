@@ -28,6 +28,7 @@ in
     } ''rsync --archive "${doom.template}/" "${./doom}/" "$out"'';
 
     "fish/completions/devour.fish".source = fish/completions/devour.fish;
+    "fish/completions/jj.fish".source = fish/completions/jj.fish;
     "fish/conf.d/direnv.fish".text =
         pkgs.callPackage fish/direnv.nix { cacheHome = config.xdg.cacheHome; };
     "fish/set-universal.fish".onChange = import fish/onChange.nix config;
