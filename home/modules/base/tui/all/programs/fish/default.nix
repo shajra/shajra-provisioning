@@ -145,8 +145,9 @@ in
 
     interactiveShellInit =
         let early = ''
-                set -gx EDITOR vim
                 set -gx COLORTERM truecolor
+                set -gx EDITOR vim
+                set -gx LESS FRX
                 fish_vi_key_bindings
                 system-info
             '';
