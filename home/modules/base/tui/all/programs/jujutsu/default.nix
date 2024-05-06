@@ -7,10 +7,11 @@
         };
         ui.default-command = "l";
         revset-aliases = {
-            "interesting()" = "ancestors(author(\"Sukant Hajra\") ~ ::trunk(), 2) | trunk() | @";
+            "interesting" = "interesting(2)";
+            "interesting(last_n)" = "ancestors(author(\"Sukant Hajra\") ~ ::trunk(), last_n) | trunk() | @";
         };
         aliases = {
-            l = ["log" "-r" "interesting()"];
+            l = ["log" "-r" "interesting"];
         };
     };
 }
