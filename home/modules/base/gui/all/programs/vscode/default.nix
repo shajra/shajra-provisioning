@@ -7,7 +7,6 @@ in {
     enableUpdateCheck = false;
     extensions = [
         pkgs.vscode-marketplace.tamasfe.even-better-toml
-        pkgs.vscode-marketplace.znck.grammarly
         pkgs.vscode-marketplace.kahole.magit
         pkgs.vscode-marketplace.bbenoist.nix
         pkgs.vscode-marketplace.vscode-org-mode.org-mode
@@ -28,12 +27,6 @@ in {
         "editor.minimap.enabled" = false;
         "files.trimTrailingWhitespace" = true;
         "git.openRepositoryInParentFolders" = "always";
-        "grammarly.files.include" = [
-            "**/readme.md"
-              "**/README.md"
-              "**/*.txt"
-              "**/*.org"
-        ];
         "problems.sortOrder" = "position";
         "remote.SSH.remotePlatform".cake = "linux";
         "remote.SSH.remotePlatform".shajra = "linux";
