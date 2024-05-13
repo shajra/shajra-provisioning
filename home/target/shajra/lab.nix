@@ -30,7 +30,7 @@ in
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
 
-    programs.fish = import programs/fish;
+    programs.fish = import programs/fish config;
     programs.git = import programs/git lib;
 
     targets.genericLinux.enable = true;
