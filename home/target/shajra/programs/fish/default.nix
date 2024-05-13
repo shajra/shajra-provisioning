@@ -51,18 +51,25 @@ in {
     shellAliases = {
         groq-reset =
             ''sft-update; gpg-pinentry-claim'';
-        psql-brake-prod-ro =
+        psql-prod-ro =
             ''PGPASSWORD=brakero psql --host=10.26.147.22 -U brakero brake'';
-        psql-brake-prod-rw =
+        psql-prod-rw =
             ''PGPASSWORD=(berglas access gs://infra-secrets/pg-brake-brakerw) \
                 psql --host=10.26.147.22 -U brakerw brake'';
-        psql-brake-prod-admin =
+        psql-prod-admin =
             ''PGPASSWORD=(berglas access gs://infra-secrets/pg-brake-admin-postgres) \
                 psql --host=10.26.147.22 -U postgres brake'';
-        psql-brake-test-admin =
+        psql-test-tester =
+            ''PGPASSWORD=tester psql --host=10.26.147.22 -U tester test'';
+        psql-test-admin =
+            ''PGPASSWORD=(berglas access gs://infra-secrets/pg-brake-admin-postgres) \
+                psql --host=10.26.147.22 -U postgres test'';
+        psql-test2-tester =
+            ''PGPASSWORD=tester psql --host=10.26.147.22 -U tester brake_test'';
+        psql-load-admin =
             ''PGPASSWORD=(berglas access gs://infra-secrets/pg-load-test-admin-postgres) \
                 psql --host=10.26.147.35 -U postgres brake'';
-        psql-brake-test-tester =
+        psql-load-tester =
             ''PGPASSWORD=tester psql --host=10.26.147.35 -U tester brake'';
     };
 }
