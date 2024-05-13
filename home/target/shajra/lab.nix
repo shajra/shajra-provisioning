@@ -8,6 +8,7 @@ in
 {
     imports = [
         ../../modules/base/tui/linux
+        ../../modules/work
     ];
 
     home.file = import home/file config;
@@ -31,7 +32,6 @@ in
     ];
 
     programs.fish = import programs/fish config;
-    programs.git = import programs/git lib;
 
     targets.genericLinux.enable = true;
 
