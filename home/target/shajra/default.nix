@@ -9,6 +9,7 @@ in
     imports = [
         ../../modules/base/gui/linux
         ../../modules/programming/db
+        ../../modules/programming/shell
         ../../modules/work
     ];
 
