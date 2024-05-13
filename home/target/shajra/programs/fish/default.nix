@@ -62,5 +62,7 @@ in {
         psql-brake-test-admin =
             ''PGPASSWORD=(berglas access gs://infra-secrets/pg-load-test-admin-postgres) \
                 psql --host=10.26.147.35 -U postgres brake'';
+        psql-brake-test-tester =
+            ''PGPASSWORD=tester psql --host=10.26.147.35 -U tester brake'';
     };
 }
