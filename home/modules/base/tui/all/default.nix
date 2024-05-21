@@ -57,7 +57,7 @@ in
         programs.jujutsu = import programs/jujutsu;
         programs.lesspipe.enable = true;
         programs.man.generateCaches = true;
-        programs.neovim = import programs/neovim pkgs;
+        programs.neovim = import programs/neovim config pkgs;
         programs.readline = import programs/readline;
         programs.ripgrep.enable = true;
         programs.starship = import programs/starship;

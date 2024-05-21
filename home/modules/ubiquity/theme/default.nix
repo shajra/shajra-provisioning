@@ -164,6 +164,10 @@ let
                 description = "Name of theme for Doom Emacs.";
                 type = lib.types.str;
             };
+            gtk = options.gtk.theme;
+            neovim.plugins = options.programs.neovim.plugins // {
+                description = "Plugins to configure theme for Neovim";
+            };
             tridactyl = lib.mkOption {
                 description = "";
                 type = lib.types.submodule {
@@ -179,7 +183,6 @@ let
                     };
                 };
             };
-            gtk = options.gtk.theme;
         };
     };
 
@@ -320,6 +323,10 @@ let
                 name = "NumixSolarizedLightMagenta";
                 package = pkgs.numix-solarized-gtk-theme;
             };
+            neovim.plugins = [{
+                plugin = pkgs.vimPlugins.nvim-solarized-lua;
+                config = "colorscheme solarized";
+            }];
             tridactyl = {
                 url = "https://raw.githubusercontent.com/bezmi/"
                     + "base16-tridactyl/master/base16-solarized-light.css";

@@ -1,4 +1,4 @@
-pkgs:
+config: pkgs:
 
 let
 
@@ -14,7 +14,7 @@ in {
         kitty-scrollback
         vim-grammarous
         vim-polyglot
-    ];
+    ] ++ config.theme.external.neovim.plugins;
     extraConfig = ''
         set background=light
         set expandtab
@@ -22,7 +22,6 @@ in {
         set shiftwidth=4
         set tabstop=4
         set textwidth=80
-        hi Search ctermbg=LightGrey
         autocmd BufWritePre * :%s/\s\+$//e
         let g:grammarous#languagetool_cmd='${pkgs.languagetool}/bin/languagetool-commandline'
         nmap <leader>x <Plug>(grammarous-close-info-window)
