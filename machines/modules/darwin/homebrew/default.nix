@@ -9,8 +9,6 @@
 
     taps =  [
         "homebrew/bundle"
-        "homebrew/cask-fonts"
-        "homebrew/cask-versions"
         "homebrew/services"
         "koekeishiya/formulae"
         "felixkratz/formulae"
@@ -66,9 +64,8 @@
     casks = [
         "dash"
         "firefox"
-        "google-chrome-beta"
-        "microsoft-edge"
-        "microsoft-edge-beta"
+        "google-chrome@beta"
+        "microsoft-edge@beta"
 
         # DESIGN: not needed for now
         #"docker"
