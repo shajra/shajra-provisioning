@@ -16,7 +16,7 @@ in
     iconTheme.package = pkgs.gnome.adwaita-icon-theme;
     settings = {
         global = {
-            browser = "${config.programs.brave.package}/bin/brave";
+            browser = "${pkgs.microsoft-edge-beta}/bin/microsoft-edge-beta";
             corner_radius = 12;
             dmenu = "${config.programs.rofi.package}/bin/rofi -dmenu -p action";
             ellipsize = "end";
