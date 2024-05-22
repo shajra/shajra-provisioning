@@ -24,7 +24,7 @@ in
 
     config = {
         home.extraPackages = extraPackages;
-        home.file = import home/file config;
+        home.file = import home/file config pkgs;
 
         programs.bash.enable = true;
         programs.bat.enable = true;
