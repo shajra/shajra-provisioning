@@ -70,7 +70,7 @@ Nix also supports multi-line strings with two consecutive single quotes:
 ```sh
 nix eval --expr "''
       line 1
-	line 2
+        line 2
     line 3 ''"
 ```
 
@@ -120,7 +120,7 @@ Sometimes, we build up small code snippets inline in a Nix expression, so it's u
 ```sh
 nix eval --expr '
     let foo = "Foo";
-	bar = "Bar";
+        bar = "Bar";
     in "${foo + bar} is a terrible name"'
 ```
 
@@ -407,7 +407,7 @@ For instance, it's possible to use some functions on the `builtins` set to fetch
 ```sh
 nix eval --impure --expr '
     builtins.fetchGit {
-	url = "https://github.com/NixOS/patchelf";
+        url = "https://github.com/NixOS/patchelf";
     }
 '
 ```

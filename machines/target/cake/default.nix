@@ -86,7 +86,7 @@ in {
     services.avahi.enable = true;
     services.avahi.ipv4 = true;
     services.avahi.ipv6 = true;
-    services.avahi.nssmdns = true;
+    services.avahi.nssmdns4 = true;
     services.avahi.publish.addresses = true;
     services.avahi.publish.domain = true;
     services.avahi.publish.enable = true;
@@ -101,10 +101,17 @@ in {
     services.ddclient.server = "members.dyndns.org";
     services.ddclient.username = "tnksknt";
     services.ddclient.verbose = true;
+    services.displayManager.autoLogin.enable = true;
+    services.displayManager.autoLogin.user = user;
+    services.displayManager.defaultSession = "none+i3";
     services.fwupd.enable = true;
     services.geoclue2.enable = true;
     services.jellyfin.enable = true;
     services.jellyfin.openFirewall = true;
+    services.libinput.enable = true;
+    services.libinput.mouse.horizontalScrolling = true;
+    services.libinput.mouse.naturalScrolling = true;
+    services.libinput.mouse.scrollMethod = "button";
     services.locate.enable = true;
     services.ntp.enable = true;
     services.openssh.enable = true;
@@ -194,9 +201,6 @@ in {
     services.xrdp.defaultWindowManager = "i3";
     services.xrdp.openFirewall = true;
 
-    services.xserver.displayManager.autoLogin.enable = true;
-    services.xserver.displayManager.autoLogin.user = user;
-    services.xserver.displayManager.defaultSession = "none+i3";
     services.xserver.displayManager.lightdm.enable = true;
     services.xserver.displayManager.lightdm.greeter.enable = false;
     services.xserver.dpi = 160;
@@ -222,15 +226,11 @@ in {
         ''
     ];
     services.xserver.enable = true;
-    services.xserver.layout = "us";
-    services.xserver.libinput.enable = true;
-    services.xserver.libinput.mouse.horizontalScrolling = true;
-    services.xserver.libinput.mouse.naturalScrolling = true;
-    services.xserver.libinput.mouse.scrollMethod = "button";
     services.xserver.videoDrivers = ["intel" "modesetting" "fbdev"];
     services.xserver.windowManager.i3.enable = true;
-    services.xserver.xkbOptions = "lv3:ralt_switch_multikey";
-    services.xserver.xkbVariant = "altgr-intl";
+    services.xserver.xkb.layout = "us";
+    services.xserver.xkb.options = "lv3:ralt_switch_multikey";
+    services.xserver.xkb.variant = "altgr-intl";
 
     services.zfs.autoScrub.enable = true;
     services.zfs.trim.enable = true;
