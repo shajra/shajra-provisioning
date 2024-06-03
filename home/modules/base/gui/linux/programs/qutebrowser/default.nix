@@ -29,4 +29,9 @@ lib:
             ];
         };
     };
+    settings = {
+        # DESIGN: may reduce monitor flashing when playing some videos
+        content.webgl = false;
+        qt.workarounds.disable_accelerated_2d_canvas = "always";
+    };
 }

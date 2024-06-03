@@ -23,7 +23,15 @@ in {
     #boot.kernelPackages = pkgs.linuxPackages_latest;
     boot.kernelParams = [
         "i915.force_probe=9a49"
-        "usbcore.autosuspend=-1"  # DESIGN: another attempt to stop USB drive crashes
+
+        # DESIGN: attempt to stop monitor blackout flashing
+        "i915.enable_psr=0"
+        "i915.enable_dc=0"
+        #"i915.enable_fbc=0"
+        #"i915.enable_rc6=0"
+        #"intel_idle.max_cstate=1"
+
+        "usbcore.autosuspend=-1" # DESIGN: another attempt to stop USB drive crashes
     ];
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.efi.efiSysMountPoint = "/boot/efi";
