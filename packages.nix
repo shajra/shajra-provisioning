@@ -102,7 +102,6 @@ in {
         "nix-output-monitor"
         "nix-search-cli"
         "nix-template"
-        "nix-top"
         "nix-tree"
         "nixfmt"
         "paperkey"
