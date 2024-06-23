@@ -57,9 +57,12 @@ in {
         # DESIGN: these are all Mac-only applications; unstable is fine
         "aldente"
         "goku"
-        "iterm2"
         "raycast"
         "shortcat"
+    ] // np.pick { darwin = "stable-linux"; } [
+        # DESIGN: iTerm2 3.5 messes up colors with -CC
+        # TODO: Search for problem in iTerm's issue tracker
+        "iterm2"
     ];
 
     nixpkgs.prebuilt.base.gui.linux = np.pick { linux = "home"; } [
