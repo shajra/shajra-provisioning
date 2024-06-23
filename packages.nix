@@ -198,8 +198,7 @@ in {
     nixpkgs.prebuilt.programming.general = pickHome [
         "gnumake"
         "nil"
-        # REVISIT: 2024-06-23: wireshark has had a finicky build
-        #"wireshark"
+        "wireshark"
     ];
 
     nixpkgs.prebuilt.programming.haskell = pickHome [
