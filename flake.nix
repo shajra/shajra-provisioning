@@ -46,12 +46,14 @@
                     pkgs-home = build-pkgs.home;
                     pkgs-system = build-pkgs.system;
                 in {
-                    packages.ci-prebuilt-nixpkgs    = build.shajra-provision.ci.prebuilt.nixpkgs;
-                    packages.ci-prebuilt-haskellnix = build.shajra-provision.ci.prebuilt.haskell-nix;
-                    packages.ci-prebuilt-shajra     = build.shajra-provision.ci.prebuilt.shajra;
-                    packages.ci-build-nixpkgs    = build.shajra-provision.ci.build.nixpkgs;
-                    packages.ci-build-haskellnix = build.shajra-provision.ci.build.haskell-nix;
-                    packages.ci-build-shajra     = build.shajra-provision.ci.build.shajra;
+                    packages.ci-prebuilt-nixpkgs-lower  = build.shajra-provision.ci.prebuilt.nixpkgs.lower;
+                    packages.ci-prebuilt-nixpkgs-middle = build.shajra-provision.ci.prebuilt.nixpkgs.middle;
+                    packages.ci-prebuilt-nixpkgs-upper  = build.shajra-provision.ci.prebuilt.nixpkgs.upper;
+                    packages.ci-prebuilt-haskellnix     = build.shajra-provision.ci.prebuilt.haskell-nix;
+                    packages.ci-prebuilt-shajra         = build.shajra-provision.ci.prebuilt.shajra;
+                    packages.ci-build-nixpkgs           = build.shajra-provision.ci.build.nixpkgs;
+                    packages.ci-build-haskellnix        = build.shajra-provision.ci.build.haskell-nix;
+                    packages.ci-build-shajra            = build.shajra-provision.ci.build.shajra;
                     packages.shajra-nixos-rebuild  = pkgs-system.shajra-nixos-rebuild;
                     packages.shajra-darwin-rebuild = pkgs-system.shajra-darwin-rebuild;
                     packages.shajra-home-manager   = pkgs-home.shajra-home-manager;

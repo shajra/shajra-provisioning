@@ -13,12 +13,27 @@ let
     pkgsConfig = config.provision.pkgs;
     isDevBuild = config.build.dev;
 
-    isDrvSet = s: lib.isAttrs s
-        && (lib.any lib.isDerivation (builtins.attrValues s) || s == {});
+    # REVISIT: Splitting large link farms for known issue with Darwin sandboxes.
+    # https://github.com/NixOS/nix/issues/4119
+    base32Chars = "0123456789abcdfghijklmnpqrsvwxyz";
+    lowerBase32Chars  = builtins.substring  0 11 base32Chars;
+    middleBase32Chars = builtins.substring 11 11 base32Chars;
+    upperBase32Chars  = builtins.substring 22 10 base32Chars;
+    isInSection = section: drv:
+        let hashChar = builtins.substring 11 1 drv.outPath;
+        in lib.elem hashChar (lib.stringToCharacters section);
+    isLower  = isInSection lowerBase32Chars;
+    isMiddle = isInSection middleBase32Chars;
+    isUpper  = isInSection upperBase32Chars;
+    isAny = drv: true;
 
-    joinForCi = name: set:
+    isDrvSet = s:
+        lib.isAttrs s && (lib.any lib.isDerivation (builtins.attrValues s) || s == {});
+
+    joinForCi = name: filter: set:
         let found = deepMerge (lib.collect isDrvSet set);
-        in prev.linkFarm "shajra-provision-ci-${name}" found;
+            filtered = lib.filterAttrs (_n: v: filter v) found;
+        in prev.linkFarm "shajra-provision-ci-${name}" filtered;
 
     deepMerge = builtins.foldl' (acc: a: lib.recursiveUpdate acc a) {};
 
@@ -81,13 +96,15 @@ let
             '';
         };
 
-    ci.prebuilt.nixpkgs     = joinForCi "prebuilt-nixpkgs" build.pkgs.nixpkgs.prebuilt;
-    ci.prebuilt.haskell-nix = joinForCi "prebuilt-haskellnix" build.pkgs.haskell-nix.prebuilt;
-    ci.prebuilt.shajra      = joinForCi "prebuilt-shajra" build.pkgs.shajra.prebuilt;
-    ci.build.nixpkgs        = joinForCi "build-nixpkgs" build.pkgs.nixpkgs.build;
-    ci.build.haskell-nix    = joinForCi "build-haskellnix" build.pkgs.haskell-nix.build;
-    ci.build.shajra         = joinForCi "build-shajra" build.pkgs.shajra.build;
-    ci.all                  = joinForCi "all" build.pkgs;
+    ci.prebuilt.nixpkgs.lower  = joinForCi "prebuilt-nixpkgs"    isLower  build.pkgs.nixpkgs.prebuilt;
+    ci.prebuilt.nixpkgs.middle = joinForCi "prebuilt-nixpkgs"    isMiddle build.pkgs.nixpkgs.prebuilt;
+    ci.prebuilt.nixpkgs.upper  = joinForCi "prebuilt-nixpkgs"    isUpper  build.pkgs.nixpkgs.prebuilt;
+    ci.prebuilt.haskell-nix    = joinForCi "prebuilt-haskellnix" isAny    build.pkgs.haskell-nix.prebuilt;
+    ci.prebuilt.shajra         = joinForCi "prebuilt-shajra"     isAny    build.pkgs.shajra.prebuilt;
+    ci.build.nixpkgs           = joinForCi "build-nixpkgs"       isAny    build.pkgs.nixpkgs.build;
+    ci.build.haskell-nix       = joinForCi "build-haskellnix"    isAny    build.pkgs.haskell-nix.build;
+    ci.build.shajra            = joinForCi "build-shajra"        isAny    build.pkgs.shajra.build;
+    ci.all                     = joinForCi "all"                 isAny    build.pkgs;
     ci.check-prebuilt = checkPrebuilt;
 
 in {
