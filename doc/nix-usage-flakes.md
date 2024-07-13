@@ -113,10 +113,8 @@ nix flake show .
     ├───apps
     │   ├───aarch64-darwin
     …
-        │   ├───ci-build-nixpkgs omitted (use '--all-systems' to show)
-        │   ├───ci-build-shajra omitted (use '--all-systems' to show)
-        │   ├───ci-prebuilt-haskellnix omitted (use '--all-systems' to show)
-        │   ├───ci-prebuilt-nixpkgs omitted (use '--all-systems' to show)
+        │   ├───ci-prebuilt-nixpkgs-middle omitted (use '--all-systems' to show)
+        │   ├───ci-prebuilt-nixpkgs-upper omitted (use '--all-systems' to show)
         │   ├───ci-prebuilt-shajra omitted (use '--all-systems' to show)
         │   ├───home-manager omitted (use '--all-systems' to show)
         │   ├───shajra-darwin-rebuild omitted (use '--all-systems' to show)
@@ -127,7 +125,9 @@ nix flake show .
             ├───ci-build-nixpkgs: package 'shajra-provision-ci-build-nixpkgs'
             ├───ci-build-shajra: package 'shajra-provision-ci-build-shajra'
             ├───ci-prebuilt-haskellnix: package 'shajra-provision-ci-prebuilt-haskellnix'
-            ├───ci-prebuilt-nixpkgs: package 'shajra-provision-ci-prebuilt-nixpkgs'
+            ├───ci-prebuilt-nixpkgs-lower: package 'shajra-provision-ci-prebuilt-nixpkgs'
+            ├───ci-prebuilt-nixpkgs-middle: package 'shajra-provision-ci-prebuilt-nixpkgs'
+            ├───ci-prebuilt-nixpkgs-upper: package 'shajra-provision-ci-prebuilt-nixpkgs'
             ├───ci-prebuilt-shajra: package 'shajra-provision-ci-prebuilt-shajra'
             ├───home-manager: package 'home-manager'
             ├───shajra-darwin-rebuild: package 'shajra-darwin-rebuild'
@@ -186,7 +186,7 @@ nix search .
     
     * packages.x86_64-linux.ci-prebuilt-haskellnix
     
-    * packages.x86_64-linux.ci-prebuilt-nixpkgs
+    * packages.x86_64-linux.ci-prebuilt-nixpkgs-lower
     …
 
 If a flake has a lot of packages, you can pass regexes to prune down the search. Returned values will match all the regexes provided.

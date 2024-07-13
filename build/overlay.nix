@@ -63,11 +63,8 @@ let
 
     pkgs.lists = deepDrvSetToList pkgs.sets;
 
-    checkPrebuilt =
+    checkCaching = sets: checkCacheHit:
         let
-            sets = build.pkgs.nixpkgs.prebuilt
-                // build.pkgs.haskell-nix.prebuilt
-                // build.pkgs.shajra.prebuilt;
             found = builtins.attrValues (deepMerge (lib.collect isDrvSet sets));
             bashOutPaths = lib.concatMapStringsSep " " (d: d.outPath) found;
         in prev.writeShellApplication {
@@ -81,20 +78,37 @@ let
                 set -o pipefail
                 OUT_PATHS=(${bashOutPaths})
                 EXIT_CODE=0
+                echo "${
+                    if checkCacheHit
+                    then "Checking prebuilt packages cached..."
+                    else "Checking packages to build uncached..."
+                }"
                 for path in "''${OUT_PATHS[@]}"
                 do
                     PATH_PREFIX="''${path%%-*}"
                     HASH="$(basename "$PATH_PREFIX")"
-                    if ! curl --fail --silent --head \
+                    if ${ if checkCacheHit then "!" else "" } curl --fail --silent --head \
                         "https://cache.nixos.org/$HASH.narinfo" >/dev/null
                     then
-                        echo "NOT FOUND: $path"
+                        echo "${ if checkCacheHit then "NOT" else "" } FOUND: $path"
                         EXIT_CODE=1
                     fi
                 done
                 exit "$EXIT_CODE"
             '';
         };
+
+    checkPrebuilt =
+        let sets = build.pkgs.nixpkgs.prebuilt
+                // build.pkgs.haskell-nix.prebuilt
+                // build.pkgs.shajra.prebuilt;
+        in checkCaching sets true;
+
+    checkBuild =
+        let sets = build.pkgs.nixpkgs.build
+                // build.pkgs.haskell-nix.build
+                // build.pkgs.shajra.build;
+        in checkCaching sets false;
 
     ci.prebuilt.nixpkgs.lower  = joinForCi "prebuilt-nixpkgs"    isLower  build.pkgs.nixpkgs.prebuilt;
     ci.prebuilt.nixpkgs.middle = joinForCi "prebuilt-nixpkgs"    isMiddle build.pkgs.nixpkgs.prebuilt;
@@ -106,6 +120,7 @@ let
     ci.build.shajra            = joinForCi "build-shajra"        isAny    build.pkgs.shajra.build;
     ci.all                     = joinForCi "all"                 isAny    build.pkgs;
     ci.check-prebuilt = checkPrebuilt;
+    ci.check-build = checkBuild;
 
 in {
     shajra-provision = {

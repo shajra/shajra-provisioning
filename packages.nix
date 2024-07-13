@@ -34,31 +34,23 @@ in {
     ];
 
     nixpkgs.prebuilt.base.gui.all = pickHome [
-        # Fonts
+        # Cached Fonts
         "emacs-all-the-icons-fonts"  # for Emacs, used automatically by Doom
         "etBook"                     # stylish font from Edward Tufte's books
         "fira"                       # variable font to complement Fira Code
         "font-awesome_6"             # for i3status-rust icons
         "freefont_ttf"               # a Unicode fallback font
         "hasklig"                    # font with Haskell ligatures
-        "inconsolata-nerdfont"       # popular font, might like it
-        "nerdfonts"                  # developer fonts with lots of icons
         "noto-fonts-emoji"           # popular font, might like it
         "noto-fonts-extra"           # popular font, might like it
         "noto-fonts"                 # popular font, might like it
-        "sf-symbols"                 # font with application icons
-        "sketchybar-font"            # font with application icons
         "source-serif"               # serif font to complement Sauce Code Pro
-        "symbola"                    # another Unicode fallback font
     ];
 
     nixpkgs.prebuilt.base.gui.darwin = np.pick { darwin = "home"; } [
     ] // np.pick { darwin = "unstable"; } [
         # DESIGN: these are all Mac-only applications; unstable is fine
-        "aldente"
         "goku"
-        "raycast"
-        "shortcat"
     ] // np.pick { darwin = "stable-linux"; } [
         # DESIGN: iTerm2 3.5 messes up colors with -CC
         # TODO: Search for problem in iTerm's issue tracker
@@ -71,7 +63,6 @@ in {
         "fontpreview"
         "gnome.adwaita-icon-theme"
         "maim"
-        "microsoft-edge-beta"
         "pavucontrol"
         "simple-scan"
         "sxiv"
@@ -109,7 +100,6 @@ in {
         "nixfmt"
         "paperkey"
         "patchelf"
-        "preview-file"
         "procps"
         "pstree"
         "rsync"
@@ -121,11 +111,7 @@ in {
         "wget"
         "which"
         "yq-go"
-    ] // {
-        aspell = np.nixpkgs.home.aspellWithDicts (d: with d; [
-            en en-computers en-science
-        ]);
-    };
+    ];
 
     nixpkgs.prebuilt.base.tui.darwin = np.pick { darwin = "home"; } [
     ] // np.pick { darwin = "unstable"; } [
@@ -146,12 +132,6 @@ in {
     nixpkgs.prebuilt.centralized = np.pick { linux = "home"; } [
         "buku"
         "bukubrow"
-    ];
-
-    nixpkgs.prebuilt.chat.gui.all = pickHome [
-        "discord"
-        "slack"
-        "zoom-us"
     ];
 
     nixpkgs.prebuilt.chat.gui.linux = np.pick { linux = "home"; } [
@@ -245,12 +225,24 @@ in {
 
     nixpkgs.build.base.gui.all = pickHome [
         "notify-time"
+
+        # Uncached Fonts
+        "inconsolata-nerdfont"       # popular font, might like it
+        "nerdfonts"                  # developer fonts with lots of icons
+        "sf-symbols"                 # font with application icons
+        "sketchybar-font"            # font with application icons
+        "symbola"                    # another Unicode fallback font
     ];
 
     nixpkgs.build.base.gui.darwin = np.pick { darwin = "home"; } [
         # REVISIT: Waiting for Nixpkgs to have Mac SDK 14
         #"yabai"
         #"skhd"
+    ] // np.pick { darwin = "unstable"; } [
+        # DESIGN: these are all Mac-only applications; unstable is fine
+        "aldente"
+        "raycast"
+        "shortcat"
     ];
 
     nixpkgs.build.base.gui.linux = np.pick { linux = "home"; } [
@@ -258,16 +250,28 @@ in {
         "i3-dpi"
         "i3status-rust-dunst"
         "i3-workspace-name"
+        "microsoft-edge-beta"
     ];
 
     nixpkgs.build.base.tui.all = pickHome [
-        "home-manager"
-    ];
+        "home-manager-latest"
+        "preview-file"
+    ] // {
+        aspell = np.nixpkgs.home.aspellWithDicts (d: with d; [
+            en en-computers en-science
+        ]);
+    };
 
     nixpkgs.build.base.tui.darwin = np.pick { darwin = "home"; } [
     ];
 
     nixpkgs.build.base.tui.linux = np.pick { linux = "home"; } [
+    ];
+
+    nixpkgs.build.chat.gui.all = pickHome [
+        "discord"
+        "slack"
+        "zoom-us"
     ];
 
     nixpkgs.build.finance = pickHome [
@@ -304,19 +308,11 @@ in {
     ];
 
     nixpkgs.build.uncategorized.darwin = np.pick { darwin = "home"; } [
-        # REVISIT: emacsMacport broken for M1
-        # https://github.com/NixOS/nixpkgs/issues/127902
-        # REVISIT: note emacsMacport doesn't have native compilation
-        # https://github.com/railwaycat/homebrew-emacsmacport/issues/274
-        #"emacsMacport"
         "sketchybar-cpu"
         "sketchybar-lua"
     ];
 
     nixpkgs.build.uncategorized.linux = np.pick { linux = "home"; } [
-        # REVISIT: https://github.com/doomemacs/doomemacs#prerequisites
-        # using emacs29 over emacs-unstable to hit Nixpkgs cache
-        "emacs29"
     ];
 
     haskell-nix.prebuilt.programming.haskell = {
