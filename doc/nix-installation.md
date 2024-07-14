@@ -3,6 +3,9 @@
 - [Level of commitment/risk](#sec-3)
 - [Nix package manager installation](#sec-4)
 - [Cache setup](#sec-5)
+  - [System-level cache configuration](#sec-5-1)
+  - [User-level cache configuration](#sec-5-2)
+  - [Testing your configuration](#sec-5-3)
 - [Setting up experimental features](#sec-6)
 
 
@@ -40,38 +43,83 @@ Hopefully, this alleviates any worry about installing a complex program on your 
 
 > **<span class="underline">NOTE:</span>** You don't need this step if you're running NixOS, which comes with Nix baked in.
 
-If you don't already have Nix, [the official installation script](https://nixos.org/download.html#download-nix) should work on a variety of UNIX-like operating systems. If you're okay with the script calling `sudo` you can install Nix on a non-WSL machine with the following recommended command:
+Though the latest version of Nix is Nix 2.23.2, we'll be installing the version that the last release of NixOS (24.05) uses, specifically Nix 2.18.4. As discussed in the included [introduction to Nix](nix-introduction.md), this version is considered stable by the Nix community.
+
+The following command calls the official installation script for the recommended version of Nix. Note, this script will require `sudo` access.
 
 ```bash
-sh <(curl -L https://nixos.org/nix/install) --daemon
+sh <(curl -L https://releases.nixos.org/nix/nix-2.18.4/install) --daemon
 ```
 
 The `--daemon` switch installs Nix in the multi-user mode, which is generally recommended (single-user installation with `--no-daemon` instead is recommended for WSL). The script reports everything it does and touches.
 
-After installation, you may have to exit your terminal session and log back in to have environment variables configured to put Nix executables on your `PATH`.
+After installation, you may have to exit your terminal session and log back in to have environment variables configured, which puts Nix executables on your `PATH`.
+
+Every six months or so, a new version of NixOS releases, and you should consider upgrading your installation of Nix. For NixOS 24.05, this command upgrades Nix:
+
+```bash
+NIXOS_VERSION="24.05"
+NIX_STORE_PATHS_URL=https://github.com/NixOS/nixpkgs/raw/$NIXOS_VERSION/nixos/module/installer/tools/nix-fallback-paths.nix
+sudo nix upgrade-nix --nix-store-paths-url "$NIX_STORE_PATHS_URL"
+```
+
+For [new releases of NixOS](https://nixos.org/manual/nixos/stable/release-notes.html), use the same command with new `NIXOS_VERSION`.
 
 The Nix manual describes [other methods of installing Nix](https://nixos.org/manual/nix/stable/installation/installation.html) that may suit you more. If you later want to uninstall Nix, see the [uninstallation steps documented in the Nix manual](https://nixos.org/manual/nix/stable/installation/installing-binary.html#uninstalling).
 
 # Cache setup<a id="sec-5"></a>
 
-This project pushes built Nix packages to [Cachix](https://cachix.org/) as part of its [continuous integration](https://github.com/shajra/shajra-provisioning/actions). It's recommended to configure Nix to use shajra.cachix.org as a Nix *substituter*. Once configured, Nix can pull down pre-built packages from Cachix, instead of building them locally (potentially saving time). Cachix will augment Nix's default substituter that pulls from cache.nixos.org.
+This project pushes built Nix packages to two substituters, [Garnix](https://garnix.io) and [Cachix](https://cachix.org/), as part of its continuous integration. It's recommended to install at least one of these. Configuring both to have a fallback works as well. Garnix caches a few more packages than Cachix. Both should have similar availability.
 
-You can configure shajra.cachix.org as a supplemental substituter with the following command:
+We need to extend two settings in either the system-level Nix configuration file at `/etc/nix/nix.conf`, or the user-level configuration at `~/.config/nix/nix.config` (which may not exist yet).
+
+The choice of whether to perform these settings system-level or user-level is up to your preference.
+
+First we need to specify one or both of the following substituters:
+
+-   <https://cache.garnix.io>
+-   <https://shajra.cachix.org>
+
+For each substituter we use, we need to also configure Nix to trust their public keys:
+
+-   cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=
+-   shajra.cachix.org-1:V0x7Wjgd/mHGk2KQwzXv8iydfIgLupbnZKLSQt5hh9o=
+
+## System-level cache configuration<a id="sec-5-1"></a>
+
+When editing the `/etc/nix/nix.conf` as root, suffix the new substituter(s), space-separated to any values already populating the `substituters` parameter.
+
+Note, the order of the substituters indicates the order in which caches are searched. Leave the <https://cache.nixos.org> substituter first to maximize cache hits.
+
+Next, similarly suffix the key(s) to the `trusted-public-keys` parameter.
+
+Your file will likely look like the following:
+
+    …
+    substituters = https://cache.nixos.org/ https://cache.garnix.io https://shajra.cachix.org
+    trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g= shajra.cachix.org-1:V0x7Wjgd/mHGk2KQwzXv8iydfIgLupbnZKLSQt5hh9o=
+    …
+
+## User-level cache configuration<a id="sec-5-2"></a>
+
+User-level Nix configuration overrides system-level settings. For user-level configuration, we can use the `extra-substituters` and `extra-trusted-public-keys` parameters to extend `substituters` and `trusted-public-keys` settings already in the system-level `/etc/nix/nix.conf` file. This way we don't need to worry about accidentally excluding the standard <https://cache.nixos.org> substituter where we get most of our cache hits.
+
+For user-level Nix configuration, create a file at `~/.config/nix/nix.conf` with the following content:
+
+    …
+    extra-substituters = https://cache.garnix.io https://shajra.cachix.org
+    extra-trusted-public-keys = cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g= shajra.cachix.org-1:V0x7Wjgd/mHGk2KQwzXv8iydfIgLupbnZKLSQt5hh9o=
+
+## Testing your configuration<a id="sec-5-3"></a>
+
+You can see that your configuration is correct with the following commands:
 
 ```sh
-nix run \
-    --file https://cachix.org/api/v1/install \
-    cachix \
-    --command cachix use shajra
+nix show-config substituters
+nix show-config trusted-public-keys
 ```
 
-Cachix is a service that anyone can use. You can call this command later to add substituters for someone else using Cachix, replacing “shajra” with their cache's name.
-
-If you've just run a multi-user Nix installation and are not yet a trusted user in `/etc/nix/nix.conf`, this command may not work. But it will report back some options to proceed.
-
-One option sets you up as a trusted user and installs Cachix configuration for Nix locally at `~/.config/nix/nix.conf`. This configuration will be available immediately, and any subsequent invocation of Nix commands will take advantage of the Cachix cache.
-
-You can alternatively configure Cachix as a substituter globally by running the above command as a root user (say with `sudo`), which sets up Cachix directly in `/etc/nix/nix.conf`. The invocation may give further instructions upon completion.
+Make sure still have settings for <https://cache.nixos.org>.
 
 # Setting up experimental features<a id="sec-6"></a>
 
@@ -92,20 +140,7 @@ alias nix-flakes = nix --extra-experimental-features 'nix-command flakes'
 
 As discussed in the introduction, `nix-command` is enabled by default. You don't need to enable it explicitly (though you could disable it).
 
-To use flakes there are two things we need to do:
-
-1.  make sure the version of Nix we're on is at least 2.4
-2.  enable both the `nix-command` and `flakes` experimental features.
-
-Since the latest release of Nix is already at 2.23, if you installed Nix recently as per the instructions above, you should be on a recent-enough version:
-
-```sh
-nix --version
-```
-
-    nix (Nix) 2.18.2
-
-The easiest way to turn on experimental features is to create a file `~/.config/nix/nix.conf` if it doesn't already exist, and in it, put the following line:
+The easiest way to turn on experimental features is to put the following setting into either the system-level `/etc/nix/nix.conf` file or the user-level `~/.config/nix/nix.conf` file:
 
 ```text
 experimental-features = nix-command flakes
@@ -114,5 +149,5 @@ experimental-features = nix-command flakes
 Then you should see that the appropriate features are enabled:
 
 ```sh
-nix show-config | grep experimental-features
+nix show-config experimental-features
 ```

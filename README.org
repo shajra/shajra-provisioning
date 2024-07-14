@@ -1,7 +1,10 @@
 #+title: Deep Provisioning All My Machines
 #+setupfile: doc/internal/links.org
 
-[[https://github.com/shajra/shajra-provisioning/actions][https://github.com/shajra/shajra-provisioning/workflows/CI/badge.svg]]
+#+ATTR_HTML: :alt built with GitHub Actions
+[[https://github.com/shajra/nix-project/actions][https://github.com/shajra/shajra-provisioning/workflows/CI/badge.svg]]
+#+ATTR_HTML: :alt built with Garnix
+[[https://garnix.io][https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fgarnix.io%2Fapi%2Fbadges%2Fshajra%2Fshajra-provisioning%3Fbranch%3Dmain]]
 
 * Org-mode setup :noexport:
 

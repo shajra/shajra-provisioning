@@ -15,6 +15,7 @@
   - [Confusion of stability](#sec-4-2)
     - [Nix 2.0 and the new `nix` command](#sec-4-2-1)
     - [Flakes as an experiment](#sec-4-2-2)
+    - [Nix quick releases compete with stability](#sec-4-2-3)
   - [A few gaps in determinism](#sec-4-3)
 - [Encouraging development with flakes](#sec-5)
   - [Limiting usage of experimental APIs](#sec-5-1)
@@ -102,13 +103,13 @@ What makes Nix unique is that these expressions specify a way to build that's
 -   repeatable
 -   guaranteed not to conflict with anything already installed
 
-For some, it's easy to miss the degree to which Nix-built packages are precise and repeatable. If you build a package from a Nix expression on one system and then build the same expression on a system of the same architecture, you should get the same result. In most cases, the built artifacts will be identical bit-for-bit.
+For some, it's easy to miss the degree to which Nix-built packages are precise and repeatable. Nix builds in highly controlled sandbox environments. If you build a package from a Nix expression on one system and then build the same expression on a system of the same architecture, you should get the same result. In many cases, the built artifacts will be identical bit-for-bit.
 
 A system of thorough hashing accomplishes this degree of precision. In Nix, the dependencies needed to build packages are also themselves Nix packages. Every Nix expression has an associated hash calculated from the hashes of the package's dependencies and build instructions. When we change this dependency (even if only by a single bit), the hash for the Nix expression changes. This new hash cascades to a different calculated hash for any package relying on this dependency. But if nothing changes, all systems will calculate identical hashes.
 
 The repeatability and precision of Nix form the basis of how substituters are trusted as caching services across the world. It also allows us to trust remote builds more easily without worrying about deviations in environment configuration.
 
-Nix has a central substituter at <https://cache.nixos.org>, but there are third-party ones as well, like [Cachix](https://cachix.org/). Before building a package, the hash for the package is calculated. If any configured substituter has a build for the hash, it's pulled down as a substitute. A certificate-based protocol is used to establish the trust of substituters. Between this protocol and the algorithm for calculating hashes in Nix, you can have confidence that a package pulled from a substituter will be identical to what you would have built locally.
+Nix has a central substituter at <https://cache.nixos.org>, but there are third-party ones as well, like [Garnix](https://garnix.io) and [Cachix](https://cachix.org/). Before building a package, the hash for the package is calculated. If any configured substituter has a build for the hash, it's pulled down as a substitute. A certificate-based protocol is used to establish the trust of substituters. Between this protocol and the algorithm for calculating hashes in Nix, you can have confidence that a package pulled from a substituter will be equivalent to what you would have built locally.
 
 Finally, all packages are stored in `/nix/store` by their hash. This simple scheme allows us to install multiple versions of the same package without conflicts. References to dependencies all point back to the desired version in `/nix/store` they need. Though Nix has not eliminated the risk of concurrently running different versions of the same program, at least the flexibility to do so is in the user's hands.
 
@@ -191,11 +192,19 @@ However, if industrial users move to flakes to address these problems, we have t
 -   we have to be ready for the flakes API to change, as it's technically experimental
 -   we have to accept some added training hurdles since the documentation of flakes is tucked behind documentation of non-flake usage.
 
+### Nix quick releases compete with stability<a id="sec-4-2-3"></a>
+
+The latest major version of the Nix package manager is currently Nix 2.23.2, but NixOS 24.05, the latest stable release of NixOS, uses Nix 2.18.4. NixOS is the primary way the Nix package manager gets used in the field. Far fewer users install Nix as a package manager atop another operating system. From a community perspective it makes sense to consider Nix 2.18.4 the stable release of the package manager. This version gets the most scrutiny and critical bug fixes.
+
+As mentioned above, there are strong reasons to use still-experimental features, particularly flakes. However, APIs and calculated hashes change too frequently in experimental features from version-to-version. By sticking with the version used in NixOS, we get less breaking changes. For example, the [flake.lock](../flake.lock) file included with this project has calculated hashes for dependencies. These hashes were computed with Nix 2.18.4, and could change with later versions.
+
+For these reasons, the [installation guide included with this project](nix-installation.md) recommends installing Nix 2.18.4, rather than the latest official release.
+
 ## A few gaps in determinism<a id="sec-4-3"></a>
 
 Nix offers world-class build determinism, especially with flakes. But it's important to understand that this determinism is not infallible. To date, no build system can claim to provide flawless determinism.
 
-Known gaps involve corner cases like the following. Consider a hypothetical compiler that can auto-detect that a build machine has many cores, and enables an optimization upon detection incompatible with machines with fewer cores. While Nix will generate different hashes if the platform architecture changes, say from X86 to ARM, it will not consider a machine with many cores different from one with fewer. So our example optimizing compiler could cause a frustrating problem. A local build on a machine with few cores may work as expected. But if a cache had a optimized build from a machine with many cores, it would be pulled down for the same hash, as a substitute for a local build. This optimization would lead to defects running on the wrong machine.
+Consider a hypothetical compiler that can auto-detect that a build machine has many cores, and enables an optimization upon detection incompatible with machines with fewer cores. While Nix will generate different hashes if the platform architecture changes, say from X86 to ARM, it will not consider a machine with many cores different from one with fewer. So our example optimizing compiler could cause a frustrating problem. A local build on a machine with few cores may work as expected. But if a cache had a optimized build from a machine with many cores, it would be pulled down for the same hash, as a substitute for a local build. This optimization would lead to defects running on the wrong machine.
 
 Note that in general, we benefit from downloading and running packages built on more powerful machines, and in almost all cases, the clever optimizations of various compilers are portable.
 

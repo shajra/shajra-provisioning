@@ -13,7 +13,7 @@ in
 {
     enable = true;
     iconTheme.name = "Adwaita";
-    iconTheme.package = pkgs.gnome.adwaita-icon-theme;
+    iconTheme.package = pkgs.adwaita-icon-theme;
     settings = {
         global = {
             browser = "${pkgs.microsoft-edge-beta}/bin/microsoft-edge-beta";

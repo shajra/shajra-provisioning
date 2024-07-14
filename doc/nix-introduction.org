@@ -1,6 +1,21 @@
 #+title: Deciding to use Nix
 #+setupfile: internal/links.org
 
+* Org-mode setup :noexport:
+
+This document is written in a project-agnostic way to be copied to other
+projects that use Nix.
+
+** Variables
+
+We set variables in =internal/params.el= and access those settings with the
+following macros.
+
+#+macro: get (eval (concat $2 (alist-get (intern $1) (car (read-from-string (f-read "internal/params.el")))) $3))
+#+macro: nix-latest   {{{get(nix-latest)}}}
+#+macro: nix-stable   {{{get(nix-stable)}}}
+#+macro: nixos-latest {{{get(nixos-latest)}}}
+
 * About this document
 
 This document introduces the [[nix][Nix package manager]] and highlights some motivations
@@ -152,10 +167,10 @@ What makes Nix unique is that these expressions specify a way to build that's
 - guaranteed not to conflict with anything already installed
 
 For some, it's easy to miss the degree to which Nix-built packages are precise
-and repeatable. If you build a package from a Nix expression on one system and
-then build the same expression on a system of the same architecture, you should
-get the same result. In most cases, the built artifacts will be identical
-bit-for-bit.
+and repeatable. Nix builds in highly controlled sandbox environments. If you
+build a package from a Nix expression on one system and then build the same
+expression on a system of the same architecture, you should get the same result.
+In many cases, the built artifacts will be identical bit-for-bit.
 
 A system of thorough hashing accomplishes this degree of precision. In Nix, the
 dependencies needed to build packages are also themselves Nix packages.  Every
@@ -171,12 +186,13 @@ builds more easily without worrying about deviations in environment
 configuration.
 
 Nix has a central substituter at https://cache.nixos.org, but there are
-third-party ones as well, like [[cachix][Cachix]]. Before building a package, the hash for
-the package is calculated. If any configured substituter has a build for the
-hash, it's pulled down as a substitute. A certificate-based protocol is used to
-establish the trust of substituters. Between this protocol and the algorithm for
-calculating hashes in Nix, you can have confidence that a package pulled from a
-substituter will be identical to what you would have built locally.
+third-party ones as well, like [[garnix][Garnix]] and [[cachix][Cachix]]. Before building a package, the
+hash for the package is calculated. If any configured substituter has a build
+for the hash, it's pulled down as a substitute. A certificate-based protocol is
+used to establish the trust of substituters. Between this protocol and the
+algorithm for calculating hashes in Nix, you can have confidence that a package
+pulled from a substituter will be equivalent to what you would have built
+locally.
 
 Finally, all packages are stored in =/nix/store= by their hash. This simple
 scheme allows us to install multiple versions of the same package without
@@ -342,22 +358,42 @@ the following problems:
 - we have to accept some added training hurdles since the documentation of
   flakes is tucked behind documentation of non-flake usage.
 
+*** Nix quick releases compete with stability
+
+The latest major version of the Nix package manager is currently Nix
+{{{nix-latest}}}, but NixOS {{{nixos-latest}}}, the latest stable release of
+NixOS, uses Nix {{{nix-stable}}}. NixOS is the primary way the Nix package
+manager gets used in the field. Far fewer users install Nix as a package manager
+atop another operating system. From a community perspective it makes sense to
+consider Nix {{{nix-stable}}} the stable release of the package manager. This
+version gets the most scrutiny and critical bug fixes.
+
+As mentioned above, there are strong reasons to use still-experimental features,
+particularly flakes. However, APIs and calculated hashes change too frequently
+in experimental features from version-to-version. By sticking with the version
+used in NixOS, we get less breaking changes. For example, the [[file:../flake.lock][flake.lock]] file
+included with this project has calculated hashes for dependencies. These hashes
+were computed with Nix {{{nix-stable}}}, and could change with later versions.
+
+For these reasons, the [[file:nix-installation.org][installation guide included with this project]] recommends
+installing Nix {{{nix-stable}}}, rather than the latest official release.
+
 ** A few gaps in determinism
 
 Nix offers world-class build determinism, especially with flakes. But it's
 important to understand that this determinism is not infallible. To date, no
 build system can claim to provide flawless determinism.
 
-Known gaps involve corner cases like the following. Consider a hypothetical
-compiler that can auto-detect that a build machine has many cores, and enables
-an optimization upon detection incompatible with machines with fewer cores.
-While Nix will generate different hashes if the platform architecture changes,
-say from X86 to ARM, it will not consider a machine with many cores different
-from one with fewer. So our example optimizing compiler could cause a
-frustrating problem. A local build on a machine with few cores may work as
-expected. But if a cache had a optimized build from a machine with many cores,
-it would be pulled down for the same hash, as a substitute for a local build.
-This optimization would lead to defects running on the wrong machine.
+Consider a hypothetical compiler that can auto-detect that a build machine has
+many cores, and enables an optimization upon detection incompatible with
+machines with fewer cores. While Nix will generate different hashes if the
+platform architecture changes, say from X86 to ARM, it will not consider a
+machine with many cores different from one with fewer. So our example optimizing
+compiler could cause a frustrating problem. A local build on a machine with few
+cores may work as expected. But if a cache had a optimized build from a machine
+with many cores, it would be pulled down for the same hash, as a substitute for
+a local build. This optimization would lead to defects running on the wrong
+machine.
 
 Note that in general, we benefit from downloading and running packages built on
 more powerful machines, and in almost all cases, the clever optimizations of

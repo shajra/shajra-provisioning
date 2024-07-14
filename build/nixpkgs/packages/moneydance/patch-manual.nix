@@ -3,7 +3,7 @@
 
 self: super:
 
-let 
+let
 
     rpathInternal = super.lib.concatStringsSep ":" [
         "$out/jre/lib/jli"
@@ -12,31 +12,31 @@ let
     ];
 
     rpathExternal = with super; lib.strings.makeLibraryPath [
-        alsaLib 
-        atk 
+        alsaLib
+        atk
         cairo
         elfutils
-        ffmpeg 
-        fontconfig 
-        freetype 
+        ffmpeg
+        fontconfig
+        freetype
         gdk_pixbuf
-        glib 
-        gtk3 
+        glib
+        gtk3
         libGL
-        libxml2 
-        libxslt 
-        pango 
+        libxml2
+        libxslt
+        pango
         stdenv.cc.cc
-        stdenv.cc.libc 
-        xorg.libX11 
-        xorg.libXext 
-        xorg.libXi 
-        xorg.libXp 
+        stdenv.cc.libc
+        xorg.libX11
+        xorg.libXext
+        xorg.libXi
+        xorg.libXp
         xorg.libXrender
         xorg.libXt
-        xorg.libXtst 
-        xorg.libXxf86vm 
-        zlib 
+        xorg.libXtst
+        xorg.libXxf86vm
+        zlib
     ];
 
     vmOptions =
@@ -78,13 +78,13 @@ super.stdenv.mkDerivation rec {
         #sha256 = "1xgpgy4v3akajdz294jp8qcv2v41x57w522fw03f3lh811cw39na";
     };
 
-    nativeBuildInputs = with super; [ 
-        gnused 
-        makeWrapper 
-        wrapGAppsHook 
-        glib 
-        gnome.adwaita-icon-theme
-        #hicolor-icon-theme 
+    nativeBuildInputs = with super; [
+        adwaita-icon-theme
+        gnused
+        makeWrapper
+        wrapGAppsHook
+        glib
+        #hicolor-icon-theme
     ];
 
     dontStrip = 1;

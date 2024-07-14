@@ -30,6 +30,8 @@ in {
         "playerctl"
         "ponymix"
         "pulsemixer"
+    ] // np.pick { linux = "stable"; } [
+        # REVISIT: 2024-07-15: unstable build broke
         "whipper"
     ];
 
@@ -58,10 +60,10 @@ in {
     ];
 
     nixpkgs.prebuilt.base.gui.linux = np.pick { linux = "home"; } [
+        "adwaita-icon-theme"
         "devour"
         "dunst"
         "fontpreview"
-        "gnome.adwaita-icon-theme"
         "maim"
         "pavucontrol"
         "simple-scan"
