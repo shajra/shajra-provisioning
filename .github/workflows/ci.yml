@@ -79,6 +79,7 @@ jobs:
     - uses: DeterminateSystems/magic-nix-cache-action@main
     - run: cat /etc/nix/nix.conf
     - run: cat ~/.config/nix/nix.conf
+    - run: nix flake check --no-build --verbose
     # DESIGN: Can't CI homes; even slimmed they're too big for GitHub
     - run: nix run .#nixosConfigurations.cake.nixos-rebuild -- --flake .#cake build
   installers-darwin:
@@ -100,4 +101,5 @@ jobs:
     - uses: DeterminateSystems/magic-nix-cache-action@main
     - run: cat /etc/nix/nix.conf
     - run: cat ~/.config/nix/nix.conf
+    - run: nix flake check --no-build --verbose
     - run: ./home-manager   --flake .#bagel-fake-slim build
