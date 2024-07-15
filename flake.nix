@@ -83,7 +83,7 @@
             flake =
                 let configLib = import build/configurations.nix inputs withSystem;
                 in rec {
-                    packages.aarch64-darwin.ci-darwinConfiguration-bagel = darwinConfigurations.bagel.system;
+                    checks.aarch64-darwin.ci-darwinConfiguration-bagel = darwinConfigurations.bagel.system;
                     overlays.default = import build/overlay.nix inputs withSystem;
                     nixosConfigurations.cake = configLib.nixosConfiguration {
                         system = "x86_64-linux";
