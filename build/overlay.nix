@@ -115,7 +115,9 @@ let
     ci.prebuilt.nixpkgs.upper  = joinForCi "prebuilt-nixpkgs"    isUpper  build.pkgs.nixpkgs.prebuilt;
     ci.prebuilt.haskell-nix    = joinForCi "prebuilt-haskellnix" isAny    build.pkgs.haskell-nix.prebuilt;
     ci.prebuilt.shajra         = joinForCi "prebuilt-shajra"     isAny    build.pkgs.shajra.prebuilt;
-    ci.build.nixpkgs           = joinForCi "build-nixpkgs"       isAny    build.pkgs.nixpkgs.build;
+    ci.build.nixpkgs.lower     = joinForCi "build-nixpkgs"       isLower  build.pkgs.nixpkgs.build;
+    ci.build.nixpkgs.middle    = joinForCi "build-nixpkgs"       isMiddle build.pkgs.nixpkgs.build;
+    ci.build.nixpkgs.upper     = joinForCi "build-nixpkgs"       isUpper  build.pkgs.nixpkgs.build;
     ci.build.haskell-nix       = joinForCi "build-haskellnix"    isAny    build.pkgs.haskell-nix.build;
     ci.build.shajra            = joinForCi "build-shajra"        isAny    build.pkgs.shajra.build;
     ci.all                     = joinForCi "all"                 isAny    build.pkgs;

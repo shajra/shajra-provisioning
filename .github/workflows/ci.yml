@@ -6,7 +6,7 @@ jobs:
   pkgs-linux:
     strategy:
       matrix:
-        infra: [nixpkgs, haskell-nix, shajra]
+        infra: [nixpkgs.lower, nixpkgs.middle, nixpkgs.upper, haskell-nix, shajra]
     name: "pkgs-linux: ${{ matrix.infra }}"
     runs-on: ubuntu-latest
     steps:
@@ -34,7 +34,7 @@ jobs:
   pkgs-darwin:
     strategy:
       matrix:
-        infra: [nixpkgs, haskell-nix, shajra]
+        infra: [nixpkgs.lower, nixpkgs.middle, nixpkgs.upper, haskell-nix, shajra]
     name: "pkgs-darwin: ${{ matrix.infra }}"
     needs: [pkgs-linux]
     runs-on: macos-latest

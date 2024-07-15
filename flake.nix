@@ -51,7 +51,9 @@
                     checks.ci-prebuilt-nixpkgs-upper  = build.shajra-provision.ci.prebuilt.nixpkgs.upper;
                     checks.ci-prebuilt-haskellnix     = build.shajra-provision.ci.prebuilt.haskell-nix;
                     checks.ci-prebuilt-shajra         = build.shajra-provision.ci.prebuilt.shajra;
-                    checks.ci-build-nixpkgs           = build.shajra-provision.ci.build.nixpkgs;
+                    checks.ci-build-nixpkgs-lower     = build.shajra-provision.ci.build.nixpkgs.lower;
+                    checks.ci-build-nixpkgs-middle    = build.shajra-provision.ci.build.nixpkgs.middle;
+                    checks.ci-build-nixpkgs-upper     = build.shajra-provision.ci.build.nixpkgs.upper;
                     checks.ci-build-haskellnix        = build.shajra-provision.ci.build.haskell-nix;
                     checks.ci-build-shajra            = build.shajra-provision.ci.build.shajra;
                     packages.shajra-nixos-rebuild  = pkgs-system.shajra-nixos-rebuild;
