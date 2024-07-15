@@ -113,22 +113,22 @@ nix flake show .
     ├───apps
     │   ├───aarch64-darwin
     …
-        │   ├───ci-prebuilt-nixpkgs-middle omitted (use '--all-systems' to show)
-        │   ├───ci-prebuilt-nixpkgs-upper omitted (use '--all-systems' to show)
-        │   ├───ci-prebuilt-shajra omitted (use '--all-systems' to show)
+    ├───nixosConfigurations
+    │   └───cake: NixOS configuration
+    ├───overlays
+    │   └───default: Nixpkgs overlay
+    └───packages
+        ├───aarch64-darwin
+        │   ├───home-manager omitted (use '--all-systems' to show)
+        │   ├───shajra-darwin-rebuild omitted (use '--all-systems' to show)
+        │   ├───shajra-home-manager omitted (use '--all-systems' to show)
+        │   └───shajra-nixos-rebuild omitted (use '--all-systems' to show)
+        ├───x86_64-darwin
         │   ├───home-manager omitted (use '--all-systems' to show)
         │   ├───shajra-darwin-rebuild omitted (use '--all-systems' to show)
         │   ├───shajra-home-manager omitted (use '--all-systems' to show)
         │   └───shajra-nixos-rebuild omitted (use '--all-systems' to show)
         └───x86_64-linux
-            ├───ci-build-haskellnix: package 'shajra-provision-ci-build-haskellnix'
-            ├───ci-build-nixpkgs: package 'shajra-provision-ci-build-nixpkgs'
-            ├───ci-build-shajra: package 'shajra-provision-ci-build-shajra'
-            ├───ci-prebuilt-haskellnix: package 'shajra-provision-ci-prebuilt-haskellnix'
-            ├───ci-prebuilt-nixpkgs-lower: package 'shajra-provision-ci-prebuilt-nixpkgs'
-            ├───ci-prebuilt-nixpkgs-middle: package 'shajra-provision-ci-prebuilt-nixpkgs'
-            ├───ci-prebuilt-nixpkgs-upper: package 'shajra-provision-ci-prebuilt-nixpkgs'
-            ├───ci-prebuilt-shajra: package 'shajra-provision-ci-prebuilt-shajra'
             ├───home-manager: package 'home-manager'
             ├───shajra-darwin-rebuild: package 'shajra-darwin-rebuild'
             ├───shajra-home-manager: package 'shajra-home-manager'
@@ -178,15 +178,15 @@ We can use the `nix search` command to see what package derivations a flake cont
 nix search .
 ```
 
-    * packages.x86_64-linux.ci-build-haskellnix
+    * packages.x86_64-linux.home-manager
+      A user environment configurator
     
-    * packages.x86_64-linux.ci-build-nixpkgs
+    * packages.x86_64-linux.shajra-darwin-rebuild
+      Controlled MacOS rebuild
     
-    * packages.x86_64-linux.ci-build-shajra
+    * packages.x86_64-linux.shajra-home-manager
+      Controlled home directory management with Nix
     
-    * packages.x86_64-linux.ci-prebuilt-haskellnix
-    
-    * packages.x86_64-linux.ci-prebuilt-nixpkgs-lower
     …
 
 If a flake has a lot of packages, you can pass regexes to prune down the search. Returned values will match all the regexes provided.

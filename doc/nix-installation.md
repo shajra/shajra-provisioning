@@ -89,8 +89,6 @@ For each substituter we use, we need to also configure Nix to trust their public
 
 When editing the `/etc/nix/nix.conf` as root, suffix the new substituter(s), space-separated to any values already populating the `substituters` parameter.
 
-Note, the order of the substituters indicates the order in which caches are searched. Leave the <https://cache.nixos.org> substituter first to maximize cache hits.
-
 Next, similarly suffix the key(s) to the `trusted-public-keys` parameter.
 
 Your file will likely look like the following:
