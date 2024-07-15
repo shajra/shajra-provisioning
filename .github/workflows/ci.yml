@@ -102,4 +102,5 @@ jobs:
     - run: cat /etc/nix/nix.conf
     - run: cat ~/.config/nix/nix.conf
     - run: nix flake check --no-build --verbose
-    - run: ./home-manager   --flake .#bagel-fake-slim build
+    # DESIGN: Can't CI home because sketchybar-lua won't build on x86_64
+    - run: ./darwin-rebuild --flake .#bagel build
