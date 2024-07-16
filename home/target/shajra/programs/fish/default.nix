@@ -21,6 +21,7 @@ in {
                 set --erase --global SFT_AUTH_SOCK || true
             '';
         };
+
         groq-mr-slack = {
             description = "Notify team of merge request";
             body = ''
@@ -31,7 +32,7 @@ in {
                     echo "  -s, --send: Send message to Slack (otherwise dry run)"
                     return 0
                 end
-                set message (gr mr-get --format=short)
+                set message (gr mr-get --format=short $argv)
                 if test -z "$message"
                     echo "ERROR: No message to send" >&2
                     return 1
