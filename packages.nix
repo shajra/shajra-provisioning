@@ -31,7 +31,7 @@ in {
         "ponymix"
         "pulsemixer"
     ] // np.pick { linux = "stable"; } [
-        # REVISIT: 2024-07-15: unstable build broke
+        # REVISIT: 2024-07-31: unstable build broke
         "whipper"
     ];
 
@@ -190,7 +190,7 @@ in {
         "cabal2nix"
         "cabal-install"
         "stack"
-        "haskell.compiler.ghc965"
+        "haskell.compiler.ghc966"
     ];
 
     nixpkgs.prebuilt.programming.java = pickHome [
@@ -296,17 +296,17 @@ in {
 
     nixpkgs.build.programming.haskell = pickUnstable [
         # DESIGN: coming from Nixpkgs, but not cached
-        "haskell.packages.ghc965.apply-refact"
-        "haskell.packages.ghc965.djinn"
-        "haskell.packages.ghc965.fast-tags"
-        "haskell.packages.ghc965.ghc-events"
-        "haskell.packages.ghc965.ghcid"
-        "haskell.packages.ghc965.haskdogs"
-        "haskell.packages.ghc965.hasktags"
-        "haskell.packages.ghc965.hoogle"
-        "haskell.packages.ghc965.hlint"
-        "haskell.packages.ghc965.hp2pretty"
-        "haskell.packages.ghc965.stylish-haskell"
+        "haskell.packages.ghc966.apply-refact"
+        "haskell.packages.ghc966.djinn"
+        "haskell.packages.ghc966.fast-tags"
+        "haskell.packages.ghc966.ghc-events"
+        "haskell.packages.ghc966.ghcid"
+        "haskell.packages.ghc966.haskdogs"
+        "haskell.packages.ghc966.hasktags"
+        "haskell.packages.ghc966.hoogle"
+        "haskell.packages.ghc966.hlint"
+        "haskell.packages.ghc966.hp2pretty"
+        "haskell.packages.ghc966.stylish-haskell"
     ];
 
     nixpkgs.build.uncategorized.darwin = np.pick { darwin = "home"; } [
@@ -319,27 +319,27 @@ in {
 
     haskell-nix.prebuilt.programming.haskell = {
         # DESIGN: don't use enough to want to think about a cache miss
-        #nix-tools = hn.nixpkgs.haskell-nix.nix-tools.ghc965;
+        #nix-tools = hn.nixpkgs.haskell-nix.nix-tools.ghc966;
     };
 
     haskell-nix.build.programming.haskell = when (! isDevBuild) (
         {}
         # DESIGN: Nixpkgs-built binaries above are fine (maybe bloated)
-        #// (hn.fromHackage "ghc965" "apply-refact")
-        #// (hn.fromHackage "ghc965" "fast-tags")
-        #// (hn.fromHackage "ghc965" "ghc-events")
-        #// (hn.fromHackage "ghc965" "ghcid")
-        #// (hn.fromHackage "ghc965" "haskdogs")
-        #// (hn.fromHackage "ghc965" "hasktags")
-        #// (hn.fromHackage "ghc965" "hlint")
-        #// (hn.fromHackage "ghc965" "hoogle")
-        #// (hn.fromHackage "ghc965" "hp2pretty")
-        #// (hn.fromHackage "ghc965" "threadscope")
-        #// (hn.fromHackageCustomized "ghc965" "stylish-haskell" { configureArgs = "-f ghc-lib"; })
+        #// (hn.fromHackage "ghc966" "apply-refact")
+        #// (hn.fromHackage "ghc966" "fast-tags")
+        #// (hn.fromHackage "ghc966" "ghc-events")
+        #// (hn.fromHackage "ghc966" "ghcid")
+        #// (hn.fromHackage "ghc966" "haskdogs")
+        #// (hn.fromHackage "ghc966" "hasktags")
+        #// (hn.fromHackage "ghc966" "hlint")
+        #// (hn.fromHackage "ghc966" "hoogle")
+        #// (hn.fromHackage "ghc966" "hp2pretty")
+        #// (hn.fromHackage "ghc966" "threadscope")
+        #// (hn.fromHackageCustomized "ghc966" "stylish-haskell" { configureArgs = "-f ghc-lib"; })
 
         # REVISIT: marked broken in Nixpkgs, doesn't seem to build with
         # Haskell.nix either (need to look for a modern alternative exists)
-        #// (hn.fromHackage "ghc965" "ghc-events-analyze")
+        #// (hn.fromHackage "ghc966" "ghc-events-analyze")
     );
 
     shajra.prebuilt = {};
