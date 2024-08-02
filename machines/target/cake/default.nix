@@ -24,12 +24,17 @@ in {
     boot.kernelParams = [
         "i915.force_probe=9a49"
 
-        # DESIGN: attempt to stop monitor blackout flashing
-        "i915.enable_psr=0"
-        "i915.enable_dc=0"
+        # REVISIT: 2024-08-02: Attempt to stop monitor blackout flashing. It
+        # seems none of this is needed, and what's really needed is the
+        # i915-latency systemd service defined later in this file.  If that
+        # works, then all of this can be deleted.
+        #
+        #"i915.enable_dc=0"
         #"i915.enable_fbc=0"
+        #"i915.enable_psr=0"
         #"i915.enable_rc6=0"
-        #"intel_idle.max_cstate=1"
+        #"intel_idle.max_cstate=0"
+        #"processor.max_cstate=0"
 
         "usbcore.autosuspend=-1" # DESIGN: another attempt to stop USB drive crashes
     ];
@@ -245,31 +250,40 @@ in {
 
     system.stateVersion = "23.11";
 
+    systemd.services.i915-latency = {
+        description = "Prevent monitor from blackout flashing";
+        wantedBy = ["multi-user.target"];
+        script = ''
+            echo 25 39 48 52 83 97 103 119 \
+            > /sys/kernel/debug/dri/1/i915_pri_wm_latency
+        '';
+    };
+
     users.users."${user}" = {
-      description = "Sukant Hajra";
-      isNormalUser = true;
-      shell = pkgs.fish;
-      uid = 1000;
-      extraGroups = [
-        "dialout"
-        "docker"
-        "input"
-        "lp"
-        "plugdev"
-        "scanner"
-        "video"
-        "wheel"
-      ];
+        description = "Sukant Hajra";
+        isNormalUser = true;
+        shell = pkgs.fish;
+        uid = 1000;
+        extraGroups = [
+            "dialout"
+            "docker"
+            "input"
+            "lp"
+            "plugdev"
+            "scanner"
+            "video"
+            "wheel"
+        ];
     };
 
     users.users.mzhajra = {
-      description = "Michelle Hajra";
-      isNormalUser = true;
-      shell = pkgs.fish;
-      uid = 1001;
-      extraGroups = [
-        "wheel"
-      ];
+        description = "Michelle Hajra";
+        isNormalUser = true;
+        shell = pkgs.fish;
+        uid = 1001;
+        extraGroups = [
+            "wheel"
+        ];
     };
 
     users.defaultUserShell = pkgs.bashInteractive;
