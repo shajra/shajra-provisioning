@@ -250,6 +250,7 @@ in {
 
     system.stateVersion = "23.11";
 
+    # DESIGN: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5455
     systemd.services.i915-latency = {
         description = "Prevent monitor from blackout flashing";
         wantedBy = ["multi-user.target"];
