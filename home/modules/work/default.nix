@@ -15,6 +15,15 @@ in {
                     config user.email dev.sukant@hajra.xyz
         '';
     };
+    programs.fish.functions.groq-rebase-mine = {
+        description = "Rebase my local branches";
+        body = ''
+            jj git fetch && jj rebase -d head (
+                jj branch list 'glob:shajra/*' \
+                    -T 'if(!remote, "-b\n" ++ name ++ "\n")'
+            )
+        '';
+    };
     programs.git.userEmail = workEmail;
     programs.jujutsu.settings = {
         user.email = workEmail;
