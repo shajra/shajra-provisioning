@@ -20,6 +20,7 @@ let
                 dircolors-solarized
                 direnv-nix-lorelei
                 fzf-fish
+                jj-fish
                 kaleidoscope
                 kitty-scrollback-nvim
                 lieer

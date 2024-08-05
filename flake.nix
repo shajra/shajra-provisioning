@@ -18,6 +18,7 @@
         fzf-fish               = { url = github:PatrickF1/fzf.fish; flake = false; };
         haskell-hls-nix        = { url = github:shajra/haskell-hls-nix; flake = false; };
         haskell-tags-nix       = { url = github:shajra/haskell-tags-nix; flake = false; };
+        jj-fish                = { url = git+https://gist.github.com/bnjmnt4n/9f47082b8b6e6ed2b2a805a1516090c8; flake = false; };
         kaleidoscope           = { url = github:keyboardio/Kaleidoscope; flake = false; };
         kitty-scrollback-nvim  = { url = github:mikesmithgh/kitty-scrollback.nvim; flake = false; };
         lieer                  = { url = github:gauteh/lieer; flake = false; };
