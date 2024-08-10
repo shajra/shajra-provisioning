@@ -256,7 +256,7 @@ in {
         wantedBy = ["multi-user.target"];
         script = ''
             echo 25 39 48 52 83 97 103 119 \
-            > /sys/kernel/debug/dri/1/i915_pri_wm_latency
+            > "$(find /sys/kernel/debug/dri -name i915_pri_wm_latency)"
         '';
     };
 
