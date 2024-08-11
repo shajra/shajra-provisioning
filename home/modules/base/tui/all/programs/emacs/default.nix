@@ -2,8 +2,11 @@ pkgs: {
     enable = true;
 
     extraPackages = epkgs: with epkgs; [
-        emacsql
-        emacsql-sqlite
+        # DESIGN: 2024-08-10: Stopped using emacsql and emacsql-sqlite.  The
+        # latter had a broken build, but it seems Doom is doing okay without
+        # these dependencies (starting from scratch with a fresh .local).
+        #emacsql
+        #emacsql-sqlite
         vterm
     ];
 
