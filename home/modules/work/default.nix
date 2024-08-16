@@ -18,7 +18,7 @@ in {
     programs.fish.functions.groq-rebase-mine = {
         description = "Rebase my local branches";
         body = ''
-            jj git fetch && jj rebase -d head (
+            jj git fetch && jj rebase -d head@origin (
                 jj branch list 'glob:shajra/*' \
                     -T 'if(!remote, "-b\n" ++ name ++ "\n")'
             )
