@@ -10,6 +10,14 @@ in
     enable = true;
 
     functions = {
+
+        __fish_insert_date = {
+            description = "Insert current date in command line";
+            body = ''
+                commandline -i (date +"%y%m%d")
+            '';
+        };
+
         # DESIGN: magic string to clear out Kitty; safe for other terminals
         # https://github.com/junegunn/fzf/issues/3228#issuecomment-1803402184
         __fzf_search_directory = {
@@ -169,6 +177,7 @@ in
                 bind \e\cf __fzf_search_directory
 
                 if bind -M insert > /dev/null 2>&1
+                    bind -M insert   \et __fish_insert_date
                     bind -M insert   \ej   fzf-cd-widget
                     bind -M insert   \cr  _fzf_search_history
                     bind -M insert   \ef __fzf_search_directory
