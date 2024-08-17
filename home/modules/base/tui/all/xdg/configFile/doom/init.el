@@ -4,7 +4,7 @@
 (doom!
 
   :completion
-  company             ; the ultimate code completion backend
+  (corfu +orderless)  ; complete with cap(f), cape and a flying feather!
   vertico             ; the search engine of the future
 
   :ui
@@ -71,6 +71,7 @@
   (lsp +peek)       ; M-x vscode
   magit             ; a git porcelain for Emacs
   make              ; run make tasks from Emacs
+  pdf               ; pdf enhancements
   terraform         ; +lsp available
   tmux              ; an API for interacting with tmux
   tree-sitter       ; syntax and parsing, sitting in a tree...
