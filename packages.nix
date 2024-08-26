@@ -30,8 +30,6 @@ in {
         "playerctl"
         "ponymix"
         "pulsemixer"
-    ] // np.pick { linux = "stable"; } [
-        # REVISIT: 2024-07-31: unstable build broke
         "whipper"
     ];
 
@@ -94,7 +92,7 @@ in {
         "nix-health"
         "nix-index"
         "nix-info"
-        "nix-melt"
+        #"nix-melt"  # REVISIT: 2024-08-25: broken build
         "nix-output-monitor"
         "nix-search-cli"
         "nix-template"
