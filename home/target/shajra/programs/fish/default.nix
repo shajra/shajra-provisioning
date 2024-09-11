@@ -32,7 +32,12 @@ in {
                     echo "  -s, --send: Send message to Slack (otherwise dry run)"
                     return 0
                 end
-                set message (gr mr-get --format=short $argv)
+                if test (count $argv) -eq 0
+                    set branch (jj branch list --revisions ::@ --template name)
+                else
+                    set branch $argv
+                end
+                set message (gr mr-get --format=short $branch)
                 if test -z "$message"
                     echo "ERROR: No message to send" >&2
                     return 1
