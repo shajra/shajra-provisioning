@@ -33,7 +33,7 @@ in {
                     return 0
                 end
                 if test (count $argv) -eq 0
-                    set branch (jj branch list --revisions ::@ --template name)
+                    set branch (jj bookmark list --revisions ::@ --template name)
                 else
                     set branch $argv
                 end

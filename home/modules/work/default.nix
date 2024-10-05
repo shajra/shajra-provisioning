@@ -19,7 +19,7 @@ in {
         description = "Rebase my local branches";
         body = ''
             jj git fetch && jj rebase -d head@origin (
-                jj branch list 'glob:shajra/*' \
+                jj bookmark list 'glob:shajra/*' \
                     -T 'if(!remote, "-b\n" ++ name ++ "\n")'
             )
         '';
@@ -30,13 +30,13 @@ in {
         revset-aliases = {
             "trunk()" = ''
                 latest(
-                    remote_branches(exact:"head",   exact:"origin")   |
-                    remote_branches(exact:"main",   exact:"origin")   |
-                    remote_branches(exact:"master", exact:"origin")   |
-                    remote_branches(exact:"trunk",  exact:"origin")   |
-                    remote_branches(exact:"main",   exact:"upstream") |
-                    remote_branches(exact:"master", exact:"upstream") |
-                    remote_branches(exact:"trunk",  exact:"upstream") |
+                    remote_bookmarks(exact:"head",   exact:"origin")   |
+                    remote_bookmarks(exact:"main",   exact:"origin")   |
+                    remote_bookmarks(exact:"master", exact:"origin")   |
+                    remote_bookmarks(exact:"trunk",  exact:"origin")   |
+                    remote_bookmarks(exact:"main",   exact:"upstream") |
+                    remote_bookmarks(exact:"master", exact:"upstream") |
+                    remote_bookmarks(exact:"trunk",  exact:"upstream") |
                     root()
                 )
             '';

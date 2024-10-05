@@ -7,7 +7,7 @@
             format = "[$symbol $status]($style)";
         };
         custom.jj_branch = {
-            command = "jj branch list -r ::@ -T 'if(!remote, name ++ \" \")'";
+            command = "jj bookmark list -r ::@ -T 'if(!remote, name ++ \" \")'";
             require_repo = true;
             when = "test -d .jj";
             description = "Show JJ branches";
