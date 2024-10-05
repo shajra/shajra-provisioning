@@ -92,7 +92,7 @@ in {
         "nix-health"
         "nix-index"
         "nix-info"
-        #"nix-melt"  # REVISIT: 2024-08-25: broken build
+        "nix-melt"
         "nix-output-monitor"
         "nix-search-cli"
         "nix-template"
@@ -171,9 +171,10 @@ in {
     ];
 
     nixpkgs.prebuilt.programming.db = pickHome [
-        "postgresql"
         "pgformatter"
+        "postgresql"
         "schemaspy"
+        "sqitchPg"
         "sqlint"
         "sqlite"
     ];

@@ -8,9 +8,9 @@
 - [License](#sec-8)
 - [Contribution](#sec-9)
 
-[![img](https://github.com/shajra/shajra-provisioning/workflows/CI/badge.svg)](https://github.com/shajra/nix-project/actions)
+[![img](https://github.com/shajra/shajra-provisioning/workflows/CI/badge.svg)](https://github.com/shajra/shajra-provisioning/actions)
 
-[![img](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fgarnix.io%2Fapi%2Fbadges%2Fshajra%2Fshajra-provisioning%3Fbranch%3Dmain)](https://garnix.io)
+[![img](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fgarnix.io%2Fapi%2Fbadges%2Fshajra%2Fshajra-provisioning%3Fbranch%3Dmain)](https://garnix.io/repo/shajra/shajra-provisioning)
 
 # About this project<a id="sec-1"></a>
 
