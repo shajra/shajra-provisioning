@@ -225,6 +225,7 @@ in {
     ];
 
     nixpkgs.build.base.gui.all = pickHome [
+        "code-cursor"
         "notify-time"
 
         # Uncached Fonts
