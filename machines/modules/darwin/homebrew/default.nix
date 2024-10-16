@@ -62,6 +62,7 @@
     ];
 
     casks = [
+        "cursor"
         "dash"
         "firefox"
         "google-chrome@beta"

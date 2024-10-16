@@ -225,7 +225,6 @@ in {
     ];
 
     nixpkgs.build.base.gui.all = pickHome [
-        "code-cursor"
         "notify-time"
 
         # Uncached Fonts
@@ -248,6 +247,7 @@ in {
     ];
 
     nixpkgs.build.base.gui.linux = np.pick { linux = "home"; } [
+        "code-cursor"  # REVISIT: code-cursor unsupported for Darwin in Nixpkgs
         "dunst-osd"
         "i3-dpi"
         "i3status-rust-dunst"
