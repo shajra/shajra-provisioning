@@ -297,15 +297,19 @@ in {
     nixpkgs.build.programming.haskell = pickUnstable [
         # DESIGN: coming from Nixpkgs, but not cached
         "haskell.packages.ghc966.apply-refact"
+        "haskell.packages.ghc966.cabal-fmt"
         "haskell.packages.ghc966.djinn"
+        "haskell.packages.ghc966.eventlog2html"
         "haskell.packages.ghc966.fast-tags"
         "haskell.packages.ghc966.ghc-events"
         "haskell.packages.ghc966.ghcid"
         "haskell.packages.ghc966.haskdogs"
         "haskell.packages.ghc966.hasktags"
-        "haskell.packages.ghc966.hoogle"
         "haskell.packages.ghc966.hlint"
+        "haskell.packages.ghc966.hoogle"
         "haskell.packages.ghc966.hp2pretty"
+        "haskell.packages.ghc966.profiterole"
+        "haskell.packages.ghc966.profiteur"
         "haskell.packages.ghc966.stylish-haskell"
     ];
 
@@ -336,10 +340,6 @@ in {
         #// (hn.fromHackage "ghc966" "hp2pretty")
         #// (hn.fromHackage "ghc966" "threadscope")
         #// (hn.fromHackageCustomized "ghc966" "stylish-haskell" { configureArgs = "-f ghc-lib"; })
-
-        # REVISIT: marked broken in Nixpkgs, doesn't seem to build with
-        # Haskell.nix either (need to look for a modern alternative exists)
-        #// (hn.fromHackage "ghc966" "ghc-events-analyze")
     );
 
     shajra.prebuilt = {};
