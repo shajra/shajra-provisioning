@@ -10,7 +10,7 @@
  ;; run-type must be "executable"
  (run-target-short     . "home-manager")
  ;; run-target-long will always prefix "bin/"
- (nix-latest           . "2.24.9")
+ (nix-latest           . "2.24.10")
  (nix-stable           . "2.18.8")
  (nixos-latest         . "24.05")
  (platforms            . "\n\

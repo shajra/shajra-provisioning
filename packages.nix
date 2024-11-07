@@ -252,7 +252,7 @@ in {
         "i3-dpi"
         "i3status-rust-dunst"
         "i3-workspace-name"
-        "microsoft-edge-beta"
+        "microsoft-edge"
     ];
 
     nixpkgs.build.base.tui.all = pickHome [
