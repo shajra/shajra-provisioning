@@ -12,6 +12,7 @@
         "homebrew/services"
         "koekeishiya/formulae"
         "felixkratz/formulae"
+        "shajra/formulae"
     ];
 
     brews = [
@@ -55,7 +56,7 @@
         #{ name = "FelixKratz/formulae/borders";    args = ["HEAD"]; restart_service = "changed"; }
         #{ name = "FelixKratz/formulae/sketchybar"; args = ["HEAD"]; restart_service = "changed"; }
         #{ name = "koekeishiya/formulae/skhd";      args = ["HEAD"]; restart_service = "changed"; }
-        { name = "koekeishiya/formulae/yabai";      args = ["HEAD"]; restart_service = "changed"; }
+        { name = "shajra/formulae/yabai-shajra"; args = ["HEAD"]; restart_service = "changed"; }
 
         # DESIGN: not needed for now
         #"kubernetes-cli"
