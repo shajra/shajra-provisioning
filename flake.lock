@@ -749,6 +749,22 @@
         "type": "github"
       }
     },
+    "jankyborders": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1728886074,
+        "narHash": "sha256-Joa2GfWnwJuTzhlHOB4r4CPWjQzR0FENp8jvmoEUghQ=",
+        "owner": "FelixKratz",
+        "repo": "JankyBorders",
+        "rev": "cde60435b88e7e802a7b80b772da2fd3fcb9d240",
+        "type": "github"
+      },
+      "original": {
+        "owner": "FelixKratz",
+        "repo": "JankyBorders",
+        "type": "github"
+      }
+    },
     "jj-fish": {
       "flake": false,
       "locked": {
@@ -1466,6 +1482,7 @@
         "haskell-nix": "haskell-nix",
         "haskell-tags-nix": "haskell-tags-nix",
         "home-manager": "home-manager",
+        "jankyborders": "jankyborders",
         "jj-fish": "jj-fish",
         "kaleidoscope": "kaleidoscope",
         "kitty-scrollback-nvim": "kitty-scrollback-nvim",
@@ -1477,12 +1494,14 @@
         "pointless-xcompose": "pointless-xcompose",
         "sf-symbols": "sf-symbols",
         "shajra-private": "shajra-private",
+        "sketchybar": "sketchybar",
         "sketchybar-font-dist": "sketchybar-font-dist",
         "sketchybar-font-src": "sketchybar-font-src",
         "sketchybar-lua": "sketchybar-lua",
         "vscode-overlay": "vscode-overlay",
         "vscode-server": "vscode-server",
-        "xcompose": "xcompose"
+        "xcompose": "xcompose",
+        "yabai": "yabai"
       }
     },
     "sf-symbols": {
@@ -1507,6 +1526,22 @@
       "original": {
         "id": "shajra-private",
         "type": "indirect"
+      }
+    },
+    "sketchybar": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1728654271,
+        "narHash": "sha256-vDIPKUDblVniEyNLkwhKx/urzSxh+qorWmEJ1xKbY2M=",
+        "owner": "FelixKratz",
+        "repo": "SketchyBar",
+        "rev": "ed1684d348fc4d4319c7f9835141524c524bacb3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "FelixKratz",
+        "repo": "SketchyBar",
+        "type": "github"
       }
     },
     "sketchybar-font-dist": {
@@ -1651,6 +1686,22 @@
       "original": {
         "owner": "kragen",
         "repo": "xcompose",
+        "type": "github"
+      }
+    },
+    "yabai": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1710490042,
+        "narHash": "sha256-7QeUbnWIJn8fxpqlwFZVr8REE5eGUVxqxNcimTdsJcE=",
+        "owner": "FelixKratz",
+        "repo": "yabai",
+        "rev": "32c0e4dc37d3fb50723d6f7f98c8a80bf9c812c2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "FelixKratz",
+        "repo": "yabai",
         "type": "github"
       }
     }

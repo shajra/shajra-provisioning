@@ -18,6 +18,7 @@
         fzf-fish               = { url = github:PatrickF1/fzf.fish; flake = false; };
         haskell-hls-nix        = { url = github:shajra/haskell-hls-nix; flake = false; };
         haskell-tags-nix       = { url = github:shajra/haskell-tags-nix; flake = false; };
+        jankyborders           = { url = github:FelixKratz/JankyBorders; flake = false; };
         jj-fish                = { url = git+https://gist.github.com/bnjmnt4n/9f47082b8b6e6ed2b2a805a1516090c8; flake = false; };
         kaleidoscope           = { url = github:keyboardio/Kaleidoscope; flake = false; };
         kitty-scrollback-nvim  = { url = github:mikesmithgh/kitty-scrollback.nvim; flake = false; };
@@ -25,6 +26,7 @@
         moneydance             = { url = tarball+https://infinitekind.com/stabledl/current/moneydance-linux.tar.gz; flake = false; };
         pointless-xcompose     = { url = github:leoboiko/pointless-xcompose; flake = false; };
         sf-symbols             = { url = https://devimages-cdn.apple.com/design/resources/download/SF-Symbols-5.1.dmg; flake = false; };
+        sketchybar             = { url = github:FelixKratz/SketchyBar; flake = false; };
         sketchybar-font-dist   = { url = https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.26/sketchybar-app-font.ttf; flake = false; };
         sketchybar-font-src    = { url = github:kvndrsslr/sketchybar-app-font; flake = false; };
         sketchybar-lua         = { url = github:FelixKratz/SbarLua; flake = false; };

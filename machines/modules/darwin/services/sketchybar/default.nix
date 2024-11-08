@@ -1,4 +1,4 @@
-config: pkgs:
+config: pkgs: colors:
 
 let
     display-count = pkgs.writers.writeDash "yabai-display-count" ''
@@ -20,25 +20,18 @@ let
         )'
     '';
 
-    format = f: x: pkgs.lib.colors.format "0xff%R%G%B" (f x);
-    id = x: x;
-    colors = pkgs.lib.colors.transformColors (format id) config.theme.colors;
-
-    sketchybar.template = pkgs.substituteAllFiles {
-        src = ./sketchybar;
+    template = pkgs.substituteAllFiles {
+        src = ./config;
         files = [
             "colors.lua"
             "settings.lua"
-            "sketchybarrc"
             "items/cpu.lua"
             "items/spaces.lua"
         ];
-        lua                 = "${pkgs.lua5_4}/bin/lua";
         timeout             = "${pkgs.coreutils}/bin/timeout";
         ping                = "${pkgs.inetutils}/bin/ping";
         session_save        = "${session-save}";
         display_count       = "${display-count}";
-        sketchybar_lua_so   = pkgs.sketchybar-lua;
         sketchybar_cpu      = "${pkgs.sketchybar-cpu}/bin/sketchybar-cpu";
         colors_blue         = colors.nominal.blue;
         colors_red          = colors.nominal.red;
@@ -60,7 +53,7 @@ let
         font_family          = config.theme.fonts.proportional.name;
     };
 
-    sketchybar.emojis = pkgs.runCommand "sketchybar-emojis" {} ''
+    emojis = pkgs.runCommand "sketchybar-emojis" {} ''
         mkdir -p "$out"
         {
             echo "return {"
@@ -81,20 +74,21 @@ let
         } > "$out/emojis.lua"
     '';
 
-    sketchybar.rc = pkgs.runCommand "sketchybar-rc" {} ''
-        mkdir -p "$out"
-        cp ${sketchybar.template}/sketchybarrc "$out"
-        chmod +x "$out/sketchybarrc"
-    '';
+    combined = pkgs.symlinkJoin {
+        name = "sketchybar-config";
+        paths = [ template emojis ./config ];
+    };
 
 in {
-    #"sketchybar".source = pkgs.symlinkJoin {
-    #    name = "sketchybar";
-    #    paths = with sketchybar; [ rc template emojis ./sketchybar ];
-    #};
-    #"skhd/skhdrc".text = import skhd/skhdrc.nix config pkgs colors;
-    "yabai/yabairc".text = import yabai/yabairc.nix pkgs colors;
-    "yabai/yabairc".executable = true;
-    #"borders/bordersrc".text = import borders/bordersrc.nix colors;
-    #"borders/bordersrc".executable = true;
+    enable = true;
+    config = ''
+        #!${pkgs.lua5_4}/bin/lua
+
+        package.cpath = package.cpath .. ";${pkgs.sketchybar-lua}/?.so"
+        package.path = package.path .. ";${combined}/?.lua;${combined}/?/init.lua"
+        sbar = require("sketchybar")
+        require("init")
+        sbar.hotload(true)
+        sbar.event_loop()
+    '';
 }

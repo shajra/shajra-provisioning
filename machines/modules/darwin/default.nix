@@ -5,7 +5,11 @@ let
     hostname = config.networking.hostName;
     superUser = build.config.provision.user."${hostname}".username;
 
+    format = pkgs.lib.colors.format "0xff%R%G%B";
+    colors = pkgs.lib.colors.transformColors format config.theme.colors;
+
 in {
+
     # DESIGN: for when the day Yabai builds in Nix again
     #environment.etc."sudoers.d/yabai".text = ''
     #    shajra ALL = (root) NOPASSWD: ${pkgs.yabai}/bin/yabai --load-sa
@@ -15,6 +19,7 @@ in {
     '';
 
     environment.systemPackages = [];
+    environment.systemPath = [ "/opt/homebrew/bin" ];
 
     homebrew = import ./homebrew;
 
@@ -24,14 +29,12 @@ in {
     programs.gnupg.agent.enableSSHSupport = true;
     programs.zsh.enable = true;
 
-    # DESIGN: so far, don't really need it
-    services.karabiner-elements.enable = false;
-
+    services.jankyborders = import services/jankyborders colors;
+    services.karabiner-elements.enable = false; # DESIGN: so far, don't really need it
     services.nix-daemon.enable = true;
-    services.skhd.enable = false;  # DESIGN: broken for M1
-    services.skhd.package = pkgs.skhd;
-    services.yabai.enable = false;  # DESIGN: broken for M1
-    services.yabai.package = pkgs.yabai;
+    services.sketchybar = import services/sketchybar config pkgs colors;
+    services.skhd = import services/skhd build config pkgs colors;
+    #services.yabai = import services/yabai pkgs colors;
 
     system.activationScripts.postUserActivation.text = ''
         # DESIGN: an example of useful arbitrary Mac cleanup
@@ -46,5 +49,4 @@ in {
     system.defaults.dock.autohide = true;
 
     system.stateVersion = 4;
-
 }

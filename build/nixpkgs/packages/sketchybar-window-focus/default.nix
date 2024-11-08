@@ -1,6 +1,7 @@
 { coreutils
 , jq
 , nix-project-lib
+, sketchybar
 }:
 
 let
@@ -14,6 +15,7 @@ nix-project-lib.writeShellCheckedExe progName
     path = [
         coreutils
         jq
+        sketchybar
     ];
 }
 ''
