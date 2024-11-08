@@ -22,8 +22,11 @@ let
 
 in {
 
-    nixpkgs.prebuilt.audio.tui.all = pickHome [
-        "mpc_cli"
+    nixpkgs.prebuilt.audio.tui.all = np.pick {
+        linux = "home";
+        darwin = "system";
+    } [
+        "mpc_cli"  # REVISIT: 2024-11-07: Darwin build broken on unstable
     ];
 
     nixpkgs.prebuilt.audio.tui.linux = np.pick { linux = "home"; } [

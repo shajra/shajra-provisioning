@@ -9,6 +9,12 @@ let
 
     vscodeSettings = "${vscodeSettingsBase}/Code/User/settings.json";
 
+    # REVISIT: 2024-11-07: Darwin build broken on unstable
+    sioyekPkg =
+        if pkgs.stdenv.isDarwin
+        then build.infra.np.nixpkgs.system.sioyek
+        else pkgs.sioyek;
+
 in {
     imports = [
         ../../../ubiquity
@@ -52,6 +58,7 @@ in {
     programs.kitty = import programs/kitty config pkgs;
     programs.noti.enable = true;
     programs.sioyek.enable = true;
+    programs.sioyek.package = sioyekPkg;
     programs.urxvt = import programs/urxvt config pkgs;
     programs.vscode = import programs/vscode config pkgs;
     programs.zathura.enable = true;
