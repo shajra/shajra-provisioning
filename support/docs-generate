@@ -12,7 +12,7 @@ nix shell \
     .#infra.np.nixpkgs.stable.git \
     .#infra.np.nixpkgs.stable.gnugrep \
     .#infra.np.nixpkgs.stable.jq \
-    .#infra.np.nixpkgs.stable.nixfmt \
+    .#infra.np.nixpkgs.stable.nixfmt-rfc-style \
     .#infra.np.nixpkgs.stable.org2gfm \
     .#infra.np.nixpkgs.stable.tree \
     --command \
