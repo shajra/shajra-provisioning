@@ -48,7 +48,7 @@ let
     theme.type = lib.types.nullOr (lib.types.submodule (optsOf theme));
 
     theme.mkOpt = lib.mkOption {
-        type = theme.type;
+        inherit (theme) type;
     };
 
     themes.solarized.light = {

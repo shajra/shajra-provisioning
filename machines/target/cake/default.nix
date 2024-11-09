@@ -2,7 +2,7 @@
 
 let
 
-    infra = build.infra;
+    inherit (build) infra;
     #hplip = pkgs.hplipWithPlugin;
     hplip = infra.np.nixpkgs.unstable.hplipWithPlugin;
     hostname = "cake";

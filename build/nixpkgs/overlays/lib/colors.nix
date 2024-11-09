@@ -2,9 +2,9 @@ pkgs:
 
 let
 
-    lib = pkgs.lib;
+    inherit (pkgs) lib;
 
-    digit.h2d = h: ({
+    digit.h2d = h: {
         "0" = 0;
         "1" = 1;
         "2" = 2;
@@ -21,7 +21,7 @@ let
         d   = 13;
         e   = 14;
         f   = 15;
-    })."${h}" or (throw "not hexadecimal digit: ${h}");
+    }."${h}" or (throw "not hexadecimal digit: ${h}");
 
     digit.d2h = d:
         if d == 0 then "0"

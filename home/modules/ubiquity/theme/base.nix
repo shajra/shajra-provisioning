@@ -2,7 +2,7 @@
 
 let
 
-    isDarwin = pkgs.stdenv.isDarwin;
+    inherit (pkgs.stdenv) isDarwin;
 
     optsOf = x: { inherit (x) options; };
 
@@ -57,7 +57,7 @@ let
 
     color.mkOpt = description: lib.mkOption {
         inherit description;
-        type = color.type;
+        inherit (color) type;
     };
 
     colorFunc.mkOpt = description: lib.mkOption {
@@ -76,7 +76,7 @@ let
 
     placeholder.mkOpt = lib.mkOption {
         description = "When restoring a layout, colors for window not yet populated.";
-        type = placeholder.type;
+        inherit (placeholder) type;
     };
 
     window.options = {
@@ -91,7 +91,7 @@ let
 
     window.mkOpt = description: lib.mkOption {
         inherit description;
-        type = window.type;
+        inherit (window) type;
     };
 
     bindingMode.options = {
@@ -104,7 +104,7 @@ let
 
     bindingMode.mkOpt = lib.mkOption {
         description = "Colors for binding mode button.";
-        type = bindingMode.type;
+        inherit (bindingMode) type;
     };
 
     terminal.options = {
@@ -122,7 +122,7 @@ let
 
     terminal.mkOpt = description: lib.mkOption {
         inherit description;
-        type = terminal.type;
+        inherit (terminal) type;
     };
 
     theme.options = {
@@ -182,7 +182,7 @@ let
 
     theme.mkOpt = lib.mkOption {
         description = "Theme options (for example, colors and fonts).";
-        type = theme.type;
+        inherit (theme) type;
     };
 
     darkened = pkgs.lib.colors.darkenByDec 48;
@@ -285,12 +285,12 @@ let
             };
             terminal.normal = {
                 black   = base02;
-                red     = red;
-                green   = green;
-                yellow  = yellow;
-                blue    = blue;
-                magenta = magenta;
-                cyan    = cyan;
+                inherit red;
+                inherit green;
+                inherit yellow;
+                inherit blue;
+                inherit magenta;
+                inherit cyan;
                 white   = base2;
             };
             terminal.bright = {

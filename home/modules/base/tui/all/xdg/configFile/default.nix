@@ -30,9 +30,9 @@ in
     "fish/completions/devour.fish".source = fish/completions/devour.fish;
     "fish/completions/jj.fish".source = "${pkgs.sources.jj-fish}/jj.fish";
     "fish/conf.d/direnv.fish".text =
-        pkgs.callPackage fish/direnv.nix { cacheHome = config.xdg.cacheHome; };
+        pkgs.callPackage fish/direnv.nix { inherit (config.xdg) cacheHome; };
     "fish/set-universal.fish".onChange = import fish/onChange.nix config;
-    "fish/set-universal.fish".source = builtins.toPath (pkgs.substituteAll {
+    "fish/set-universal.fish".source = pkgs.substituteAll {
         src = fish/set-universal.fish;
         preview_file = "${pkgs.preview-file}/bin/preview-file";
         theme_background        = colors.semantic.background;
@@ -50,6 +50,6 @@ in
         theme_red     = colors.nominal.red;
         theme_violet  = colors.nominal.violet;
         theme_yellow  = colors.nominal.yellow;
-    });
+    };
     macchina.source = ./macchina;
 }

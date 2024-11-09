@@ -1,6 +1,6 @@
 config: pkgs:
 
-let fonts = config.theme.fonts;
+let inherit (config.theme) fonts;
 in {
     enable = true;
     enableExtensionUpdateCheck = false;

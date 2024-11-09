@@ -4,7 +4,7 @@ let
 
     format = f: x: pkgs.lib.colors.format "#%R%G%B" (f x);
     id = x: x;
-    foregroundFor = config.theme.colors.nominal.foregroundFor;
+    inherit (config.theme.colors.nominal) foregroundFor;
     colors = pkgs.lib.colors.transformColors (format id) config.theme.colors;
     foreground = pkgs.lib.colors.transformColors (format foregroundFor) config.theme.colors;
 
@@ -42,19 +42,19 @@ in
             vertical_alignment = "top";
         };
         urgency_low = rec {
-            background  = colors.semantic.background;
-            foreground  = colors.semantic.foreground;
+            inherit (colors.semantic) background;
+            inherit (colors.semantic) foreground;
             frame_color = colors.semantic.unifying;
             highlight   = foreground;
         };
         urgency_normal  = {
-            background  = colors.semantic.background;
+            inherit (colors.semantic) background;
             foreground  = colors.semantic.unifying;
             frame_color = colors.semantic.unifying;
             highlight   = colors.semantic.unifying;
         };
         urgency_critical = {
-            background  = colors.semantic.background;
+            inherit (colors.semantic) background;
             foreground  = colors.semantic.urgent;
             frame_color = colors.semantic.unifying;
             highlight   = colors.semantic.urgent;

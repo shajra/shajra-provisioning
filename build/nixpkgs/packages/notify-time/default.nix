@@ -10,7 +10,7 @@ let
 
     progName = "notify-time";
     meta.description = "Time a command and send a notification";
-    isDarwin = stdenv.isDarwin;
+    inherit (stdenv) isDarwin;
     italics.open  = if isDarwin then "" else "<i>";
     italics.close = if isDarwin then "" else "</i>";
     success_sound = if isDarwin then "Blow" else "dialog-information";

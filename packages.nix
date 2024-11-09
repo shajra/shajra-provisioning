@@ -329,9 +329,9 @@ in {
         #nix-tools = hn.nixpkgs.haskell-nix.nix-tools.ghc966;
     };
 
-    haskell-nix.build.programming.haskell = when (! isDevBuild) (
-        {}
+    haskell-nix.build.programming.haskell = when (! isDevBuild) {}
         # DESIGN: Nixpkgs-built binaries above are fine (maybe bloated)
+        #({}
         #// (hn.fromHackage "ghc966" "apply-refact")
         #// (hn.fromHackage "ghc966" "fast-tags")
         #// (hn.fromHackage "ghc966" "ghc-events")
@@ -343,7 +343,8 @@ in {
         #// (hn.fromHackage "ghc966" "hp2pretty")
         #// (hn.fromHackage "ghc966" "threadscope")
         #// (hn.fromHackageCustomized "ghc966" "stylish-haskell" { configureArgs = "-f ghc-lib"; })
-    );
+        #)
+    ;
 
     shajra.prebuilt = {};
 
@@ -356,7 +357,7 @@ in {
             tags = import inputs'.haskell-tags-nix;
         in when false {
         #in when (! isDevBuild) {
-            implicit-hie        = (hls "8.10.7").implicit-hie;
+            inherit ((hls "8.10.7")) implicit-hie;
             haskell-hls-wrapper = (hls "8.10.7").hls-wrapper;
             haskell-hls-ghc8107 = (hls "8.10.7").hls-renamed;
             haskell-hls-ghc8106 = (hls "8.10.6").hls-renamed;

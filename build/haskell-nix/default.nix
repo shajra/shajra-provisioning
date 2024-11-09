@@ -11,12 +11,12 @@ let
             nixpkgsSrc = hn.inputs."${infraConfig.haskell-nix.nixpkgs-pin}";
             nixpkgsArgs = {
                 inherit system;
-                config = hn.config;
+                inherit (hn) config;
                 overlays = [ hn.overlays.combined ];
             };
         in import nixpkgsSrc nixpkgsArgs;
 
-    haskell-nix = nixpkgs.haskell-nix;
+    inherit (nixpkgs) haskell-nix;
 
     allExes = pkg: pkg.components.exes;
 
@@ -29,9 +29,9 @@ let
         in {
             inherit name modules;
             compiler-nix-name = ghcVersion;
-            ${if isNull configureArgs then null else "configureArgs"} = configureArgs;
-            ${if isNull index-state then null else "index-state"} = index-state;
-            ${if isNull index-sha256 then null else "index-sha256"} = index-sha256;
+            ${if (configureArgs == null) then null else "configureArgs"} = configureArgs;
+            ${if (index-state == null) then null else "index-state"} = index-state;
+            ${if (index-sha256 == null) then null else "index-sha256"} = index-sha256;
             sha256map = infraConfig.haskell-nix.sha256map or {};
         };
 
@@ -69,7 +69,7 @@ in rec {
 
     hackageUpdateMaterializedCustomized = ghcVersion: name: custom:
         let planConfig = hackagePlanConfigFor ghcVersion name custom;
-            plan-nix = (haskell-nix.hackage-project planConfig).plan-nix;
+            inherit ((haskell-nix.hackage-project planConfig)) plan-nix;
         in {
             "${name}-updateMaterialized" = plan-nix.passthru.updateMaterialized;
         };
@@ -92,7 +92,7 @@ in rec {
 
     sourceUpdateMaterializedCustomized = ghcVersion: name: custom:
         let planConfig = sourcePlanConfigFor ghcVersion name custom;
-            plan-nix = (haskell-nix.cabalProject' planConfig).plan-nix;
+            inherit ((haskell-nix.cabalProject' planConfig)) plan-nix;
         in {
             "${name}-updateMaterialized" = plan-nix.passthru.updateMaterialized;
         };

@@ -39,7 +39,7 @@ let
     external.packages = self: super: {
         home-manager-latest = inputs'.home-manager.packages.default;
         nix-project-lib = inputs'.nix-project.legacyPackages.lib.scripts;
-        org2gfm = inputs'.nix-project.packages.org2gfm;
+        inherit (inputs'.nix-project.packages) org2gfm;
     };
 
     external.modules = self: super: {

@@ -5,7 +5,7 @@ let
     format = f: x: pkgs.lib.colors.format "0x%R%G%B" (f x);
     id = x: x;
     lighten = pkgs.lib.colors.lightenByDec 32;
-    foregroundFor = config.theme.colors.nominal.foregroundFor;
+    inherit (config.theme.colors.nominal) foregroundFor;
     colors = pkgs.lib.colors.transformColors (format id) config.theme.colors;
     lightColors = pkgs.lib.colors.transformColors (format lighten) config.theme.colors;
     foreground = pkgs.lib.colors.transformColors (format foregroundFor) config.theme.colors;
@@ -34,8 +34,8 @@ in
     colors = {
         draw_bold_text_with_bright_colors = false;
         primary = {
-            background = colors.semantic.background;
-            foreground = colors.semantic.foreground;
+            inherit (colors.semantic) background;
+            inherit (colors.semantic) foreground;
         };
         cursor = {
             cursor = colors.semantic.unifying;
@@ -48,7 +48,7 @@ in
         search = {
             matches = {
                 background = colors.semantic.background_highlighted;
-                foreground = colors.semantic.foreground;
+                inherit (colors.semantic) foreground;
             };
             focused_match = {
                 background = colors.semantic.foreground;

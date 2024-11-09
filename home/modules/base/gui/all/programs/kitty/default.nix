@@ -4,7 +4,7 @@ let
 
     format = f: x: pkgs.lib.colors.format "#%R%G%B" (f x);
     id = x: x;
-    foregroundFor = config.theme.colors.nominal.foregroundFor;
+    inherit (config.theme.colors.nominal) foregroundFor;
     colors = pkgs.lib.colors.transformColors (format id) config.theme.colors;
     foreground = pkgs.lib.colors.transformColors (format foregroundFor) config.theme.colors;
 
@@ -55,8 +55,8 @@ in
         shell_integration = "enabled";
         action_alias = scrollback.actionAlias;
 
-        background              = colors.semantic.background;
-        foreground              = colors.semantic.foreground;
+        inherit (colors.semantic) background;
+        inherit (colors.semantic) foreground;
 
         cursor                  = colors.semantic.unifying;
         cursor_text_color       = foreground.semantic.unifying;

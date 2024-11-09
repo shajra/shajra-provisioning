@@ -3,10 +3,10 @@ final: prev:
 
 let
 
-    lib = prev.lib;
-    hostPlatform = prev.stdenv.hostPlatform;
-    system = hostPlatform.system;
-    isDarwin = hostPlatform.isDarwin;
+    inherit (prev) lib;
+    inherit (prev.stdenv) hostPlatform;
+    inherit (hostPlatform) system;
+    inherit (hostPlatform) isDarwin;
 
     config = import ../config.nix;
     infraConfig = config.infrastructure;
@@ -32,7 +32,7 @@ let
 
     joinForCi = name: filter: set:
         let found = deepMerge (lib.collect isDrvSet set);
-            filtered = lib.filterAttrs (_n: v: filter v) found;
+            filtered = lib.filterAttrs (_n: filter) found;
         in prev.linkFarm "shajra-provision-ci-${name}" filtered;
 
     deepMerge = builtins.foldl' (acc: a: lib.recursiveUpdate acc a) {};

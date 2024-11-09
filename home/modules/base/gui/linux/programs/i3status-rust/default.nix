@@ -4,7 +4,7 @@ let
 
     format = f: x: pkgs.lib.colors.format "#%R%G%B" (f x);
     id = x: x;
-    foregroundFor = config.theme.colors.nominal.foregroundFor;
+    inherit (config.theme.colors.nominal) foregroundFor;
     colors = pkgs.lib.colors.transformColors (format id) config.theme.colors;
     foreground = pkgs.lib.colors.transformColors (format foregroundFor) config.theme.colors;
 

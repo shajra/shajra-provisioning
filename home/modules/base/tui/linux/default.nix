@@ -2,7 +2,7 @@
 
 let
 
-    sources = pkgs.sources;
+    inherit (pkgs) sources;
     module-lorelei = (import sources.direnv-nix-lorelei).direnv-nix-lorelei-home;
 
     # DESIGN: Gives freedom to chose the pin entry program explicitly, rather

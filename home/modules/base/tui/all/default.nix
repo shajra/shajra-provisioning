@@ -2,7 +2,7 @@
 
 let
 
-    sources = pkgs.sources;
+    inherit (pkgs) sources;
     # DESIGN: eventually lorelei will return...
     #module-lorelei = (import sources.direnv-nix-lorelei).direnv-nix-lorelei-home;
     extraPackages = [ pkgs.sqlite ] ++ build.pkgs.lists.base.tui.all;
