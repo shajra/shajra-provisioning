@@ -1,4 +1,4 @@
-config: pkgs: colors:
+config: pkgs: pkgs-unstable: colors:
 
 let
     display-count = pkgs.writers.writeDash "yabai-display-count" ''
@@ -32,7 +32,7 @@ let
         ping                = "${pkgs.inetutils}/bin/ping";
         session_save        = "${session-save}";
         display_count       = "${display-count}";
-        sketchybar_cpu      = "${pkgs.sketchybar-cpu}/bin/sketchybar-cpu";
+        sketchybar_cpu      = "${pkgs-unstable.sketchybar-cpu}/bin/sketchybar-cpu";
         colors_blue         = colors.nominal.blue;
         colors_red          = colors.nominal.red;
         colors_unifying     = colors.semantic.unifying;
@@ -81,10 +81,11 @@ let
 
 in {
     enable = true;
+    package = pkgs-unstable.sketchybar;
     config = ''
-        #!${pkgs.lua5_4}/bin/lua
+        #!${pkgs-unstable.lua5_4}/bin/lua
 
-        package.cpath = package.cpath .. ";${pkgs.sketchybar-lua}/?.so"
+        package.cpath = package.cpath .. ";${pkgs-unstable.sketchybar-lua}/?.so"
         package.path = package.path .. ";${combined}/?.lua;${combined}/?/init.lua"
         sbar = require("sketchybar")
         require("init")

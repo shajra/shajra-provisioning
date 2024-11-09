@@ -5,6 +5,8 @@ let
     hostname = config.networking.hostName;
     superUser = build.config.provision.user."${hostname}".username;
 
+    pkgs-unstable = build.infra.np.nixpkgs.unstable;
+
     format = pkgs.lib.colors.format "0xff%R%G%B";
     colors = pkgs.lib.colors.transformColors format config.theme.colors;
 
@@ -29,11 +31,11 @@ in {
     programs.gnupg.agent.enableSSHSupport = true;
     programs.zsh.enable = true;
 
-    services.jankyborders = import services/jankyborders colors;
+    services.jankyborders = import services/jankyborders pkgs-unstable colors;
     services.karabiner-elements.enable = false; # DESIGN: so far, don't really need it
     services.nix-daemon.enable = true;
-    services.sketchybar = import services/sketchybar config pkgs colors;
-    services.skhd = import services/skhd build config pkgs colors;
+    services.sketchybar = import services/sketchybar config pkgs pkgs-unstable colors;
+    services.skhd = import services/skhd build config pkgs pkgs-unstable colors;
     #services.yabai = import services/yabai pkgs colors;
 
     system.activationScripts.postUserActivation.text = ''

@@ -68,6 +68,7 @@
         "firefox"
         "google-chrome@beta"
         "microsoft-edge@beta"
+        "tor-browser"
 
         # DESIGN: not needed for now
         #"docker"

@@ -1,6 +1,7 @@
 { config, pkgs, build, ... }:
 
-{
+let pkgs-unstable = build.infra.np.nixpkgs.unstable;
+in {
     imports = [
         ../../../ubiquity
         ../all
@@ -13,5 +14,5 @@
     programs.fish = import programs/fish pkgs;
     programs.kitty = import programs/kitty config;
 
-    xdg.configFile = import xdg/configFile config pkgs;
+    xdg.configFile = import xdg/configFile config pkgs pkgs-unstable;
 }

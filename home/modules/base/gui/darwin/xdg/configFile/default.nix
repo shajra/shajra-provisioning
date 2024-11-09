@@ -1,4 +1,4 @@
-config: pkgs:
+config: pkgs: pkgs-unstable:
 
 let
     display-count = pkgs.writers.writeDash "yabai-display-count" ''
@@ -93,7 +93,7 @@ in {
     #    paths = with sketchybar; [ rc template emojis ./sketchybar ];
     #};
     #"skhd/skhdrc".text = import skhd/skhdrc.nix config pkgs colors;
-    "yabai/yabairc".text = import yabai/yabairc.nix pkgs colors;
+    "yabai/yabairc".text = import yabai/yabairc.nix pkgs pkgs-unstable colors;
     "yabai/yabairc".executable = true;
     #"borders/bordersrc".text = import borders/bordersrc.nix colors;
     #"borders/bordersrc".executable = true;

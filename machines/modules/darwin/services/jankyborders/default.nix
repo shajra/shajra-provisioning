@@ -1,7 +1,8 @@
-colors:
+pkgs-unstable: colors:
 
 {
     enable = true;
+    package = pkgs-unstable.jankyborders;
     style = "round";
     width = 8.0;
     hidpi = true;

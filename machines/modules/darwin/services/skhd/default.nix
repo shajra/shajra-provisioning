@@ -1,4 +1,4 @@
-build: config: pkgs: colors:
+build: config: pkgs: pkgs-unstable: colors:
 
 let
 
@@ -86,7 +86,7 @@ let
         "${window-focus}"
     '';
 
-    window-focus = "${pkgs.sketchybar-window-focus}/bin/sketchybar-window-focus";
+    window-focus = "${pkgs-unstable.sketchybar-window-focus}/bin/sketchybar-window-focus";
 
 in {
     enable = true;

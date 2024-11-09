@@ -1,4 +1,4 @@
-pkgs: colors:
+pkgs: pkgs-unstable: colors:
 
 let
 
@@ -14,6 +14,7 @@ let
 
 in {
     enable = true;
+    package = pkgs-unstable.yabai;
     enableScriptingAddition = true;
     config = {
         # global settings (in order from 'man yabai')
@@ -54,7 +55,7 @@ in {
             label=dock_did_restart
         yabai -m signal --add \
             event=window_focused \
-            action="${pkgs.sketchybar-window-focus}/bin/sketchybar-window-focus" \
+            action="${pkgs-unstable.sketchybar-window-focus}/bin/sketchybar-window-focus" \
             label=window_focused
         yabai -m signal --add \
             event=window_created \

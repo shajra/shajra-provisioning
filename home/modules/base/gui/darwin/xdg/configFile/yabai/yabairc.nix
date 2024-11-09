@@ -1,4 +1,4 @@
-pkgs: colors:
+pkgs: pkgs-unstable: colors:
 
 let
 
@@ -24,7 +24,7 @@ yabai -m signal --add \
     label=dock_did_restart
 yabai -m signal --add \
     event=window_focused \
-    action="${pkgs.sketchybar-window-focus}/bin/sketchybar-window-focus" \
+    action="${pkgs-unstable.sketchybar-window-focus}/bin/sketchybar-window-focus" \
     label=window_focused
 yabai -m signal --add \
     event=window_created \
