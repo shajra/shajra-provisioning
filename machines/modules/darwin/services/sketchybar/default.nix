@@ -58,7 +58,7 @@ let
         {
             echo "return {"
             "${pkgs.findutils}/bin/find" \
-                "${pkgs.sources.sketchybar-font-src}/mappings" \
+                "${pkgs-unstable.sources.sketchybar-font-src}/mappings" \
                 -type f \
                 -mindepth 1 \
                 -maxdepth 1 | while read -r f
