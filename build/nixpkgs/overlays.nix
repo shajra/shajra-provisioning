@@ -20,6 +20,7 @@ let
                 dircolors-solarized
                 direnv-nix-lorelei
                 fzf-fish
+                jankyborders
                 jj-fish
                 kaleidoscope
                 kitty-scrollback-nvim
@@ -27,6 +28,7 @@ let
                 moneydance
                 pointless-xcompose
                 sf-symbols
+                sketchybar
                 sketchybar-font-dist
                 sketchybar-font-src
                 sketchybar-lua
