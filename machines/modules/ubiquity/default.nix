@@ -11,7 +11,7 @@ in {
         nix.extraOptions = ''
             experimental-features = nix-command flakes
         '';
-        nix.settings.auto-optimise-store = true;
+        nix.optimise.automatic = true;
         nix.settings.substituters = [
             "https://cache.garnix.io"
             "https://shajra.cachix.org"
