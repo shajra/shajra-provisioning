@@ -16,7 +16,7 @@ in
     iconTheme.package = pkgs.adwaita-icon-theme;
     settings = {
         global = {
-            browser = "${pkgs.microsoft-edge}/bin/microsoft-edge-beta";
+            browser = "${pkgs.microsoft-edge}/bin/microsoft-edge";
             corner_radius = 12;
             dmenu = "${config.programs.rofi.package}/bin/rofi -dmenu -p action";
             ellipsize = "end";

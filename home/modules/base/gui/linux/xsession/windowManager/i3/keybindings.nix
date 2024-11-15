@@ -4,7 +4,7 @@ let
 
     autorandr = "${pkgs.autorandr}/bin/autorandr";
     awk = "${pkgs.gawk}/bin/awk";
-    browser = "${pkgs.microsoft-edge}/bin/microsoft-edge-beta";
+    browser = "${pkgs.microsoft-edge}/bin/microsoft-edge";
     clipmenu = "${config.services.clipmenu.package}/bin/clipmenu";
     dunstctl = "${pkgs.dunst}/bin/dunstctl";
     dunst-osd = "${pkgs.dunst-osd}/bin/dunst-osd";
