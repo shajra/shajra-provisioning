@@ -26,7 +26,7 @@ set -eu
 set -o pipefail
 
 
-BOOTSTRAP="${sources.shajra-provisioning}#darwinConfigurations.bagel.system"
+BOOTSTRAP="${sources.shajra-provisioning}#darwinConfigurations.lemon.system"
 FLAKE="${sources.shajra-provisioning}#$(hostname)"
 HELP_RESPONSE=true
 NIX_EXE="$(command -v /run/current-system/sw/bin/nix \

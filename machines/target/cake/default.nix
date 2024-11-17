@@ -126,6 +126,7 @@ in {
     services.libinput.mouse.naturalScrolling = true;
     services.libinput.mouse.scrollMethod = "button";
     services.locate.enable = true;
+    services.mealie.enable = true;
     services.ntp.enable = true;
     services.openssh.enable = true;
     services.openssh.extraConfig = ''AllowUsers tnks mzhajra'';

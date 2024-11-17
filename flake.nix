@@ -86,23 +86,17 @@
             flake =
                 let configLib = import build/configurations.nix inputs withSystem;
                 in rec {
-                    checks.aarch64-darwin.ci-darwinConfiguration-bagel = darwinConfigurations.bagel.system;
                     overlays.default = import build/overlay.nix inputs withSystem;
+
                     nixosConfigurations.cake = configLib.nixosConfiguration {
                         system = "x86_64-linux";
                         path   = machines/target/cake;
-                    };
-                    darwinConfigurations.bagel = configLib.darwinConfiguration {
-                        system = "aarch64-darwin";
-                        path   = machines/target/bagel;
+                        privateModule = shajra-private.nixosModules.cake;
                     };
                     darwinConfigurations.lemon = configLib.darwinConfiguration {
                         system = "aarch64-darwin";
                         path   = machines/target/lemon;
-                    };
-                    homeConfigurations.bagel = configLib.homeConfiguration {
-                        system = "aarch64-darwin";
-                        path   = home/target/bagel;
+                        privateModule = shajra-private.darwinModules.lemon;
                     };
                     homeConfigurations.cake = configLib.homeConfiguration {
                         system = "x86_64-linux";
@@ -113,26 +107,20 @@
                         system = "aarch64-darwin";
                         path   = home/target/lemon;
                     };
-                    homeConfigurations.shajra = configLib.homeConfiguration {
-                        system = "x86_64-linux";
-                        path   = home/target/shajra;
-                    };
-                    homeConfigurations.shajra-lab = configLib.homeConfiguration {
-                        system = "x86_64-linux";
-                        path   = home/target/shajra/lab.nix;
-                    };
 
-                    # DESIGN: "Slim" configurations below are for CI. These omit
-                    # packages built independently, which helps avoid hitting
-                    # job time and disk space limits in GitHub Actions.
+                    # DESIGN: "Slim" configurations below are for CI. These
+                    # avoid references to the shajra-private local Nix registry.
+                    # For Home Manager, these also omit packages built
+                    # independently, which helps avoid hitting job time and disk
+                    # space limits.
 
-                    homeConfigurations.bagel-slim = configLib.homeConfiguration {
+                    nixosConfigurations.cake-slim = configLib.nixosConfiguration {
+                        system = "x86_64-linux";
+                        path   = machines/target/cake;
+                    };
+                    darwinConfigurations.lemon-slim = configLib.darwinConfiguration {
                         system = "aarch64-darwin";
-                        path   = home/target/bagel/slim.nix;
-                    };
-                    homeConfigurations.bagel-fake-slim = configLib.homeConfiguration {
-                        system = "x86_64-darwin";
-                        path   = home/target/bagel/slim.nix;
+                        path   = machines/target/lemon;
                     };
                     homeConfigurations.cake-slim = configLib.homeConfiguration {
                         system = "x86_64-linux";
@@ -141,14 +129,6 @@
                     homeConfigurations.lemon-slim = configLib.homeConfiguration {
                         system = "aarch64-darwin";
                         path   = home/target/lemon/slim.nix;
-                    };
-                    homeConfigurations.lemon-fake-slim = configLib.homeConfiguration {
-                        system = "x86_64-darwin";
-                        path   = home/target/lemon/slim.nix;
-                    };
-                    homeConfigurations.shajra-slim = configLib.homeConfiguration {
-                        system = "x86_64-linux";
-                        path   = home/target/shajra/slim.nix;
                     };
                 };
         });

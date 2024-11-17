@@ -2,9 +2,7 @@ builds:
   include:
   - 'packages.*.*'
   - 'checks.*.*'
-  - 'nixosConfigurations.*'
-  - 'darwinConfigurations.*'
-  - 'homeConfigurations.bagel-slim'
+  - 'nixosConfigurations.cake-slim'
+  - 'darwinConfigurations.lemon-slim'
   - 'homeConfigurations.cake-slim'
   - 'homeConfigurations.lemon-slim'
-  - 'homeConfigurations.shajra-slim'

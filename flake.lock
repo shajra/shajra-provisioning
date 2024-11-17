@@ -1517,10 +1517,13 @@
     },
     "shajra-private": {
       "locked": {
-        "lastModified": 1703403775,
-        "narHash": "sha256-QHvYcT9XO+kPaPofpVqQLPeZOOQ6NhxnfTHFSspuN74=",
-        "path": "/home/shajra/src/shajra-private",
-        "type": "path"
+        "lastModified": 1731978327,
+        "narHash": "sha256-reCl2h457SilGSiaY3XiKUNYp5R27X/bvu291eQgNUQ=",
+        "ref": "refs/heads/main",
+        "rev": "8bad7e4dd98fc596a1d5585296c45402951920ba",
+        "revCount": 3,
+        "type": "git",
+        "url": "ssh://tnks@cake/~/src/shajra/shajra-private?branch=main"
       },
       "original": {
         "id": "shajra-private",

@@ -81,7 +81,7 @@ jobs:
     - run: cat ~/.config/nix/nix.conf
     - run: nix flake check --no-build --verbose
     # DESIGN: Can't CI homes; even slimmed they're too big for GitHub
-    - run: nix run .#nixosConfigurations.cake.nixos-rebuild -- --flake .#cake build
+    - run: nix run .#nixosConfigurations.cake.nixos-rebuild -- --flake .#cake-slim build
   installers-darwin:
     needs: [pkgs-darwin]
     runs-on: macos-latest
@@ -103,4 +103,4 @@ jobs:
     - run: cat ~/.config/nix/nix.conf
     - run: nix flake check --no-build --verbose
     # DESIGN: Can't CI home because sketchybar-lua won't build on x86_64
-    - run: ./darwin-rebuild --flake .#bagel build
+    - run: ./darwin-rebuild --flake .#lemon-slim build
