@@ -12,6 +12,7 @@ in {
 
     imports = [
         ../../modules/ubiquity
+        ../../modules/nixos/services/mealie
         ./hardware-configuration.nix
     ];
 
