@@ -1,12 +1,24 @@
-{ build, ... }:
+{ lib, build, ... }:
 
 let
 
     hostname = "cake";
     user = build.config.provision.user."${hostname}".username;
 
+    certType = descExtra: default: lib.mkOption {
+        type = lib.types.path;
+        description = "Path to server SSL certificate${descExtra}.";
+        inherit default;
+    };
+
 in {
     imports = [ ../../../home/modules/ubiquity/theme/base.nix ];
+
+    options = {
+        services.mealie.sslCertificate = certType "" ./dummy.crt;
+        services.mealie.sslCertificateKey = certType " key" ./dummy.key;
+    };
+
     config = {
         nix.extraOptions = ''
             experimental-features = nix-command flakes

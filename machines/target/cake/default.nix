@@ -1,4 +1,4 @@
-{ pkgs, build, ... }:
+{ config, pkgs, build, ... }:
 
 let
 
@@ -85,6 +85,7 @@ in {
     location.longitude = -97.7431;
 
     networking.domain = "home.arpa";
+    networking.firewall.allowedTCPPorts = [ 443 ];
     networking.hostId = "2d58ff06";
     networking.hostName = hostname;
     #networking.interfaces.eno1.useDHCP = false;
@@ -127,6 +128,35 @@ in {
     services.libinput.mouse.scrollMethod = "button";
     services.locate.enable = true;
     services.mealie.enable = true;
+
+    services.nginx = {
+        enable = true;
+        virtualHosts = {
+            "meali.home.arpa" = {
+                listen = [
+                    {
+                        addr = "0.0.0.0";
+                        port = 443;
+                        ssl = true;
+                    }
+                ];
+                forceSSL = true;
+                inherit (config.services.mealie)
+                    sslCertificate
+                    sslCertificateKey;
+                locations."/" = {
+                    proxyPass = "http://127.0.0.1:9000";
+                    extraConfig = ''
+                        proxy_set_header Host $host;
+                        proxy_set_header X-Real-IP $remote_addr;
+                        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                        proxy_set_header X-Forwarded-Proto https;
+                    '';
+                };
+            };
+        };
+    };
+
     services.ntp.enable = true;
     services.openssh.enable = true;
     services.openssh.extraConfig = ''AllowUsers tnks mzhajra'';
