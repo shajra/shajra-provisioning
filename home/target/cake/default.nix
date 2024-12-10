@@ -19,8 +19,6 @@ in
 
         ../../modules/finance
 
-        ../../modules/os/nixos
-
         ../../modules/programming/c/linux
         ../../modules/programming/db
         ../../modules/programming/general

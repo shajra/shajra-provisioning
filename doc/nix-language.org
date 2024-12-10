@@ -132,10 +132,8 @@ nix eval --expr 'let a = 1; a = 2; in a' 2>&1 || true
 
 #+RESULTS:
 : error: attribute 'a' already defined at «string»:1:5
-: 
 :        at «string»:1:12:
-: 
-:             1| let a = 1; a = 2;
+:             1| let a = 1; a = 2; in a
 :              |            ^
 
 Note that semicolons are mandatory in all Nix forms that have them, including
@@ -170,18 +168,14 @@ nix eval --expr '
 #+end_src
 
 #+RESULTS:
-#+begin_example
-error:
-       … while evaluating a path segment
-
-         at «string»:3:9:
-
-            2|     let a_number = 42;
-            3|     in "${a_number} is a terrible number"
-             |         ^
-
-       error: cannot coerce an integer to a string
-#+end_example
+: error:
+:        … while evaluating a path segment
+:          at «string»:3:9:
+:             2|     let a_number = 42;
+:             3|     in "${a_number} is a terrible number"
+:              |         ^
+: 
+:        error: cannot coerce an integer to a string: 42
 
 We can use a builtin =toString= function to coerce types to strings:
 
@@ -223,9 +217,7 @@ nix eval --expr "''In $FROM_SHELL expansion still happens.''" 2>&1 || true
 
 #+RESULTS:
 : error: undefined variable 'EXPANDED_BY_NIX'
-: 
 :        at «string»:1:8:
-: 
 :             1| ''In ${EXPANDED_BY_NIX} expansion still happens.''
 :              |        ^
 
@@ -341,9 +333,7 @@ nix eval --expr '{ a = b; b = 2; }.a' 2>&1 || true
 
 #+RESULTS:
 : error: undefined variable 'b'
-: 
 :        at «string»:1:7:
-: 
 :             1| { a = b; b = 2; }.a
 :              |       ^
 
@@ -368,16 +358,12 @@ nix eval --expr '({ a }: a + 2 ) { a = 3; b = 4; }' 2>&1 || true
 #+begin_example
 error:
        … from call site
-
          at «string»:1:1:
-
             1| ({ a }: a + 2 ) { a = 3; b = 4; }
              | ^
 
        error: function 'anonymous lambda' called with unexpected argument 'b'
-
        at «string»:1:2:
-
             1| ({ a }: a + 2 ) { a = 3; b = 4; }
              |  ^
        Did you mean a?
@@ -541,13 +527,13 @@ nix eval --impure --expr '
 #+RESULTS:
 #+begin_example
 {
-  lastModified = 1718457448;
-  lastModifiedDate = "20240615131728";
-  narHash = "sha256-FSoxTcRZMGHNJh8dNtKOkcUtjhmhU6yQXcZZfUPLhQM=";
-  outPath = "/nix/store/z1lyf7s6klqvd97027b56lmckm5p9hik-source";
-  rev = "a0f54334df36770b335c051e540ba40afcbf8378";
-  revCount = 844;
-  shortRev = "a0f5433";
+  lastModified = 1731930289;
+  lastModifiedDate = "20241118114449";
+  narHash = "sha256-eOHQ7pD8OfSLIIFfF6daCnntzHKqpraAGFfFqSlPtbY=";
+  outPath = "/nix/store/n4yc76agwgn6racs698s5wnyn89mp5hl-source";
+  rev = "769337c227799aa60911562b6940530f4a86eb3c";
+  revCount = 870;
+  shortRev = "769337c";
   submodules = false;
 }
 #+end_example

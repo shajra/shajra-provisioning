@@ -194,11 +194,11 @@ However, if industrial users move to flakes to address these problems, we have t
 
 ### Nix quick releases compete with stability<a id="sec-4-2-3"></a>
 
-The latest major version of the Nix package manager is currently Nix 2.24.10, but NixOS 24.05, the latest stable release of NixOS, uses Nix 2.18.8. NixOS is the primary way the Nix package manager gets used in the field. Far fewer users install Nix as a package manager atop another operating system. From a community perspective it makes sense to consider Nix 2.18.8 the stable release of the package manager. This version gets the most scrutiny and critical bug fixes.
+The latest major version of the Nix package manager is currently Nix 2.25.3, but NixOS 24.11, the latest stable release of NixOS, uses Nix 2.24.10. NixOS is the primary way the Nix package manager gets used in the field. Far fewer users install Nix as a package manager atop another operating system. From a community perspective it makes sense to consider Nix 2.24.10 the stable release of the package manager. This version gets the most scrutiny and critical bug fixes.
 
-As mentioned above, there are strong reasons to use still-experimental features, particularly flakes. However, APIs and calculated hashes change too frequently in experimental features from version-to-version. By sticking with the version used in NixOS, we get less breaking changes. For example, the [flake.lock](../flake.lock) file included with this project has calculated hashes for dependencies. These hashes were computed with Nix 2.18.8, and could change with later versions.
+As mentioned above, there are strong reasons to use still-experimental features, particularly flakes. However, APIs and calculated hashes change too frequently in experimental features from version-to-version. By sticking with the version used in NixOS, we get less breaking changes. For example, the [flake.lock](../flake.lock) file included with this project has calculated hashes for dependencies. These hashes were computed with Nix 2.24.10, and could change with later versions.
 
-For these reasons, the [installation guide included with this project](nix-installation.md) recommends installing Nix 2.18.8, rather than the latest official release.
+For these reasons, the [installation guide included with this project](nix-installation.md) recommends installing Nix 2.24.10, rather than the latest official release.
 
 ## A few gaps in determinism<a id="sec-4-3"></a>
 

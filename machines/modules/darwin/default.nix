@@ -36,6 +36,9 @@ in {
     services.nix-daemon.enable = true;
     services.sketchybar = import services/sketchybar config pkgs pkgs-unstable colors;
     services.skhd = import services/skhd build config pkgs pkgs-unstable colors;
+
+    # REVISIT: Nixpkgs isn't building Yabai from source yet, and I want the
+    # latest with patches
     #services.yabai = import services/yabai pkgs colors;
 
     system.activationScripts.postUserActivation.text = ''
@@ -50,5 +53,5 @@ in {
     system.defaults.NSGlobalDomain._HIHideMenuBar = true;
     system.defaults.dock.autohide = true;
 
-    system.stateVersion = 4;
+    system.stateVersion = 5;
 }

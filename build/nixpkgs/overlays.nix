@@ -10,7 +10,7 @@ let
     #};
 
     external.emacs  = inputs.emacs-overlay.overlays.default;
-    external.nur    = inputs.nur.overlay;
+    external.nur    = inputs.nur.overlays.default;
     external.vscode = inputs.vscode-overlay.overlays.default;
 
     external.sources = self: super: {

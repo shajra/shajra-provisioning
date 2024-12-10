@@ -212,9 +212,12 @@ experimental-features = nix-command flakes
 Then you should see that the appropriate features are enabled:
 
 #+name: nix-show-config
-#+begin_src sh :results output :export both
+#+begin_src sh :results output :exports both
 nix show-config experimental-features
 #+end_src
 
 #+RESULTS: nix-show-config
-: flakes nix-command
+: fetch-tree flakes nix-command
+
+Note that the =fetch-tree= experimental feature is required and automatically
+enabled with the enablement of =flakes=.

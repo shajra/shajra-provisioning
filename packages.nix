@@ -22,18 +22,15 @@ let
 
 in {
 
-    nixpkgs.prebuilt.audio.tui.all = np.pick {
-        linux = "home";
-        darwin = "system";
-    } [
-        "mpc_cli"  # REVISIT: 2024-11-07: Darwin build broken on unstable
+    nixpkgs.prebuilt.audio.tui.all = pickHome [
+        "mpc_cli"
+        "whipper"
     ];
 
     nixpkgs.prebuilt.audio.tui.linux = np.pick { linux = "home"; } [
         "playerctl"
         "ponymix"
         "pulsemixer"
-        "whipper"
     ];
 
     nixpkgs.prebuilt.base.gui.all = pickHome [
@@ -54,9 +51,6 @@ in {
     ] // np.pick { darwin = "unstable"; } [
         # DESIGN: these are all Mac-only applications; unstable is fine
         "goku"
-    ] // np.pick { darwin = "stable-linux"; } [
-        # DESIGN: iTerm2 3.5 messes up colors with -CC
-        # TODO: Search for problem in iTerm's issue tracker
         "iterm2"
     ];
 
@@ -193,6 +187,8 @@ in {
         "cabal2nix"
         "cabal-install"
         "stack"
+
+        # REVISIT: 2024-12-10: ghc984: many Haskell packages broken
         "haskell.compiler.ghc966"
     ];
 
@@ -232,17 +228,14 @@ in {
         "notify-time"
 
         # Uncached Fonts
-        "inconsolata-nerdfont"       # popular font, might like it
-        "nerdfonts"                  # developer fonts with lots of icons
         "sf-symbols"                 # font with application icons
         "sketchybar-font"            # font with application icons
         "symbola"                    # another Unicode fallback font
-    ];
+      ]
+      # developer fonts with lots of icons
+      // lib.filterAttrs (_: v: lib.isDerivation v) np.nixpkgs.home.nerd-fonts;
 
     nixpkgs.build.base.gui.darwin = np.pick { darwin = "home"; } [
-        # REVISIT: Waiting for Nixpkgs to have Mac SDK 14
-        #"yabai"
-        #"skhd"
     ] // np.pick { darwin = "unstable"; } [
         # DESIGN: these are all Mac-only applications; unstable is fine
         "aldente"
@@ -251,7 +244,7 @@ in {
     ];
 
     nixpkgs.build.base.gui.linux = np.pick { linux = "home"; } [
-        "code-cursor"  # REVISIT: code-cursor unsupported for Darwin in Nixpkgs
+        "code-cursor"  # REVISIT: 2024-12-10: code-cursor unsupported for Darwin in Nixpkgs
         "dunst-osd"
         "i3-dpi"
         "i3status-rust-dunst"

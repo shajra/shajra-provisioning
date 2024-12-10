@@ -203,8 +203,8 @@ git+file:///home/shajra/src/shajra-provisioning
 ├───apps
 │   ├───aarch64-darwin
 …
-├───nixosConfigurations
-│   └───cake: NixOS configuration
+│   ├───cake: NixOS configuration
+│   └───cake-slim: NixOS configuration
 ├───overlays
 │   └───default: Nixpkgs overlay
 └───packages
@@ -290,12 +290,12 @@ We can use the =nix search= command to see what package derivations a flake
 contains. For example, from the root directory of this project, we can execute:
 
 #+begin_src sh :eval no
-nix search .
+nix search . ^
 #+end_src
 
 #+name: nix-search-local
 #+begin_src sh :dir .. :results output :exports results :post crop(text=*this*, first-n=9, last-n=0)
-nix search . | ansifilter
+nix search . ^ | ansifilter
 #+end_src
 
 #+results: nix-search-local
@@ -312,8 +312,8 @@ nix search . | ansifilter
 …
 #+end_example
 
-If a flake has a lot of packages, you can pass regexes to prune down the search.
-Returned values will match all the regexes provided.
+We're required to pass regexes as final arguments to prune down the search.
+Above we've passed =^= to match everything and return all results.
 
 We can also search a remote repository for packages to install.  For example,
 Nixpkgs is a central repository for Nix, providing several thousand packages. We
@@ -360,12 +360,12 @@ If we're curious about what version of WezTerm is available in NixOS's latest
 release, we can specialize the installable we're searching as follows:
 
 #+begin_src sh :eval no :noweb yes
-nix search nixpkgs/nixos-<<get("nixos-latest")>>#wezterm
+nix search nixpkgs/nixos-<<get("nixos-latest")>>#wezterm ^
 #+end_src
 
 #+name: nix-search-remote-wezterm
 #+begin_src sh :dir .. :results output :exports results :noweb yes
-nix search nixpkgs/nixos-<<get("nixos-latest")>>#wezterm | ansifilter
+nix search nixpkgs/nixos-<<get("nixos-latest")>>#wezterm ^ | ansifilter
 #+end_src
 
 #+RESULTS: nix-search-remote-wezterm
@@ -448,7 +448,7 @@ readlink result*
 #+end_src
 
 #+RESULTS: nix-build-link
-: /nix/store/62xn403vz12lqvv3mrzq6xf3szpr25cs-home-manager
+: /nix/store/h2z1cf5500q3zp2b14klycgls6kg1zkx-home-manager
 
 Following these symlinks, we can see the files the project provides:
 
@@ -485,7 +485,7 @@ nix path-info .#<<get("package-attr-short")>>
 #+end_src
 
 #+results: nix-build-path
-: /nix/store/62xn403vz12lqvv3mrzq6xf3szpr25cs-home-manager
+: /nix/store/h2z1cf5500q3zp2b14klycgls6kg1zkx-home-manager
 
 ** Running commands in a shell
 
@@ -509,7 +509,7 @@ nix shell \
 #+end_src
 
 #+RESULTS: nix-shell
-: Usage: /nix/store/62xn403vz12lqvv3mrzq6xf3szpr25cs-home-manager/bin/home-manager [OPTION] COMMAND
+: Usage: /nix/store/h2z1cf5500q3zp2b14klycgls6kg1zkx-home-manager/bin/home-manager [OPTION] COMMAND
 : 
 : Options
 : 
@@ -583,7 +583,7 @@ nix run .#<<get("run-attr-short")>>  -- --help
 #+end_src
 
 #+RESULTS: nix-run
-: Usage: /nix/store/62xn403vz12lqvv3mrzq6xf3szpr25cs-home-manager/bin/home-manager [OPTION] COMMAND
+: Usage: /nix/store/h2z1cf5500q3zp2b14klycgls6kg1zkx-home-manager/bin/home-manager [OPTION] COMMAND
 : 
 : Options
 : 
@@ -595,7 +595,7 @@ search=:
 
 #+name: nix-search-details
 #+begin_src sh :dir .. :results output :exports both :noweb yes :post crop(text=*this*, first-n=5, last-n=0)
-nix search --json .#<<get("run-attr-short")>> | jq .
+nix search --json .#<<get("run-attr-short")>> ^ | jq .
 #+end_src
 
 #+RESULTS: nix-search-details
@@ -647,7 +647,7 @@ nix shell --ignore-environment \
 #+end_src
 
 #+RESULTS: nix-shell-remote
-: /nix/store/62xn403vz12lqvv3mrzq6xf3szpr25cs-home-manager/bin/home-manager
+: /nix/store/h2z1cf5500q3zp2b14klycgls6kg1zkx-home-manager/bin/home-manager
 
 What we do with local flake references can work just as well with remote flake
 references.
@@ -694,29 +694,21 @@ nix profile list --profile /tmp/nix-profile | ansifilter
 #+end_src
 
 #+RESULTS: nix-profile-list
-: Index:              0
+: Name:               home-manager
 : Flake attribute:    packages.x86_64-linux.home-manager
 : Original flake URL: git+file:///home/shajra/src/shajra-provisioning
 : Locked flake URL:   git+file:///home/shajra/src/shajra-provisioning
-: Store paths:        /nix/store/62xn403vz12lqvv3mrzq6xf3szpr25cs-home-manager
+: Store paths:        /nix/store/h2z1cf5500q3zp2b14klycgls6kg1zkx-home-manager
 
-If we want to uninstall a program from our profile, we do so by the index from
-this list:
-
-#+name: nix-profile-remove
-#+begin_src sh :eval no :noweb yes
-nix profile remove 0
-#+end_src
-
-We can also provide a regex matching the full attribute path of the flake:
+If we want to uninstall a program from our profile, we can reference it by name:
 
 #+begin_src sh :eval no :noweb yes
-nix profile remove '.*<<get("package-attr-short")>>'
+nix profile remove <<get("package-attr-short")>>
 #+end_src
 
 #+name: nix-profile-remove
 #+begin_src sh :dir .. :results silent :exports none :noweb yes
-nix profile remove --profile /tmp/nix-profile '.*<<get("package-attr-short")>>'
+nix profile remove --profile /tmp/nix-profile <<get("package-attr-short")>>
 #+end_src
 
 Also, if you look at the symlink-resolved location for your profile, you'll see

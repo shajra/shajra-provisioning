@@ -191,18 +191,18 @@ let
         fonts = {
             monospaced.code = {
                 name = "SauceCodePro Nerd Font Mono";
-                package = pkgs.nerdfonts;
+                package = pkgs.nerd-fonts.sauce-code-pro;
             };
             monospaced.serif = {
                 name = "GoMono Nerd Font";
-                package = pkgs.nerdfonts;
+                package = pkgs.nerd-fonts.go-mono;
             };
             proportional = {
                 name =
                     if isDarwin
                     then "Source Serif 4"
                     else "SourceSerif4";
-                package = pkgs.source-serif;
+                package = pkgs.source-serif-pro;
             };
         };
         colors = with pkgs.lib.colors.palettes.solarized; rec {

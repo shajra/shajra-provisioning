@@ -6,5 +6,5 @@
         set -ga update-environment TERM_PROGRAM
         set -ga update-environment PREVIEW_FILE_AS
     '';
-    terminal = "tmux-256color";
+    terminal = "xterm-256color";
 }

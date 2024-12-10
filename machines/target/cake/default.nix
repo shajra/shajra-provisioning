@@ -12,7 +12,7 @@ in {
 
     imports = [
         ../../modules/ubiquity
-        ../../modules/nixos/services/mealie
+        ../../modules/nixos
         ./hardware-configuration.nix
     ];
 
@@ -56,16 +56,14 @@ in {
 
     hardware.cpu.intel.updateMicrocode = true;
     hardware.enableRedistributableFirmware = true;
-    hardware.keyboard.zsa.enable = true;
-    hardware.opengl.enable = true;
-    hardware.opengl.extraPackages = with pkgs; [
+    hardware.graphics.enable = true;
+    hardware.graphics.extraPackages = with pkgs; [
         intel-media-driver
         libvdpau-va-gl
         vaapiIntel
         vaapiVdpau
     ];
-    hardware.pulseaudio.enable = true;
-    hardware.pulseaudio.daemon.config = { enable-deferred-volume = "no"; };
+    hardware.keyboard.zsa.enable = true;
     hardware.sane.enable = true;
     hardware.sane.extraBackends = [ pkgs.gutenprint hplip ];
 
@@ -185,26 +183,28 @@ in {
 
     services.samba = {
         enable = true;
-        extraConfig = ''
-            workgroup = WORKGROUP
-            netbios name = cake
-            interfaces = enp90s0 lo
-            bind interfaces only = yes
-            wins support = yes
-            dns proxy = yes
-            security = user
-            hostname lookups = yes
-            name resolve order = bcast
-            hosts allow = 192.168.1. 192.168.2. 192.168.3. 192.168.4. 127.0.0.1 localhost
-            hosts deny = 0.0.0.0/0
-        '';
         nsswins = true;
         openFirewall = true;
-        shares.audio = {
-            browsable = true;
-            comment = "Cake Audio";
-            path = "/srv/audio";
-            read-only = true;
+        settings = {
+            global = {
+                workgroup = "WORKGROUP";
+                "netbios name" = "cake";
+                interfaces = "enp90s0 lo";
+                "bind interfaces only" = "yes";
+                "wins support" = "yes";
+                "dns proxy" = "yes";
+                security = "user";
+                "hostname lookups" = "yes";
+                "name resolve order" = "bcast";
+                "hosts allow" = "192.168.1. 192.168.2. 192.168.3. 192.168.4. 127.0.0.1 localhost";
+                "hosts deny" = "0.0.0.0/0";
+            };
+            audio = {
+                browsable = true;
+                comment = "Cake Audio";
+                path = "/srv/audio";
+                read-only = true;
+            };
         };
     };
 
@@ -279,8 +279,6 @@ in {
 
     services.zfs.autoScrub.enable = true;
     services.zfs.trim.enable = true;
-
-    system.stateVersion = "23.11";
 
     # DESIGN: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5455
     systemd.services.i915-latency = {

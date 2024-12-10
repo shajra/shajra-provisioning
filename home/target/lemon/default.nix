@@ -17,8 +17,6 @@ in
 
         ../../modules/documentation/all
 
-        ../../modules/os/darwin
-
         ../../modules/programming/c/all
         ../../modules/programming/db
         ../../modules/programming/general
