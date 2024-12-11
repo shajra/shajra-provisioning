@@ -45,7 +45,9 @@ in {
         "noto-fonts-extra"           # popular font, might like it
         "noto-fonts"                 # popular font, might like it
         "source-serif"               # serif font to complement Sauce Code Pro
-    ];
+    ]
+    # developer fonts with lots of icons
+    // lib.filterAttrs (_: v: lib.isDerivation v) np.nixpkgs.home.nerd-fonts;
 
     nixpkgs.prebuilt.base.gui.darwin = np.pick { darwin = "home"; } [
     ] // np.pick { darwin = "unstable"; } [
@@ -232,9 +234,7 @@ in {
         "sf-symbols"                 # font with application icons
         "sketchybar-font"            # font with application icons
         "symbola"                    # another Unicode fallback font
-      ]
-      # developer fonts with lots of icons
-      // lib.filterAttrs (_: v: lib.isDerivation v) np.nixpkgs.home.nerd-fonts;
+    ];
 
     nixpkgs.build.base.gui.darwin = np.pick { darwin = "home"; } [
     ] // np.pick { darwin = "unstable"; } [
