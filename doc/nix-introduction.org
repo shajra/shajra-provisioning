@@ -101,7 +101,7 @@ required to be installed or configured.
 
 Even if we have a library or system dependency installed, it shouldn't interfere
 with any build or installation we want to do. Nix builds and installs in its own
-directories.
+meticulously sandboxed and controlled directories.
 
 Our build should get everything we need, all the way down to the system-level
 dependencies, irrespective of which programming language the dependencies have

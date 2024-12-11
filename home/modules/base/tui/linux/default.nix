@@ -16,7 +16,7 @@ let
             gtk2)   PINENTRY="${pkgs.pinentry.gtk2}"   ;;
             qt)     PINENTRY="${pkgs.pinentry.qt}"     ;;
             tty)    PINENTRY="${pkgs.pinentry.tty}"    ;;
-            *)      PINENTRY="${pkgs.pinentry.gnome3}" ;;
+            *)      PINENTRY="${pkgs.pinentry.gtk2}"   ;;
         esac
         exec "$PINENTRY/bin/pinentry" "''${@}"
     '';

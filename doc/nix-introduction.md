@@ -66,7 +66,7 @@ Nix addresses all the problems discussed above.
 
 To build or install any project, we should be able to start with only the Nix package manager installed. No other library or system dependency should be required to be installed or configured.
 
-Even if we have a library or system dependency installed, it shouldn't interfere with any build or installation we want to do. Nix builds and installs in its own directories.
+Even if we have a library or system dependency installed, it shouldn't interfere with any build or installation we want to do. Nix builds and installs in its own meticulously sandboxed and controlled directories.
 
 Our build should get everything we need, all the way down to the system-level dependencies, irrespective of which programming language the dependencies have been authored in. If anything has been pre-built, we should download a cached result.
 

@@ -21,23 +21,19 @@ in {
     boot.extraModprobeConfig = ''
         options usb-storage quirks=0bda:9210:u
     '';
+
+    # DESIGN: For experimenting with a bleeding-edge kernel
     #boot.kernelPackages = pkgs.linuxPackages_latest;
+
     boot.kernelParams = [
-        "i915.force_probe=9a49"
 
-        # REVISIT: 2024-08-02: Attempt to stop monitor blackout flashing. It
-        # seems none of this is needed, and what's really needed is the
-        # i915-latency systemd service defined later in this file.  If that
-        # works, then all of this can be deleted.
-        #
-        #"i915.enable_dc=0"
-        #"i915.enable_fbc=0"
-        #"i915.enable_psr=0"
-        #"i915.enable_rc6=0"
-        #"intel_idle.max_cstate=0"
-        #"processor.max_cstate=0"
+        # DESIGN: Addresses /dev/dri/card0 missing false error, but consumes
+        # more startup time.
+        # https://bbs.archlinux.org/viewtopic.php?id=288578
+        "initcall_blacklist=simpledrm_platform_driver_init"
 
-        "usbcore.autosuspend=-1" # DESIGN: another attempt to stop USB drive crashes
+        # DESIGN: another attempt to stop USB drive crashes
+        "usbcore.autosuspend=-1"
     ];
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.efi.efiSysMountPoint = "/boot/efi";
@@ -55,6 +51,7 @@ in {
     fonts.fontDir.enable = true;
 
     hardware.cpu.intel.updateMicrocode = true;
+    hardware.enableAllFirmware = true;
     hardware.enableRedistributableFirmware = true;
     hardware.graphics.enable = true;
     hardware.graphics.extraPackages = with pkgs; [
@@ -159,7 +156,6 @@ in {
     services.ntp.enable = true;
     services.openssh.enable = true;
     services.openssh.extraConfig = ''AllowUsers tnks mzhajra'';
-    #services.openssh.gatewayPorts = "yes";
     services.openssh.openFirewall = true;
     services.openssh.ports = [ 64896 ];
     services.picom.enable = true;
@@ -271,7 +267,10 @@ in {
         ''
     ];
     services.xserver.enable = true;
-    services.xserver.videoDrivers = ["intel" "modesetting" "fbdev"];
+
+    # DESIGN: Stopped using "intel" driver with NixOS 24.11
+    services.xserver.videoDrivers = ["modesetting" "fbdev"];
+
     services.xserver.windowManager.i3.enable = true;
     services.xserver.xkb.layout = "us";
     services.xserver.xkb.options = "lv3:ralt_switch_multikey";
@@ -279,16 +278,6 @@ in {
 
     services.zfs.autoScrub.enable = true;
     services.zfs.trim.enable = true;
-
-    # DESIGN: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5455
-    systemd.services.i915-latency = {
-        description = "Prevent monitor from blackout flashing";
-        wantedBy = ["multi-user.target"];
-        script = ''
-            echo 25 39 48 52 83 97 103 119 \
-            > "$(find /sys/kernel/debug/dri -name i915_pri_wm_latency)"
-        '';
-    };
 
     users.users."${user}" = {
         description = "Sukant Hajra";
