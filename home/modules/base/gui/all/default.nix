@@ -57,8 +57,9 @@ in {
     programs.fish = import programs/fish;
     programs.kitty = import programs/kitty config pkgs;
     programs.noti.enable = true;
-    programs.sioyek.enable = true;
-    programs.sioyek.package = sioyekPkg;
+    # REVISIT: 2024-12-10: even stable package broken for Darwin
+    programs.sioyek.enable = ! pkgs.stdenv.isDarwin;
+    #programs.sioyek.package = sioyekPkg;
     programs.urxvt = import programs/urxvt config pkgs;
     programs.vscode = import programs/vscode config pkgs;
     programs.zathura.enable = true;

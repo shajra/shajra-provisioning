@@ -180,8 +180,9 @@ in {
     nixpkgs.prebuilt.programming.general = pickHome [
         "gnumake"
         "nil"
-        "wireshark"
-    ];
+      ] // (np.pick { linux = "home"; darwin = "system"; } [
+        "wireshark"  # REVISIT: 2024-12-10: Package broken on Darwin/unstable
+      ]);
 
     nixpkgs.prebuilt.programming.haskell = pickHome [
         "cabal2nix"
