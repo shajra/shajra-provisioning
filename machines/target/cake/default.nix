@@ -279,6 +279,16 @@ in {
     services.zfs.autoScrub.enable = true;
     services.zfs.trim.enable = true;
 
+    # DESIGN: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5455
+    systemd.services.i915-latency = {
+        description = "Prevent monitor from blackout flashing";
+        wantedBy = ["multi-user.target"];
+        script = ''
+            echo 25 39 48 52 83 97 103 119 \
+            > "$(find /sys/kernel/debug/dri -name i915_pri_wm_latency)"
+        '';
+    };
+
     users.users."${user}" = {
         description = "Sukant Hajra";
         isNormalUser = true;
