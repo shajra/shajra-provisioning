@@ -56,22 +56,6 @@ in
                 #"${pkgs.coreutils}/bin/cat" "${./color_bars.txt}"
             '';
         };
-        broot-dir = {
-            description = "Jump into a deep directory with Broot";
-            body = ''
-                if set -q argv[1]
-                    br --only-folders --cmd "$argv[1] cd"
-                else
-                    br --only-folders
-                end
-            '';
-        };
-        broot-tree = {
-            description = "Directory tree with Broot";
-            body = ''
-                br -c :pt $argv
-            '';
-        };
         zoxide-smart = {
             description = "Autojump if obvious, else fuzzy search";
             body = ''
@@ -96,23 +80,6 @@ in
                 for d in ~/src/live/*/bin /opt/*/bin
                     fish_add_path --universal $d
                 end
-            '';
-        };
-        pull-all = {
-            description = "Git pull all under ~/src/live";
-            body = ''
-                for d in ~/src/live/*
-                    git -C "$d" pull
-                end
-            '';
-        };
-        bored = {
-            description = "Things to run when bored";
-            body = ''
-                unison
-                and nix-channel --update
-                and pull-all
-                and nix search --update-cache > /dev/null
             '';
         };
         org-refs = {
