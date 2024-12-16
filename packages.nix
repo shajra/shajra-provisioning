@@ -149,6 +149,7 @@ in {
         "graphviz"
         "imagemagick"
         "nodePackages.textlint"
+        "poppler_utils"
         "proselint"
         "python3Packages.grip"
         "t-rec"
