@@ -97,6 +97,7 @@ in {
         "nix-template"
         "nix-tree"
         "nixfmt-rfc-style"
+        "nvd"
         "paperkey"
         "patchelf"
         "procps"
