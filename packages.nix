@@ -184,16 +184,15 @@ in {
     nixpkgs.prebuilt.programming.general = pickHome [
         "gnumake"
         "nil"
-      ] // (np.pick { linux = "home"; darwin = "system"; } [
-        "wireshark"  # REVISIT: 2024-12-10: Package broken on Darwin/unstable
-      ]);
+        "wireshark"
+      ];
 
     nixpkgs.prebuilt.programming.haskell = pickHome [
         "cabal2nix"
         "cabal-install"
         "stack"
 
-        # REVISIT: 2024-12-10: ghc984: many Haskell packages broken
+        # REVISIT: 2024-12-28: ghc984: some Haskell packages broken
         "haskell.compiler.ghc966"
     ];
 
@@ -247,7 +246,7 @@ in {
     ];
 
     nixpkgs.build.base.gui.linux = np.pick { linux = "home"; } [
-        "code-cursor"  # REVISIT: 2024-12-10: code-cursor unsupported for Darwin in Nixpkgs
+        "code-cursor"  # REVISIT: 2024-12-28: code-cursor unsupported for Darwin in Nixpkgs
         "dunst-osd"
         "i3-dpi"
         "i3status-rust-dunst"
@@ -296,6 +295,11 @@ in {
 
     nixpkgs.build.programming.haskell = pickUnstable [
         # DESIGN: coming from Nixpkgs, but not cached
+        # REVISIT: 2024-12-28: broken for ghc984:
+        # - hlint
+        # - profiterole
+        # - profiteur
+        # - stylish-haskell
         "haskell.packages.ghc966.apply-refact"
         "haskell.packages.ghc966.cabal-fmt"
         "haskell.packages.ghc966.djinn"

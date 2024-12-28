@@ -3,8 +3,8 @@
 let
 
     inherit (build) infra;
-    #hplip = pkgs.hplipWithPlugin;
-    hplip = infra.np.nixpkgs.unstable.hplipWithPlugin;
+    hplip = pkgs.hplipWithPlugin;
+    #hplip = infra.np.nixpkgs.unstable.hplipWithPlugin;
     hostname = "cake";
     user = build.config.provision.user."${hostname}".username;
 

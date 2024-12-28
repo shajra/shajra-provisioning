@@ -11,8 +11,8 @@
         "homebrew/bundle"
         "homebrew/services"
         "koekeishiya/formulae"
-        "felixkratz/formulae"
-        "shajra/formulae"
+        #"felixkratz/formulae"
+        #"shajra/formulae"
     ];
 
     brews = [
@@ -53,10 +53,21 @@
         #     ❯ readlink -f "$(which sketchybar)"
         #     /opt/homebrew/Cellar/sketchybar/2.19.6/bin/sketchybar
         #
+
+        # DESIGN: Happy to use Nixpkgs and Home Manager for these.
         #{ name = "FelixKratz/formulae/borders";    args = ["HEAD"]; restart_service = "changed"; }
         #{ name = "FelixKratz/formulae/sketchybar"; args = ["HEAD"]; restart_service = "changed"; }
         #{ name = "koekeishiya/formulae/skhd";      args = ["HEAD"]; restart_service = "changed"; }
-        { name = "shajra/formulae/yabai-shajra"; args = ["HEAD"]; restart_service = "changed"; }
+
+        # REVISIT: Yabai doesn't build from source on Nix just yet.  What
+        # Nixpkgs does is just repackage a published binary release.
+        #
+        # REVISIT: Felix used to have a Yabai for, but it went private or was
+        # removed. My fork was a rebase of some of his changes, but I'm just
+        # using Yabai HEAD for now.
+        #
+        #{ name = "shajra/formulae/yabai-shajra"; args = ["HEAD"]; restart_service = "changed"; }
+        { name = "koekeishiya/formulae/yabai";      args = ["HEAD"]; restart_service = "changed"; }
 
         # DESIGN: not needed for now
         #"kubernetes-cli"
