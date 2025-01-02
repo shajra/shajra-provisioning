@@ -36,6 +36,7 @@ in
     home.homeDirectory = userConfig.cake.homeDirectory;
     home.username = userConfig.cake.username;
     programs.alacritty.settings.font.size = 11.0;
+    programs.fish = import programs/fish pkgs;
     programs.i3status-rust = import programs/i3status-rust config pkgs;
     programs.kitty.extraConfig = "font_size 11";
     programs.password-store.enable = true;
