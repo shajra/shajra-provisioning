@@ -22,8 +22,11 @@ in {
         options usb-storage quirks=0bda:9210:u
     '';
 
-    # DESIGN: For experimenting with a bleeding-edge kernel
+    # REVISIT: NixOS 24.11 is on Linux 6.6 because its was the latest LTS when
+    # it released, but Linux 6.12 is LTS and released now.  Trying this out in
+    # the hopes it makes Cake perform better.
     #boot.kernelPackages = pkgs.linuxPackages_latest;
+    boot.kernelPackages = pkgs.linuxPackages_6_12;
 
     boot.kernelParams = [
 
