@@ -18,6 +18,7 @@ in
         ../../modules/documentation/all
 
         ../../modules/programming/c/all
+        ../../modules/programming/containers
         ../../modules/programming/db
         ../../modules/programming/general
         #../../modules/programming/haskell  # long build, not cached

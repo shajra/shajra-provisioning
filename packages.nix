@@ -172,6 +172,15 @@ in {
         "gcc"
     ];
 
+    nixpkgs.prebuilt.programming.containers = pickHome [
+        "kubectl"
+    ] // {
+        google-cloud-sdk = with np.nixpkgs.home;
+            google-cloud-sdk.withExtraComponents [
+                google-cloud-sdk.components.gke-gcloud-auth-plugin
+            ];
+    };
+
     nixpkgs.prebuilt.programming.db = pickHome [
         "pgformatter"
         "postgresql"
