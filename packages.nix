@@ -53,7 +53,6 @@ in {
     ] // np.pick { darwin = "unstable"; } [
         # DESIGN: these are all Mac-only applications; unstable is fine
         "goku"
-        "iterm2"
     ];
 
     nixpkgs.prebuilt.base.gui.linux = np.pick { linux = "home"; } [
@@ -250,6 +249,7 @@ in {
     ] // np.pick { darwin = "unstable"; } [
         # DESIGN: these are all Mac-only applications; unstable is fine
         "aldente"
+        "iterm2"
         "raycast"
         "shortcat"
     ];
