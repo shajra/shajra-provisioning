@@ -85,8 +85,10 @@
         "microsoft-edge@beta"
         "tor-browser"
 
+        # DESIGN: using, but maybe not for long
+        "docker"
+
         # DESIGN: not needed for now
-        #"docker"
         #"openvpn-connect"
         #"virtualbox"
         #"virtualbox-extension-pack"
