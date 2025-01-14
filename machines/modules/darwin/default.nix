@@ -17,7 +17,7 @@ in {
     #    shajra ALL = (root) NOPASSWD: ${pkgs.yabai}/bin/yabai --load-sa
     #'';
     environment.etc."sudoers.d/yabai".text = ''
-        ${superUser} ALL = (root) NOPASSWD: /opt/homebrew/Cellar/yabai-shajra/*/bin/yabai --load-sa
+        ${superUser} ALL = (root) NOPASSWD: /opt/homebrew/Cellar/yabai/*/bin/yabai --load-sa
     '';
 
     environment.systemPackages = [];
