@@ -17,13 +17,20 @@ in {
         sync-all = {
             description = "Sync everything personal with Google";
             body = ''
-                sync-mail $argv && sync-drive $argv && sync-photos $argv
+                   sync-mail            $argv \
+                && sync-drive-reference $argv \
+                && sync-drive-purchased $argv \
+                && sync-photos          $argv
             '';
         };
     };
 
     shellAliases = {
-      sync-drive  = ''${rclone} bisync google-tnks-public-drive:reference ~/doc/reference'';
-      sync-photos = ''${rclone}   sync google-tnks-private-photos:media/by-month /srv/pictures/phones/sukant/'';
+        sync-drive-reference =
+            ''${rclone} bisync google-tnks-public-drive:reference ~/doc/reference'';
+        sync-drive-purchased =
+            ''${rclone} bisync google-tnks-public-drive:purchased ~/doc/purchased'';
+        sync-photos =
+            ''${rclone}   sync google-tnks-private-photos:media/by-month /srv/pictures/phones/sukant/'';
     };
 }
