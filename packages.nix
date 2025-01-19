@@ -95,6 +95,7 @@ in {
         "nix-search-cli"
         "nix-template"
         "nix-tree"
+        "nix-update"
         "nixfmt-rfc-style"
         "nvd"
         "paperkey"
