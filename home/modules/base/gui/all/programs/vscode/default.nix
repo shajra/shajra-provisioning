@@ -6,17 +6,28 @@ in {
     enableExtensionUpdateCheck = false;
     enableUpdateCheck = false;
     extensions = [
-        pkgs.vscode-marketplace.tamasfe.even-better-toml
-        pkgs.vscode-marketplace.kahole.magit
         pkgs.vscode-marketplace.bbenoist.nix
-        pkgs.vscode-marketplace.vscode-org-mode.org-mode
+        pkgs.vscode-marketplace.bodil.file-browser
+        pkgs.vscode-marketplace.gruntfuggly.todo-tree
+        pkgs.vscode-marketplace.haskell.haskell
+        pkgs.vscode-marketplace.jacobdufault.fuzzy-search
+        pkgs.vscode-marketplace.jdinhlife.gruvbox
+        pkgs.vscode-marketplace.jnoortheen.nix-ide
+        pkgs.vscode-marketplace.justusadam.language-haskell
+        pkgs.vscode-marketplace.kahole.magit
+        pkgs.vscode-marketplace.mkhl.direnv
         pkgs.vscode-marketplace.ms-vscode.remote-explorer
-        pkgs.vscode-marketplace-release.ms-vscode-remote.remote-ssh
-        pkgs.vscode-marketplace-release.rust-lang.rust-analyzer
+        pkgs.vscode-marketplace.ms-vscode-remote.remote-ssh
+        pkgs.vscode-marketplace.ms-vscode.makefile-tools
+        pkgs.vscode-marketplace.rust-lang.rust-analyzer
+        pkgs.vscode-marketplace.tamasfe.even-better-toml
         pkgs.vscode-marketplace.timonwong.shellcheck
         pkgs.vscode-marketplace.trond-snekvik.simple-rst
-        pkgs.vscode-marketplace.gruntfuggly.todo-tree
+        pkgs.vscode-marketplace.vscode-org-mode.org-mode
         pkgs.vscode-marketplace.vscodevim.vim
+        pkgs.vscode-marketplace.vspacecode-expanded.vspacecode-expanded
+        pkgs.vscode-marketplace.vspacecode.vspacecode
+        pkgs.vscode-marketplace.vspacecode.whichkey
     ];
 
     # DESIGN: home.activation script will make this mutable
