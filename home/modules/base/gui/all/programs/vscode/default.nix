@@ -38,6 +38,7 @@ in {
         "editor.minimap.enabled" = false;
         "files.trimTrailingWhitespace" = true;
         "git.openRepositoryInParentFolders" = "always";
+        "haskell.manageHLS" = "PATH";
         "problems.sortOrder" = "position";
         "remote.SSH.remotePlatform".cake = "linux";
         "remote.SSH.remotePlatform".shajra = "linux";
