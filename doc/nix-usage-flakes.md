@@ -229,7 +229,7 @@ If we're curious about what version of WezTerm is available in NixOS's latest re
 nix search nixpkgs/nixos-24.11#wezterm ^
 ```
 
-    * legacyPackages.x86_64-linux.wezterm (20240203-110809-5046fc22)
+    * legacyPackages.x86_64-linux.wezterm (0-unstable-2025-01-03)
       GPU-accelerated cross-platform terminal emulator and multiplexer written by @wez and implemented in Rust
 
 Here `/nixos-24.11` overrides the default `nixpkgs-unstable` branch of the registry entry, and the `#wezterm` suffix searches not just the flake, but a specific package named `wezterm`, which will either be found or not (there's no need for regexes to filter further).
