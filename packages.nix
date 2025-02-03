@@ -202,7 +202,7 @@ in {
         "cabal-install"
         "stack"
 
-        # REVISIT: 2024-12-28: ghc984: some Haskell packages broken
+        # REVISIT: 2025-02-03: ghc984: some Haskell packages broken
         "haskell.compiler.ghc966"
     ];
 
@@ -306,11 +306,9 @@ in {
 
     nixpkgs.build.programming.haskell = pickUnstable [
         # DESIGN: coming from Nixpkgs, but not cached
-        # REVISIT: 2024-12-28: broken for ghc984:
-        # - hlint
+        # REVISIT: 2025-02-03: broken for ghc984:
         # - profiterole
         # - profiteur
-        # - stylish-haskell
         "haskell.packages.ghc966.apply-refact"
         "haskell.packages.ghc966.cabal-fmt"
         "haskell.packages.ghc966.djinn"
