@@ -826,8 +826,8 @@
     "moneydance": {
       "flake": false,
       "locked": {
-        "lastModified": 1729284421,
-        "narHash": "sha256-qiCGIO9PkYZaAGKoS+JWFpbrBLvy4FhALmcLzEqfHM4=",
+        "lastModified": 1739351809,
+        "narHash": "sha256-0gOie+aNI+vfroZFInFV3I0azF3v8e4GSAaC9RoZt+c=",
         "type": "tarball",
         "url": "https://infinitekind.com/stabledl/current/moneydance-linux.tar.gz"
       },
