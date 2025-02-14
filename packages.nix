@@ -281,6 +281,7 @@ in {
     ];
 
     nixpkgs.build.chat.gui.all = pickHome [
+        "caprine"
         "discord"
         "slack"
         "zoom-us"
