@@ -135,10 +135,16 @@ in {
         "bukubrow"
     ];
 
+    nixpkgs.prebuilt.chat.gui.all = pickHome [
+        "caprine"
+    ];
+
     nixpkgs.prebuilt.chat.gui.linux = np.pick { linux = "home"; } [
+        # REVISIT: 2025-02-14: Prebuilt for Linux, but not for Darwin
         "element-desktop"
-        "irccloud"
         "signal-desktop"
+
+        "irccloud"
     ];
 
     nixpkgs.prebuilt.chat.tui.all = pickHome [
@@ -281,10 +287,14 @@ in {
     ];
 
     nixpkgs.build.chat.gui.all = pickHome [
-        "caprine"
         "discord"
         "slack"
         "zoom-us"
+    ];
+
+    nixpkgs.build.chat.gui.darwin = np.pick { darwin = "home"; } [
+        "element-desktop"
+        "signal-desktop"
     ];
 
     nixpkgs.build.finance = pickHome [
