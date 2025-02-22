@@ -200,6 +200,8 @@ in {
         "gnumake"
         "nil"
         "nixd"
+        "tcount"
+        "tokei"
         "wireshark"
       ];
 
