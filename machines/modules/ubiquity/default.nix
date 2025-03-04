@@ -1,9 +1,8 @@
-{ build, ... }:
+{ build, config, ... }:
 
 let
 
-    hostname = "cake";
-    user = build.config.provision.user."${hostname}".username;
+    user = build.config.provision.user."${config.networking.hostName}".username;
 
 in {
     imports = [ ../../../home/modules/ubiquity/theme/base.nix ];

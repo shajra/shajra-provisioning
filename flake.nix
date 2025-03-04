@@ -93,10 +93,18 @@
                         path   = machines/target/cake;
                         privateModule = shajra-private.nixosModules.cake;
                     };
+                    darwinConfigurations.bagel = configLib.darwinConfiguration {
+                        system = "aarch64-darwin";
+                        path   = machines/target/bagel;
+                    };
                     darwinConfigurations.lemon = configLib.darwinConfiguration {
                         system = "aarch64-darwin";
                         path   = machines/target/lemon;
                         privateModule = shajra-private.darwinModules.lemon;
+                    };
+                    homeConfigurations.bagel = configLib.homeConfiguration {
+                        system = "aarch64-darwin";
+                        path   = home/target/bagel;
                     };
                     homeConfigurations.cake = configLib.homeConfiguration {
                         system = "x86_64-linux";
@@ -118,9 +126,17 @@
                         system = "x86_64-linux";
                         path   = machines/target/cake;
                     };
+                    darwinConfigurations.bagel-slim = configLib.darwinConfiguration {
+                        system = "aarch64-darwin";
+                        path   = machines/target/bagel;
+                    };
                     darwinConfigurations.lemon-slim = configLib.darwinConfiguration {
                         system = "aarch64-darwin";
                         path   = machines/target/lemon;
+                    };
+                    homeConfigurations.bagel-slim = configLib.homeConfiguration {
+                        system = "aarch64-darwin";
+                        path   = home/target/bagel/slim.nix;
                     };
                     homeConfigurations.cake-slim = configLib.homeConfiguration {
                         system = "x86_64-linux";
