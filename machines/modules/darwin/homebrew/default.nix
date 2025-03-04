@@ -83,6 +83,7 @@
         "firefox"
         "google-chrome@beta"
         "microsoft-edge@beta"
+        "notion-enhanced"
         "tor-browser"
 
         # DESIGN: using, but maybe not for long
