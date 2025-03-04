@@ -23,6 +23,8 @@ in {
     environment.systemPackages = [];
     environment.systemPath = [ "/opt/homebrew/bin" ];
 
+    fonts.packages = build.pkgs.lists.base.gui.all;
+
     homebrew = import ./homebrew;
 
     nix.configureBuildUsers = true;
