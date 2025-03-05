@@ -10,14 +10,22 @@
 
 let
 
-    config = infraConfig.nixpkgs;
+    inherit (infraConfig.nixpkgs) config masterPkgsOverUnstable;
 
-    overlays = import ./overlays.nix { inherit inputs inputs'; };
+    overlays =  import ./overlays.nix { inherit inputs inputs'; };
 
-    mkNixpkgs = pkgs: import pkgs.path { inherit config overlays system; };
+    remasterOverlay = name:
+        if name == "unstable"
+        then self: super: masterPkgsOverUnstable nixpkgsOverlaid.master
+        else self: super: {};
 
-    nixpkgs' =
-        let pkgs = builtins.mapAttrs (name: mkNixpkgs) nixpkgs;
+    mkNixpkgs = name: pkgs: import pkgs.path {
+        inherit config system;
+        overlays = [(remasterOverlay name)] ++ overlays;
+    };
+
+    nixpkgsOverlaid =
+        let pkgs = builtins.mapAttrs mkNixpkgs nixpkgs;
         in pkgs // {
             home =
                 if isDarwin
@@ -29,9 +37,9 @@ let
                 else pkgs."${pkgsConfig.system.linux}";
         };
 
-    pickPkgs = name: nixpkgs'."${name}";
+    nixpkgsRemastered = nixpkgsOverlaid;
 
-    v = infraConfig.hackage.version;
+    pickPkgs = name: nixpkgsRemastered."${name}";
 
     # DESIGN: not used any more, but maybe later
     hsOverrides.ghc865 = hs: hs.packages.ghc865.override {
@@ -43,7 +51,7 @@ in {
 
     inherit config overlays;
 
-    nixpkgs = nixpkgs';
+    nixpkgs = nixpkgsRemastered;
 
     pick = {linux ? null, darwin ? null}: paths:
         let pkgs =

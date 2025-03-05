@@ -7,7 +7,7 @@ in
     enable = true;
     profiles.default = {
         isDefault = true;
-        extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+        extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
             duckduckgo-privacy-essentials
             simple-tab-groups
             stylus

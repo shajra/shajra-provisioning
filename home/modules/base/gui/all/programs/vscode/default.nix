@@ -25,7 +25,6 @@ in {
             pkgs.vscode-marketplace.tamasfe.even-better-toml
             pkgs.vscode-marketplace.timonwong.shellcheck
             pkgs.vscode-marketplace.trond-snekvik.simple-rst
-            pkgs.vscode-marketplace.vscode-org-mode.org-mode
             pkgs.vscode-marketplace.vscodevim.vim
             pkgs.vscode-marketplace.vspacecode-expanded.vspacecode-expanded
             pkgs.vscode-marketplace.vspacecode.vspacecode

@@ -16,6 +16,6 @@ pkgs: {
     # https://github.com/railwaycat/homebrew-emacsmacport/issues/274
 
     # DESIGN: https://github.com/doomemacs/doomemacs#prerequisites
-    # using emacs29 over emacs-unstable to hit Nixpkgs cache
-    package = pkgs.emacs29;
+    # using emacs30 over emacs-unstable to hit Nixpkgs cache
+    package = pkgs.emacs30;
 }
