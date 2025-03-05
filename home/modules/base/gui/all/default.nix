@@ -28,7 +28,7 @@ in {
     home.activation.restoreImmutableVscodeUserSettings =
         lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
             SRC="${(pkgs.formats.json {}).generate "vscode-settings.json"
-                config.programs.vscode.userSettings}"
+                config.programs.vscode.profiles.default.userSettings}"
             DEST="${vscodeSettings}"
             if test -e "$DEST" && ! test -L "$DEST" \
                 && test -e "$DEST.home-manager" \
