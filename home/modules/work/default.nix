@@ -1,6 +1,6 @@
 { lib, pkgs, ... }:
 
-let workEmail = lib.mkForce "shajra@groq.com";
+let workEmail = lib.mkForce "sukant@imandra.ai";
 in {
     programs.fish.functions.shajra-repo-fix = {
         description = "Fix configurations of non-work repositories";
@@ -15,7 +15,7 @@ in {
                     config user.email dev.sukant@hajra.xyz
         '';
     };
-    programs.fish.functions.groq-rebase-mine = {
+    programs.fish.functions.imandra-rebase-mine = {
         description = "Rebase my local branches";
         body = ''
             jj git fetch && jj rebase -d head@origin (
