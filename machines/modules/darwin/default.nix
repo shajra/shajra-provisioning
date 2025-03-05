@@ -12,10 +12,8 @@ let
 
 in {
 
-    # DESIGN: for when the day Yabai builds in Nix again
-    #environment.etc."sudoers.d/yabai".text = ''
-    #    shajra ALL = (root) NOPASSWD: ${pkgs.yabai}/bin/yabai --load-sa
-    #'';
+    # REVISIT: for when the day Yabai builds in Nix again
+    # shajra ALL = (root) NOPASSWD: ${pkgs.yabai}/bin/yabai --load-sa
     environment.etc."sudoers.d/yabai".text = ''
         ${superUser} ALL = (root) NOPASSWD: /opt/homebrew/Cellar/yabai/*/bin/yabai --load-sa
     '';
