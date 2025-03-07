@@ -17,6 +17,8 @@ in
 
         ../../modules/documentation/all
 
+        ../../modules/laptop/darwin
+
         ../../modules/programming/c/all
         ../../modules/programming/containers
         ../../modules/programming/db
