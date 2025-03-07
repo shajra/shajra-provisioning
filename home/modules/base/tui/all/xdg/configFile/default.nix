@@ -22,6 +22,9 @@ let
 in
 
 {
+    "direnv/lib/nix-direnv.sh".source =
+        "${pkgs.nix-direnv}/share/nix-direnv/direnvrc";
+
     # DESIGN: rsync over symlinkJoin because symlinks disrupt Emacs autoloading
     doom.source = pkgs.runCommand "doom-source" {
         nativeBuildInputs = [ pkgs.rsync ];
