@@ -21,7 +21,6 @@ let
                 direnv-nix-lorelei
                 fzf-fish
                 jankyborders
-                jj-fish
                 kaleidoscope
                 kitty-scrollback-nvim
                 lieer

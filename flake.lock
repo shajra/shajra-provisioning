@@ -756,22 +756,6 @@
         "type": "github"
       }
     },
-    "jj-fish": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1730845964,
-        "narHash": "sha256-SZGTLGv1UhSs3ASm0bJbKttKbd+Y3Wm5FbwhiKVVwFc=",
-        "ref": "refs/heads/main",
-        "rev": "d93853a40ff8c566c1ce5fcea2a34c0095e689d7",
-        "revCount": 14,
-        "type": "git",
-        "url": "https://gist.github.com/bnjmnt4n/9f47082b8b6e6ed2b2a805a1516090c8"
-      },
-      "original": {
-        "type": "git",
-        "url": "https://gist.github.com/bnjmnt4n/9f47082b8b6e6ed2b2a805a1516090c8"
-      }
-    },
     "kaleidoscope": {
       "flake": false,
       "locked": {
@@ -1365,7 +1349,6 @@
         "haskell-tags-nix": "haskell-tags-nix",
         "home-manager": "home-manager",
         "jankyborders": "jankyborders",
-        "jj-fish": "jj-fish",
         "kaleidoscope": "kaleidoscope",
         "kitty-scrollback-nvim": "kitty-scrollback-nvim",
         "lieer": "lieer",
