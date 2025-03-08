@@ -23,6 +23,7 @@ let
                 jankyborders
                 kaleidoscope
                 kitty-scrollback-nvim
+                luaposix
                 lieer
                 moneydance
                 pointless-xcompose

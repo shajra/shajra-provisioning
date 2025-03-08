@@ -3,12 +3,10 @@ config: pkgs: mod: modAlt: kitty:
 let
 
     autorandr = "${pkgs.autorandr}/bin/autorandr";
-    awk = "${pkgs.gawk}/bin/awk";
     browser = "${pkgs.microsoft-edge}/bin/microsoft-edge";
     clipmenu = "${config.services.clipmenu.package}/bin/clipmenu";
     dunstctl = "${pkgs.dunst}/bin/dunstctl";
     dunst-osd = "${pkgs.dunst-osd}/bin/dunst-osd";
-    fish = "${config.programs.fish.package}/bin/fish";
     flameshot = "${config.services.flameshot.package}/bin/flameshot";
     i3-workspace-name = "${pkgs.i3-workspace-name}/bin/i3-workspace-name";
     i3-scratchpad = "${pkgs.i3-scratchpad}/bin/i3-scratchpad";
@@ -30,7 +28,7 @@ in
     # passthrough mode
     "${mod}+Escape" = "mode \"passthrough\"";
 
-    # focus with Vim-style keys or cursor keys
+    # focus window with Vim-style keys or cursor keys
     "${mod}+h"     = "focus left";
     "${mod}+j"     = "focus down";
     "${mod}+k"     = "focus up";
@@ -40,7 +38,7 @@ in
     "${mod}+Up"    = "focus up";
     "${mod}+Right" = "focus right";
 
-    # move with Vim-style keys or cursor keys
+    # move window with Vim-style keys or cursor keys
     "${mod}+Shift+h"     = "move left";
     "${mod}+Shift+j"     = "move down";
     "${mod}+Shift+k"     = "move up";
@@ -143,22 +141,22 @@ in
     # rotate split
     "${mod}+r" = "layout toggle split";
 
-    # fullscreen
+    # toggle fullscreen
     "${mod}+f" = "fullscreen";
 
     # toggle focus between tiling and floating layers
     "${mod}+minus" = "focus mode_toggle";
 
-    # toggle tiling/floating of the current window
+    # toggle tiling/floating of the focused window
     "${mod}+Shift+minus" = "floating toggle";
 
-    # Show scratchpad
+    # show scratchpad
     "${mod}+equal" = "scratchpad show";
 
-    # Make the currently focused window a scratchpad
+    # make the currently focused window a scratchpad
     "${mod}+Shift+equal" = "exec ${i3-scratchpad} move";
 
-    # Cycle through scratchpad (or all windows)
+    # cycle through scratchpad (or all windows)
     "${mod}+Tab" = "exec ${i3-scratchpad} cycle";
 
     # toggle sticky

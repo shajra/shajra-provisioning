@@ -6,6 +6,7 @@ let
     colors = pkgs.lib.colors.transformColors format config.theme.colors;
 
 in {
+    "aerospace/aerospace.toml".source = import aerospace/aerospace.nix pkgs;
     "yabai/yabairc".text = import yabai/yabairc.nix pkgs pkgs-unstable colors;
     "yabai/yabairc".executable = true;
 }

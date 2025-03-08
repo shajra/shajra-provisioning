@@ -10,8 +10,9 @@
     taps =  [
         "homebrew/bundle"
         "homebrew/services"
-        "koekeishiya/formulae"
+        "nikitabobko/tap"
         #"felixkratz/formulae"
+        #"koekeishiya/formulae"
         #"shajra/formulae"
     ];
 
@@ -59,19 +60,13 @@
         #{ name = "FelixKratz/formulae/sketchybar"; args = ["HEAD"]; restart_service = "changed"; }
         #{ name = "koekeishiya/formulae/skhd";      args = ["HEAD"]; restart_service = "changed"; }
 
-        # REVISIT: Yabai doesn't build from source on Nix just yet.  What
-        # Nixpkgs does is just repackage a published binary release.
+        # REVISIT: Yabai and Aerospace don't build from source on Nix just yet.
+        # What Nixpkgs does is just repackage a published binary release.
         #
         # DESIGN: Not using restart_service, because it seems to no longer work.
         # Upstream has disabled compatibility with `brew services` in favor of
         # the built-in `--restart-service` flag.
-        { name = "koekeishiya/formulae/yabai"; args = ["HEAD"]; }
-        #
-        # REVISIT: Felix used to have a Yabai for, but it went private or was
-        # removed. My fork was a rebase of some of his changes, but I'm just
-        # using Yabai HEAD for now.
-        #
-        #{ name = "shajra/formulae/yabai-shajra"; args = ["HEAD"]; restart_service = "changed"; }
+        #{ name = "koekeishiya/formulae/yabai"; args = ["HEAD"]; }
 
         # DESIGN: not needed for now
         #"kubernetes-cli"
@@ -83,6 +78,7 @@
         "firefox"
         "google-chrome@beta"
         "microsoft-edge@beta"
+        "nikitabobko/tap/aerospace"
         "notion-enhanced"
         "tor-browser"
 

@@ -35,7 +35,7 @@ in {
     services.karabiner-elements.enable = false; # DESIGN: so far, don't really need it
     services.nix-daemon.enable = true;
     services.sketchybar = import services/sketchybar config pkgs pkgs-unstable colors;
-    services.skhd = import services/skhd build config pkgs pkgs-unstable colors;
+    services.skhd = import services/skhd pkgs build colors;
 
     # REVISIT: Nixpkgs isn't building Yabai from source yet, and I want the
     # latest with patches
@@ -52,6 +52,7 @@ in {
     system.defaults.NSGlobalDomain.ApplePressAndHoldEnabled = false;
     system.defaults.NSGlobalDomain._HIHideMenuBar = true;
     system.defaults.dock.autohide = true;
+    system.defaults.spaces.spans-displays = true;
 
     system.stateVersion = 5;
 }

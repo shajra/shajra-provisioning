@@ -79,17 +79,37 @@ let
         paths = [ template emojis ./config ];
     };
 
+    luaposix = pkgs-unstable.lua5_4.pkgs.buildLuarocksPackage {
+        pname = "luaposix";
+        version = "36.3-1";
+        src = pkgs-unstable.sources.luaposix;
+    };
+
+    lua = pkgs-unstable.lua5_4.withPackages (ps: [
+        ps.lua-cjson
+        luaposix
+    ]);
+
 in {
     enable = true;
     package = pkgs-unstable.sketchybar;
     config = ''
-        #!${pkgs-unstable.lua5_4}/bin/lua
+        #!${lua}/bin/lua
 
         package.cpath = package.cpath .. ";${pkgs-unstable.sketchybar-lua}/?.so"
         package.path = package.path .. ";${combined}/?.lua;${combined}/?/init.lua"
+
+        local Aerospace = require("aerospace")
+        local aerospace = Aerospace.new()
+        while not aerospace:is_initialized() do
+            os.execute("sleep 0.1")
+        end
         sbar = require("sketchybar")
+        sbar.aerospace = aerospace
+        sbar.begin_config()
         require("init")
         sbar.hotload(true)
+        sbar.end_config()
         sbar.event_loop()
     '';
 }
