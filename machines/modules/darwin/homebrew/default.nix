@@ -80,6 +80,7 @@
         "microsoft-edge@beta"
         "nikitabobko/tap/aerospace"
         "notion-enhanced"
+        "slack"
         "tor-browser"
 
         # DESIGN: using, but maybe not for long

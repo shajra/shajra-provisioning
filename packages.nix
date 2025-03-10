@@ -83,7 +83,6 @@ in {
         "file"
         "gnugrep"
         "gnupg"  # TODO: home-manager
-        "languagetool"
         "macchina"
         "nix-diff"
         "nix-du"
@@ -124,6 +123,7 @@ in {
     nixpkgs.prebuilt.base.tui.linux = np.pick { linux = "home"; } [
         "entr"
         "fswatch"
+        "languagetool"
         "niv"
         "pciutils"
         "powertop"
@@ -143,7 +143,6 @@ in {
         # REVISIT: 2025-02-14: Prebuilt for Linux, but not for Darwin
         "element-desktop"
         "signal-desktop"
-
         "irccloud"
     ];
 
@@ -262,6 +261,8 @@ in {
         "iterm2"
         "raycast"
         "shortcat"
+
+        "languagetool"  # DESIGN: prebuilt for linux
     ];
 
     nixpkgs.build.base.gui.linux = np.pick { linux = "home"; } [
@@ -290,13 +291,16 @@ in {
 
     nixpkgs.build.chat.gui.all = pickHome [
         "discord"
-        "slack"
         "zoom-us"
     ];
 
     nixpkgs.build.chat.gui.darwin = np.pick { darwin = "home"; } [
         "element-desktop"
         "signal-desktop"
+    ];
+
+    nixpkgs.build.chat.gui.linux = np.pick { linux = "home"; } [
+        "slack"
     ];
 
     nixpkgs.build.finance = pickHome [
