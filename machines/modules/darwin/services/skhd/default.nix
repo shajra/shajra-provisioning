@@ -101,29 +101,29 @@ in {
         lcmd        - 0x18 : aerospace balance-sizes
 
         # focus workspace
-        lcmd - 1    : aerospace workspace 1
-        lcmd - 2    : aerospace workspace 2
-        lcmd - 3    : aerospace workspace 3
-        lcmd - 4    : aerospace workspace 4
-        lcmd - 5    : aerospace workspace 5
-        lcmd - 6    : aerospace workspace 6
-        lcmd - 7    : aerospace workspace 7
-        lcmd - 8    : aerospace workspace 8
-        lcmd - 9    : aerospace workspace 9
-        lcmd - 0x2C : aerospace workspace-back-and-forth
-        lcmd - 0x2B : aerospace workspace prev
-        lcmd - 0x2F : aerospace workspace next
+        lcmd - 1    : aerospace workspace 1              && ${sketchybar-refresh}
+        lcmd - 2    : aerospace workspace 2              && ${sketchybar-refresh}
+        lcmd - 3    : aerospace workspace 3              && ${sketchybar-refresh}
+        lcmd - 4    : aerospace workspace 4              && ${sketchybar-refresh}
+        lcmd - 5    : aerospace workspace 5              && ${sketchybar-refresh}
+        lcmd - 6    : aerospace workspace 6              && ${sketchybar-refresh}
+        lcmd - 7    : aerospace workspace 7              && ${sketchybar-refresh}
+        lcmd - 8    : aerospace workspace 8              && ${sketchybar-refresh}
+        lcmd - 9    : aerospace workspace 9              && ${sketchybar-refresh}
+        lcmd - 0x2C : aerospace workspace-back-and-forth && ${sketchybar-refresh}
+        lcmd - 0x2B : aerospace workspace prev           && ${sketchybar-refresh}
+        lcmd - 0x2F : aerospace workspace next           && ${sketchybar-refresh}
 
         # summon workspace
-        lcmd + ctrl - 1 : aerospace summon-workspace 1
-        lcmd + ctrl - 2 : aerospace summon-workspace 2
-        lcmd + ctrl - 3 : aerospace summon-workspace 3
-        lcmd + ctrl - 4 : aerospace summon-workspace 4
-        lcmd + ctrl - 5 : aerospace summon-workspace 5
-        lcmd + ctrl - 6 : aerospace summon-workspace 6
-        lcmd + ctrl - 7 : aerospace summon-workspace 7
-        lcmd + ctrl - 8 : aerospace summon-workspace 8
-        lcmd + ctrl - 9 : aerospace summon-workspace 9
+        lcmd + ctrl - 1 : aerospace summon-workspace 1 && ${sketchybar-refresh}
+        lcmd + ctrl - 2 : aerospace summon-workspace 2 && ${sketchybar-refresh}
+        lcmd + ctrl - 3 : aerospace summon-workspace 3 && ${sketchybar-refresh}
+        lcmd + ctrl - 4 : aerospace summon-workspace 4 && ${sketchybar-refresh}
+        lcmd + ctrl - 5 : aerospace summon-workspace 5 && ${sketchybar-refresh}
+        lcmd + ctrl - 6 : aerospace summon-workspace 6 && ${sketchybar-refresh}
+        lcmd + ctrl - 7 : aerospace summon-workspace 7 && ${sketchybar-refresh}
+        lcmd + ctrl - 8 : aerospace summon-workspace 8 && ${sketchybar-refresh}
+        lcmd + ctrl - 9 : aerospace summon-workspace 9 && ${sketchybar-refresh}
 
         # move window to workspace
         lcmd + shift - 1    : aerospace move-node-to-workspace 1    && ${sketchybar-refresh}
