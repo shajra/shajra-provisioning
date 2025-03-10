@@ -5,6 +5,7 @@
 , git
 , gnused
 , jujutsu
+, openssh
 , starship
 , writers
 }:
@@ -65,6 +66,7 @@ nix-project-lib.writeShellCheckedExe progName
         git
         gnused
         jujutsu
+        openssh
         starship
     ];
 }
