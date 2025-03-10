@@ -115,15 +115,15 @@ in {
         lcmd - 0x2F : aerospace workspace next
 
         # summon workspace
-        lcmd - 1    : aerospace summon-workspace 1
-        lcmd - 2    : aerospace summon-workspace 2
-        lcmd - 3    : aerospace summon-workspace 3
-        lcmd - 4    : aerospace summon-workspace 4
-        lcmd - 5    : aerospace summon-workspace 5
-        lcmd - 6    : aerospace summon-workspace 6
-        lcmd - 7    : aerospace summon-workspace 7
-        lcmd - 8    : aerospace summon-workspace 8
-        lcmd - 9    : aerospace summon-workspace 9
+        lcmd + ctrl - 1 : aerospace summon-workspace 1
+        lcmd + ctrl - 2 : aerospace summon-workspace 2
+        lcmd + ctrl - 3 : aerospace summon-workspace 3
+        lcmd + ctrl - 4 : aerospace summon-workspace 4
+        lcmd + ctrl - 5 : aerospace summon-workspace 5
+        lcmd + ctrl - 6 : aerospace summon-workspace 6
+        lcmd + ctrl - 7 : aerospace summon-workspace 7
+        lcmd + ctrl - 8 : aerospace summon-workspace 8
+        lcmd + ctrl - 9 : aerospace summon-workspace 9
 
         # move window to workspace
         lcmd + shift - 1    : aerospace move-node-to-workspace 1    && ${sketchybar-refresh}
