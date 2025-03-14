@@ -196,6 +196,7 @@ in {
     ];
 
     nixpkgs.prebuilt.programming.general = pickHome [
+        "aider-chat"
         "gnumake"
         "nil"
         "nixd"
