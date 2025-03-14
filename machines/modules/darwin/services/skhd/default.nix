@@ -166,13 +166,10 @@ in {
         #cmd + shift - tab : "''${window-cycle}" '.'
 
         # toggle tabbed
-        lcmd - t : aerospace layout tiles h_accordion
-
-        # cycle through all non-floating layouts
-        lcmd + shift - t : aerospace layout h_tiles v_tiles h_accordion v_accordion
+        lcmd - t : aerospace layout tiles accordion
 
         # rotate split
-        lcmd - r : aerospace layout tiles horizontal vertical
+        lcmd - r : aerospace layout horizontal vertical
 
         # toggle fullscreen
         lcmd - f : aerospace fullscreen
