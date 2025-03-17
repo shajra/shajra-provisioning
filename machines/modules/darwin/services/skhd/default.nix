@@ -62,12 +62,22 @@ in {
         lcmd + shift - l : aerospace move right
 
         # move workspace
-        lcmd + ctrl - h    : aerospace move-workspace-to-monitor left  && ${sketchybar-refresh}
-        lcmd + ctrl - j    : aerospace move-workspace-to-monitor down  && ${sketchybar-refresh}
-        lcmd + ctrl - k    : aerospace move-workspace-to-monitor up    && ${sketchybar-refresh}
-        lcmd + ctrl - l    : aerospace move-workspace-to-monitor right && ${sketchybar-refresh}
-        lcmd + ctrl - 0x2B : aerospace move-workspace-to-monitor prev  && ${sketchybar-refresh}
-        lcmd + ctrl - 0x2F : aerospace move-workspace-to-monitor next  && ${sketchybar-refresh}
+        #
+        # Regarding keybindings: ctrl => monitor, shift => moving.  Shifting is
+        # optional in case it's already or not already depressed from prior
+        # operations.  Otherwise, you have to remember to press/depress it.
+        lcmd         + ctrl - h    : aerospace move-workspace-to-monitor left  && ${sketchybar-refresh}
+        lcmd         + ctrl - j    : aerospace move-workspace-to-monitor down  && ${sketchybar-refresh}
+        lcmd         + ctrl - k    : aerospace move-workspace-to-monitor up    && ${sketchybar-refresh}
+        lcmd         + ctrl - l    : aerospace move-workspace-to-monitor right && ${sketchybar-refresh}
+        lcmd         + ctrl - 0x2B : aerospace move-workspace-to-monitor prev  && ${sketchybar-refresh}
+        lcmd         + ctrl - 0x2F : aerospace move-workspace-to-monitor next  && ${sketchybar-refresh}
+        lcmd + shift + ctrl - h    : aerospace move-workspace-to-monitor left  && ${sketchybar-refresh}
+        lcmd + shift + ctrl - j    : aerospace move-workspace-to-monitor down  && ${sketchybar-refresh}
+        lcmd + shift + ctrl - k    : aerospace move-workspace-to-monitor up    && ${sketchybar-refresh}
+        lcmd + shift + ctrl - l    : aerospace move-workspace-to-monitor right && ${sketchybar-refresh}
+        lcmd + shift + ctrl - 0x2B : aerospace move-workspace-to-monitor prev  && ${sketchybar-refresh}
+        lcmd + shift + ctrl - 0x2F : aerospace move-workspace-to-monitor next  && ${sketchybar-refresh}
 
         # joining windows
         lcmd + shift + alt - h : aerospace join-with left
