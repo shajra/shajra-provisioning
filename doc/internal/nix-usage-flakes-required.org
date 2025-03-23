@@ -6,4 +6,4 @@ project-dependent.
 
 This project requires an experimental feature of Nix called /flakes/. To
 understand more about what flakes are and the consequences of using a
-still-experimental feature of Nix, please see the provided [[file:nix-introduction.org][introduction to Nix]].
+still-experimental feature of Nix, please see the provided [[file:../nix-introduction.org][introduction to Nix]].

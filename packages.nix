@@ -135,15 +135,14 @@ in {
         "bukubrow"
     ];
 
-    nixpkgs.prebuilt.chat.gui.all = pickHome [
-        "caprine"
-    ];
-
     nixpkgs.prebuilt.chat.gui.linux = np.pick { linux = "home"; } [
-        # REVISIT: 2025-02-14: Prebuilt for Linux, but not for Darwin
+        # REVISIT: 2025-03-23: Unsupported for Darwin
+        "irccloud"
+
+        # REVISIT: 2025-03-23: Prebuilt for Linux, but not for Darwin
+        "caprine"
         "element-desktop"
         "signal-desktop"
-        "irccloud"
     ];
 
     nixpkgs.prebuilt.chat.tui.all = pickHome [
@@ -210,7 +209,7 @@ in {
         "cabal-install"
         "stack"
 
-        # REVISIT: 2025-02-03: ghc984: some Haskell packages broken
+        # REVISIT: 2025-03-23: ghc984: some Haskell packages broken
         "haskell.compiler.ghc966"
     ];
 
@@ -267,7 +266,7 @@ in {
     ];
 
     nixpkgs.build.base.gui.linux = np.pick { linux = "home"; } [
-        "code-cursor"  # REVISIT: 2024-12-28: code-cursor unsupported for Darwin in Nixpkgs
+        "code-cursor"  # REVISIT: 2025-03-23: using Brew on Darwin to stay bleeding edge
         "dunst-osd"
         "i3-dpi"
         "i3status-rust-dunst"
@@ -296,6 +295,7 @@ in {
     ];
 
     nixpkgs.build.chat.gui.darwin = np.pick { darwin = "home"; } [
+        "caprine"
         "element-desktop"
         "signal-desktop"
     ];
@@ -324,7 +324,7 @@ in {
 
     nixpkgs.build.programming.haskell = pickUnstable [
         # DESIGN: coming from Nixpkgs, but not cached
-        # REVISIT: 2025-02-03: broken for ghc984:
+        # REVISIT: 2025-03-23: broken for ghc984:
         # - profiterole
         # - profiteur
         "haskell.packages.ghc966.apply-refact"
