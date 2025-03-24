@@ -6,3 +6,4 @@ builds:
   - 'darwinConfigurations.lemon-slim'
   - 'homeConfigurations.cake-slim'
   - 'homeConfigurations.lemon-slim'
+  branch: main
