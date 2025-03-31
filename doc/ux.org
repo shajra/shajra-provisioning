@@ -29,7 +29,7 @@ The rest of this document highlights some of the setup this project does. The
 document explains my rationale for personal preferences, admittedly slipping
 into advocacy for things I enjoy. I've just put in more hours than I care to
 admit into this, and I feel like sharing. And after over twenty years of setting
-up computers, this is a way to reflect on some choices.
+up computers, this document is a way to reflect on some choices.
 
 * Some goals
 
@@ -59,13 +59,13 @@ mess of supporting code.  I'm somewhat satisfied with how everything turned out.
 The following tables have some links to all the third-party tools that have been
 integrated by this project.
 
-The first of these tables covers GUI tools that vary between Linux and Mac
+The first of these tables covers tools that vary between Linux and Mac
 platforms:
 
 | Purpose                | Linux                          | Mac                                 |
 |------------------------+--------------------------------+-------------------------------------|
 | Terminal emulator      | [[kitty][Kitty]], [[alacritty][Alacritty]], [[urxvt][rxvt-unicode]] | [[iterm2][iTerm2]], [[kitty][Kitty]], [[alacritty][Alacritty]]            |
-| Window manager         | [[i3][i3]]                             | [[yabai][yabai]] + [[jankyborders][JankyBorders]]                |
+| Window manager         | [[i3][i3]]                             | [[aerospace][AeroSpace]] + [[jankyborders][JankyBorders]]            |
 | Hotkey manager         | [[i3][i3]]                             | [[skhd][skhd]]                                |
 | Status bar             | [[i3status-rust][i3status-rust]]                  | [[sketchybar][SketchyBar]] + [[sbarlua][SbarLua]]                |
 | GUI selection/launcher | [[rofi][Rofi]]                           | [[raycast][Raycast]]                             |
@@ -77,7 +77,7 @@ platforms:
 
 Where I've listed multiple applications, my primary is listed first. Notably,
 for Macs, I'm using iTerm2, which does not configure easily with Nix. However, I
-use it because its native tmux integration with its =-CC= switch is too useful
+use it because its native =tmux= integration with its =-CC= switch is too useful
 when working with remote machines.
 
 The second table below covers tools common to the terminal experience in all
@@ -90,7 +90,7 @@ platforms:
 | Shell prompt                                  | [[starship][Starship]]                               |
 | Smart directory jumping                       | [[zoxide][zoxide]]                                 |
 | Fuzzy selection/launcher                      | [[fzf][fzf]]                                    |
-| Project/directory-level environment variables | [[direnv][direnv]] + [[lorelei][Lorelei]]                       |
+| Project/directory-level environment variables | [[direnv][direnv]] ]                                            |
 | Terminal welcome message                      | [[macchina][macchina]]                               |
 | Syntax-highlighted Git diffs                  | [[delta][Delta]]                                  |
 | Kitty history scrollback                      | [[kitty-scrollback][kitty-scrollback.nvim]]                  |
@@ -104,25 +104,25 @@ Talking about keys between Macs and non-Mac keyboards can be annoying because
 there have been some historic divergences.  A useful simplification, the USB HID
 tables, force these divergences to converge with modern USB-based keyboards:
 
-| USB HID key | Non-Mac key | Mac key     |
-|-------------+-------------+-------------|
-| =GUI=       | =⊞ Windows= | =⌘ Command= |
-| =Alt=       | =⎇ Alt=     | =⌥ Option=  |
-| =Control=   | =^ Control= | =^ Control= |
-| =Shift=     | =⇧ Shift=   | =⇧ Shift=   |
+| USB HID key | Non-Mac key | Mac key    |
+|-------------+-------------+------------|
+| =GUI=         | =⊞ Windows=  | =⌘ Command= |
+| =Alt=         | =⎇ Alt=      | =⌥ Option=  |
+| =Control=     | =^ Control=   | =^ Control=  |
+| =Shift=       | =⇧ Shift=     | =⇧ Shift=    |
 
 For each of these keys, we get both a left and right variant.
 
 In general, I've come to expect the following conventions with my keybindings:
 
-| USB HID key       | Side          | Purpose                     |
-|-------------------+---------------+-----------------------------|
+| USB HID key     | Side          | Purpose                     |
+|-----------------+---------------+-----------------------------|
 | =GUI=             | left          | custom window management    |
 | =GUI=             | right         | standard MacOS bindings     |
 | =Alt=             | left          | application shortcuts       |
 | =Alt=             | right         | special character entry     |
 | =Control=         | left or right | application shortcuts       |
-| =Shift=+=Control= | =^ Control=   | terminal emulator shortcuts |
+| =Shift= + =Control= | left or right | terminal emulator shortcuts |
 
 Having conventions like this helps with my recall of shortcuts as well as the
 fluidity of their usage. It's even nicer when it's consistent across operating
@@ -131,15 +131,15 @@ systems.
 In Linux, settling on the =Windows= (=GUI=) key for my shortcuts for =i3= window
 management is natural because no default shortcuts in Linux use the =Windows=
 key. On Macs, the corresponding =Command= key is used quite a bit for MacOS
-shortcuts. So I configure =skhd= to use only the right =Command= key for =yabai=
-window management.
+shortcuts. So I configure =skhd= to use only the right =Command= key for
+AeroSpace window management.
 
 By default, Macs use the =Option= key for special character input. Similarly,
 Linux is often configured such that the right =Alt= key is used to emulate the
 legacy [[key-compose][=Compose=]] key or [[key-altgr][=Alt Graph=]] key, for special characters. In Linux, this
 leaves the left =Alt= key for application shortcuts. In this spirit, some
 terminal emulators running in MacOS, such as iTerm2 and Kitty, can be configured
-to emit escaped codes with the right =Alt= key, the same as Linux.
+to emit escaped codes with the left =Alt= key, the same as Linux.
 
 Finally, terminal emulators are a little special because we don't want their
 shortcuts to override the terminal application running within them, which might
@@ -216,12 +216,13 @@ select it in the Home Manager theme module.
 
 ** Application cohesion
 
-I was surprised by how many applications render as bordered boxes with possibly
-rounded corners. Set a background color, foreground color, and the radius for
-the corner, and different applications seem to be from the same product suite.
+I was surprised by how many GUI applications render as bordered boxes with
+possibly rounded corners. Set a background color, foreground color, and the
+radius for the corner, and different applications seem to be from the same
+product suite.  You can see this in the screenshots.
 
 I'm also pleased by how my Macbook looks and feels like a Linux environment.
-Though having such a small user pool, Yabai and SketchyBar feel surprisingly
+Though having such a small user pool, AeroSpace and SketchyBar feel surprisingly
 stable, with active communities working through defects and features.
 
 * Limitations of the UX
@@ -234,13 +235,13 @@ doesn't do something different from the beginner. The expert does what the
 beginner does, only faster.
 
 It would be great if this convergence of the expert and beginner experience
-could be done beyond editors. I've worked so hard to have these keybindings for
-window management that have some elegance or are slightly intuitive. But
-beginners can't discover any of them easily. I have this problem because I'm not
-doing much more than just stringing together the same applications that everyone
-else is stringing together. This project is great for me and others with my
-specific taste for UX choices. I think other people could be included if there
-were more discovery.
+could be done beyond editors. I've put in non-trivial work to have these
+keybindings that have some elegance or are slightly intuitive. But beginners
+can't discover any of them easily. I have this problem because I'm not doing
+much more than just stringing together the same applications that everyone else
+is stringing together. This project is great for me and others with my specific
+taste for UX choices. I think other people could be included if there were more
+discovery.
 
 * Brew
 
@@ -250,8 +251,8 @@ to a package manager like [[homebrew][Homebrew]]. This includes programs like Fi
 Chromium.
 
 Though it's not ideal, Home Manager supports control over Homebrew. Assuming
-you've installed Homebrew already, this project will manage which packages/casks
-are installed, and remove any other packages/casks not specified.
+Homebrew has been already, this project will manage which packages/casks are
+installed, and remove any other packages/casks not specified.
 
 At least we can get some automation, even if we don't get Nix's precision.
 
@@ -269,12 +270,12 @@ complexity.  This obsession is an implicit declaration of disbelief in the
 possibility of modular code.  Modularity is only accepted between process
 boundaries, signaled by the rallying cry of "the Unix Way."
 
-I firmly believe that modularity can exist at multiple levels. We shouldn't have
-system constraints that don't produce guaranteed system invariants that can be
-appreciated. If a programmer can't make a large program with good modularity,
-then good programmers don't exist. The Suckless philosophy is an implicit
-declaration that all programmers are bad. This is a cynical take the world
-shouldn't settle for. We should all try to do better.
+In contrast, I believe that modularity can exist at multiple levels. We
+shouldn't have system constraints that don't produce guaranteed system
+invariants that can be appreciated. If a programmer can't make a large program
+with good modularity, then good programmers don't exist. The Suckless philosophy
+is an implicit declaration that all programmers are bad. This is a cynical take
+the world shouldn't settle for. We should all try to do better.
 
 In the case of Suckless programs, this misguided constraint of lines of code
 manifests in all configuration performed by patching source code. Diff files are

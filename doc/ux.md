@@ -20,7 +20,7 @@ Configuring a computer can seem like a frivolous exercise, especially when it co
 
 Most of the time, I get what I need from upstream NixOS-style modules alone. Occasionally, I write some custom Nix code or make my own modules. Using modules this way works out pretty well because I get the front-end simplicity of NixOS-style modules, but enough programmatic control to avoid the limitations of configuration formats like YAML or TOML.
 
-The rest of this document highlights some of the setup this project does. The document explains my rationale for personal preferences, admittedly slipping into advocacy for things I enjoy. I've just put in more hours than I care to admit into this, and I feel like sharing. And after over twenty years of setting up computers, this is a way to reflect on some choices.
+The rest of this document highlights some of the setup this project does. The document explains my rationale for personal preferences, admittedly slipping into advocacy for things I enjoy. I've just put in more hours than I care to admit into this, and I feel like sharing. And after over twenty years of setting up computers, this document is a way to reflect on some choices.
 
 # Some goals<a id="sec-2"></a>
 
@@ -47,22 +47,22 @@ These constraints are all in addition to the larger goal of this project, which 
 
 The following tables have some links to all the third-party tools that have been integrated by this project.
 
-The first of these tables covers GUI tools that vary between Linux and Mac platforms:
+The first of these tables covers tools that vary between Linux and Mac platforms:
 
-| Purpose                | Linux                                                                                                                                            | Mac                                                                                                           |
-|---------------------- |------------------------------------------------------------------------------------------------------------------------------------------------ |------------------------------------------------------------------------------------------------------------- |
-| Terminal emulator      | [Kitty](https://sw.kovidgoyal.net/kitty/), [Alacritty](https://alacritty.org/), [rxvt-unicode](http://software.schmorp.de/pkg/rxvt-unicode.html) | [iTerm2](https://iterm2.com/), [Kitty](https://sw.kovidgoyal.net/kitty/), [Alacritty](https://alacritty.org/) |
-| Window manager         | [i3](https://i3wm.org/)                                                                                                                          | [yabai](https://github.com/koekeishiya/yabai) + [JankyBorders](https://github.com/FelixKratz/JankyBorders)    |
-| Hotkey manager         | [i3](https://i3wm.org/)                                                                                                                          | [skhd](https://github.com/koekeishiya/skhd)                                                                   |
-| Status bar             | [i3status-rust](https://github.com/greshake/i3status-rust)                                                                                       | [SketchyBar](https://github.com/FelixKratz/SketchyBar) + [SbarLua](https://github.com/FelixKratz/SbarLua)     |
-| GUI selection/launcher | [Rofi](https://github.com/davatorium/rofi)                                                                                                       | [Raycast](https://www.raycast.com/)                                                                           |
-| GUI clipboard manager  | [Clipmenu](https://github.com/cdown/clipmenu) + [Rofi](https://github.com/davatorium/rofi)                                                       | [Raycast Clipboard History extension](https://www.raycast.com/extensions/clipboard-history)                   |
-| GUI notification       | [Dunst](https://dunst-project.org/)                                                                                                              | MacOS-native notifications                                                                                    |
-| GUI screenshots        | [Maim](https://github.com/naelstrof/maim)                                                                                                        | MacOS-native screenshots                                                                                      |
-| Color temperature      | [Gammastep](https://gitlab.com/chinstrap/gammastep)                                                                                              | MacOS-native Night Shift                                                                                      |
-| Package management     | [Nix](https://nixos.org/nix)                                                                                                                     | [Nix](https://nixos.org/nix) + [Homebrew](https://brew.sh/)                                                   |
+| Purpose                | Linux                                                                                                                                            | Mac                                                                                                                |
+|---------------------- |------------------------------------------------------------------------------------------------------------------------------------------------ |------------------------------------------------------------------------------------------------------------------ |
+| Terminal emulator      | [Kitty](https://sw.kovidgoyal.net/kitty/), [Alacritty](https://alacritty.org/), [rxvt-unicode](http://software.schmorp.de/pkg/rxvt-unicode.html) | [iTerm2](https://iterm2.com/), [Kitty](https://sw.kovidgoyal.net/kitty/), [Alacritty](https://alacritty.org/)      |
+| Window manager         | [i3](https://i3wm.org/)                                                                                                                          | [AeroSpace](https://github.com/nikitabobko/AeroSpace) + [JankyBorders](https://github.com/FelixKratz/JankyBorders) |
+| Hotkey manager         | [i3](https://i3wm.org/)                                                                                                                          | [skhd](https://github.com/koekeishiya/skhd)                                                                        |
+| Status bar             | [i3status-rust](https://github.com/greshake/i3status-rust)                                                                                       | [SketchyBar](https://github.com/FelixKratz/SketchyBar) + [SbarLua](https://github.com/FelixKratz/SbarLua)          |
+| GUI selection/launcher | [Rofi](https://github.com/davatorium/rofi)                                                                                                       | [Raycast](https://www.raycast.com/)                                                                                |
+| GUI clipboard manager  | [Clipmenu](https://github.com/cdown/clipmenu) + [Rofi](https://github.com/davatorium/rofi)                                                       | [Raycast Clipboard History extension](https://www.raycast.com/extensions/clipboard-history)                        |
+| GUI notification       | [Dunst](https://dunst-project.org/)                                                                                                              | MacOS-native notifications                                                                                         |
+| GUI screenshots        | [Maim](https://github.com/naelstrof/maim)                                                                                                        | MacOS-native screenshots                                                                                           |
+| Color temperature      | [Gammastep](https://gitlab.com/chinstrap/gammastep)                                                                                              | MacOS-native Night Shift                                                                                           |
+| Package management     | [Nix](https://nixos.org/nix)                                                                                                                     | [Nix](https://nixos.org/nix) + [Homebrew](https://brew.sh/)                                                        |
 
-Where I've listed multiple applications, my primary is listed first. Notably, for Macs, I'm using iTerm2, which does not configure easily with Nix. However, I use it because its native tmux integration with its `-CC` switch is too useful when working with remote machines.
+Where I've listed multiple applications, my primary is listed first. Notably, for Macs, I'm using iTerm2, which does not configure easily with Nix. However, I use it because its native `tmux` integration with its `-CC` switch is too useful when working with remote machines.
 
 The second table below covers tools common to the terminal experience in all platforms:
 
@@ -73,7 +73,7 @@ The second table below covers tools common to the terminal experience in all pla
 | Shell prompt                                  | [Starship](https://starship.rs/)                                                                                                         |
 | Smart directory jumping                       | [zoxide](https://github.com/ajeetdsouza/zoxide)                                                                                          |
 | Fuzzy selection/launcher                      | [fzf](https://github.com/junegunn/fzf)                                                                                                   |
-| Project/directory-level environment variables | [direnv](https://direnv.net/) + [Lorelei](https://github.com/shajra/direnv-nix-lorelei)                                                  |
+| Project/directory-level environment variables | [direnv](https://direnv.net/) ]                                                                                                          |
 | Terminal welcome message                      | [macchina](https://lib.rs/crates/macchina)                                                                                               |
 | Syntax-highlighted Git diffs                  | [Delta](https://github.com/dandavison/delta)                                                                                             |
 | Kitty history scrollback                      | [kitty-scrollback.nvim](https://github.com/mikesmithgh/kitty-scrollback.nvim)                                                            |
@@ -95,20 +95,20 @@ For each of these keys, we get both a left and right variant.
 
 In general, I've come to expect the following conventions with my keybindings:
 
-| USB HID key       | Side          | Purpose                     |
-|----------------- |------------- |--------------------------- |
-| `GUI`             | left          | custom window management    |
-| `GUI`             | right         | standard MacOS bindings     |
-| `Alt`             | left          | application shortcuts       |
-| `Alt`             | right         | special character entry     |
-| `Control`         | left or right | application shortcuts       |
-| `Shift=+=Control` | `^ Control`   | terminal emulator shortcuts |
+| USB HID key         | Side          | Purpose                     |
+|------------------- |------------- |--------------------------- |
+| `GUI`               | left          | custom window management    |
+| `GUI`               | right         | standard MacOS bindings     |
+| `Alt`               | left          | application shortcuts       |
+| `Alt`               | right         | special character entry     |
+| `Control`           | left or right | application shortcuts       |
+| `Shift` + `Control` | left or right | terminal emulator shortcuts |
 
 Having conventions like this helps with my recall of shortcuts as well as the fluidity of their usage. It's even nicer when it's consistent across operating systems.
 
-In Linux, settling on the `Windows` (`GUI`) key for my shortcuts for `i3` window management is natural because no default shortcuts in Linux use the `Windows` key. On Macs, the corresponding `Command` key is used quite a bit for MacOS shortcuts. So I configure `skhd` to use only the right `Command` key for `yabai` window management.
+In Linux, settling on the `Windows` (`GUI`) key for my shortcuts for `i3` window management is natural because no default shortcuts in Linux use the `Windows` key. On Macs, the corresponding `Command` key is used quite a bit for MacOS shortcuts. So I configure `skhd` to use only the right `Command` key for AeroSpace window management.
 
-By default, Macs use the `Option` key for special character input. Similarly, Linux is often configured such that the right `Alt` key is used to emulate the legacy [`Compose`](https://en.wikipedia.org/wiki/Compose_key) key or [`Alt Graph`](https://en.wikipedia.org/wiki/AltGr_key) key, for special characters. In Linux, this leaves the left `Alt` key for application shortcuts. In this spirit, some terminal emulators running in MacOS, such as iTerm2 and Kitty, can be configured to emit escaped codes with the right `Alt` key, the same as Linux.
+By default, Macs use the `Option` key for special character input. Similarly, Linux is often configured such that the right `Alt` key is used to emulate the legacy [`Compose`](https://en.wikipedia.org/wiki/Compose_key) key or [`Alt Graph`](https://en.wikipedia.org/wiki/AltGr_key) key, for special characters. In Linux, this leaves the left `Alt` key for application shortcuts. In this spirit, some terminal emulators running in MacOS, such as iTerm2 and Kitty, can be configured to emit escaped codes with the left `Alt` key, the same as Linux.
 
 Finally, terminal emulators are a little special because we don't want their shortcuts to override the terminal application running within them, which might have shortcuts of their own. By convention, many terminal emulators use `Shift=+=Control`, leaving other modifier combinations for applications.
 
@@ -146,21 +146,21 @@ There's no dark theme yet, but the infrastructure is all there to make and selec
 
 ## Application cohesion<a id="sec-5-3"></a>
 
-I was surprised by how many applications render as bordered boxes with possibly rounded corners. Set a background color, foreground color, and the radius for the corner, and different applications seem to be from the same product suite.
+I was surprised by how many GUI applications render as bordered boxes with possibly rounded corners. Set a background color, foreground color, and the radius for the corner, and different applications seem to be from the same product suite. You can see this in the screenshots.
 
-I'm also pleased by how my Macbook looks and feels like a Linux environment. Though having such a small user pool, Yabai and SketchyBar feel surprisingly stable, with active communities working through defects and features.
+I'm also pleased by how my Macbook looks and feels like a Linux environment. Though having such a small user pool, AeroSpace and SketchyBar feel surprisingly stable, with active communities working through defects and features.
 
 # Limitations of the UX<a id="sec-6"></a>
 
 Tools like Doom Emacs have an approach to UX that I especially like. You can start with a key like the spacebar. And that gives you a menu of keys you can hit next. It's essentially a menu, but the path of the menu traversal becomes the efficient keybindings you memorize for the next time. Notably, the expert doesn't do something different from the beginner. The expert does what the beginner does, only faster.
 
-It would be great if this convergence of the expert and beginner experience could be done beyond editors. I've worked so hard to have these keybindings for window management that have some elegance or are slightly intuitive. But beginners can't discover any of them easily. I have this problem because I'm not doing much more than just stringing together the same applications that everyone else is stringing together. This project is great for me and others with my specific taste for UX choices. I think other people could be included if there were more discovery.
+It would be great if this convergence of the expert and beginner experience could be done beyond editors. I've put in non-trivial work to have these keybindings that have some elegance or are slightly intuitive. But beginners can't discover any of them easily. I have this problem because I'm not doing much more than just stringing together the same applications that everyone else is stringing together. This project is great for me and others with my specific taste for UX choices. I think other people could be included if there were more discovery.
 
 # Brew<a id="sec-7"></a>
 
 Ideally, we'd install and configure everything with Nix. Unfortunately, for a few programs, there's no Nix expression yet for MacOS. So we have to fall back to a package manager like [Homebrew](https://brew.sh/). This includes programs like Firefox and Chromium.
 
-Though it's not ideal, Home Manager supports control over Homebrew. Assuming you've installed Homebrew already, this project will manage which packages/casks are installed, and remove any other packages/casks not specified.
+Though it's not ideal, Home Manager supports control over Homebrew. Assuming Homebrew has been already, this project will manage which packages/casks are installed, and remove any other packages/casks not specified.
 
 At least we can get some automation, even if we don't get Nix's precision.
 
@@ -170,7 +170,7 @@ When looking for an application, there's sometimes an alternative from the [Suck
 
 I have yet to use a Suckless program personally. There are a few reasons for this. The Suckless community obsesses over lines of code as a measure of complexity. This obsession is an implicit declaration of disbelief in the possibility of modular code. Modularity is only accepted between process boundaries, signaled by the rallying cry of "the Unix Way."
 
-I firmly believe that modularity can exist at multiple levels. We shouldn't have system constraints that don't produce guaranteed system invariants that can be appreciated. If a programmer can't make a large program with good modularity, then good programmers don't exist. The Suckless philosophy is an implicit declaration that all programmers are bad. This is a cynical take the world shouldn't settle for. We should all try to do better.
+In contrast, I believe that modularity can exist at multiple levels. We shouldn't have system constraints that don't produce guaranteed system invariants that can be appreciated. If a programmer can't make a large program with good modularity, then good programmers don't exist. The Suckless philosophy is an implicit declaration that all programmers are bad. This is a cynical take the world shouldn't settle for. We should all try to do better.
 
 In the case of Suckless programs, this misguided constraint of lines of code manifests in all configuration performed by patching source code. Diff files are notoriously anti-modular, and it's too easy for multiple patches to conflict upon application.
 

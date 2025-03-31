@@ -14,5 +14,5 @@ in {
     programs.fish = import programs/fish pkgs;
     programs.kitty = import programs/kitty config;
 
-    xdg.configFile = import xdg/configFile config pkgs pkgs-unstable;
+    xdg.configFile = import xdg/configFile pkgs;
 }

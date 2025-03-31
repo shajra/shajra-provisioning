@@ -12,12 +12,6 @@ let
 
 in {
 
-    # REVISIT: for when the day Yabai builds in Nix again
-    # shajra ALL = (root) NOPASSWD: ${pkgs.yabai}/bin/yabai --load-sa
-    environment.etc."sudoers.d/yabai".text = ''
-        ${superUser} ALL = (root) NOPASSWD: /opt/homebrew/Cellar/yabai/*/bin/yabai --load-sa
-    '';
-
     environment.systemPackages = [];
     environment.systemPath = [ "/opt/homebrew/bin" ];
 
@@ -37,10 +31,6 @@ in {
     services.sketchybar = import services/sketchybar config pkgs pkgs-unstable colors;
     services.skhd = import services/skhd pkgs build colors;
     services.tailscale.enable = true;
-
-    # REVISIT: Nixpkgs isn't building Yabai from source yet, and I want the
-    # latest with patches
-    #services.yabai = import services/yabai pkgs colors;
 
     system.activationScripts.postUserActivation.text = ''
         # DESIGN: an example of useful arbitrary Mac cleanup

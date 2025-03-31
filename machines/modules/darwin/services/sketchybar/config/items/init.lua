@@ -1,6 +1,5 @@
 -- require("items.apple")
 require("items.spaces")
--- require("items.yabai")
 require("items.front_app")
 
 require("items.media")
