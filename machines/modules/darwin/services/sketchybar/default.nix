@@ -1,24 +1,6 @@
 config: pkgs: pkgs-unstable: colors:
 
 let
-    display-count = pkgs.writers.writeDash "yabai-display-count" ''
-        yabai -m query --displays | ${pkgs.jq}/bin/jq length
-    '';
-
-    session-save = pkgs.writers.writeDash "yabai-session-save" ''
-        yabai -m query --windows | ${pkgs.jq}/bin/jq -re '
-            . as $top
-            | max_by(.space) | .space as $max_space
-            | "${pkgs.coreutils}/bin/sleep 1"
-            , "SPACES_CUR=$(yabai -m query --spaces | ${pkgs.jq}/bin/jq length)"
-            , "for _i in $(${pkgs.coreutils}/bin/seq $((SPACES_CUR + 1)) \($max_space))"
-            , "do yabai -m space --create last"
-            , "done"
-            , ($top[]
-            | select(.minimized != 1)
-            | "yabai -m window \(.id) --space \(.space)"
-        )'
-    '';
 
     template = pkgs.substituteAllFiles {
         src = ./config;
@@ -30,8 +12,6 @@ let
         ];
         timeout             = "${pkgs.coreutils}/bin/timeout";
         ping                = "${pkgs.inetutils}/bin/ping";
-        session_save        = "${session-save}";
-        display_count       = "${display-count}";
         sketchybar_cpu      = "${pkgs-unstable.sketchybar-cpu}/bin/sketchybar-cpu";
         colors_blue         = colors.nominal.blue;
         colors_red          = colors.nominal.red;

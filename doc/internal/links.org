@@ -1,3 +1,4 @@
+#+link: aerospace https://github.com/nikitabobko/AeroSpace
 #+link: alacritty https://alacritty.org/
 #+link: cachix https://cachix.org/
 #+link: cielab https://en.wikipedia.org/wiki/CIELAB_color_space
@@ -59,5 +60,4 @@
 #+link: suckless https://suckless.org
 #+link: urxvt http://software.schmorp.de/pkg/rxvt-unicode.html
 #+link: vscode https://code.visualstudio.com/
-#+link: yabai https://github.com/koekeishiya/yabai
 #+link: zoxide https://github.com/ajeetdsouza/zoxide

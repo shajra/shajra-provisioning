@@ -22,12 +22,5 @@ return {
         _10 = "􀊡",
         _0 = "􀊣"
     },
-    wifi = {connected = "􀙇", disconnected = "􀙈"},
-    yabai = {
-        stack = "􀏭",
-        fullscreen_zoom = "􀏜",
-        parent_zoom = "􀥃",
-        float = "􀢌",
-        grid = "􀧍" -- unused for now
-    }
+    wifi = {connected = "􀙇", disconnected = "􀙈"}
 }
