@@ -116,7 +116,7 @@ in {
     nixpkgs.prebuilt.base.tui.darwin = np.pick { darwin = "home"; } [
     ] // np.pick { darwin = "unstable"; } [
         # DESIGN: these are all Mac-only applications; unstable is fine
-        "asitop"
+        #"asitop"  # REVISIT: 2025-04-06: Broken in this Nixpkgs version
         "mas"
     ];
 

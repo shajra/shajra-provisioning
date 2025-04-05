@@ -199,30 +199,30 @@ nix flake show . | ansifilter
 
 #+RESULTS: nix-flake-show
 #+begin_example
-git+file:///home/shajra/src/nix-project
+git+file:///home/shajra/src/shajra-provisioning
 ├───apps
 │   ├───aarch64-darwin
 …
-├───flakeModules: unknown
-├───legacyPackages
-│   ├───aarch64-darwin omitted (use '--legacy' to show)
-│   ├───x86_64-darwin omitted (use '--legacy' to show)
-│   └───x86_64-linux omitted (use '--legacy' to show)
-├───lib: unknown
+│   ├───cake: NixOS configuration
+│   └───cake-slim: NixOS configuration
 ├───overlays
 │   └───default: Nixpkgs overlay
-├───packages
-│   ├───aarch64-darwin
-│   │   ├───nix-scaffold omitted (use '--all-systems' to show)
-│   │   └───org2gfm omitted (use '--all-systems' to show)
-│   ├───x86_64-darwin
-│   │   ├───nix-scaffold omitted (use '--all-systems' to show)
-│   │   └───org2gfm omitted (use '--all-systems' to show)
-│   └───x86_64-linux
-│       ├───nix-scaffold: package 'nix-scaffold'
-│       └───org2gfm: package 'org2gfm'
-└───templates
-    └───default: template: A starter project using shajra/nix-project.
+└───packages
+    ├───aarch64-darwin
+    │   ├───home-manager omitted (use '--all-systems' to show)
+    │   ├───shajra-darwin-rebuild omitted (use '--all-systems' to show)
+    │   ├───shajra-home-manager omitted (use '--all-systems' to show)
+    │   └───shajra-nixos-rebuild omitted (use '--all-systems' to show)
+    ├───x86_64-darwin
+    │   ├───home-manager omitted (use '--all-systems' to show)
+    │   ├───shajra-darwin-rebuild omitted (use '--all-systems' to show)
+    │   ├───shajra-home-manager omitted (use '--all-systems' to show)
+    │   └───shajra-nixos-rebuild omitted (use '--all-systems' to show)
+    └───x86_64-linux
+        ├───home-manager: package 'home-manager'
+        ├───shajra-darwin-rebuild: package 'shajra-darwin-rebuild'
+        ├───shajra-home-manager: package 'shajra-home-manager'
+        └───shajra-nixos-rebuild: package 'shajra-nixos-rebuild'
 #+end_example
 
 Flake outputs are organized in a tree of /attributes/. References to paths of
@@ -299,11 +299,18 @@ nix search . ^ | ansifilter
 #+end_src
 
 #+results: nix-search-local
-: * packages.x86_64-linux.nix-scaffold
-:   Script to scaffold a Nix project
-: 
-: * packages.x86_64-linux.org2gfm
-:   Script to export Org-mode files to GitHub Flavored Markdown (GFM)
+#+begin_example
+,* packages.x86_64-linux.home-manager
+  A user environment configurator
+
+,* packages.x86_64-linux.shajra-darwin-rebuild
+  Controlled MacOS rebuild
+
+,* packages.x86_64-linux.shajra-home-manager
+  Controlled home directory management with Nix
+
+…
+#+end_example
 
 We're required to pass regexes as final arguments to prune down the search.
 Above we've passed =^= to match everything and return all results.
@@ -388,8 +395,11 @@ nix search . '<<get("package-attr-short")>>' | ansifilter
 #+end_src
 
 #+RESULTS: nix-search-specific
-: * packages.x86_64-linux.org2gfm
-:   Script to export Org-mode files to GitHub Flavored Markdown (GFM)
+: * packages.x86_64-linux.home-manager
+:   A user environment configurator
+: 
+: * packages.x86_64-linux.shajra-home-manager
+:   Controlled home directory management with Nix
 
 We can see that a package can be accessed with the {{{package-attr-long}}}
 output attribute path of the project's flake. Not shown in the search results
@@ -438,7 +448,7 @@ readlink result*
 #+end_src
 
 #+RESULTS: nix-build-link
-: /nix/store/5h268fgf35h59wri70ak8614k0fh2izi-org2gfm
+: /nix/store/yc45jl0zpwbz5jdr4syw5fa6yf5fya58-home-manager
 
 Following these symlinks, we can see the files the project provides:
 
@@ -448,11 +458,19 @@ tree -l result*
 #+end_src
 
 #+RESULTS: nix-build-tree
-: result
-: └── bin
-:     └── org2gfm
-: 
-: 2 directories, 1 file
+#+begin_example
+result
+├── bin
+│   └── home-manager
+└── share
+    ├── bash
+    │   └── home-manager.sh
+    ├── bash-completion
+    │   └── completions
+    │       └── home-manager
+    ├── fish
+…
+#+end_example
 
 It's common to configure these “result” symlinks as ignored in source control
 tools (for instance, for Git within a =.gitignore= file).
@@ -467,7 +485,7 @@ nix path-info .#<<get("package-attr-short")>>
 #+end_src
 
 #+results: nix-build-path
-: /nix/store/5h268fgf35h59wri70ak8614k0fh2izi-org2gfm
+: /nix/store/yc45jl0zpwbz5jdr4syw5fa6yf5fya58-home-manager
 
 ** Running commands in a shell
 
@@ -491,11 +509,11 @@ nix shell \
 #+end_src
 
 #+RESULTS: nix-shell
-: USAGE: org2gfm [OPTION]...  [FILE]...
+: Usage: /nix/store/yc45jl0zpwbz5jdr4syw5fa6yf5fya58-home-manager/bin/home-manager [OPTION] COMMAND
 : 
-: DESCRIPTION:
+: Options
 : 
-:     Uses Emacs to export Org-mode files to GitHub Flavored
+:   -f FILE           The home configuration file.
 : …
 
 Similarly to =nix build=, =nix shell= accepts installables as positional
@@ -565,11 +583,11 @@ nix run .#<<get("run-attr-short")>>  -- --help
 #+end_src
 
 #+RESULTS: nix-run
-: USAGE: org2gfm [OPTION]...  [FILE]...
+: Usage: /nix/store/yc45jl0zpwbz5jdr4syw5fa6yf5fya58-home-manager/bin/home-manager [OPTION] COMMAND
 : 
-: DESCRIPTION:
+: Options
 : 
-:     Uses Emacs to export Org-mode files to GitHub Flavored
+:   -f FILE           The home configuration file.
 : …
 
 We can see some of the metadata of this package with the =--json= switch of =nix
@@ -582,9 +600,9 @@ nix search --json .#<<get("run-attr-short")>> ^ | jq .
 
 #+RESULTS: nix-search-details
 : {
-:   "packages.x86_64-linux.org2gfm": {
-:     "description": "Script to export Org-mode files to GitHub Flavored Markdown (GFM)",
-:     "pname": "org2gfm",
+:   "packages.x86_64-linux.home-manager": {
+:     "description": "A user environment configurator",
+:     "pname": "home-manager",
 :     "version": ""
 : …
 
@@ -629,7 +647,7 @@ nix shell --ignore-environment \
 #+end_src
 
 #+RESULTS: nix-shell-remote
-: /nix/store/5h268fgf35h59wri70ak8614k0fh2izi-org2gfm/bin/org2gfm
+: /nix/store/yc45jl0zpwbz5jdr4syw5fa6yf5fya58-home-manager/bin/home-manager
 
 What we do with local flake references can work just as well with remote flake
 references.
@@ -676,11 +694,11 @@ nix profile list --profile /tmp/nix-profile | ansifilter
 #+end_src
 
 #+RESULTS: nix-profile-list
-: Name:               org2gfm
-: Flake attribute:    packages.x86_64-linux.org2gfm
-: Original flake URL: git+file:///home/shajra/src/nix-project
-: Locked flake URL:   git+file:///home/shajra/src/nix-project
-: Store paths:        /nix/store/5h268fgf35h59wri70ak8614k0fh2izi-org2gfm
+: Name:               home-manager
+: Flake attribute:    packages.x86_64-linux.home-manager
+: Original flake URL: git+file:///home/shajra/src/shajra-provisioning
+: Locked flake URL:   git+file:///home/shajra/src/shajra-provisioning
+: Store paths:        /nix/store/yc45jl0zpwbz5jdr4syw5fa6yf5fya58-home-manager
 
 If we want to uninstall a program from our profile, we can reference it by name:
 

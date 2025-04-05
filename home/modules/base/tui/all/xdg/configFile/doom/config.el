@@ -77,23 +77,13 @@
   (add-to-list 'projectile-project-root-files-bottom-up ".jj"))
 
 ;; DESIGN: need to load after Doom to change Doom settings
-(after! org-fancy-priorities
+(after! org
   (setq-default
    org-priority-default 4
    org-priority-highest 1
    org-priority-lowest  5
-   ;;(?A . "🅐") (?B . "🅑") (?C . "🅒") (?D . "🅓")
-   ;;(?A . "🅰") (?B . "🅱") (?C . "🅲") (?D . "🅳")
-   ;;(?A . "🄰") (?B . "🄱") (?C . "🄲") (?D . "🄳")
-   ;;(?1 . " ") (?2 . " ") (?3 . " ") (?4 . " ") (?5 . " ")
-   ;;(?1 . " ") (?2 . " ") (?3 . " ") (?4 . " ") (?5 . " ")
-   ;;(?1 . " ") (?2 . " ") (?3 . " ") (?4 . " ") (?5 . " ")
-   ;;(?1 . "⓵") (?2 . "⓶") (?3 . "⓷") (?4 . "⓸") (?5 . "⓹")
-   ;;(?1 . "🌑") (?2 . "🌒") (?3 . "🌓") (?4 . "🌔") (?5 . "🌕")
-   ;;(?1 . "🌕") (?2 . "🌔") (?3 . "🌓") (?4 . "🌒") (?5 . "🌑")
-   org-fancy-priorities-list
-   '((?A . "🅐") (?B . "🅑") (?C . "🅒") (?D . "🅓")
-     (?1 . "🌑") (?2 . "🌒") (?3 . "🌓") (?4 . "🌔") (?5 . "🌕"))))
+   org-priority-faces
+   '((?1 . error) (?2 . error) (?3 . warning) (?4 . warning) (?5 . shadow))))
 
 
 ;; Function calls
@@ -115,11 +105,11 @@
   (add-hook 'xref-backend-functions 'etags--xref-backend))
 
 ;; DESIGN: not indenting by default for long prose, but indenting agenda items
-(add-hook! org-load :append
-  (setq-default org-startup-indented nil))
-(add-hook! org-mode :append
-  (if (+org-agenda-files-includes? (buffer-name))
-      (org-indent-mode)))
+;(add-hook! org-load :append
+;  (setq-default org-startup-indented nil))
+;(add-hook! org-mode :append
+;  (if (+org-agenda-files-includes? (buffer-name))
+;      (org-indent-mode)))
 
 
 ;; Local configuration (some configuration is more personal...)
