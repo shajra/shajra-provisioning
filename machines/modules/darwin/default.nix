@@ -50,9 +50,10 @@ in {
 
     system.checks.verifyNixPath = false;
 
-    system.defaults.NSGlobalDomain.ApplePressAndHoldEnabled = false;
-    system.defaults.NSGlobalDomain._HIHideMenuBar = true;
     system.defaults.dock.autohide = true;
+    system.defaults.NSGlobalDomain._HIHideMenuBar = true;
+    system.defaults.NSGlobalDomain.ApplePressAndHoldEnabled = false;
+    system.defaults.NSGlobalDomain.NSWindowShouldDragOnGesture = true;
     system.defaults.spaces.spans-displays = true;
 
     system.stateVersion = 5;
