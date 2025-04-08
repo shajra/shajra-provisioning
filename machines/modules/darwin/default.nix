@@ -36,6 +36,7 @@ in {
     services.nix-daemon.enable = true;
     services.sketchybar = import services/sketchybar config pkgs pkgs-unstable colors;
     services.skhd = import services/skhd pkgs build colors;
+    services.tailscale.enable = true;
 
     # REVISIT: Nixpkgs isn't building Yabai from source yet, and I want the
     # latest with patches
