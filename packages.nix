@@ -116,7 +116,7 @@ in {
     nixpkgs.prebuilt.base.tui.darwin = np.pick { darwin = "home"; } [
     ] // np.pick { darwin = "unstable"; } [
         # DESIGN: these are all Mac-only applications; unstable is fine
-        #"asitop"  # REVISIT: 2025-04-06: Broken in this Nixpkgs version
+        "asitop"
         "mas"
     ];
 
@@ -136,7 +136,7 @@ in {
     ];
 
     nixpkgs.prebuilt.chat.gui.linux = np.pick { linux = "home"; } [
-        # REVISIT: 2025-03-23: Unsupported for Darwin
+        # REVISIT: 2025-04-12: Unsupported for Darwin
         "irccloud"
 
         # REVISIT: 2025-03-23: Prebuilt for Linux, but not for Darwin
@@ -255,18 +255,17 @@ in {
     ];
 
     nixpkgs.build.base.gui.darwin = np.pick { darwin = "home"; } [
+        "code-cursor"
+        "languagetool"  # DESIGN: prebuilt for linux
     ] // np.pick { darwin = "unstable"; } [
         # DESIGN: these are all Mac-only applications; unstable is fine
         "aldente"
         "iterm2"
         "raycast"
         "shortcat"
-
-        "languagetool"  # DESIGN: prebuilt for linux
     ];
 
     nixpkgs.build.base.gui.linux = np.pick { linux = "home"; } [
-        "code-cursor"  # REVISIT: 2025-03-23: using Brew on Darwin to stay bleeding edge
         "dunst-osd"
         "i3-dpi"
         "i3status-rust-dunst"

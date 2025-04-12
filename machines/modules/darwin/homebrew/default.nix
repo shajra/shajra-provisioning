@@ -73,12 +73,12 @@
     ];
 
     casks = [
-        "cursor"
         "dash"
         "firefox"
         "google-chrome@beta"
         "microsoft-edge@beta"
         "nikitabobko/tap/aerospace"
+        "notion"
         "notion-enhanced"
         "slack"
         "tor-browser"
