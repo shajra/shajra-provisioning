@@ -83,6 +83,7 @@ in {
         "file"
         "gnugrep"
         "gnupg"  # TODO: home-manager
+        "languagetool"
         "macchina"
         "nix-diff"
         "nix-du"
@@ -123,7 +124,6 @@ in {
     nixpkgs.prebuilt.base.tui.linux = np.pick { linux = "home"; } [
         "entr"
         "fswatch"
-        "languagetool"
         "niv"
         "pciutils"
         "powertop"
@@ -256,7 +256,6 @@ in {
 
     nixpkgs.build.base.gui.darwin = np.pick { darwin = "home"; } [
         "code-cursor"
-        "languagetool"  # DESIGN: prebuilt for linux
     ] // np.pick { darwin = "unstable"; } [
         # DESIGN: these are all Mac-only applications; unstable is fine
         "aldente"
