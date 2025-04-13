@@ -142,7 +142,7 @@ in {
         # REVISIT: 2025-03-23: Prebuilt for Linux, but not for Darwin
         "caprine"
         "element-desktop"
-        "signal-desktop"
+        "signal-desktop-bin"
     ];
 
     nixpkgs.prebuilt.chat.tui.all = pickHome [
@@ -295,7 +295,7 @@ in {
     nixpkgs.build.chat.gui.darwin = np.pick { darwin = "home"; } [
         "caprine"
         "element-desktop"
-        "signal-desktop"
+        "signal-desktop-bin"
     ];
 
     nixpkgs.build.chat.gui.linux = np.pick { linux = "home"; } [
