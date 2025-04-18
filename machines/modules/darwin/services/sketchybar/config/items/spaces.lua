@@ -1,5 +1,5 @@
 local colors = require("colors")
-local emojis = require("emojis")
+local app_icon_names = require("app_icon_names")
 local settings = require("settings")
 
 local aerospace = sbar.aerospace
@@ -83,17 +83,17 @@ local function update_workspaces()
         local is_visible = contains(visible_spaces, workspace_name)
         local apps = windows_by_workspace[workspace_name] or {}
         local no_apps = (#apps == 0)
-        local app_emojis_set = {}
+        local app_icon_names_set = {}
         for _, window in ipairs(apps) do
-            app_emojis_set[emojis[window["app-name"]] or ":default:"] = true
+            app_icon_names_set[app_icon_names[window["app-name"]] or ":default:"] = true
         end
-        local app_emojis_list = {}
-        for emoji in pairs(app_emojis_set) do
-            table.insert(app_emojis_list, emoji)
+        local app_icon_names_list = {}
+        for name in pairs(app_icon_names_set) do
+            table.insert(app_icon_names_list, name)
         end
         local icon_strip = "—"
-        if next(app_emojis_list) ~= nil then
-            icon_strip = table.concat(app_emojis_list, " ")
+        if next(app_icon_names_list) ~= nil then
+            icon_strip = table.concat(app_icon_names_list, " ")
         end
 
         local bg_color, fg_color

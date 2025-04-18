@@ -33,7 +33,7 @@ let
         font_family          = config.theme.fonts.proportional.name;
     };
 
-    emojis = pkgs.runCommand "sketchybar-emojis" {} ''
+    appIconNames = pkgs.runCommand "sketchybar-app-icon-names" {} ''
         mkdir -p "$out"
         {
             echo "return {"
@@ -51,12 +51,12 @@ let
             echo '    ["Google Chrome Beta"] = ":google_chrome:",'
             echo '    ["Microsoft Edge Beta"] = ":microsoft_edge:",'
             echo "}"
-        } > "$out/emojis.lua"
+        } > "$out/app_icon_names.lua"
     '';
 
     combined = pkgs.symlinkJoin {
         name = "sketchybar-config";
-        paths = [ template emojis ./config ];
+        paths = [ template appIconNames ./config ];
     };
 
     luaposix = pkgs-unstable.lua5_4.pkgs.buildLuarocksPackage {
