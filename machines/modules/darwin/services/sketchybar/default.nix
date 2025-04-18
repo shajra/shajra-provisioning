@@ -88,7 +88,7 @@ in {
         sbar.aerospace = aerospace
         sbar.begin_config()
         require("init")
-        sbar.hotload(true)
+        sbar.hotload(false)
         sbar.end_config()
         sbar.event_loop()
     '';
