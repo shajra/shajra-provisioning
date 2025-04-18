@@ -12,7 +12,7 @@ let
         ];
         timeout             = "${pkgs.coreutils}/bin/timeout";
         ping                = "${pkgs.inetutils}/bin/ping";
-        sketchybar_cpu      = "${pkgs-unstable.sketchybar-cpu}/bin/sketchybar-cpu";
+        sketchybar_cpu      = "${pkgs-unstable.sketchybar-helpers}/bin/sketchybar-cpu";
         colors_blue         = colors.nominal.blue;
         colors_red          = colors.nominal.red;
         colors_unifying     = colors.semantic.unifying;

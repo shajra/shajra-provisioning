@@ -343,7 +343,7 @@ in {
     ];
 
     nixpkgs.build.uncategorized.darwin = np.pick { darwin = "home"; } [
-        "sketchybar-cpu"
+        "sketchybar-helpers"
         "sketchybar-lua"
     ];
 

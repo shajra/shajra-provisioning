@@ -15,6 +15,7 @@
         delta                  = { url = "github:dandavison/delta"; flake = false; };
         dircolors-solarized    = { url = "github:seebi/dircolors-solarized"; flake = false; };
         direnv-nix-lorelei     = { url = "github:shajra/direnv-nix-lorelei"; flake = false; };
+        dotfiles-felixkratz    = { url = "github:FelixKratz/dotfiles"; flake = false; };
         fzf-fish               = { url = "github:PatrickF1/fzf.fish"; flake = false; };
         haskell-hls-nix        = { url = "github:shajra/haskell-hls-nix"; flake = false; };
         haskell-tags-nix       = { url = "github:shajra/haskell-tags-nix"; flake = false; };

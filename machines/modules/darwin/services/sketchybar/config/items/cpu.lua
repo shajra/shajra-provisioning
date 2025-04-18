@@ -51,12 +51,12 @@ end
 local function cpu_update(env)
     cpu_load:set({
         label = {
-            string = env.LOAD .. "%",
-            color = urgency_color(tonumber(env.LOAD))
+            string = env.total_load .. "%",
+            color = urgency_color(tonumber(env.total_load))
         }
     })
-    cpu_user:push({tonumber(env.USER) / 100})
-    cpu_system:push({tonumber(env.SYSTEM) / 100})
+    cpu_user:push({tonumber(env.user_load) / 100})
+    cpu_system:push({tonumber(env.sys_load) / 100})
 end
 
 cpu_load:subscribe(event, cpu_update)
