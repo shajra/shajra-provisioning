@@ -53,6 +53,7 @@
         "notion"
         "notion-enhanced"
         "slack"
+        "tidal"
         "tor-browser"
 
         # DESIGN: using, but maybe not for long
