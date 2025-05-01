@@ -15,6 +15,34 @@ in {
                     config user.email dev.sukant@hajra.xyz
         '';
     };
+    programs.fish.functions.imandra-web-make = {
+        description = "Make an imandra-web target in a new Kitty tab";
+        body = ''
+            set src_dir "$HOME/src/work/imandra-web"
+            set title $argv[1]
+            "${pkgs.kitty}/bin/kitty" @ launch \
+                --type=tab \
+                --title="$title" \
+                "${pkgs.direnv}/bin/direnv" exec "$src_dir" \
+                "${pkgs.gnumake}/bin/make" --directory="$src_dir" $argv[2..-1]
+
+        '';
+    };
+    programs.fish.functions.imandra-web-make-all = {
+        description = "Make all imandra-web targets in a new Kitty tab";
+        body = ''
+            if test (count $arg) -gt 0
+                set service $arg[1]
+            else
+                set service universe
+            end
+            imandra-web-make         db cloud-sql-proxy-dev
+            imandra-web-make static  watch-static
+            imandra-web-make build   watch-build
+            imandra-web-make service dev "$service" watch-server
+            "${pkgs.kitty}/bin/kitty" @ focus-tab --match index:0
+        '';
+    };
     programs.fish.functions.imandra-rebase-mine = {
         description = "Rebase my local branches";
         body = ''
