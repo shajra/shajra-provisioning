@@ -31,8 +31,8 @@ in {
     programs.fish.functions.imandra-web-make-all = {
         description = "Make all imandra-web targets in a new Kitty tab";
         body = ''
-            if test (count $arg) -gt 0
-                set service $arg[1]
+            if test (count $argv) -gt 0
+                set service $argv[1]
             else
                 set service universe
             end
