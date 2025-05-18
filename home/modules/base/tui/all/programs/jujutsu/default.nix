@@ -1,7 +1,6 @@
 {
     enable = true;
     settings = {
-        git.subprocess = true;
         user = {
             name = "Sukant Hajra";
             email = "dev.sukant@hajra.xyz";

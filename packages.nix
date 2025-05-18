@@ -207,10 +207,8 @@ in {
     nixpkgs.prebuilt.programming.haskell = pickHome [
         "cabal2nix"
         "cabal-install"
+        "haskell.compiler.ghc984"
         "stack"
-
-        # REVISIT: 2025-03-23: ghc984: some Haskell packages broken
-        "haskell.compiler.ghc966"
     ];
 
     nixpkgs.prebuilt.programming.java = pickHome [
@@ -321,25 +319,21 @@ in {
     ];
 
     nixpkgs.build.programming.haskell = pickUnstable [
-        # DESIGN: coming from Nixpkgs, but not cached
-        # REVISIT: 2025-03-23: broken for ghc984:
-        # - profiterole
-        # - profiteur
-        "haskell.packages.ghc966.apply-refact"
-        "haskell.packages.ghc966.cabal-fmt"
-        "haskell.packages.ghc966.djinn"
-        "haskell.packages.ghc966.eventlog2html"
-        "haskell.packages.ghc966.fast-tags"
-        "haskell.packages.ghc966.ghc-events"
-        "haskell.packages.ghc966.ghcid"
-        "haskell.packages.ghc966.haskdogs"
-        "haskell.packages.ghc966.hasktags"
-        "haskell.packages.ghc966.hlint"
-        "haskell.packages.ghc966.hoogle"
-        "haskell.packages.ghc966.hp2pretty"
-        "haskell.packages.ghc966.profiterole"
-        "haskell.packages.ghc966.profiteur"
-        "haskell.packages.ghc966.stylish-haskell"
+        "haskell.packages.ghc984.apply-refact"
+        "haskell.packages.ghc984.cabal-fmt"
+        "haskell.packages.ghc984.djinn"
+        "haskell.packages.ghc984.eventlog2html"
+        "haskell.packages.ghc984.fast-tags"
+        "haskell.packages.ghc984.ghc-events"
+        "haskell.packages.ghc984.ghcid"
+        "haskell.packages.ghc984.haskdogs"
+        "haskell.packages.ghc984.hasktags"
+        "haskell.packages.ghc984.hlint"
+        "haskell.packages.ghc984.hoogle"
+        "haskell.packages.ghc984.hp2pretty"
+        "haskell.packages.ghc984.profiterole"
+        "haskell.packages.ghc984.profiteur"
+        "haskell.packages.ghc984.stylish-haskell"
     ];
 
     nixpkgs.build.uncategorized.darwin = np.pick { darwin = "home"; } [
@@ -352,23 +346,23 @@ in {
 
     haskell-nix.prebuilt.programming.haskell = {
         # DESIGN: don't use enough to want to think about a cache miss
-        #nix-tools = hn.nixpkgs.haskell-nix.nix-tools.ghc966;
+        #nix-tools = hn.nixpkgs.haskell-nix.nix-tools.ghc984;
     };
 
     haskell-nix.build.programming.haskell = when (! isDevBuild) {}
         # DESIGN: Nixpkgs-built binaries above are fine (maybe bloated)
         #({}
-        #// (hn.fromHackage "ghc966" "apply-refact")
-        #// (hn.fromHackage "ghc966" "fast-tags")
-        #// (hn.fromHackage "ghc966" "ghc-events")
-        #// (hn.fromHackage "ghc966" "ghcid")
-        #// (hn.fromHackage "ghc966" "haskdogs")
-        #// (hn.fromHackage "ghc966" "hasktags")
-        #// (hn.fromHackage "ghc966" "hlint")
-        #// (hn.fromHackage "ghc966" "hoogle")
-        #// (hn.fromHackage "ghc966" "hp2pretty")
-        #// (hn.fromHackage "ghc966" "threadscope")
-        #// (hn.fromHackageCustomized "ghc966" "stylish-haskell" { configureArgs = "-f ghc-lib"; })
+        #// (hn.fromHackage "ghc984" "apply-refact")
+        #// (hn.fromHackage "ghc984" "fast-tags")
+        #// (hn.fromHackage "ghc984" "ghc-events")
+        #// (hn.fromHackage "ghc984" "ghcid")
+        #// (hn.fromHackage "ghc984" "haskdogs")
+        #// (hn.fromHackage "ghc984" "hasktags")
+        #// (hn.fromHackage "ghc984" "hlint")
+        #// (hn.fromHackage "ghc984" "hoogle")
+        #// (hn.fromHackage "ghc984" "hp2pretty")
+        #// (hn.fromHackage "ghc984" "threadscope")
+        #// (hn.fromHackageCustomized "ghc984" "stylish-haskell" { configureArgs = "-f ghc-lib"; })
         #)
     ;
 
