@@ -79,11 +79,11 @@
 ;; DESIGN: need to load after Doom to change Doom settings
 (after! org
   (setq-default
-   org-priority-default 4
+   org-priority-default 3
    org-priority-highest 1
-   org-priority-lowest  5
+   org-priority-lowest  4
    org-priority-faces
-   '((?1 . error) (?2 . error) (?3 . warning) (?4 . warning) (?5 . shadow))))
+   '((?1 . error) (?2 . warning) (?3 . black) (?4 . shadow) )))
 
 
 ;; Function calls
