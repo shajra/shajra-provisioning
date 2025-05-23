@@ -369,7 +369,7 @@ nix search nixpkgs/nixos-<<get("nixos-latest")>>#wezterm ^ | ansifilter
 #+end_src
 
 #+RESULTS: nix-search-remote-wezterm
-: * legacyPackages.x86_64-linux.wezterm (0-unstable-2025-01-03)
+: * legacyPackages.x86_64-linux.wezterm (0-unstable-2025-02-23)
 :   GPU-accelerated cross-platform terminal emulator and multiplexer written by @wez and implemented in Rust
 
 Here {{{get(nixos-latest,~/nixos-,~)}}} overrides the default =nixpkgs-unstable=
@@ -448,7 +448,7 @@ readlink result*
 #+end_src
 
 #+RESULTS: nix-build-link
-: /nix/store/rr7xx8wvqabrzr8xxgxaq8iwsqv8s5by-home-manager
+: /nix/store/j7igac8qbr93bbs5xn8vngawpx6v4lmq-home-manager
 
 Following these symlinks, we can see the files the project provides:
 
@@ -485,7 +485,7 @@ nix path-info .#<<get("package-attr-short")>>
 #+end_src
 
 #+results: nix-build-path
-: /nix/store/rr7xx8wvqabrzr8xxgxaq8iwsqv8s5by-home-manager
+: /nix/store/j7igac8qbr93bbs5xn8vngawpx6v4lmq-home-manager
 
 ** Running commands in a shell
 
@@ -509,7 +509,7 @@ nix shell \
 #+end_src
 
 #+RESULTS: nix-shell
-: Usage: /nix/store/rr7xx8wvqabrzr8xxgxaq8iwsqv8s5by-home-manager/bin/home-manager [OPTION] COMMAND
+: Usage: /nix/store/j7igac8qbr93bbs5xn8vngawpx6v4lmq-home-manager/bin/home-manager [OPTION] COMMAND
 : 
 : Options
 : 
@@ -583,7 +583,7 @@ nix run .#<<get("run-attr-short")>>  -- --help
 #+end_src
 
 #+RESULTS: nix-run
-: Usage: /nix/store/rr7xx8wvqabrzr8xxgxaq8iwsqv8s5by-home-manager/bin/home-manager [OPTION] COMMAND
+: Usage: /nix/store/j7igac8qbr93bbs5xn8vngawpx6v4lmq-home-manager/bin/home-manager [OPTION] COMMAND
 : 
 : Options
 : 
@@ -647,7 +647,7 @@ nix shell --ignore-environment \
 #+end_src
 
 #+RESULTS: nix-shell-remote
-: /nix/store/rr7xx8wvqabrzr8xxgxaq8iwsqv8s5by-home-manager/bin/home-manager
+: /nix/store/j7igac8qbr93bbs5xn8vngawpx6v4lmq-home-manager/bin/home-manager
 
 What we do with local flake references can work just as well with remote flake
 references.
@@ -698,7 +698,7 @@ nix profile list --profile /tmp/nix-profile | ansifilter
 : Flake attribute:    packages.x86_64-linux.home-manager
 : Original flake URL: git+file:///home/shajra/src/shajra-provisioning
 : Locked flake URL:   git+file:///home/shajra/src/shajra-provisioning
-: Store paths:        /nix/store/rr7xx8wvqabrzr8xxgxaq8iwsqv8s5by-home-manager
+: Store paths:        /nix/store/j7igac8qbr93bbs5xn8vngawpx6v4lmq-home-manager
 
 If we want to uninstall a program from our profile, we can reference it by name:
 

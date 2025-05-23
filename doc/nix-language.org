@@ -423,7 +423,7 @@ nix eval --expr '/some/filepath'
 
 #+RESULTS:
 : "path"
-: /some/filepath
+: «unknown»/some/filepath
 
 * Mutable (dangerous) path references
 

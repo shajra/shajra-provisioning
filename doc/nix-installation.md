@@ -43,22 +43,22 @@ Hopefully, this alleviates any worry about installing a complex program on your 
 
 > **<span class="underline">NOTE:</span>** You don't need this step if you're running NixOS, which comes with Nix baked in.
 
-Though the latest version of Nix is Nix 2.28.3, we'll be installing the version that the last release of NixOS (24.11) uses, specifically Nix 2.24.14. As discussed in the included [introduction to Nix](nix-introduction.md), this version is considered stable by the Nix community.
+Though the latest version of Nix is Nix 2.29.0, we'll be installing the version that the last release of NixOS (25.05) uses, specifically Nix 2.28.3. As discussed in the included [introduction to Nix](nix-introduction.md), this version is considered stable by the Nix community.
 
 The following command calls the official installation script for the recommended version of Nix. Note, this script will require `sudo` access.
 
 ```bash
-sh <(curl -L https://releases.nixos.org/nix/nix-2.24.14/install) --daemon
+sh <(curl -L https://releases.nixos.org/nix/nix-2.28.3/install) --daemon
 ```
 
 The `--daemon` switch installs Nix in the multi-user mode, which is generally recommended (single-user installation with `--no-daemon` instead is recommended for WSL). The script reports everything it does and touches.
 
 After installation, you may have to exit your terminal session and log back in to have environment variables configured, which puts Nix executables on your `PATH`.
 
-Every six months or so, a new version of NixOS releases, and you should consider upgrading your installation of Nix. For NixOS 24.11, this command upgrades Nix:
+Every six months or so, a new version of NixOS releases, and you should consider upgrading your installation of Nix. For NixOS 25.05, this command upgrades Nix:
 
 ```bash
-NIXOS_VERSION="24.11"
+NIXOS_VERSION="25.05"
 NIX_STORE_PATHS_URL=https://github.com/NixOS/nixpkgs/raw/$NIXOS_VERSION/nixos/module/installer/tools/nix-fallback-paths.nix
 sudo nix upgrade-nix --nix-store-paths-url "$NIX_STORE_PATHS_URL"
 ```

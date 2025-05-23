@@ -22,11 +22,9 @@ in {
         options usb-storage quirks=0bda:9210:u
     '';
 
-    # REVISIT: NixOS 24.11 is on Linux 6.6 because its was the latest LTS when
-    # it released, but Linux 6.12 is LTS and released now.  Trying this out in
-    # the hopes it makes Cake perform better.
+    # DESIGN: Sometimes it's worth trying to go with newer kernels than default
     #boot.kernelPackages = pkgs.linuxPackages_latest;
-    boot.kernelPackages = pkgs.linuxPackages_6_12;
+    #boot.kernelPackages = pkgs.linuxPackages_6_12;
 
     boot.kernelParams = [
 
@@ -237,7 +235,10 @@ in {
         ${
           let origFile = "${pkgs.sources.kaleidoscope}/etc/60-kaleidoscope.rules";
               origRules = builtins.readFile origFile;
-          in builtins.replaceStrings ['', SYMLINK''] ['', MODE="0666", SYMLINK''] origRules
+          in builtins.replaceStrings
+              ['', SYMLINK'' ''}:='' ]
+              ['', MODE="0666", SYMLINK'' ''}='']
+              origRules
         }
     '';
 
@@ -271,7 +272,7 @@ in {
     ];
     services.xserver.enable = true;
 
-    # DESIGN: Stopped using "intel" driver with NixOS 24.11
+    # DESIGN: Stopped using "intel" driver
     services.xserver.videoDrivers = ["modesetting" "fbdev"];
 
     services.xserver.windowManager.i3.enable = true;
