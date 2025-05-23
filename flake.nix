@@ -8,7 +8,7 @@
         flake-parts.url    = "github:hercules-ci/flake-parts";
         haskell-nix.url    = "github:input-output-hk/haskell.nix";
         home-manager.url   = "github:shajra/home-manager/feature/lieer-address-override";
-        nix-darwin.url     = "github:LnL7/nix-darwin/nix-darwin-24.11";
+        nix-darwin.url     = "github:LnL7/nix-darwin/nix-darwin-25.05";
         nix-project.url    = "github:shajra/nix-project";
         nur.url            = "github:nix-community/NUR";
         vscode-server.url  = "github:nix-community/nixos-vscode-server";

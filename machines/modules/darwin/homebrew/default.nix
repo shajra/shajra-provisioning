@@ -45,6 +45,7 @@
         "firefox"
         "google-chrome@beta"
         "microsoft-edge@beta"
+        "vivaldi"
 
         # REVISIT: Aerospace doesn't build from source on Nix just yet.
         # What Nixpkgs does is just repackage a published binary release.

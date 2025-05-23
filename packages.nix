@@ -244,6 +244,7 @@ in {
     ];
 
     nixpkgs.build.base.gui.all = pickHome [
+        "code-cursor"
         "notify-time"
 
         # Uncached Fonts
@@ -253,7 +254,6 @@ in {
     ];
 
     nixpkgs.build.base.gui.darwin = np.pick { darwin = "home"; } [
-        "code-cursor"
     ] // np.pick { darwin = "unstable"; } [
         # DESIGN: these are all Mac-only applications; unstable is fine
         "aldente"
@@ -267,7 +267,7 @@ in {
         "i3-dpi"
         "i3status-rust-dunst"
         "i3-workspace-name"
-        "microsoft-edge"
+        "vivaldi"
     ];
 
     nixpkgs.build.base.tui.all = pickHome [
