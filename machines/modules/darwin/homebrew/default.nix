@@ -42,7 +42,7 @@
 
     casks = [
         "dash"
-        "firefox"
+        "firefox@beta"
         "google-chrome@beta"
         "microsoft-edge@beta"
         "vivaldi"
