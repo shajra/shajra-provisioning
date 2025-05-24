@@ -1,7 +1,7 @@
-self: super:
+final: prev:
 
-super.runCommand "xorg-cursor-big" {
-    nativeBuildInputs = with self; [
+prev.runCommand "xorg-cursor-big" {
+    nativeBuildInputs = with final; [
         bdfresize
         xorg.bdftopcf
         gzip
@@ -11,7 +11,7 @@ super.runCommand "xorg-cursor-big" {
 ''
 FONT_PATH="lib/X11/fonts/misc"
 FONT_FILE="cursor.pcf.gz"
-SOURCE="${super.xorg.fontcursormisc}/$FONT_PATH/$FONT_FILE"
+SOURCE="${prev.xorg.fontcursormisc}/$FONT_PATH/$FONT_FILE"
 TARGET_DIR="$out/$FONT_PATH"
 TARGET="$TARGET_DIR/$FONT_FILE"
 

@@ -1,16 +1,16 @@
-self: super:
+final: prev:
 
 let
     progName = "shajra-i3-init";
     meta.description = "(re)initiatialize I3 to my preferences";
 in
 
-self.nix-project-lib.writeShellCheckedExe progName
+final.nix-project-lib.writeShellCheckedExe progName
 {
     inherit meta;
 
-    runtimeShell = "${self.dash}/bin/dash";
-    path = with self; [
+    runtimeShell = "${final.dash}/bin/dash";
+    path = with final; [
         shajra-x-configure
         i3-dpi
     ];

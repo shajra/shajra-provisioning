@@ -1,8 +1,6 @@
-pkgs:
+{lib}:
 
 let
-
-    inherit (pkgs) lib;
 
     digit.h2d = h: {
         "0" = 0;

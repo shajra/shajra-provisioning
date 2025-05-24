@@ -5,7 +5,7 @@
 let
 
     # DESIGN: downloading the latest hashes is time-consuming
-    #overlay.all-cabal-hashes = self: super: {
+    #overlay.all-cabal-hashes = final: prev: {
     #    all-cabal-hashes = sources.all-cabal-hashes;
     #};
 
@@ -13,8 +13,8 @@ let
     external.nur    = inputs.nur.overlays.default;
     external.vscode = inputs.vscode-overlay.overlays.default;
 
-    external.sources = self: super: {
-        sources = super.sources or {} // {
+    external.sources = final: prev: {
+        sources = prev.sources or {} // {
             inherit (inputs)
                 delta
                 dircolors-solarized
@@ -37,24 +37,24 @@ let
         };
     };
 
-    external.packages = self: super: {
+    external.packages = final: prev: {
         home-manager-latest = inputs'.home-manager.packages.default;
         nix-project-lib = inputs'.nix-project.legacyPackages.lib.scripts;
         inherit (inputs'.nix-project.packages) org2gfm;
     };
 
-    external.modules = self: super: {
+    external.modules = final: prev: {
         homeModules.vscode-server =
             inputs.vscode-server.homeModules.default;
     };
 
-    internal.sources = self: super:
+    internal.sources = final: prev:
         let rejectFile = path: type: regex:
                 type != "regular" || builtins.match regex path == null;
             rejectDir = path: type: regex:
                 type != "directory" || builtins.match regex path == null;
         in {
-            sources = super.sources or {} // {
+            sources = prev.sources or {} // {
                 shajra-provisioning = builtins.path {
                     path = ../..;
                     name = "shajra-provisioning";
@@ -73,9 +73,9 @@ let
                 (p: t: import (./overlays + "/${p}"))
                 (builtins.readDir ./overlays));
 
-    internal.packages = self: super:
+    internal.packages = final: prev:
         builtins.mapAttrs
-            (p: t: self.callPackage (./packages + "/${p}") {})
+            (p: t: final.callPackage (./packages + "/${p}") {})
             (builtins.readDir ./packages);
 
 in  [

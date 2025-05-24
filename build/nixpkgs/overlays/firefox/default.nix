@@ -1,7 +1,7 @@
-self: super:
+final: prev:
 
 {
-    firefox = super.firefox.override {
-        nativeMessagingHosts = [ super.tridactyl-native ];
+    firefox = prev.firefox.override {
+        nativeMessagingHosts = [ prev.tridactyl-native ];
     };
 }

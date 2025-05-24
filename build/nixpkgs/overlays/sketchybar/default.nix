@@ -1,10 +1,10 @@
-self: super:
+final: prev:
 
 {
-    sketchybar = super.sketchybar.overrideAttrs (old: {
-        src = self.sources.sketchybar;
+    sketchybar = prev.sketchybar.overrideAttrs (old: {
+        src = final.sources.sketchybar;
         version = "head";
-        buildInputs = [ super.apple-sdk_15 ];
+        buildInputs = [ prev.apple-sdk_15 ];
 
         # DESIGN: versionCheckHook fails to match --version to head
         nativeInstallCheckInputs = [];

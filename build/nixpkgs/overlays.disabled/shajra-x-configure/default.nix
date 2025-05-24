@@ -1,16 +1,16 @@
-self: super:
+final: prev:
 
 let
     progName = "shajra-x-configure";
     meta.description = "configure X for my hotplugged input devices";
 in
 
-self.nix-project-lib.writeShellCheckedExe progName
+final.nix-project-lib.writeShellCheckedExe progName
 {
     inherit meta;
 
-    runtimeShell = "${self.dash}/bin/dash";
-    path = with self; [
+    runtimeShell = "${final.dash}/bin/dash";
+    path = with final; [
         coreutils
     ];
 }

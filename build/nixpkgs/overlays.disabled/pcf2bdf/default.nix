@@ -1,10 +1,10 @@
-self: super:
+final: prev:
 
-super.stdenv.mkDerivation rec {
+prev.stdenv.mkDerivation rec {
     pname = "pcf2bdf";
     version = "1.05";
     name = "${pname}-${version}";
-    src = super.fetchFromGitHub {
+    src = prev.fetchFromGitHub {
         owner = "ganaware";
         repo = "${pname}";
         rev = "${version}";

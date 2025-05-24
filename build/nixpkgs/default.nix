@@ -16,8 +16,8 @@ let
 
     remasterOverlay = name:
         if name == "unstable"
-        then self: super: masterPkgsOverUnstable nixpkgsOverlaid.master
-        else self: super: {};
+        then final: prev: masterPkgsOverUnstable nixpkgsOverlaid.master
+        else final: prev: {};
 
     mkNixpkgs = name: pkgs: import pkgs.path {
         inherit config system;
@@ -43,7 +43,7 @@ let
 
     # DESIGN: not used any more, but maybe later
     hsOverrides.ghc865 = hs: hs.packages.ghc865.override {
-        overrides = hSelf: hSuper: {
+        overrides = hFinal: hPrev: {
         };
     };
 

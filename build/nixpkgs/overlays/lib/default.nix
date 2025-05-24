@@ -1,7 +1,9 @@
-self: super:
+final: prev:
 
 {
-    lib = super.lib // {
-        colors = import ./colors.nix self;
+    lib = prev.lib // {
+        colors = prev.callPackage ./colors.nix {};
     };
 }
+
+

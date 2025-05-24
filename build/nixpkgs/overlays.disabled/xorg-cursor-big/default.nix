@@ -1,17 +1,17 @@
-self: super:
+final: prev:
 
-super.stdenv.mkDerivation rec {
+prev.stdenv.mkDerivation rec {
 
     pname = "xorg-cursor-big";
     version = "3.8";
     name = "${pname}${version}";
 
-    src = super.fetchzip {
+    src = prev.fetchzip {
         url = "http://deb.debian.org/debian/pool/main/b/big-cursor/big-cursor_3.8.tar.gz";
         sha256="10pw78hm987gpi0q1m7h5vzxjxxz6fbr33p4y1dm739rpphn4wxd";
     };
 
-    nativeBuildInputs = with self; [
+    nativeBuildInputs = with final; [
         xorg.bdftopcf
         gzip
     ];
@@ -24,7 +24,7 @@ super.stdenv.mkDerivation rec {
         TARGET_DIR="$out/$FONT_PATH"
         FONT_FILE="cursor.pcf.gz"
         TARGET="$TARGET_DIR/$FONT_FILE"
-        
+
         mkdir -p "$TARGET_DIR"
         bdftopcf "$SOURCE" \
             | gzip \

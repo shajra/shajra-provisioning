@@ -1,17 +1,17 @@
 # DESIGN: autoPatchelfHook was insufficient, so manually specifying all rpaths
 # mimicing heavily the adoptopenjdk Nix expression in Nixpkgs.
 
-self: super:
+final: prev:
 
 let
 
-    rpathInternal = super.lib.concatStringsSep ":" [
+    rpathInternal = prev.lib.concatStringsSep ":" [
         "$out/jre/lib/jli"
         "$out/jre/lib/server"
         "$out/jre/lib"
     ];
 
-    rpathExternal = with super; lib.strings.makeLibraryPath [
+    rpathExternal = with prev; lib.strings.makeLibraryPath [
         alsaLib
         atk
         cairo
@@ -47,7 +47,7 @@ let
 
 in
 
-super.stdenv.mkDerivation rec {
+prev.stdenv.mkDerivation rec {
 
     pname = "moneydance";
     #version = "2019.1_1855";  # stable
@@ -61,7 +61,7 @@ super.stdenv.mkDerivation rec {
 
     name = "${pname}-${version}";
 
-    src = super.fetchzip {
+    src = prev.fetchzip {
         url = "https://infinitekind.com/stabledl/${version}/moneydance-linux.tar.gz";
         #url = "https://infinitekind.com/previewdl/current/moneydance-linux.tar.gz";
 
@@ -78,7 +78,7 @@ super.stdenv.mkDerivation rec {
         #sha256 = "1xgpgy4v3akajdz294jp8qcv2v41x57w522fw03f3lh811cw39na";
     };
 
-    nativeBuildInputs = with super; [
+    nativeBuildInputs = with prev; [
         adwaita-icon-theme
         gnused
         makeWrapper

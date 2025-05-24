@@ -1,21 +1,21 @@
-self: super:
+final: prev:
 
-super.stdenv.mkDerivation rec {
+prev.stdenv.mkDerivation rec {
 
     pname = "moneydance";
     version = "2019.1_1855";
     name = "${pname}-${version}";
 
-    src = super.fetchzip {
+    src = prev.fetchzip {
         url = "https://infinitekind.com/stabledl/${version}/moneydance-linux.tar.gz";
         sha256 = "1dhwjay7j9q8ss58slzp1yxyxqn0bm56a2dwmnaz8566a7cpawva";
     };
 
-    nativeBuildInputs = with super; [ autoPatchelfHook gnused makeWrapper ];
+    nativeBuildInputs = with prev; [ autoPatchelfHook gnused makeWrapper ];
 
-    buildInputs = with super; [ ffmpeg glib gtk3 xorg.libXtst pango zlib ];
+    buildInputs = with prev; [ ffmpeg glib gtk3 xorg.libXtst pango zlib ];
 
-    runtimeDependencies = with super; [ fontconfig ];
+    runtimeDependencies = with prev; [ fontconfig ];
 
     installPhase =
         ''
@@ -28,7 +28,7 @@ super.stdenv.mkDerivation rec {
             -e 's|=`pwd`|='"$out/bin"'|' \
             "$out/bin/moneydance"
         #{
-        #    echo version=1 
+        #    echo version=1
         #    echo sequence.allfonts=default
         #} >> "$out/jre/lib/fontconfig.properties"
         rm \

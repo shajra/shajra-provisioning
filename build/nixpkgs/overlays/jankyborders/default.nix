@@ -1,9 +1,9 @@
-self: super:
+final: prev:
 
 {
-    jankyborders = super.jankyborders.overrideAttrs (old: {
-        src = self.sources.jankyborders;
+    jankyborders = prev.jankyborders.overrideAttrs (old: {
+        src = final.sources.jankyborders;
         version = "head";
-        buildInputs = [ super.apple-sdk_15 ];
+        buildInputs = [ prev.apple-sdk_15 ];
     });
 }

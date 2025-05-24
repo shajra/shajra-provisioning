@@ -1,10 +1,10 @@
-self: super:
+final: prev:
 
 {
-    lieer = super.lieer.overridePythonAttrs(old: {
+    lieer = prev.lieer.overridePythonAttrs(old: {
         version = "latest";
-        src = super.sources.lieer;
-        propagatedBuildInputs = with super.python3Packages; [
+        src = prev.sources.lieer;
+        propagatedBuildInputs = with prev.python3Packages; [
             notmuch2
             google-api-python-client
             google-auth-oauthlib
