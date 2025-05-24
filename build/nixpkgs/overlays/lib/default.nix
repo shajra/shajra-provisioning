@@ -1,7 +1,6 @@
-self: super:
+{ pkgs }:
 
 {
-    lib = super.lib // {
-        colors = import ./colors.nix self;
-    };
+    colors = import ./colors.nix { inherit pkgs; };
+    replaceVarsAllFiles = import ./replaceVarsAllFiles.nix { inherit pkgs; };
 }
