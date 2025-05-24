@@ -2,7 +2,7 @@ config: pkgs: pkgs-unstable: colors:
 
 let
 
-    template = pkgs.substituteAllFiles {
+    template = pkgs.replaceVarsAllFiles {
         src = ./config;
         files = [
             "colors.lua"
@@ -10,6 +10,7 @@ let
             "items/cpu.lua"
             "items/spaces.lua"
         ];
+    } {
         timeout             = "${pkgs.coreutils}/bin/timeout";
         ping                = "${pkgs.inetutils}/bin/ping";
         sketchybar_cpu      = "${pkgs-unstable.sketchybar-helpers}/bin/sketchybar-cpu";

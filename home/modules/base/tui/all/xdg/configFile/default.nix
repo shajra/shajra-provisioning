@@ -5,9 +5,10 @@ let
     format = pkgs.lib.colors.format "%R%G%B";
     colors = pkgs.lib.colors.transformColors format config.theme.colors;
     colorName = c: pkgs.lib.colors.colorName c config.theme.colors.terminal;
-    doom.template = pkgs.substituteAllFiles {
+    doom.template = pkgs.replaceVarsAllFiles {
         src = ./doom;
         files = ["config.el"];
+    } {
         theme_font_mono_code    = config.theme.fonts.monospaced.code.name;
         theme_font_mono_serif   = config.theme.fonts.monospaced.serif.name;
         theme_font_proportional = config.theme.fonts.proportional.name;
@@ -34,8 +35,7 @@ in
     "fish/conf.d/direnv.fish".text =
         pkgs.callPackage fish/direnv.nix { inherit (config.xdg) cacheHome; };
     "fish/set-universal.fish".onChange = import fish/onChange.nix config;
-    "fish/set-universal.fish".source = pkgs.substituteAll {
-        src = fish/set-universal.fish;
+    "fish/set-universal.fish".source = pkgs.replaceVars fish/set-universal.fish {
         preview_file = "${pkgs.preview-file}/bin/preview-file";
         theme_background        = colors.semantic.background;
         theme_background_hl     = colors.semantic.background_highlighted;
