@@ -7,6 +7,7 @@ let
     inherit (config.theme.colors.nominal) foregroundFor;
     colors = pkgs.lib.colors.transformColors (format id) config.theme.colors;
     foreground = pkgs.lib.colors.transformColors (format foregroundFor) config.theme.colors;
+    browser = "${config.programs.firefox.finalPackage}/bin/firefox-beta";
 
 in
 
@@ -16,7 +17,7 @@ in
     iconTheme.package = pkgs.adwaita-icon-theme;
     settings = {
         global = {
-            browser = "${pkgs.vivaldi}/bin/vivaldi";
+            inherit browser;
             corner_radius = 12;
             dmenu = "${config.programs.rofi.package}/bin/rofi -dmenu -p action";
             ellipsize = "end";

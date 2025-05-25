@@ -11,5 +11,5 @@ in
     # DESIGN: Ideally, Home Manager and Nixpkgs would make this easier
     # https://github.com/NixOS/nixpkgs/issues/47340
     ".mozilla/native-messaging-hosts/tridactyl.json".source =
-        "${pkgs.firefox}/lib/mozilla/native-messaging-hosts/tridactyl.json";
+        "${config.programs.firefox.finalPackage}/lib/mozilla/native-messaging-hosts/tridactyl.json";
 }

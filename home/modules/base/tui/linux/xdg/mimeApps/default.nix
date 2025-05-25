@@ -4,17 +4,17 @@ rec {
     defaultApplications = {
         "application/pdf" = "org.pwmt.zathura.desktop";
 
-        "application/x-extension-html"  = "vivaldi.desktop";
-        "application/x-extension-htm"   = "vivaldi.desktop";
-        "application/x-extension-shtml" = "vivaldi.desktop";
-        "application/x-extension-xht"   = "vivaldi.desktop";
-        "application/x-extension-xhtml" = "vivaldi.desktop";
-        "application/xhtml+xml"         = "vivaldi.desktop";
-        "text/html"                     = "vivaldi.desktop";
-        "x-scheme-handler/chrome"       = "vivaldi.desktop";
-        "x-scheme-handler/http"         = "vivaldi.desktop";
-        "x-scheme-handler/https"        = "vivaldi.desktop";
-        "x-scheme-handler/mailto"       = "vivaldi.desktop";
+        "application/x-extension-html"  = "firefox-beta.desktop";
+        "application/x-extension-htm"   = "firefox-beta.desktop";
+        "application/x-extension-shtml" = "firefox-beta.desktop";
+        "application/x-extension-xht"   = "firefox-beta.desktop";
+        "application/x-extension-xhtml" = "firefox-beta.desktop";
+        "application/xhtml+xml"         = "firefox-beta.desktop";
+        "text/html"                     = "firefox-beta.desktop";
+        "x-scheme-handler/chrome"       = "firefox-beta.desktop";
+        "x-scheme-handler/http"         = "firefox-beta.desktop";
+        "x-scheme-handler/https"        = "firefox-beta.desktop";
+        "x-scheme-handler/mailto"       = "firefox-beta.desktop";
 
         "text/plain"  = ["emacs.desktop" "nvim.desktop"];
         "text/x-lisp" = ["emacs.desktop" "nvim.desktop"];

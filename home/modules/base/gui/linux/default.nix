@@ -27,7 +27,6 @@
     services.gammastep.provider = "geoclue2";
     services.gromit-mpx.enable = false;  # DESIGN: just gets in the way mostly
     services.vscode-server.enable = true;
-    services.xsuspender = import services/xsuspender;
 
     xresources = import ./xresources config pkgs;
 
