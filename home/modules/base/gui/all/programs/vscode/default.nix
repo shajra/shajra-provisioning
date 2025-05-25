@@ -1,16 +1,20 @@
 config: pkgs:
 
-let inherit (config.theme) fonts;
+let
+    inherit (config.theme) fonts;
+    keybindings = import ./keybindings.nix;
 in {
     enable = true;
     profiles.default = {
         enableExtensionUpdateCheck = false;
         enableUpdateCheck = false;
+        inherit keybindings;
         extensions = [
             pkgs.vscode-marketplace.bbenoist.nix
             pkgs.vscode-marketplace.bodil.file-browser
             pkgs.vscode-marketplace.bradlc.vscode-tailwindcss
             pkgs.vscode-marketplace.elagil.pre-commit-helper
+            pkgs.vscode-marketplace.github.vscode-github-actions
             pkgs.vscode-marketplace.golang.go
             pkgs.vscode-marketplace.google.geminicodeassist
             pkgs.vscode-marketplace.googlecloudtools.cloudcode
@@ -30,6 +34,7 @@ in {
             pkgs.vscode-marketplace.ms-python.vscode-pylance
             pkgs.vscode-marketplace.ms-vscode-remote.remote-containers
             pkgs.vscode-marketplace.ms-vscode-remote.remote-ssh
+            pkgs.vscode-marketplace.ms-vscode-remote.remote-ssh-edit
             pkgs.vscode-marketplace.ms-vscode.makefile-tools
             pkgs.vscode-marketplace.ms-vscode.remote-explorer
             pkgs.vscode-marketplace.ocamllabs.ocaml-platform
