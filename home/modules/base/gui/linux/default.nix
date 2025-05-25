@@ -19,6 +19,7 @@
     programs.i3status-rust = import programs/i3status-rust config pkgs;
     programs.qutebrowser = import programs/qutebrowser lib;
     programs.rofi = import programs/rofi config pkgs;
+    programs.vscode = import programs/vscode;
 
     services.clipmenu.enable = true;
     services.dunst = import services/dunst config pkgs;

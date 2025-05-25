@@ -2,13 +2,11 @@ config: pkgs:
 
 let
     inherit (config.theme) fonts;
-    keybindings = import ./keybindings.nix;
 in {
     enable = true;
     profiles.default = {
         enableExtensionUpdateCheck = false;
         enableUpdateCheck = false;
-        inherit keybindings;
         extensions = [
             pkgs.vscode-marketplace.bbenoist.nix
             pkgs.vscode-marketplace.bodil.file-browser
