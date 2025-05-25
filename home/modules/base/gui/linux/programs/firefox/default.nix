@@ -16,6 +16,7 @@ in
             #simple-tab-groups
             #stylus
             #tree-style-tab
+            grammarly
             tridactyl
         ];
         /*
