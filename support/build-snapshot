@@ -1,0 +1,13 @@
+#!/bin/sh -eu
+
+SUFFIX=${1:-snapshot}
+
+cd "$(dirname "$0")/.."
+
+nix build \
+    .#nixosConfigurations.cake.toplevel \
+    --out-link "result.nixos.${SUFFIX}"
+
+nix build \
+    .#homeConfigurations.cake.activationPackage \
+    --out-link "result.home.${SUFFIX}"

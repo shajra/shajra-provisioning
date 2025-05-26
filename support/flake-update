@@ -1,0 +1,8 @@
+#!/bin/sh -eu
+
+cd "$(dirname "$0")/.."
+
+nix flake update \
+    --commit-lock-file \
+    --override-input \
+    shajra-private git+ssh://tnks@cake/home/tnks/src/shajra/shajra-private?ref=main
