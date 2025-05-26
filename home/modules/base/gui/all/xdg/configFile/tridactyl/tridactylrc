@@ -1,5 +1,7 @@
 unbind <F1>
+unbind <C-b>
 bind J tabnext_gt
 bind K tabprev
+bind <AC-b> fillcmdline bmarks
 set editorcmd kitty vim %f '+normal!%lGzv%c|'
 colourscheme --url @theme_url@ @theme_name@
