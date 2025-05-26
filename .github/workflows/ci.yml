@@ -79,8 +79,7 @@ jobs:
     - uses: DeterminateSystems/flakehub-cache-action@main
     - run: cat /etc/nix/nix.conf
     - run: cat ~/.config/nix/nix.conf
-    - run: nix registry add shajra-private github:shajra/empty
-    - run: nix flake lock --update-input shajra-private
+    - run: nix flake update --override-input shajra-private 'github:shajra/empty' shajra-private
     # DESIGN: Can't CI homes; even slimmed they're too big for GitHub
     - run: nix run .#nixosConfigurations.cake-slim.nixos-rebuild -- --flake .#cake-slim build
   installers-darwin:
@@ -102,7 +101,6 @@ jobs:
     - uses: DeterminateSystems/flakehub-cache-action@main
     - run: cat /etc/nix/nix.conf
     - run: cat ~/.config/nix/nix.conf
-    - run: nix registry add shajra-private github:shajra/empty
-    - run: nix flake lock --update-input shajra-private
+    - run: nix flake update --override-input shajra-private 'github:shajra/empty' shajra-private
     # DESIGN: Can't CI home because sketchybar-lua won't build on x86_64
     - run: ./darwin-rebuild --flake .#lemon-slim build
