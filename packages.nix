@@ -178,12 +178,7 @@ in {
 
     nixpkgs.prebuilt.programming.containers = pickHome [
         "kubectl"
-    ] // {
-        google-cloud-sdk = with np.nixpkgs.home;
-            google-cloud-sdk.withExtraComponents [
-                google-cloud-sdk.components.gke-gcloud-auth-plugin
-            ];
-    };
+    ];
 
     nixpkgs.prebuilt.programming.db = pickHome [
         "pgformatter"
@@ -196,6 +191,7 @@ in {
 
     nixpkgs.prebuilt.programming.general = pickHome [
         "aider-chat"
+        "global"
         "gnumake"
         "nil"
         "nixd"
@@ -207,8 +203,23 @@ in {
     nixpkgs.prebuilt.programming.haskell = pickHome [
         "cabal2nix"
         "cabal-install"
-        "haskell.compiler.ghc984"
         "stack"
+        "haskell.compiler.ghc984"
+        "haskell.packages.ghc984.apply-refact"
+        "haskell.packages.ghc984.cabal-fmt"
+        "haskell.packages.ghc984.djinn"
+        "haskell.packages.ghc984.eventlog2html"
+        "haskell.packages.ghc984.fast-tags"
+        "haskell.packages.ghc984.ghc-events"
+        "haskell.packages.ghc984.ghcid"
+        "haskell.packages.ghc984.haskdogs"
+        "haskell.packages.ghc984.hasktags"
+        "haskell.packages.ghc984.hlint"
+        "haskell.packages.ghc984.hoogle"
+        "haskell.packages.ghc984.hp2pretty"
+        "haskell.packages.ghc984.profiterole"
+        "haskell.packages.ghc984.profiteur"
+        "haskell.packages.ghc984.stylish-haskell"
     ];
 
     nixpkgs.prebuilt.programming.java = pickHome [
@@ -279,12 +290,6 @@ in {
         ]);
     };
 
-    nixpkgs.build.base.tui.darwin = np.pick { darwin = "home"; } [
-    ];
-
-    nixpkgs.build.base.tui.linux = np.pick { linux = "home"; } [
-    ];
-
     nixpkgs.build.chat.gui.all = pickHome [
         "discord"
         "zoom-us"
@@ -304,37 +309,17 @@ in {
         "moneydance"
     ];
 
-    nixpkgs.build.os.darwin = np.pick { darwin = "home"; } [
-    ];
-
-    nixpkgs.build.os.nixos = np.pick { linux = "home"; } [
-    ];
-
-    nixpkgs.build.programming.general = pickHome [
-        "global"
-    ];
-
     nixpkgs.build.peripheral.wifi.tui.linux = np.pick { linux = "home"; } [
         "lan-cake"
     ];
 
-    nixpkgs.build.programming.haskell = pickUnstable [
-        "haskell.packages.ghc984.apply-refact"
-        "haskell.packages.ghc984.cabal-fmt"
-        "haskell.packages.ghc984.djinn"
-        "haskell.packages.ghc984.eventlog2html"
-        "haskell.packages.ghc984.fast-tags"
-        "haskell.packages.ghc984.ghc-events"
-        "haskell.packages.ghc984.ghcid"
-        "haskell.packages.ghc984.haskdogs"
-        "haskell.packages.ghc984.hasktags"
-        "haskell.packages.ghc984.hlint"
-        "haskell.packages.ghc984.hoogle"
-        "haskell.packages.ghc984.hp2pretty"
-        "haskell.packages.ghc984.profiterole"
-        "haskell.packages.ghc984.profiteur"
-        "haskell.packages.ghc984.stylish-haskell"
-    ];
+    nixpkgs.build.programming.containers = pickHome [
+    ] // {
+        google-cloud-sdk = with np.nixpkgs.home;
+            google-cloud-sdk.withExtraComponents [
+                google-cloud-sdk.components.gke-gcloud-auth-plugin
+            ];
+    };
 
     nixpkgs.build.uncategorized.darwin = np.pick { darwin = "home"; } [
         "sketchybar-helpers"

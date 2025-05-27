@@ -30,12 +30,12 @@ let
     isDrvSet = s:
         lib.isAttrs s && (lib.any lib.isDerivation (builtins.attrValues s) || s == {});
 
+    deepMerge = builtins.foldl' (acc: a: lib.recursiveUpdate acc a) {};
+
     joinForCi = name: filter: set:
         let found = deepMerge (lib.collect isDrvSet set);
             filtered = lib.filterAttrs (_n: filter) found;
         in prev.linkFarm "shajra-provision-ci-${name}" filtered;
-
-    deepMerge = builtins.foldl' (acc: a: lib.recursiveUpdate acc a) {};
 
     deepDrvSetToList = lib.mapAttrsRecursiveCond
         (s: ! isDrvSet s)
@@ -99,15 +99,19 @@ let
         };
 
     checkPrebuilt =
-        let sets = build.pkgs.nixpkgs.prebuilt
-                // build.pkgs.haskell-nix.prebuilt
-                // build.pkgs.shajra.prebuilt;
+        let sets = deepMerge [
+                build.pkgs.nixpkgs.prebuilt
+                build.pkgs.haskell-nix.prebuilt
+                build.pkgs.shajra.prebuilt
+            ];
         in checkCaching sets true;
 
     checkBuild =
-        let sets = build.pkgs.nixpkgs.build
-                // build.pkgs.haskell-nix.build
-                // build.pkgs.shajra.build;
+        let sets = deepMerge [
+                build.pkgs.nixpkgs.build
+                build.pkgs.haskell-nix.build
+                build.pkgs.shajra.build
+            ];
         in checkCaching sets false;
 
     ci.prebuilt.nixpkgs.lower  = joinForCi "prebuilt-nixpkgs"    isLower  build.pkgs.nixpkgs.prebuilt;
