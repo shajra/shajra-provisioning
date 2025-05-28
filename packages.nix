@@ -189,16 +189,21 @@ in {
         "sqlite"
     ];
 
-    nixpkgs.prebuilt.programming.general = pickHome [
-        "aider-chat"
-        "global"
-        "gnumake"
-        "nil"
-        "nixd"
-        "tcount"
-        "tokei"
-        "wireshark"
-      ];
+    nixpkgs.prebuilt.programming.general =
+        let all = pickHome [
+                "global"
+                "gnumake"
+                "nil"
+                "nixd"
+                "nodejs"  # DESIGN: needed for Cursor remote SSH extension
+                "tcount"
+                "tokei"
+                "wireshark"
+            ];
+            darwin = np.pick { darwin = "home"; } [
+                "aider-chat-full"
+            ];
+        in all // darwin;
 
     nixpkgs.prebuilt.programming.haskell = pickHome [
         "cabal2nix"
@@ -255,7 +260,6 @@ in {
     ];
 
     nixpkgs.build.base.gui.all = pickHome [
-        "code-cursor"
         "notify-time"
 
         # Uncached Fonts
@@ -320,6 +324,15 @@ in {
                 google-cloud-sdk.components.gke-gcloud-auth-plugin
             ];
     };
+
+    nixpkgs.build.programming.general =
+        let all = pickHome [
+                "code-cursor"
+            ];
+            linux = np.pick { linux = "home"; } [
+                "aider-chat-full"
+            ];
+        in all // linux;
 
     nixpkgs.build.uncategorized.darwin = np.pick { darwin = "home"; } [
         "sketchybar-helpers"
