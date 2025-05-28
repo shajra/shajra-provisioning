@@ -10,19 +10,14 @@ let
 
     when = lib.optionalAttrs;
 
-    pickHome = np.pick {
-        linux  = "home";
-        darwin = "home";
-    };
-
-    pickUnstable = np.pick {
-        linux  = "unstable";
-        darwin = "unstable";
+    pickAll = nixpkgsName: np.pick {
+        linux  = nixpkgsName;
+        darwin = nixpkgsName;
     };
 
 in {
 
-    nixpkgs.prebuilt.audio.tui.all = pickHome [
+    nixpkgs.prebuilt.audio.tui.all = pickAll "home" [
         "mpc_cli"
         "whipper"
     ];
@@ -33,7 +28,7 @@ in {
         "pulsemixer"
     ];
 
-    nixpkgs.prebuilt.base.gui.all = pickHome [
+    nixpkgs.prebuilt.base.gui.all = pickAll "home" [
         # Cached Fonts
         "emacs-all-the-icons-fonts"  # for Emacs, used automatically by Doom
         "etBook"                     # stylish font from Edward Tufte's books
@@ -71,7 +66,7 @@ in {
         "xorg.xev"
     ];
 
-    nixpkgs.prebuilt.base.tui.all = pickHome [
+    nixpkgs.prebuilt.base.tui.all = pickAll "home" [
         "ansifilter"
         "bzip2"
         "cachix"
@@ -145,11 +140,11 @@ in {
         "signal-desktop-bin"
     ];
 
-    nixpkgs.prebuilt.chat.tui.all = pickHome [
+    nixpkgs.prebuilt.chat.tui.all = pickAll "home" [
         "slack-term"
     ];
 
-    nixpkgs.prebuilt.documentation.all = pickHome [
+    nixpkgs.prebuilt.documentation.all = pickAll "home" [
         "graphviz"
         "imagemagick"
         "nodePackages.textlint"
@@ -168,7 +163,7 @@ in {
         "peek"
     ];
 
-    nixpkgs.prebuilt.programming.c.all = pickHome [
+    nixpkgs.prebuilt.programming.c.all = pickAll "home" [
         "cmake"
     ];
 
@@ -176,11 +171,11 @@ in {
         "gcc"
     ];
 
-    nixpkgs.prebuilt.programming.containers = pickHome [
+    nixpkgs.prebuilt.programming.containers = pickAll "home" [
         "kubectl"
     ];
 
-    nixpkgs.prebuilt.programming.db = pickHome [
+    nixpkgs.prebuilt.programming.db = pickAll "home" [
         "pgformatter"
         "postgresql"
         "schemaspy"
@@ -190,7 +185,7 @@ in {
     ];
 
     nixpkgs.prebuilt.programming.general =
-        let all = pickHome [
+        let all = pickAll "home" [
                 "global"
                 "gnumake"
                 "nil"
@@ -205,7 +200,7 @@ in {
             ];
         in all // darwin;
 
-    nixpkgs.prebuilt.programming.haskell = pickHome [
+    nixpkgs.prebuilt.programming.haskell = pickAll "home" [
         "cabal2nix"
         "cabal-install"
         "stack"
@@ -227,27 +222,27 @@ in {
         "haskell.packages.ghc984.stylish-haskell"
     ];
 
-    nixpkgs.prebuilt.programming.java = pickHome [
+    nixpkgs.prebuilt.programming.java = pickAll "home" [
     ];
 
-    nixpkgs.prebuilt.programming.lua = pickHome [
+    nixpkgs.prebuilt.programming.lua = pickAll "home" [
         "luaformatter"
         "lua5_4"
     ];
 
-    nixpkgs.prebuilt.programming.python = pickHome [
+    nixpkgs.prebuilt.programming.python = pickAll "home" [
         "python3"
     ];
 
-    nixpkgs.prebuilt.programming.scala = pickHome [
+    nixpkgs.prebuilt.programming.scala = pickAll "home" [
         "sbt-extras"
     ];
 
-    nixpkgs.prebuilt.programming.shell = pickHome [
+    nixpkgs.prebuilt.programming.shell = pickAll "home" [
         "shellcheck"
     ];
 
-    nixpkgs.prebuilt.sync = pickHome [
+    nixpkgs.prebuilt.sync = pickAll "home" [
         "unison"
     ];
 
@@ -259,7 +254,7 @@ in {
         "wpa_supplicant_gui"
     ];
 
-    nixpkgs.build.base.gui.all = pickHome [
+    nixpkgs.build.base.gui.all = pickAll "home" [
         "notify-time"
 
         # Uncached Fonts
@@ -285,7 +280,7 @@ in {
         "vivaldi"
     ];
 
-    nixpkgs.build.base.tui.all = pickHome [
+    nixpkgs.build.base.tui.all = pickAll "home" [
         "home-manager-latest"
         "preview-file"
     ] // {
@@ -294,7 +289,7 @@ in {
         ]);
     };
 
-    nixpkgs.build.chat.gui.all = pickHome [
+    nixpkgs.build.chat.gui.all = pickAll "home" [
         "discord"
         "zoom-us"
     ];
@@ -309,7 +304,7 @@ in {
         "slack"
     ];
 
-    nixpkgs.build.finance = pickHome [
+    nixpkgs.build.finance = pickAll "home" [
         "moneydance"
     ];
 
@@ -317,7 +312,7 @@ in {
         "lan-cake"
     ];
 
-    nixpkgs.build.programming.containers = pickHome [
+    nixpkgs.build.programming.containers = pickAll "home" [
     ] // {
         google-cloud-sdk = with np.nixpkgs.home;
             google-cloud-sdk.withExtraComponents [
@@ -326,7 +321,7 @@ in {
     };
 
     nixpkgs.build.programming.general =
-        let all = pickHome [
+        let all = pickAll "master" [
                 "code-cursor"
             ];
             linux = np.pick { linux = "home"; } [
