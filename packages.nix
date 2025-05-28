@@ -184,21 +184,17 @@ in {
         "sqlite"
     ];
 
-    nixpkgs.prebuilt.programming.general =
-        let all = pickAll "home" [
-                "global"
-                "gnumake"
-                "nil"
-                "nixd"
-                "nodejs"  # DESIGN: needed for Cursor remote SSH extension
-                "tcount"
-                "tokei"
-                "wireshark"
-            ];
-            darwin = np.pick { darwin = "home"; } [
-                "aider-chat-full"
-            ];
-        in all // darwin;
+    nixpkgs.prebuilt.programming.general = pickAll "home" [
+        "aider-chat-full"
+        "global"
+        "gnumake"
+        "nil"
+        "nixd"
+        "nodejs"  # DESIGN: needed for Cursor remote SSH extension
+        "tcount"
+        "tokei"
+        "wireshark"
+    ];
 
     nixpkgs.prebuilt.programming.haskell = pickAll "home" [
         "cabal2nix"
@@ -320,14 +316,9 @@ in {
             ];
     };
 
-    nixpkgs.build.programming.general =
-        let all = pickAll "master" [
-                "code-cursor"
-            ];
-            linux = np.pick { linux = "home"; } [
-                "aider-chat-full"
-            ];
-        in all // linux;
+    nixpkgs.build.programming.general = pickAll "master" [
+        "code-cursor"
+    ];
 
     nixpkgs.build.uncategorized.darwin = np.pick { darwin = "home"; } [
         "sketchybar-helpers"
