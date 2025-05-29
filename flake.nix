@@ -68,18 +68,22 @@
                         shajra-nixos-rebuild = {
                             type = "app";
                             program = "${pkgs-system.shajra-nixos-rebuild}/bin/shajra-nixos-rebuild";
+                            inherit (pkgs-system.shajra-nixos-rebuild) meta;
                         };
                         shajra-darwin-rebuild = {
                             type = "app";
                             program = "${pkgs-system.shajra-darwin-rebuild}/bin/shajra-darwin-rebuild";
+                            inherit (pkgs-system.shajra-darwin-rebuild) meta;
                         };
                         shajra-home-manager = {
                             type = "app";
                             program = "${pkgs-home.shajra-home-manager}/bin/shajra-home-manager";
+                            inherit (pkgs-system.shajra-home-manager) meta;
                         };
                         home-manager = {
                             type = "app";
                             program = "${inputs'.home-manager.packages.home-manager}/bin/home-manager";
+                            inherit (inputs'.home-manager.packages.home-manager) meta;
                         };
                     };
                     legacyPackages = build.shajra-provision;
