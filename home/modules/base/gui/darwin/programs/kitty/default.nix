@@ -8,5 +8,6 @@ config:
     ];
     settings = {
         macos_option_as_alt = "left";
+        exe_search_path = "${config.home.homeDirectory}/.nix-profile/bin";
     };
 }
