@@ -11,6 +11,9 @@ in {
             pkgs.vscode-marketplace.bbenoist.nix
             pkgs.vscode-marketplace.bodil.file-browser
             pkgs.vscode-marketplace.bradlc.vscode-tailwindcss
+            pkgs.vscode-marketplace.connor4312.esbuild-problem-matchers
+            pkgs.vscode-marketplace.cucumberopen.cucumber-official
+            pkgs.vscode-marketplace.dbaeumer.vscode-eslint
             pkgs.vscode-marketplace.elagil.pre-commit-helper
             pkgs.vscode-marketplace.github.vscode-github-actions
             pkgs.vscode-marketplace.golang.go
@@ -25,6 +28,7 @@ in {
             pkgs.vscode-marketplace.justusadam.language-haskell
             pkgs.vscode-marketplace.kahole.magit
             pkgs.vscode-marketplace.mkhl.direnv
+            pkgs.vscode-marketplace.ms-azuretools.vscode-containers
             pkgs.vscode-marketplace.ms-azuretools.vscode-docker
             pkgs.vscode-marketplace.ms-kubernetes-tools.vscode-kubernetes-tools
             pkgs.vscode-marketplace.ms-python.debugpy
@@ -33,6 +37,7 @@ in {
             pkgs.vscode-marketplace.ms-vscode-remote.remote-containers
             pkgs.vscode-marketplace.ms-vscode-remote.remote-ssh
             pkgs.vscode-marketplace.ms-vscode-remote.remote-ssh-edit
+            pkgs.vscode-marketplace.ms-vscode.extension-test-runner
             pkgs.vscode-marketplace.ms-vscode.makefile-tools
             pkgs.vscode-marketplace.ms-vscode.remote-explorer
             pkgs.vscode-marketplace.ocamllabs.ocaml-platform
