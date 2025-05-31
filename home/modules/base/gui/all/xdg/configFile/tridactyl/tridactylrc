@@ -1,7 +1,12 @@
 unbind <F1>
+unbind <C-a>
 unbind <C-b>
+unbind <C-x>
 bind J tabnext_gt
 bind K tabprev
+bind <AC-a> urlincrement 1
 bind <AC-b> fillcmdline bmarks
-set editorcmd kitty vim %f '+normal!%lGzv%c|'
+bind <AC-x> urlincrement -1
+set editorcmd "@neovide@" "%f" "+normal!%lGzv%c|"
+set smoothscrool true
 colourscheme --url @theme_url@ @theme_name@

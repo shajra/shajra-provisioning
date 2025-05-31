@@ -56,6 +56,7 @@ in {
     programs.alacritty = import programs/alacritty config pkgs;
     programs.fish = import programs/fish;
     programs.kitty = import programs/kitty config pkgs;
+    programs.neovide = import programs/neovide config;
     programs.noti.enable = true;
     # REVISIT: 2024-12-10: even stable package broken for Darwin
     programs.sioyek.enable = ! pkgs.stdenv.isDarwin;

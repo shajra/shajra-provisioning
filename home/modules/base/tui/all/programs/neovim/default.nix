@@ -2,6 +2,8 @@ config: pkgs:
 
 let
 
+    font = builtins.replaceStrings [" "] ["\\ "]
+        config.theme.fonts.monospaced.code.name;
     kitty-scrollback = pkgs.vimUtils.buildVimPlugin {
         name = "kitty-scrollback.nvim";
         src = pkgs.sources.kitty-scrollback-nvim;
@@ -18,6 +20,7 @@ in {
     extraConfig = ''
         set background=light
         set expandtab
+        set guifont=${font}
         set modeline
         set shiftwidth=4
         set tabstop=4
@@ -27,6 +30,15 @@ in {
         nmap <leader>x <Plug>(grammarous-close-info-window)
         nmap <c-n> <Plug>(grammarous-move-to-next-error)
         nmap <c-p> <Plug>(grammarous-move-to-previous-error)
+        if exists("g:neovide")
+            nnoremap <C-=> :let g:neovide_scale_factor += 0.1<CR>
+            nnoremap <C--> :let g:neovide_scale_factor -= 0.1<CR>
+            nnoremap <C-0> :let g:neovide_scale_factor = 1<CR>
+            vnoremap <C-=> <Esc>:let g:neovide_scale_factor += 0.1<CR>gv
+            vnoremap <C--> <Esc>:let g:neovide_scale_factor -= 0.1<CR>gv
+            vnoremap <C-0> <Esc>:let g:neovide_scale_factor = 1<CR>gv
+        endif
+
     '';
     viAlias = true;
     vimAlias = true;
