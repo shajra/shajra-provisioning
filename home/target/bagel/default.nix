@@ -9,28 +9,19 @@ in
     imports = [
         ../../modules/base/gui/darwin
 
-        ../../modules/audio/gui/all
-        ../../modules/audio/tui/all
-
-        ../../modules/chat/gui/all
-        ../../modules/chat/tui/all
-
+        ../../modules/audio/gui
+        ../../modules/chat/gui
         ../../modules/documentation/all
-
         ../../modules/laptop/darwin
 
-        ../../modules/programming/c/all
+        ../../modules/programming/c
         ../../modules/programming/db
         ../../modules/programming/general
-        #../../modules/programming/haskell  # long build, not cached
-        ../../modules/programming/java
         ../../modules/programming/lua
         ../../modules/programming/python
-        ../../modules/programming/scala
         ../../modules/programming/shell
 
-        #../../modules/sync  # Ocaml not built/cached
-
+        #../../modules/sync  # REVISIT: Ocaml not built/cached
         ../../modules/video/all
         ../../modules/work
     ];

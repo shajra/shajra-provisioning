@@ -3,7 +3,6 @@
 {
     imports = [
         ../../ubiquity
-        ../all
     ];
-    programs.texlive = import programs/texlive;
+    home.extraPackages = build.pkgs.lists.chat.tui;
 }

@@ -51,7 +51,7 @@ in {
             $DRY_RUN_CMD cat "$DEST.home-manager" > "$DEST"
         '';
 
-    home.extraPackages = build.pkgs.lists.base.gui.all;
+    home.extraPackages = build.pkgs.lists.base.gui;
 
     programs.alacritty = import programs/alacritty config pkgs;
     programs.fish = import programs/fish;

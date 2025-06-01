@@ -15,7 +15,7 @@ in {
     environment.systemPackages = [];
     environment.systemPath = [ "/opt/homebrew/bin" ];
 
-    fonts.packages = build.pkgs.lists.base.gui.all;
+    fonts.packages = build.pkgs.lists.fonts;
 
     homebrew = import ./homebrew;
 

@@ -31,8 +31,6 @@ in
         #module-lorelei
     ];
 
-    home.extraPackages = build.pkgs.lists.base.tui.linux;
-
     # DESIGN: DEBUG: removing to understand infinite recursion
     #programs.direnv-nix-lorelei.enable = true;
 

@@ -11,7 +11,6 @@
     gtk = import ./gtk config;
 
     home.file = import home/file config pkgs;
-    home.extraPackages = build.pkgs.lists.base.gui.linux;
 
     programs.bash = import programs/bash;
     programs.firefox = import programs/firefox config pkgs;

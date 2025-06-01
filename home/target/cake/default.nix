@@ -8,28 +8,23 @@ in
     imports = [
         ../../modules/base/gui/linux
 
-        ../../modules/audio/gui/all
-        ../../modules/audio/tui/linux
-
+        ../../modules/audio/gui
         ../../modules/centralized
-
-        ../../modules/chat/gui/linux
-
+        ../../modules/chat/gui
         ../../modules/documentation/linux
-
         ../../modules/finance
 
-        ../../modules/programming/c/linux
+        ../../modules/programming/c
         ../../modules/programming/db
         ../../modules/programming/general
         ../../modules/programming/haskell
         ../../modules/programming/java
+        ../../modules/programming/lua
         ../../modules/programming/python
         ../../modules/programming/scala
         ../../modules/programming/shell
 
         ../../modules/sync
-
         ../../modules/video/linux
     ];
 
