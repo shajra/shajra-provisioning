@@ -254,9 +254,9 @@ in {
         Identifier   "Evoluent VerticalMouse"
         MatchProduct "Evoluent VerticalMouse"
         Driver       "libinput"
-        Option       "ButtonMapping"       "1 2 3 4 5 6 7 9 10 8 11 12 13 14"
+        Option       "ButtonMapping"       "1 2 3 4 5 6 7 8 9 10 11 12 13 14"
         Option       "HorizontalScrolling" "on"
-        Option       "ScrollButton"        "9"
+        Option       "ScrollButton"        "10"
         Option       "ScrollButtonLock"    "on"
         ''
         ''
