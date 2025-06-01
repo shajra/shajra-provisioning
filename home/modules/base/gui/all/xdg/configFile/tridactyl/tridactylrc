@@ -4,9 +4,9 @@ unbind <C-b>
 unbind <C-x>
 bind J tabnext_gt
 bind K tabprev
-bind <AC-a> urlincrement 1
-bind <AC-b> fillcmdline bmarks
-bind <AC-x> urlincrement -1
+bind @bind_bmarks@ fillcmdline bmarks
+bind ( urlincrement -1
+bind ) urlincrement 1
 set editorcmd "@neovide@" "%f" "+normal!%lGzv%c|"
 set smoothscrool true
 colourscheme --url @theme_url@ @theme_name@
