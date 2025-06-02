@@ -2,7 +2,7 @@
 
 let
 
-    inherit (pkgs.stdenv) isDarwin;
+    inherit (pkgs.stdenv.hostPlatform) isDarwin;
 
     optsOf = x: { inherit (x) options; };
 

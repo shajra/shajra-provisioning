@@ -2,8 +2,10 @@
 
 let
 
+    inherit (pkgs.stdenv.hostPlatform) isDarwin;
+
     vscodeSettingsBase =
-        if pkgs.stdenv.hostPlatform.isDarwin
+        if isDarwin
         then "Library/Application Support"
         else "${config.xdg.configHome}";
 
@@ -11,7 +13,7 @@ let
 
     # REVISIT: 2024-11-07: Darwin build broken on unstable
     sioyekPkg =
-        if pkgs.stdenv.isDarwin
+        if isDarwin
         then build.infra.np.nixpkgs.system.sioyek
         else pkgs.sioyek;
 
@@ -59,7 +61,7 @@ in {
     programs.neovide = import programs/neovide config;
     programs.noti.enable = true;
     # REVISIT: 2024-12-10: even stable package broken for Darwin
-    programs.sioyek.enable = ! pkgs.stdenv.isDarwin;
+    programs.sioyek.enable = ! isDarwin;
     #programs.sioyek.package = sioyekPkg;
     programs.urxvt = import programs/urxvt config pkgs;
     programs.vscode = import programs/vscode config pkgs;
