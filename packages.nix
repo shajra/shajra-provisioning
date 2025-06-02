@@ -120,8 +120,8 @@ in rec {
                 "which"
                 "yq-go"
             ];
+            # DESIGN: these are all Mac-only applications; unstable is fine
             darwin = np.pick { darwin = "unstable"; } [
-                # DESIGN: these are all Mac-only applications; unstable is fine
                 "asitop"
                 "mas"
             ];
