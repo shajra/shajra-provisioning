@@ -203,17 +203,17 @@ git+file:///home/shajra/src/shajra-provisioning
 ├───apps
 │   ├───aarch64-darwin
 …
+├───homeConfigurations: unknown
+├───legacyPackages
+│   ├───aarch64-darwin omitted (use '--legacy' to show)
+│   └───x86_64-linux omitted (use '--legacy' to show)
+├───nixosConfigurations
 │   ├───cake: NixOS configuration
 │   └───cake-slim: NixOS configuration
 ├───overlays
 │   └───default: Nixpkgs overlay
 └───packages
     ├───aarch64-darwin
-    │   ├───home-manager omitted (use '--all-systems' to show)
-    │   ├───shajra-darwin-rebuild omitted (use '--all-systems' to show)
-    │   ├───shajra-home-manager omitted (use '--all-systems' to show)
-    │   └───shajra-nixos-rebuild omitted (use '--all-systems' to show)
-    ├───x86_64-darwin
     │   ├───home-manager omitted (use '--all-systems' to show)
     │   ├───shajra-darwin-rebuild omitted (use '--all-systems' to show)
     │   ├───shajra-home-manager omitted (use '--all-systems' to show)
@@ -369,7 +369,7 @@ nix search nixpkgs/nixos-<<get("nixos-latest")>>#wezterm ^ | ansifilter
 #+end_src
 
 #+RESULTS: nix-search-remote-wezterm
-: * legacyPackages.x86_64-linux.wezterm (0-unstable-2025-02-23)
+: * legacyPackages.x86_64-linux.wezterm (0-unstable-2025-05-18)
 :   GPU-accelerated cross-platform terminal emulator and multiplexer written by @wez and implemented in Rust
 
 Here {{{get(nixos-latest,~/nixos-,~)}}} overrides the default =nixpkgs-unstable=

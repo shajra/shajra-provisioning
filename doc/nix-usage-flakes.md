@@ -113,17 +113,17 @@ nix flake show .
     ├───apps
     │   ├───aarch64-darwin
     …
+    ├───homeConfigurations: unknown
+    ├───legacyPackages
+    │   ├───aarch64-darwin omitted (use '--legacy' to show)
+    │   └───x86_64-linux omitted (use '--legacy' to show)
+    ├───nixosConfigurations
     │   ├───cake: NixOS configuration
     │   └───cake-slim: NixOS configuration
     ├───overlays
     │   └───default: Nixpkgs overlay
     └───packages
         ├───aarch64-darwin
-        │   ├───home-manager omitted (use '--all-systems' to show)
-        │   ├───shajra-darwin-rebuild omitted (use '--all-systems' to show)
-        │   ├───shajra-home-manager omitted (use '--all-systems' to show)
-        │   └───shajra-nixos-rebuild omitted (use '--all-systems' to show)
-        ├───x86_64-darwin
         │   ├───home-manager omitted (use '--all-systems' to show)
         │   ├───shajra-darwin-rebuild omitted (use '--all-systems' to show)
         │   ├───shajra-home-manager omitted (use '--all-systems' to show)
@@ -229,7 +229,7 @@ If we're curious about what version of WezTerm is available in NixOS's latest re
 nix search nixpkgs/nixos-25.05#wezterm ^
 ```
 
-    * legacyPackages.x86_64-linux.wezterm (0-unstable-2025-02-23)
+    * legacyPackages.x86_64-linux.wezterm (0-unstable-2025-05-18)
       GPU-accelerated cross-platform terminal emulator and multiplexer written by @wez and implemented in Rust
 
 Here `/nixos-25.05` overrides the default `nixpkgs-unstable` branch of the registry entry, and the `#wezterm` suffix searches not just the flake, but a specific package named `wezterm`, which will either be found or not (there's no need for regexes to filter further).
