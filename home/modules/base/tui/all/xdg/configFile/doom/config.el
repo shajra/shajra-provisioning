@@ -3,7 +3,8 @@
 
 ;; Simple settings
 
-;; DESIGN: See how bad this is or isn't on a Mac
+;; DESIGN: Default scales okay for now, but keeping scaling approach for
+;; posterity
 ;;(let ((scale (if (eq system-type 'darwin) 1.5 1.0)))
   (setq-default
    doom-font                (font-spec :family "@theme_font_mono_code@")

@@ -36,15 +36,15 @@
     #     /opt/homebrew/Cellar/sketchybar/2.19.6/bin/sketchybar
 
     brews = [
-        # DESIGN: not needed for now
-        #"kubernetes-cli"
     ];
 
     casks = [
         "dash"
+
         "firefox@beta"
         "google-chrome@beta"
         "microsoft-edge@beta"
+        "tor-browser"
         "vivaldi"
 
         # REVISIT: Aerospace doesn't build from source on Nix just yet.
@@ -55,7 +55,6 @@
         "notion-enhanced"
         "slack"
         "tidal"
-        "tor-browser"
 
         # DESIGN: using, but maybe not for long
         "docker"

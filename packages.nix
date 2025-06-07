@@ -91,6 +91,7 @@ in rec {
                 "gnugrep"
                 "gnupg"  # TODO: home-manager
                 "languagetool"
+                "libxml2"  # for xmllint
                 "macchina"
                 "nix-diff"
                 "nix-du"
@@ -118,6 +119,7 @@ in rec {
                 "wemux"
                 "wget"
                 "which"
+                "yq-go"
                 "yq-go"
             ];
             # DESIGN: these are all Mac-only applications; unstable is fine
@@ -197,7 +199,7 @@ in rec {
                 "freemind"
                 "gimp"
                 "inkscape"
-                "libreoffice"  # DESIGN: Sometimes has broken build on Darwin
+                "libreoffice"
                 "peek"
             ];
         in all // linux;
@@ -227,6 +229,7 @@ in rec {
 
     nixpkgs.prebuilt.programming.c =
         let all = pickAll "home" [
+                "clang-tools"  # for clang-format
                 "cmake"
             ];
             linux = np.pick { linux = "home"; } [
@@ -234,11 +237,13 @@ in rec {
             ];
         in all // linux;
 
-    nixpkgs.prebuilt.programming.containers = pickAll "home" [
+    nixpkgs.prebuilt.programming.cloud = pickAll "home" [
+        "dockfmt"
         "kubectl"
     ];
 
-    nixpkgs.build.programming.containers = pickAll "home" [
+    nixpkgs.build.programming.cloud = pickAll "home" [
+        "terraform"
     ] // {
         google-cloud-sdk = with np.nixpkgs.home;
             google-cloud-sdk.withExtraComponents [
@@ -262,6 +267,7 @@ in rec {
         "nil"
         "nixd"
         "nodejs"  # DESIGN: needed for Cursor remote SSH extension
+        "plantuml"
         "tcount"
         "tokei"
         "wireshark"
@@ -269,6 +275,19 @@ in rec {
 
     nixpkgs.build.programming.general = pickAll "master" [
         "code-cursor"
+    ];
+
+    nixpkgs.prebuilt.programming.go = pickAll "home" [
+        "delve"
+        "go"
+        "gocode-gomod"
+        "golangci-lint"
+        "gomodifytags"
+        "gopkgs"
+        "gopls"
+        "gore"
+        "goreleaser"
+        "gotools"
     ];
 
     nixpkgs.prebuilt.programming.haskell = pickAll "home" [
@@ -284,6 +303,7 @@ in rec {
         "haskell.packages.ghc984.ghc-events"
         "haskell.packages.ghc984.ghcid"
         "haskell.packages.ghc984.haskdogs"
+        "haskell.packages.ghc984.haskell-language-server"
         "haskell.packages.ghc984.hasktags"
         "haskell.packages.ghc984.hlint"
         "haskell.packages.ghc984.hoogle"
@@ -316,24 +336,14 @@ in rec {
     ;
 
     shajra.build.programming.haskell =
-        let hls = ghcVersion:
-                import inputs'.haskell-hls-nix {
-                    inherit ghcVersion;
-                    hlsUnstable = false;
-                };
-            tags = import inputs'.haskell-tags-nix;
+        let tags = import inputs'.haskell-tags-nix;
         in when false {
         #in when (! isDevBuild) {
-            inherit ((hls "8.10.7")) implicit-hie;
-            haskell-hls-wrapper = (hls "8.10.7").hls-wrapper;
-            haskell-hls-ghc8107 = (hls "8.10.7").hls-renamed;
-            haskell-hls-ghc8106 = (hls "8.10.6").hls-renamed;
-            haskell-hls-ghc884  = (hls "8.8.4").hls-renamed;
-            haskell-hls-ghc865  = (hls "8.6.5").hls-renamed;
             haskell-hls-tags    = tags.haskell-tags-nix-exe;
         };
 
     nixpkgs.prebuilt.programming.java = pickAll "home" [
+        "clang-tools"  # DESIGN: Doom Java module wants clang-format
     ];
 
     nixpkgs.prebuilt.programming.lua = pickAll "home" [
@@ -342,15 +352,50 @@ in rec {
     ];
 
     nixpkgs.prebuilt.programming.python = pickAll "home" [
+        "pipenv"
         "python3"
+        "python3Packages.black"
+        "python3Packages.isort"
+        "python3Packages.pyflakes"
+        "python3Packages.pytest"
+        "python3Packages.setuptools"
+    ];
+
+    # REVISIT: 2025-06-07: Unsupported for Darwin
+    nixpkgs.prebuilt.programming.racket = np.pick { linux = "home"; } [
+        "racket"
+    ];
+
+    nixpkgs.prebuilt.programming.ruby = pickAll "home" [
+        "ruby"
+    ];
+
+    nixpkgs.prebuilt.programming.rust = pickAll "home" [
+        "cargo"
+        "cargo-udeps"
+        "clippy"
+        "rust-analyzer"
+        "rustc"
+        "rustfmt"
     ];
 
     nixpkgs.prebuilt.programming.scala = pickAll "home" [
         "sbt-extras"
+        "scalafmt"
     ];
 
     nixpkgs.prebuilt.programming.shell = pickAll "home" [
         "shellcheck"
+        "shfmt"
+    ];
+
+    nixpkgs.prebuilt.programming.web = pickAll "home" [
+        "html-tidy"
+        "stylelint"
+    ];
+
+    nixpkgs.build.programming.web = pickAll "home" [
+        "nodePackages.js-beautify"
     ];
 
     nixpkgs.prebuilt.sync = pickAll "home" [

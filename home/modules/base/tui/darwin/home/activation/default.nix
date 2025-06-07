@@ -5,7 +5,9 @@ let
 in
 
 {
-    # DESIGN: https://github.com/nix-community/home-manager/issues/1341
+    # REVISIT: A better approach has yet to settle:
+    # https://github.com/nix-community/home-manager/issues/1341
+    # https://github.com/nix-darwin/nix-darwin/pull/1396
     copyApplications = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         app_folder="Home Manager Apps"
         app_path="$(echo ~/Applications)/$app_folder"

@@ -3,7 +3,7 @@ config: pkgs:
 {
     enable = true;
 
-    # DESIGN: home-manager pointing to obsolete attribute name
+    # REVISIT: home-manager pointing to obsolete attribute name
     package = pkgs.rxvt-unicode-unwrapped;
 
     fonts = [
