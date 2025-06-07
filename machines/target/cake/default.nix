@@ -322,7 +322,7 @@ in {
 
     users.defaultUserShell = pkgs.bashInteractive;
 
-    # DESIGN not using on personal computer these days, maybe later
+    # DESIGN: not using on personal computer these days, maybe later
     #virtualisation.docker.enable = false;
 
 }

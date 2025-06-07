@@ -28,7 +28,7 @@ in {
         ];
         nix.settings.trusted-users = [ "root" user ];
 
-        # DESIGN: Don't think this is needed with flakes
+        # DESIGN: a preconstruced Nixpkgs is injected as `pkgs`
         #nixpkgs.config = infra.np.config;
         #nixpkgs.overlays = infra.np.overlays;
 

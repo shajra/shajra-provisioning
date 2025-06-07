@@ -129,7 +129,7 @@ local function create_observer()
     local space_window_observer = sbar.add("item",
                                            {drawing = false, updates = true})
     space_window_observer:subscribe("aerospace_workspace_changed", function(env)
-        -- TODO: Probably can refine updating to just the new/previous workspaces.
+        -- IDEA: Maybe only refine updating to just the new/previous workspaces.
         -- See https://nikitabobko.github.io/AeroSpace/guide#exec-on-workspace-change-callback.
         update_workspaces()
     end)

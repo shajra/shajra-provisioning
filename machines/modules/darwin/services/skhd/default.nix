@@ -148,7 +148,7 @@ in {
         lcmd + shift - 0x2B : aerospace move-node-to-workspace prev && ${sketchybar-refresh}
         lcmd + shift - 0x2F : aerospace move-node-to-workspace next && ${sketchybar-refresh}
 
-        # TODO: move workspace
+        # REVISIT: move workspace (hard to implement with current Aerospace)
         #lcmd + shift + alt - 1    : "''${space-move}" 1
         #lcmd + shift + alt - 2    : "''${space-move}" 2
         #lcmd + shift + alt - 3    : "''${space-move}" 3
@@ -171,7 +171,7 @@ in {
         # close all but focused window on focused workspace
         lcmd + alt - q : aerospace close-all-windows-but-current
 
-        # TODO: cycle windows
+        # REVISIT: cycle windows (hard to implement with current Aerospace)
         #lcmd        - tab : "''${window-cycle}" reverse
         #cmd + shift - tab : "''${window-cycle}" '.'
 

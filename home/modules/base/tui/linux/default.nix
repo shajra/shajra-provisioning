@@ -27,11 +27,11 @@ in
     imports = [
         ../../../ubiquity
         ../all
-        # DESIGN: DEBUG: removing to understand infinite recursion
+        # REVISIT: DEBUG: removing to understand infinite recursion
         #module-lorelei
     ];
 
-    # DESIGN: DEBUG: removing to understand infinite recursion
+    # REVISIT: DEBUG: removing to understand infinite recursion
     #programs.direnv-nix-lorelei.enable = true;
 
     # DESIGN: Doom loads up much faster these days

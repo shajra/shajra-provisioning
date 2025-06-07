@@ -30,7 +30,6 @@ in
     home.homeDirectory = userConfig."${hostname}".homeDirectory;
     home.username = userConfig."${hostname}".username;
     programs.alacritty.settings.font.size = 18.0;
-    programs.fish = import programs/fish pkgs;
     programs.kitty.extraConfig = "font_size 18";
     xdg.configFile = import xdg/configFile lib;
 }
