@@ -56,18 +56,8 @@ in {
     programs.jujutsu.settings = {
         user.email = workEmail;
         revset-aliases = {
-            "trunk()" = ''
-                latest(
-                    remote_bookmarks(exact:"head",   exact:"origin")   |
-                    remote_bookmarks(exact:"main",   exact:"origin")   |
-                    remote_bookmarks(exact:"master", exact:"origin")   |
-                    remote_bookmarks(exact:"trunk",  exact:"origin")   |
-                    remote_bookmarks(exact:"main",   exact:"upstream") |
-                    remote_bookmarks(exact:"master", exact:"upstream") |
-                    remote_bookmarks(exact:"trunk",  exact:"upstream") |
-                    root()
-                )
-            '';
+            # DESIGN: https://jj-vcs.github.io/jj/latest/config/#set-of-immutable-commits
+            "immutable_heads()" = ''builtin_immutable_heads() | remote_bookmarks(exact:"release", exact:"origin")'';
         };
     };
 }
