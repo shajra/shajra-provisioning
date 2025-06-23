@@ -3,8 +3,9 @@
 let
 
     inherit (build) infra;
-    hplip = pkgs.hplipWithPlugin;
-    #hplip = infra.np.nixpkgs.unstable.hplipWithPlugin;
+    # REVISIT: Noticed printer unreachable from some upgrade
+    #hplip = pkgs.hplipWithPlugin;
+    hplip = infra.np.nixpkgs.unstable.hplipWithPlugin;
     hostname = "cake";
     user = build.config.provision.user."${hostname}".username;
 
