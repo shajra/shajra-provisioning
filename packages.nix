@@ -73,7 +73,6 @@ in rec {
                 "i3-dpi"
                 "i3status-rust-dunst"
                 "i3-workspace-name"
-                "vivaldi"
             ];
         in all // darwin // linux // nixpkgs.build.fonts;
 
