@@ -153,16 +153,18 @@ in rec {
     ];
 
     nixpkgs.prebuilt.chat.gui =
-        let linux = np.pick { linux = "home"; } [
+        let all = pickAll "home" [
+                "element-desktop"
+            ];
+            linux = np.pick { linux = "home"; } [
                 # REVISIT: 2025-04-12: Unsupported for Darwin
                 "irccloud"
 
                 # REVISIT: 2025-03-23: Prebuilt for Linux, but not for Darwin
                 "caprine"
-                "element-desktop"
                 "signal-desktop-bin"
             ];
-        in linux;
+        in all // linux;
 
     nixpkgs.build.chat.gui =
         let all = pickAll "home" [
@@ -171,7 +173,6 @@ in rec {
             ];
             darwin = np.pick { darwin = "home"; } [
                 "caprine"
-                "element-desktop"
                 "signal-desktop-bin"
             ];
             linux = np.pick { linux = "home"; } [
