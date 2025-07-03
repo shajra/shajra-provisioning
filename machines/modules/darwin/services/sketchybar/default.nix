@@ -11,9 +11,9 @@ let
             "items/spaces.lua"
         ];
     } {
-        timeout             = "${pkgs.coreutils}/bin/timeout";
-        ping                = "${pkgs.inetutils}/bin/ping";
+        grep                = "${pkgs.gnugrep}/bin/grep";
         sketchybar_cpu      = "${pkgs-unstable.sketchybar-helpers}/bin/sketchybar-cpu";
+        timeout             = "${pkgs.coreutils}/bin/timeout";
         colors_blue         = colors.nominal.blue;
         colors_red          = colors.nominal.red;
         colors_unifying     = colors.semantic.unifying;

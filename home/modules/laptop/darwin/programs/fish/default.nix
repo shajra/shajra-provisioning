@@ -7,7 +7,7 @@ let
                 | tail -1 \
                 | awk '{print $NF}'
                 )
-            sudo route -nv ${cmd} -host 192.168.1.2 -interface $iface
+            sudo route -nv ${cmd} -host cake.home.arpa -interface $iface
         end
     '';
 
