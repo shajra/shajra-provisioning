@@ -47,6 +47,7 @@ in rec {
                 "fontpreview"
                 "maim"
                 "pavucontrol"
+                "qutebrowser"
                 "simple-scan"
                 "sxiv"
                 "tor-browser"
