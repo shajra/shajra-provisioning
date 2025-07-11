@@ -56,10 +56,10 @@ in {
         lcmd - l : aerospace focus --boundaries all-monitors-outer-frame right
 
         # move window
-        lcmd + shift - h : aerospace move left
-        lcmd + shift - j : aerospace move down
-        lcmd + shift - k : aerospace move up
-        lcmd + shift - l : aerospace move right
+        lcmd + shift - h : aerospace move --boundaries all-monitors-outer-frame left
+        lcmd + shift - j : aerospace move --boundaries all-monitors-outer-frame down
+        lcmd + shift - k : aerospace move --boundaries all-monitors-outer-frame up
+        lcmd + shift - l : aerospace move --boundaries all-monitors-outer-frame right
 
         # move workspace
         #
