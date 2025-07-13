@@ -29,9 +29,6 @@ in {
     services.skhd = import services/skhd pkgs build colors;
     services.tailscale.enable = true;
 
-    # REVISIT: 2025-05-28: nixpkgs-25.05-darwin build broken
-    services.tailscale.package = pkgs-unstable.tailscale;
-
     system.checks.verifyNixPath = false;
 
     system.defaults.dock.autohide = true;
