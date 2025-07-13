@@ -262,8 +262,7 @@ in rec {
     ];
 
     nixpkgs.prebuilt.programming.general = pickAll "home" [
-        # REVISIT: BROKEN: 2025-06-22
-        #"aider-chat-full"
+        "aider-chat-full"
         "global"
         "gnumake"
         "nil"
