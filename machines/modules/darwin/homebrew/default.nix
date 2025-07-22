@@ -39,13 +39,14 @@
     ];
 
     casks = [
-        "dash"
-
         "firefox@beta"
         "google-chrome@beta"
         "microsoft-edge@beta"
         "tor-browser"
 
+        "cleanmymac"
+        "libreoffice"
+        "microsoft-teams"
         # REVISIT: Aerospace doesn't build from source on Nix just yet.
         # What Nixpkgs does is just repackage a published binary release.
         # See https://github.com/NixOS/nixpkgs/issues/101229.
@@ -55,10 +56,8 @@
         "slack"
         "tidal"
 
-        # DESIGN: using, but maybe not for long
-        "docker"
-
-        # DESIGN: not needed for now
+        # DESIGN: sometimes useful, not needed for now
+        #"docker"
         #"openvpn-connect"
         #"virtualbox"
         #"virtualbox-extension-pack"
