@@ -262,7 +262,7 @@ in rec {
     ];
 
     nixpkgs.prebuilt.programming.general = pickAll "home" [
-        "aider-chat-full"
+        # "aider-chat-full"  # REVISIT: 25-07-25: Broken, using Codex/Cursor
         "global"
         "gnumake"
         "nil"
@@ -276,6 +276,7 @@ in rec {
 
     nixpkgs.build.programming.general = pickAll "master" [
         "code-cursor"
+        "codex"
     ];
 
     nixpkgs.prebuilt.programming.go = pickAll "home" [
@@ -295,6 +296,7 @@ in rec {
         "cabal2nix"
         "cabal-install"
         "stack"
+        # REVISIT: 25-07-25: ghc9102 packages not all building/cached
         "haskell.compiler.ghc984"
         "haskell.packages.ghc984.apply-refact"
         "haskell.packages.ghc984.cabal-fmt"

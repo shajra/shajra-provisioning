@@ -3,6 +3,7 @@
 
     inputs = {
         bluos-nix.url      = "github:shajra/bluos-nix";
+        codex.url          = "github:openai/codex";
         emacs-overlay.url  = "github:nix-community/emacs-overlay";
         vscode-overlay.url = "github:nix-community/nix-vscode-extensions";
         flake-parts.url    = "github:hercules-ci/flake-parts";
