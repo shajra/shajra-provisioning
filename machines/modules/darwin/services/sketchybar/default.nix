@@ -37,21 +37,26 @@ let
     appIconNames = pkgs.runCommand "sketchybar-app-icon-names" {} ''
         mkdir -p "$out"
         {
-            echo "return {"
+            printf 'return {\n'
             "${pkgs.findutils}/bin/find" \
                 "${pkgs-unstable.sources.sketchybar-font-src}/mappings" \
                 -type f \
                 -mindepth 1 \
                 -maxdepth 1 | while read -r f
-            do cat $f | sed 's/ *| */\n/g;s/[*]//g' | while read -r s
-                do echo "    [$s]" = \"''${f##*/}\",
+            do
+                sed '
+                    s/[[:space:]]*|[[:space:]]*/\n/g;
+                    s/[*"]//g;
+                    /^[[:space:]]*$/d;' "$f" \
+                | while read -r s
+                do printf '    ["%s"] = "%s",\n' "$s" ''${f##*/}
                 done
             done
-            echo '    [".kitty-wrapped"] = ":kitty:",'
-            echo '    ["iTerm2"] = ":iterm:",'
-            echo '    ["Google Chrome Beta"] = ":google_chrome:",'
-            echo '    ["Microsoft Edge Beta"] = ":microsoft_edge:",'
-            echo "}"
+            printf '    [".kitty-wrapped"] = ":kitty:",\n'
+            printf '    ["iTerm2"] = ":iterm:",\n'
+            printf '    ["Google Chrome Beta"] = ":google_chrome:",\n'
+            printf '    ["Microsoft Edge Beta"] = ":microsoft_edge:",\n'
+            printf '}\n'
         } > "$out/app_icon_names.lua"
     '';
 
