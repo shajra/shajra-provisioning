@@ -10,8 +10,8 @@ jobs:
     name: "pkgs-linux: ${{ matrix.infra }}"
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: cachix/install-nix-action@v31.5.1
+    - uses: actions/checkout@v5
+    - uses: cachix/install-nix-action@v31.5.2
       with:
         # DESIGN: matching current in NixOS 25.05
         install_url: https://releases.nixos.org/nix/nix-2.28.4/install
@@ -39,8 +39,8 @@ jobs:
     needs: [pkgs-linux]
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: cachix/install-nix-action@v31.5.1
+    - uses: actions/checkout@v5
+    - uses: cachix/install-nix-action@v31.5.2
       with:
         # DESIGN: matching current in NixOS 25.05
         install_url: https://releases.nixos.org/nix/nix-2.28.4/install
@@ -64,8 +64,8 @@ jobs:
     needs: [pkgs-linux]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: cachix/install-nix-action@v31.5.1
+    - uses: actions/checkout@v5
+    - uses: cachix/install-nix-action@v31.5.2
       with:
         # DESIGN: matching current in NixOS 25.05
         install_url: https://releases.nixos.org/nix/nix-2.28.4/install
@@ -85,8 +85,8 @@ jobs:
     needs: [pkgs-darwin]
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: cachix/install-nix-action@v31.5.1
+    - uses: actions/checkout@v5
+    - uses: cachix/install-nix-action@v31.5.2
       with:
         # DESIGN: matching current in NixOS 25.05
         install_url: https://releases.nixos.org/nix/nix-2.28.4/install
