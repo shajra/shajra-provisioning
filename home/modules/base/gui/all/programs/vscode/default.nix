@@ -8,11 +8,11 @@ in {
         enableExtensionUpdateCheck = false;
         enableUpdateCheck = false;
         extensions = [
+            pkgs.vscode-marketplace."4ops".terraform
             pkgs.vscode-marketplace.bbenoist.nix
             pkgs.vscode-marketplace.bodil.file-browser
-            pkgs.vscode-marketplace.bradlc.vscode-tailwindcss
+            #pkgs.vscode-marketplace.bradlc.vscode-tailwindcss
             pkgs.vscode-marketplace.connor4312.esbuild-problem-matchers
-            pkgs.vscode-marketplace.cucumberopen.cucumber-official
             pkgs.vscode-marketplace.dbaeumer.vscode-eslint
             pkgs.vscode-marketplace.elagil.pre-commit-helper
             pkgs.vscode-marketplace.github.vscode-github-actions
@@ -40,7 +40,7 @@ in {
             pkgs.vscode-marketplace.ms-vscode.extension-test-runner
             pkgs.vscode-marketplace.ms-vscode.makefile-tools
             pkgs.vscode-marketplace.ms-vscode.remote-explorer
-            pkgs.vscode-marketplace.ocamllabs.ocaml-platform
+            #pkgs.vscode-marketplace.ocamllabs.ocaml-platform
             pkgs.vscode-marketplace.redhat.vscode-xml
             pkgs.vscode-marketplace.redhat.vscode-yaml
             pkgs.vscode-marketplace.rust-lang.rust-analyzer
