@@ -401,13 +401,13 @@ nix eval --impure --expr '
 ```
 
     {
-      lastModified = 1739583635;
-      lastModifiedDate = "20250215014035";
-      narHash = "sha256-KYFHARMXv4cXJezf41enxmU8MX1RWP4L2E7Ueq6mtRM=";
-      outPath = "/nix/store/313r346c1ndfz8n9dmnsgyif75dsw2v7-source";
-      rev = "523f401584d9584e76c9c77004e7abeb9e6c4551";
-      revCount = 875;
-      shortRev = "523f401";
+      lastModified = 1754929887;
+      lastModifiedDate = "20250811163127";
+      narHash = "sha256-UK9XUSA3EI+ZuP3a6tHjPUrZOOzTxaNxy5/t/fK5sjE=";
+      outPath = "/nix/store/1c7b2xxhxj58qsff4f6zapg5wqwa6imq-source";
+      rev = "fe5819ed6c791fe649516dcc684c30fc32bee515";
+      revCount = 880;
+      shortRev = "fe5819e";
       submodules = false;
     }
 

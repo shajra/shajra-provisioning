@@ -43,7 +43,7 @@ Hopefully, this alleviates any worry about installing a complex program on your 
 
 > **<span class="underline">NOTE:</span>** You don't need this step if you're running NixOS, which comes with Nix baked in.
 
-Though the latest version of Nix is Nix 2.30.1, we'll be installing the version that the last release of NixOS (25.05) uses, specifically Nix 2.28.4. As discussed in the included [introduction to Nix](nix-introduction.md), this version is considered stable by the Nix community.
+Though the latest version of Nix is Nix 2.30.2, we'll be installing the version that the last release of NixOS (25.05) uses, specifically Nix 2.28.4. As discussed in the included [introduction to Nix](nix-introduction.md), this version is considered stable by the Nix community.
 
 The following command calls the official installation script for the recommended version of Nix. Note, this script will require `sudo` access.
 
