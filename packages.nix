@@ -276,7 +276,7 @@ in rec {
 
     nixpkgs.build.programming.general = pickAll "master" [
         "code-cursor"
-        "codex"
+        #"codex"  # REVISIT: 25-08-11: Broken, using Cursor
     ];
 
     nixpkgs.prebuilt.programming.go = pickAll "home" [
