@@ -22,12 +22,17 @@ wifi:subscribe("wifi_change", function(env)
     sbar.exec("ipconfig getsummary en0", function(report)
         local ssid = report:match("[ \n]+SSID *: *([^ \n]+)")
         if ssid then
-            sbar.exec("ipconfig getifaddr en0", function(ip)
-                wifi:set({
-                    icon = icons.wifi.connected,
-                    label = ssid .. " (" .. ip .. ")"
-                })
-                respect_verbosity()
+            sbar.exec("networksetup -listpreferredwirelessnetworks en0",
+                      function(output)
+                local unredacted_ssid = output:match("\n[ \t]+([^\n]+)\n")
+                ssid = unredacted_ssid or ssid
+                sbar.exec("ipconfig getifaddr en0", function(ip)
+                    wifi:set({
+                        icon = icons.wifi.connected,
+                        label = ssid .. " (" .. ip .. ")"
+                    })
+                    respect_verbosity()
+                end)
             end)
         else
             wifi:set({
