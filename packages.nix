@@ -297,44 +297,44 @@ in rec {
         "cabal-install"
         "stack"
         # REVISIT: 25-07-25: ghc9102 packages not all building/cached
-        "haskell.compiler.ghc984"
-        "haskell.packages.ghc984.apply-refact"
-        "haskell.packages.ghc984.cabal-fmt"
-        "haskell.packages.ghc984.djinn"
-        "haskell.packages.ghc984.eventlog2html"
-        "haskell.packages.ghc984.fast-tags"
-        "haskell.packages.ghc984.ghc-events"
-        "haskell.packages.ghc984.ghcid"
-        "haskell.packages.ghc984.haskdogs"
-        "haskell.packages.ghc984.haskell-language-server"
-        "haskell.packages.ghc984.hasktags"
-        "haskell.packages.ghc984.hlint"
-        "haskell.packages.ghc984.hoogle"
-        "haskell.packages.ghc984.hp2pretty"
-        "haskell.packages.ghc984.profiterole"
-        "haskell.packages.ghc984.profiteur"
-        "haskell.packages.ghc984.stylish-haskell"
+        "haskell.compiler.ghc9102"
+        "haskell.packages.ghc9102.apply-refact"
+        "haskell.packages.ghc9102.cabal-fmt"
+        "haskell.packages.ghc9102.djinn"
+        "haskell.packages.ghc9102.eventlog2html"
+        "haskell.packages.ghc9102.fast-tags"
+        "haskell.packages.ghc9102.ghc-events"
+        "haskell.packages.ghc9102.ghcid"
+        "haskell.packages.ghc9102.haskdogs"
+        "haskell.packages.ghc9102.haskell-language-server"
+        "haskell.packages.ghc9102.hasktags"
+        "haskell.packages.ghc9102.hlint"
+        "haskell.packages.ghc9102.hoogle"
+        "haskell.packages.ghc9102.hp2pretty"
+        "haskell.packages.ghc9102.profiterole"
+        "haskell.packages.ghc9102.profiteur"
+        "haskell.packages.ghc9102.stylish-haskell"
     ];
 
     haskell-nix.prebuilt.programming.haskell = {
         # DESIGN: don't use enough to want to think about a cache miss
-        #nix-tools = hn.nixpkgs.haskell-nix.nix-tools.ghc984;
+        #nix-tools = hn.nixpkgs.haskell-nix.nix-tools.ghc9102;
     };
 
     haskell-nix.build.programming.haskell = when (! isDevBuild) {}
         # DESIGN: Nixpkgs-built binaries above are fine (maybe bloated)
         #({}
-        #// (hn.fromHackage "ghc984" "apply-refact")
-        #// (hn.fromHackage "ghc984" "fast-tags")
-        #// (hn.fromHackage "ghc984" "ghc-events")
-        #// (hn.fromHackage "ghc984" "ghcid")
-        #// (hn.fromHackage "ghc984" "haskdogs")
-        #// (hn.fromHackage "ghc984" "hasktags")
-        #// (hn.fromHackage "ghc984" "hlint")
-        #// (hn.fromHackage "ghc984" "hoogle")
-        #// (hn.fromHackage "ghc984" "hp2pretty")
-        #// (hn.fromHackage "ghc984" "threadscope")
-        #// (hn.fromHackageCustomized "ghc984" "stylish-haskell" { configureArgs = "-f ghc-lib"; })
+        #// (hn.fromHackage "ghc9102" "apply-refact")
+        #// (hn.fromHackage "ghc9102" "fast-tags")
+        #// (hn.fromHackage "ghc9102" "ghc-events")
+        #// (hn.fromHackage "ghc9102" "ghcid")
+        #// (hn.fromHackage "ghc9102" "haskdogs")
+        #// (hn.fromHackage "ghc9102" "hasktags")
+        #// (hn.fromHackage "ghc9102" "hlint")
+        #// (hn.fromHackage "ghc9102" "hoogle")
+        #// (hn.fromHackage "ghc9102" "hp2pretty")
+        #// (hn.fromHackage "ghc9102" "threadscope")
+        #// (hn.fromHackageCustomized "ghc9102" "stylish-haskell" { configureArgs = "-f ghc-lib"; })
         #)
     ;
 
