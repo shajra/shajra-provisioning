@@ -395,9 +395,6 @@ in rec {
     nixpkgs.prebuilt.programming.web = pickAll "home" [
         "html-tidy"
         "stylelint"
-    ];
-
-    nixpkgs.build.programming.web = pickAll "home" [
         "nodePackages.js-beautify"
     ];
 
