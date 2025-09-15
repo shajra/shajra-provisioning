@@ -337,7 +337,7 @@ nix eval --expr '/some/filepath'
 ```
 
     "path"
-    «unknown»/some/filepath
+    /some/filepath
 
 # Mutable (dangerous) path references<a id="sec-11"></a>
 
@@ -347,7 +347,7 @@ Until now, all the Nix expressions we've seen have been purely deterministic. `1
 
 Unfortunately, Nix has a special environment variable `NIX_PATH` that can provide mutable path references. For expressions that use the syntax described in this section, Nix expressions may reference paths that could change dynamically based on how `NIX_PATH` has been set. Builds relying on this are intrinsically non-deterministic.
 
-`NIX_PATH` is a legacy environment variable the Nix ecosystem is slowly working to phase out. As part of this phase-out, the `nix` command requires an `--impure` switch to evaluate expressions that access mutable paths.
+`NIX_PATH` is a legacy environment variable the Nix ecosystem is slowly working to phase out. As part of this phase-out, the `nix` command requires an `--impure` option to evaluate expressions that access mutable paths.
 
 As with `PATH`, the settings within `NIX_PATH` are colon-delimited, with earlier settings taking precedence over later ones. There are two forms of setting `NIX_PATH`:
 
@@ -411,7 +411,7 @@ nix eval --impure --expr '
       submodules = false;
     }
 
-Notice that because we're referencing a URL on the internet, possibly volatile, `nix eval` forces us to use the `--impure` switch to perform this evaluation.
+Notice that because we're referencing a URL on the internet, possibly volatile, `nix eval` forces us to use the `--impure` option to perform this evaluation.
 
 In general, exercise caution when calling a nix command with `--impure`.
 
@@ -434,4 +434,4 @@ nix eval --file ./nix_example
 
     3
 
-Here we also see the usage of the `--file` switch with `nix`. This switch is useful when an expression is saved in a file.
+Here we also see the usage of the `--file` option with `nix`. This option is useful when an expression is saved in a file.

@@ -1,5 +1,5 @@
 { ... }:
 
 {
-    programs.fish = import programs/fish;
+  programs.fish = import programs/fish;
 }

@@ -1,6 +1,6 @@
 { build, ... }:
 
 {
-    imports = [ ../../ubiquity ];
-    home.extraPackages = build.pkgs.lists.programming.cloud;
+  imports = [ ../../ubiquity ];
+  home.extraPackages = build.pkgs.lists.programming.cloud;
 }

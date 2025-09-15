@@ -1,5 +1,5 @@
-home:
+_home:
 
 {
-    ".psqlrc".source = ./psqlrc;
+  ".psqlrc".source = ./psqlrc;
 }

@@ -1,7 +1,8 @@
 let
-    keybindings = import ./keybindings.nix;
-in {
-    profiles.default = {
-        inherit keybindings;
-    };
+  keybindings = import ./keybindings.nix;
+in
+{
+  profiles.default = {
+    inherit keybindings;
+  };
 }

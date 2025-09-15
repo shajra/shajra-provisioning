@@ -1,4 +1,4 @@
-#+title: Nix Installation
+#+title: Nix Installation and Configuration Guide
 #+setupfile: internal/links.org
 
 * Org-mode setup :noexport:
@@ -81,7 +81,7 @@ version of Nix.  Note, this script will require =sudo= access.
 sh <(curl -L https://releases.nixos.org/nix/nix-<<get("nix-stable")>>/install) --daemon
 #+end_src
 
-The =--daemon= switch installs Nix in the multi-user mode, which is generally
+The =--daemon= option installs Nix in the multi-user mode, which is generally
 recommended (single-user installation with =--no-daemon= instead is recommended
 for WSL). The script reports everything it does and touches.
 
@@ -99,10 +99,10 @@ NIX_STORE_PATHS_URL=https://github.com/NixOS/nixpkgs/raw/$NIXOS_VERSION/nixos/mo
 sudo nix upgrade-nix --nix-store-paths-url "$NIX_STORE_PATHS_URL"
 #+end_src
 
-For [[nixos-releases][new releases of NixOS]], use the same command with new =NIXOS_VERSION=.
+For [[nixos-manual-releases][new releases of NixOS]], use the same command with new =NIXOS_VERSION=.
 
-The Nix manual describes [[nix-install-manual][other methods of installing Nix]] that may suit you more.
-If you later want to uninstall Nix, see the [[nix-uninstall][uninstallation steps documented in
+The Nix manual describes [[nix-manual-install][other methods of installing Nix]] that may suit you more.
+If you later want to uninstall Nix, see the [[nix-manual-uninstall][uninstallation steps documented in
 the Nix manual]].
 
 * Cache setup
@@ -114,7 +114,7 @@ more packages than Cachix. Both should have similar availability.
 
 We need to extend two settings in either the system-level Nix configuration file
 at =/etc/nix/nix.conf=, or the user-level configuration at
-=~/.config/nix/nix.config= (which may not exist yet).
+=~/.config/nix/nix.conf= (which may not exist yet).
 
 The choice of whether to perform these settings system-level or user-level is up
 to your preference.
@@ -172,7 +172,7 @@ nix show-config substituters
 nix show-config trusted-public-keys
 #+end_src
 
-Make sure still have settings for https://cache.nixos.org.
+Make sure you still have settings for https://cache.nixos.org.
 
 * Setting up experimental features
 
@@ -187,7 +187,7 @@ As you can guess, the =flakes= feature enables flakes functionality in Nix. The
 =nix-command= feature enables a variety of subcommands of Nix's newer =nix=
 command-line tool, some of which allow us to work with flakes.
 
-If you don't enable experimental features globally, there is a switch to enable
+If you don't enable experimental features globally, there is a option to enable
 features local to just a single command-line invocation. For example, to use
 flakes-related commands, we call ~nix --extra-experimental-features 'nix-command
 flakes' …~.  When not configuring globally, setting an alias for this can be
@@ -195,7 +195,7 @@ useful. The following command illustrates setting an alias in most
 POSIX-compliant shells:
 
 #+begin_src sh :eval no
-alias nix-flakes = nix --extra-experimental-features 'nix-command flakes'
+alias nix-flakes='nix --extra-experimental-features "nix-command flakes"'
 #+end_src
 
 As discussed in the introduction, =nix-command= is enabled by default. You don't

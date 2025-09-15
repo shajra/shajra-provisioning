@@ -1,8 +1,8 @@
-{ build, config, ... }:
+{ build, ... }:
 
 {
-    imports = [ ../../ubiquity ];
-    home.file = import home/file;
-    home.extraPackages = build.pkgs.lists.programming.haskell;
-    xdg.configFile = import xdg/configFile;
+  imports = [ ../../ubiquity ];
+  home.file = import home/file;
+  home.extraPackages = build.pkgs.lists.programming.haskell;
+  xdg.configFile = import xdg/configFile;
 }

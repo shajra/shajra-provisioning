@@ -1,3 +1,3 @@
 {
-    enableVteIntegration = true;
+  enableVteIntegration = true;
 }

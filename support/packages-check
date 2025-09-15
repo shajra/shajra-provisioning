@@ -1,6 +1,0 @@
-#!/bin/sh -eu
-
-cd "$(dirname "$0")/.."
-
-nix run .#ci.check-prebuilt
-nix run .#ci.check-build

@@ -1,4 +1,4 @@
 {
-    imports = [ services/mealie ];
-    system.stateVersion = "24.11";
+  imports = [ services/mealie ];
+  system.stateVersion = "24.11";
 }

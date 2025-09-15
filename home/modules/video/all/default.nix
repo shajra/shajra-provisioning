@@ -1,5 +1,5 @@
 { ... }:
 
 {
-    imports = [ ../../ubiquity ];
+  imports = [ ../../ubiquity ];
 }

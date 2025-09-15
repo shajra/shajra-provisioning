@@ -1,6 +1,6 @@
 { build, ... }:
 
 {
-    imports = [ ../../ubiquity ];
-    home.extraPackages = build.pkgs.lists.programming.rust;
+  imports = [ ../../ubiquity ];
+  home.extraPackages = build.pkgs.lists.programming.rust;
 }

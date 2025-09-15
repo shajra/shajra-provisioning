@@ -1,5 +1,5 @@
 {
-    settings = {
-        window.option_as_alt = "OnlyLeft";
-    };
+  settings = {
+    window.option_as_alt = "OnlyLeft";
+  };
 }

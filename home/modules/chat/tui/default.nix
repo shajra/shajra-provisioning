@@ -1,8 +1,8 @@
 { build, ... }:
 
 {
-    imports = [
-        ../../ubiquity
-    ];
-    home.extraPackages = build.pkgs.lists.chat.tui;
+  imports = [
+    ../../ubiquity
+  ];
+  home.extraPackages = build.pkgs.lists.chat.tui;
 }

@@ -1,142 +1,144 @@
 delta:
 
 {
+  enable = true;
+
+  userName = "Sukant Hajra";
+  userEmail = "dev.sukant@hajra.xyz";
+
+  aliases = {
+    a = "add";
+    b = "branch";
+    ca = "commit -a";
+    c = "commit";
+    cma = "commit -a -m";
+    cm = "commit -m";
+    co = "checkout";
+    d = "diff --patience";
+    f = "fetch";
+    l = "log --date=local";
+    lp = "log -p --date=local";
+    lga =
+      "log --color --graph --decorate"
+      + " --pretty=format:'%Cred%h%Creset -%C(bold black)%d%Creset %s,"
+      + " %Cblue%an, %Cgreen%cd%Creset'"
+      + " --abbrev-commit --date=local --all";
+    lg =
+      "log --color --graph --decorate"
+      + " --pretty=format:'%Cred%h%Creset -%C(bold black)%d%Creset %s,"
+      + " %Cblue%an, %Cgreen%cd%Creset'"
+      + " --abbrev-commit --date=local";
+    p = "push";
+    r = "reset";
+    s = "status --short --branch";
+    t = "tag";
+    wipe = "clean -d -x -e .dir-locals.el -e .envrc -e .direnv";
+    wipeall = "clean -d -x";
+  };
+  delta = {
     enable = true;
-
-    userName = "Sukant Hajra";
-    userEmail = "dev.sukant@hajra.xyz";
-
-    aliases = {
-        a = "add";
-        b = "branch";
-        ca = "commit -a";
-        c = "commit";
-        cma = "commit -a -m";
-        cm = "commit -m";
-        co = "checkout";
-        d = "diff --patience";
-        f = "fetch";
-        l = "log --date=local";
-        lp = "log -p --date=local";
-        lga = "log --color --graph --decorate"
-            + " --pretty=format:'%Cred%h%Creset -%C(bold black)%d%Creset %s,"
-            +     " %Cblue%an, %Cgreen%cd%Creset'"
-            + " --abbrev-commit --date=local --all";
-        lg = "log --color --graph --decorate"
-            + " --pretty=format:'%Cred%h%Creset -%C(bold black)%d%Creset %s,"
-            +     " %Cblue%an, %Cgreen%cd%Creset'"
-            + " --abbrev-commit --date=local";
-        p = "push";
-        r = "reset";
-        s = "status --short --branch";
-        t = "tag";
-        wipe = "clean -d -x -e .dir-locals.el -e .envrc -e .direnv";
-        wipeall = "clean -d -x";
+    options.features = "hoopoe";
+  };
+  # DESIGN: For now I like delta more, maybe switch back later
+  #difftastic.enable = false;
+  extraConfig = {
+    branch.autosetuprebase = "remote";
+    color = {
+      branch = "auto";
+      diff = "auto";
+      status = "auto";
     };
-    delta = {
-        enable = true;
-        options.features = "hoopoe";
+    "color \"branch\"" = {
+      current = "yellow reverse";
+      local = "yellow";
+      remote = "green";
     };
-    # DESIGN: For now I like delta more, maybe switch back later
-    #difftastic.enable = false;
-    extraConfig = {
-        branch.autosetuprebase = "remote";
-        color = {
-            branch = "auto";
-            diff = "auto";
-            status = "auto";
-        };
-        "color \"branch\"" = {
-            current = "yellow reverse";
-            local = "yellow";
-            remote = "green";
-        };
-        "color \"diff\"" = {
-            meta = "yellow bold";
-            frag = "magenta bold";
-            old = "red";
-        };
-        "color \"status\"" = {
-            added = "yellow";
-            changed = "green";
-            untracked = "cyan";
-        };
-        core = {
-            editor = "vim";
-            autocrlf = "input";
-        };
-        diff.submodule = "log";
-        fetch.recurseSubmodules = true;
-        github.user = "shajra";
-        init.defaultBranch = "main";
-        pull.rebase = true;
-        push.default = "simple";
-        rerere.enabled = true;
-        status.submodulesummary = true;
+    "color \"diff\"" = {
+      meta = "yellow bold";
+      frag = "magenta bold";
+      old = "red";
     };
-    ignores = [
-        # Macs
-        ".DS_Store"
+    "color \"status\"" = {
+      added = "yellow";
+      changed = "green";
+      untracked = "cyan";
+    };
+    core = {
+      editor = "vim";
+      autocrlf = "input";
+    };
+    diff.submodule = "log";
+    fetch.recurseSubmodules = true;
+    github.user = "shajra";
+    init.defaultBranch = "main";
+    pull.rebase = true;
+    push.default = "simple";
+    rerere.enabled = true;
+    status.submodulesummary = true;
+  };
+  ignores = [
+    # Macs
+    ".DS_Store"
 
-        # direnv
-        #
-        ".direnv/"
-        ".envrc"
+    # direnv
+    #
+    ".direnv/"
+    ".envrc"
 
-        # Vim
-        #
-        ".swo"
-        ".swp"
-        ".*.swo"
-        ".*.swp"
+    # Vim
+    #
+    ".swo"
+    ".swp"
+    ".*.swo"
+    ".*.swp"
 
-        # Emacs
-        #
-        "\\#*#"
-        ".#*"
-        ".ensime"
-        ".ensime_cache/"
-        ".ensime_lucene"
-        ".projectile"
-        ".dir-locals.el"
-        "*~"
-        ".last-package-update-day"
+    # Emacs
+    #
+    "\\#*#"
+    ".#*"
+    ".ensime"
+    ".ensime_cache/"
+    ".ensime_lucene"
+    ".projectile"
+    ".dir-locals.el"
+    "*~"
+    ".last-package-update-day"
 
-        # IntelliJ
-        #
-        ".idea/"
-        ".idea_modules"
-        "*.iml"
-        "*.ipr"
-        "*.iws"
+    # IntelliJ
+    #
+    ".idea/"
+    ".idea_modules"
+    "*.iml"
+    "*.ipr"
+    "*.iws"
 
-        # Eclipse
-        #
-        ".project"
-        ".settings/"
-        ".classpath"
+    # Eclipse
+    #
+    ".project"
+    ".settings/"
+    ".classpath"
 
-        # Tag files
-        #
-        "cscope.out"
-        "GPATH"
-        "GRTAGS"
-        "GTAGS"
-        "tags"
-        "TAGS"
-        "TAGS.local"
+    # Tag files
+    #
+    "cscope.out"
+    "GPATH"
+    "GRTAGS"
+    "GTAGS"
+    "tags"
+    "TAGS"
+    "TAGS.local"
 
-        # SBT
-        #
-        "*.repl"
+    # SBT
+    #
+    "*.repl"
 
-        # Haskell
-        #
-        ".hlint.yaml"
+    # Haskell
+    #
+    ".hlint.yaml"
 
-        # Python
-        #
-        ".ipynb_checkpoints/"
-    ];
-    includes = [{ path = "${delta}/themes.gitconfig"; }];
+    # Python
+    #
+    ".ipynb_checkpoints/"
+  ];
+  includes = [ { path = "${delta}/themes.gitconfig"; } ];
 }

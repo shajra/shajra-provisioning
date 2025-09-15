@@ -1,6 +1,6 @@
-{ lib, pkgs, ... }:
+{ lib, ... }:
 
 {
-    imports = [ ./. ];
-    home.extraPackages = lib.mkForce [];
+  imports = [ ./. ];
+  home.extraPackages = lib.mkForce [ ];
 }

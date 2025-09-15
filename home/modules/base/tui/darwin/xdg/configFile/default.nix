@@ -1,3 +1,3 @@
 {
-    "karabiner/karabiner.json".source = ./karabiner.json;
+  "karabiner/karabiner.json".source = ./karabiner.json;
 }

@@ -1,8 +1,8 @@
 sources:
 
 ''
-include "%L"
+  include "%L"
 
-include "${sources.xcompose}/dotXCompose"
-include "${sources.pointless-xcompose}/xcompose"
+  include "${sources.xcompose}/dotXCompose"
+  include "${sources.pointless-xcompose}/xcompose"
 ''

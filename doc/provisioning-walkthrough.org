@@ -36,7 +36,7 @@ helpful to read before continuing with this walk-through.
 - [[nix-project-dev][Nix-project's development guide]], which explains concepts and tools used by
   this project including
   - Nix's experimental /flakes/ feature
-  - [[nix-flake-parts][Flake-parts]], a library to ease flake authorship
+  - [[flake-parts][Flake-parts]], a library to ease flake authorship
   - authoring packages using Nixpkgs's =callPackage= function
   - assembling packages from one another with Nix /overlays/.
 

@@ -43,7 +43,7 @@ Hopefully, this alleviates any worry about installing a complex program on your 
 
 > **<span class="underline">NOTE:</span>** You don't need this step if you're running NixOS, which comes with Nix baked in.
 
-Though the latest version of Nix is Nix 2.31.0, we'll be installing the version that the last release of NixOS (25.05) uses, specifically Nix 2.28.4. As discussed in the included [introduction to Nix](nix-introduction.md), this version is considered stable by the Nix community.
+Though the latest version of Nix is Nix 2.31.1, we'll be installing the version that the last release of NixOS (25.05) uses, specifically Nix 2.28.4. As discussed in the included [introduction to Nix](nix-introduction.md), this version is considered stable by the Nix community.
 
 The following command calls the official installation script for the recommended version of Nix. Note, this script will require `sudo` access.
 
@@ -51,7 +51,7 @@ The following command calls the official installation script for the recommended
 sh <(curl -L https://releases.nixos.org/nix/nix-2.28.4/install) --daemon
 ```
 
-The `--daemon` switch installs Nix in the multi-user mode, which is generally recommended (single-user installation with `--no-daemon` instead is recommended for WSL). The script reports everything it does and touches.
+The `--daemon` option installs Nix in the multi-user mode, which is generally recommended (single-user installation with `--no-daemon` instead is recommended for WSL). The script reports everything it does and touches.
 
 After installation, you may have to exit your terminal session and log back in to have environment variables configured, which puts Nix executables on your `PATH`.
 
@@ -65,13 +65,13 @@ sudo nix upgrade-nix --nix-store-paths-url "$NIX_STORE_PATHS_URL"
 
 For [new releases of NixOS](https://nixos.org/manual/nixos/stable/release-notes.html), use the same command with new `NIXOS_VERSION`.
 
-The Nix manual describes [other methods of installing Nix](https://nixos.org/manual/nix/stable/installation/installation.html) that may suit you more. If you later want to uninstall Nix, see the [uninstallation steps documented in the Nix manual](https://nixos.org/manual/nix/stable/installation/installing-binary.html#uninstalling).
+The Nix manual describes [other methods of installing Nix](https://nixos.org/manual/nix/stable/installation/installation) that may suit you more. If you later want to uninstall Nix, see the [uninstallation steps documented in the Nix manual](https://nixos.org/manual/nix/stable/installation/uninstall).
 
 # Cache setup<a id="sec-5"></a>
 
 This project pushes built Nix packages to two substituters, [Garnix](https://garnix.io) and [Cachix](https://cachix.org/), as part of its continuous integration. It's recommended to install at least one of these. Configuring both to have a fallback works as well. Garnix caches a few more packages than Cachix. Both should have similar availability.
 
-We need to extend two settings in either the system-level Nix configuration file at `/etc/nix/nix.conf`, or the user-level configuration at `~/.config/nix/nix.config` (which may not exist yet).
+We need to extend two settings in either the system-level Nix configuration file at `/etc/nix/nix.conf`, or the user-level configuration at `~/.config/nix/nix.conf` (which may not exist yet).
 
 The choice of whether to perform these settings system-level or user-level is up to your preference.
 
@@ -117,7 +117,7 @@ nix show-config substituters
 nix show-config trusted-public-keys
 ```
 
-Make sure still have settings for <https://cache.nixos.org>.
+Make sure you still have settings for <https://cache.nixos.org>.
 
 # Setting up experimental features<a id="sec-6"></a>
 
@@ -130,10 +130,10 @@ The provided [introduction to Nix](nix-introduction.md) covers in detail what th
 
 As you can guess, the `flakes` feature enables flakes functionality in Nix. The `nix-command` feature enables a variety of subcommands of Nix's newer `nix` command-line tool, some of which allow us to work with flakes.
 
-If you don't enable experimental features globally, there is a switch to enable features local to just a single command-line invocation. For example, to use flakes-related commands, we call `nix --extra-experimental-features 'nix-command flakes' …`. When not configuring globally, setting an alias for this can be useful. The following command illustrates setting an alias in most POSIX-compliant shells:
+If you don't enable experimental features globally, there is a option to enable features local to just a single command-line invocation. For example, to use flakes-related commands, we call `nix --extra-experimental-features 'nix-command flakes' …`. When not configuring globally, setting an alias for this can be useful. The following command illustrates setting an alias in most POSIX-compliant shells:
 
 ```sh
-alias nix-flakes = nix --extra-experimental-features 'nix-command flakes'
+alias nix-flakes='nix --extra-experimental-features "nix-command flakes"'
 ```
 
 As discussed in the introduction, `nix-command` is enabled by default. You don't need to enable it explicitly (though you could disable it).

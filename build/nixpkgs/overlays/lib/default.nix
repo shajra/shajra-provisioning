@@ -1,9 +1,7 @@
-final: prev:
+_final: prev:
 
 {
-    lib = prev.lib // {
-        colors = prev.callPackage ./colors.nix {};
-    };
+  lib = prev.lib // {
+    colors = prev.callPackage ./colors.nix { };
+  };
 }
-
-

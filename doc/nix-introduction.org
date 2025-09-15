@@ -1,4 +1,4 @@
-#+title: Deciding to use Nix
+#+title: Introduction to Nix and Motivations to Use It
 #+setupfile: internal/links.org
 
 * Org-mode setup :noexport:
@@ -433,7 +433,7 @@ without enabling flakes globally. You can even make an alias for your shell that
 might look like the following:
 
 #+begin_src sh :eval no
-alias nix-flakes = nix --extra-experimental-features 'nix-command flakes'
+alias nix-flakes='nix --extra-experimental-features "nix-command flakes"'
 #+end_src
 
 This way, there's less to type interactively. Just don't script against this

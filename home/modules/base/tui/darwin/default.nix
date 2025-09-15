@@ -1,13 +1,18 @@
-{ config, lib, pkgs, build, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-    imports = [
-        ../../../ubiquity
-        ../all
-    ];
+  imports = [
+    ../../../ubiquity
+    ../all
+  ];
 
-    disabledModules = [ "targets/darwin/linkapps.nix" ];
-    home.activation = import home/activation config lib pkgs;
+  disabledModules = [ "targets/darwin/linkapps.nix" ];
+  home.activation = import home/activation config lib pkgs;
 
-    xdg.configFile = import xdg/configFile;
+  xdg.configFile = import xdg/configFile;
 }

@@ -1,7 +1,7 @@
-{ lib, pkgs, ... }:
+{ lib, ... }:
 
 {
-    imports = [ ./. ];
-    home.extraPackages = lib.mkForce [];
-    accounts.email.accounts.gmail.address = "secret@secret.secret";
+  imports = [ ./. ];
+  home.extraPackages = lib.mkForce [ ];
+  accounts.email.accounts.gmail.address = "secret@secret.secret";
 }

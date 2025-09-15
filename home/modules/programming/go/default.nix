@@ -1,6 +1,6 @@
 { build, ... }:
 
 {
-    imports = [ ../../ubiquity ];
-    home.extraPackages = build.pkgs.lists.programming.go;
+  imports = [ ../../ubiquity ];
+  home.extraPackages = build.pkgs.lists.programming.go;
 }

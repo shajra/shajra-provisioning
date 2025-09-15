@@ -171,7 +171,7 @@ guides:
 This project leans heavily on an experimental Nix feature called /flakes/. This
 project is built on top of another project called [[nix-project][Nix-project]], which factors out
 some helpful code for Nix projects in general. Nix-project doesn't have a lot of
-code and primarily builds on top of another project called [[nix-flake-parts][Flake-parts]].
+code and primarily builds on top of another project called [[flake-parts][Flake-parts]].
 Flake-parts helps make working with flakes a little easier.
 
 Once you're comfortable with Nix and basic usage, the next two guides will help

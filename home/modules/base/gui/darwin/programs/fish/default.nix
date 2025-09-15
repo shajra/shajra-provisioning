@@ -1,7 +1,7 @@
 pkgs:
 
 {
-    shellAliases = {
-        mm  = "${pkgs.m-cli}/bin/m";
-    };
+  shellAliases = {
+    mm = "${pkgs.m-cli}/bin/m";
+  };
 }

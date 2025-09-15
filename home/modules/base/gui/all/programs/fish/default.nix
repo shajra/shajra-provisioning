@@ -1,5 +1,5 @@
 {
-    shellAliases = {
-        t = "notify-time";
-    };
+  shellAliases = {
+    t = "notify-time";
+  };
 }

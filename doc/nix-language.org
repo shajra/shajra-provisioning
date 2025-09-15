@@ -1,4 +1,4 @@
-#+title: The Nix Language
+#+title: Introduction to the Nix Programming Language
 #+setupfile: internal/links.org
 
 * Org-mode setup :noexport:
@@ -18,10 +18,10 @@ develop your own Nix packages and read the source code of others. A lot of this
 code is in [[nixpkgs][Nixpkgs]], a centralized repository of Nix code for the entire Nix
 ecosystem.
 
-The Nix community has recently developed [[nix-language-tutorial][a tutorial for the language]], which may
+The Nix community has recently developed [[nix-guide-language][a tutorial for the language]], which may
 be a good alternative or supplement to this document.
 
-This document is no substitute for the [[nix-language-manual][official Nix language documentation]],
+This document is no substitute for the [[nix-manual-language][official Nix language documentation]],
 which is not that long for a programming language. Nix does not have much syntax
 relative to other general-purpose programming languages.
 
@@ -423,7 +423,7 @@ nix eval --expr '/some/filepath'
 
 #+RESULTS:
 : "path"
-: «unknown»/some/filepath
+: /some/filepath
 
 * Mutable (dangerous) path references
 
@@ -447,7 +447,7 @@ intrinsically non-deterministic.
 
 =NIX_PATH= is a legacy environment variable the Nix ecosystem is slowly working
 to phase out. As part of this phase-out, the =nix= command requires an
-=--impure= switch to evaluate expressions that access mutable paths.
+=--impure= option to evaluate expressions that access mutable paths.
 
 As with =PATH=, the settings within =NIX_PATH= are colon-delimited, with earlier
 settings taking precedence over later ones. There are two forms of setting
@@ -539,7 +539,7 @@ nix eval --impure --expr '
 #+end_example
 
 Notice that because we're referencing a URL on the internet, possibly volatile,
-=nix eval= forces us to use the =--impure= switch to perform this evaluation.
+=nix eval= forces us to use the =--impure= option to perform this evaluation.
 
 In general, exercise caution when calling a nix command with =--impure=.
 
@@ -565,7 +565,7 @@ nix eval --file ./nix_example
 #+RESULTS:
 : 3
 
-Here we also see the usage of the =--file= switch with =nix=.  This switch is
+Here we also see the usage of the =--file= option with =nix=.  This option is
 useful when an expression is saved in a file.
 
 * Org-mode Cleanup :noexport:
