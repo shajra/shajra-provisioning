@@ -24,11 +24,11 @@ In case there are concepts you don't know, the following provided guides may be 
 -   [Nix installation and configuration guide](nix-installation.md)
 -   [Nix end user guide](nix-usage-flakes.md)
 -   [Introduction to the Nix programming language](nix-language.md)
--   [Nix-project's development guide](https://github.com/shajra/nix-project/blob/main/doc/project-developing.md), which explains concepts and tools used by this project including
+-   [Nix-project's flake basics development guide](https://github.com/shajra/nix-project/blob/main/doc/project-developing-basics.md), which explains concepts and tools used by this project including
     -   Nix's experimental *flakes* feature
-    -   [Flake-parts](https://github.com/hercules-ci/flake-parts), a library to ease flake authorship
     -   authoring packages using Nixpkgs's `callPackage` function
     -   assembling packages from one another with Nix *overlays*.
+-   [Nix-project's flake modules development guide](https://github.com/shajra/nix-project/blob/main/doc/project-developing-modules.md), which explains [`flake-parts`](https://github.com/hercules-ci/flake-parts), a library also used in this project's `flake.nix` file.
 
 It's a lot of material, but it relieves the burden of explaining as much within this walk-through.
 

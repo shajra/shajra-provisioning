@@ -126,7 +126,8 @@ This project leans heavily on an experimental Nix feature called *flakes*. This 
 
 Once you're comfortable with Nix and basic usage, the next two guides will help get up to speed with this project:
 
--   [Nix-project's development guide](https://github.com/shajra/nix-project/blob/main/doc/project-developing.md)
+-   [Nix-project's flake basics development guide](https://github.com/shajra/nix-project/blob/main/doc/project-developing-basics.md)
+-   [Nix-project's flake modules development guide](https://github.com/shajra/nix-project/blob/main/doc/project-developing-modules.md)
 -   [A walk-through of this project](doc/provisioning-walkthrough.md)
 
 The development guide introduces Nix flakes and Flake-parts in the context of Nix-project. The guide also covers some patterns for making packages typical in the Nix ecosystem (`callPackage` and *overlays*).

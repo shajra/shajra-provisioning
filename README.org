@@ -177,7 +177,8 @@ Flake-parts helps make working with flakes a little easier.
 Once you're comfortable with Nix and basic usage, the next two guides will help
 get up to speed with this project:
 
-- [[nix-project-dev][Nix-project's development guide]]
+- [[nix-project-dev-basics][Nix-project's flake basics development guide]]
+- [[nix-project-dev-modules][Nix-project's flake modules development guide]]
 - [[file:doc/provisioning-walkthrough.org][A walk-through of this project]]
 
 The development guide introduces Nix flakes and Flake-parts in the context of

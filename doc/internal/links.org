@@ -50,7 +50,8 @@
 #+link: nixpkgs https://github.com/NixOS/nixpkgs
 #+link: nixpkgs-manual https://nixos.org/nixpkgs/manual
 #+link: nix-project https://github.com/shajra/nix-project
-#+link: nix-project-dev https://github.com/shajra/nix-project/blob/main/doc/project-developing.md
+#+link: nix-project-dev-basics https://github.com/shajra/nix-project/blob/main/doc/project-developing-basics.md
+#+link: nix-project-dev-modules https://github.com/shajra/nix-project/blob/main/doc/project-developing-modules.md
 #+link: raycast https://www.raycast.com/
 #+link: raycast-clipboard https://www.raycast.com/extensions/clipboard-history
 #+link: repl https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop

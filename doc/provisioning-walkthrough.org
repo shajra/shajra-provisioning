@@ -33,12 +33,13 @@ helpful to read before continuing with this walk-through.
 - [[file:nix-installation.org][Nix installation and configuration guide]]
 - [[file:nix-usage-flakes.org][Nix end user guide]]
 - [[file:nix-language.org][Introduction to the Nix programming language]]
-- [[nix-project-dev][Nix-project's development guide]], which explains concepts and tools used by
-  this project including
+- [[nix-project-dev-basics][Nix-project's flake basics development guide]], which explains concepts and
+  tools used by this project including
   - Nix's experimental /flakes/ feature
-  - [[flake-parts][Flake-parts]], a library to ease flake authorship
   - authoring packages using Nixpkgs's =callPackage= function
   - assembling packages from one another with Nix /overlays/.
+- [[nix-project-dev-modules][Nix-project's flake modules development guide]], which explains [[flake-parts][=flake-parts=]], a
+  library also used in this project's =flake.nix= file.
 
 It's a lot of material, but it relieves the burden of explaining as much within
 this walk-through.
