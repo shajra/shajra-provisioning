@@ -190,7 +190,7 @@
                   }
                   {
                     name = "project-check-darwin";
-                    help = "check Linux build comprehensively";
+                    help = "check Darwin build comprehensively";
                     command = "shajra-darwin-rebuild && shajra-home-manager && project-check-build && project-check-caching";
                   }
                   {
