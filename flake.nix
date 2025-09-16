@@ -184,14 +184,29 @@
                     command = withPrivate "nix flake update --commit-lock-file";
                   }
                   {
+                    name = "project-format";
+                    help = "format all files in one command";
+                    command = ''treefmt "$@"'';
+                  }
+                  {
                     name = "project-check-linux";
                     help = "check Linux build comprehensively";
-                    command = "shajra-nixos-rebuild && shajra-home-manager && project-check-build && project-check-caching";
+                    command = ''
+                      shajra-nixos-rebuild --flake "$PRJ_ROOT#$(hostname)" \
+                      && shajra-home-manager --flake "$PRJ_ROOT#$(hostname)" \
+                      && project-check-build \
+                      && project-check-caching
+                    '';
                   }
                   {
                     name = "project-check-darwin";
                     help = "check Darwin build comprehensively";
-                    command = "shajra-darwin-rebuild && shajra-home-manager && project-check-build && project-check-caching";
+                    command = ''
+                      shajra-darwin-rebuild --flake "$PRJ_ROOT#$(hostname)" \
+                      && shajra-home-manager --flake "$PRJ_ROOT#$(hostname)" \
+                      && project-check-build \
+                      && project-check-caching
+                    '';
                   }
                   {
                     name = "project-check-build";
@@ -204,11 +219,6 @@
                     command = "check-caching-prebuilt && check-caching-build";
                   }
                   {
-                    name = "project-format";
-                    help = "format all files in one command";
-                    command = ''treefmt "$@"'';
-                  }
-                  {
                     name = "project-doc-gen";
                     help = "generate GitHub Markdown from Org files";
                     command = ''org2gfm "$@"'';
@@ -216,7 +226,18 @@
                   {
                     name = "project-install-linux";
                     help = "install everything for Linux";
-                    command = ''sudo shajra-nixos-rebuild boot && shajra-home-manager switch'';
+                    command = ''
+                      sudo -H shajra-nixos-rebuild boot --flake "path:$PRJ_ROOT#$(hostname)" \
+                      && shajra-home-manager switch --flake "$PRJ_ROOT#$(hostname)"
+                    '';
+                  }
+                  {
+                    name = "project-install-darwin";
+                    help = "install everything for Darwin";
+                    command = ''
+                      sudo -H shajra-darwin-rebuild switch --flake "path:$PRJ_ROOT#$(hostname)" \
+                      && shajra-home-manager switch --flake "$PRJ_ROOT#$(hostname)"
+                    '';
                   }
                 ];
                 packages = [
