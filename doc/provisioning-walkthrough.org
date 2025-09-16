@@ -33,7 +33,7 @@ helpful to read before continuing with this walk-through.
 - [[file:nix-installation.org][Nix installation and configuration guide]]
 - [[file:nix-usage-flakes.org][Nix end user guide]]
 - [[file:nix-language.org][Introduction to the Nix programming language]]
-- [[nix-project-dev-basics][Nix-project's flake basics development guide]], which explains concepts and
+- [[nix-project-dev-basics][Nix-project's flakes basic development guide]], which explains concepts and
   tools used by this project including
   - Nix's experimental /flakes/ feature
   - authoring packages using Nixpkgs's =callPackage= function

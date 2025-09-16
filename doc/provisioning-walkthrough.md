@@ -24,7 +24,7 @@ In case there are concepts you don't know, the following provided guides may be 
 -   [Nix installation and configuration guide](nix-installation.md)
 -   [Nix end user guide](nix-usage-flakes.md)
 -   [Introduction to the Nix programming language](nix-language.md)
--   [Nix-project's flake basics development guide](https://github.com/shajra/nix-project/blob/main/doc/project-developing-basics.md), which explains concepts and tools used by this project including
+-   [Nix-project's flakes basic development guide](https://github.com/shajra/nix-project/blob/main/doc/project-developing-basics.md), which explains concepts and tools used by this project including
     -   Nix's experimental *flakes* feature
     -   authoring packages using Nixpkgs's `callPackage` function
     -   assembling packages from one another with Nix *overlays*.
