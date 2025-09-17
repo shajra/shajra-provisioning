@@ -2,4 +2,4 @@
 #+setupfile: ../../doc/internal/links.org
 
 There's some one-time ZFS setup I did, which next time I might use [[disko][disko]] for.
-The scripts in this directory are what I believe I used at the time.
+The scripts in this directory are what I used.

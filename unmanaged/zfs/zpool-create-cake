@@ -14,4 +14,6 @@ zpool create \
     -O relatime=on \
     -O secondarycache=none \
     -O xattr=sa \
-    jelly mirror /dev/sda /dev/sdb
+    cake mirror \
+    /dev/disk/by-id/ata-Samsung_SSD_870_EVO_1TB_S75BNL0Y701374K \
+    /dev/disk/by-id/ata-Samsung_SSD_870_EVO_1TB_S75BNL0Y701381N
