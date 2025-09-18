@@ -23,11 +23,16 @@ in
     ./hardware-configuration.nix
   ];
 
-  # DESIGN: attempt to stop USB drive crashes
+  # DESIGN: Consider something like the following:
+  #
+  #     options usb-storage quirks=0bda:9210:u
+  #
+  # if there's a problem that looks like:
+  #
+  #     kernel: sd 1:0:0:0: [sdb] tag#28 uas_eh_abort_handler 0 uas-tag 29 inflight: CMD IN
+  #
   # https://www.cnx-software.com/2020/08/12/how-to-fix-unreliable-usb-hard-drives-stalled-transfers-linux-windows
-  boot.extraModprobeConfig = ''
-    options usb-storage quirks=0bda:9210:u
-  '';
+  boot.extraModprobeConfig = '''';
 
   # DESIGN: Sometimes it's worth trying to go with newer kernels than default
   #boot.kernelPackages = pkgs.linuxPackages_latest;
