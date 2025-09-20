@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v5
-    - uses: cachix/install-nix-action@v31.6.1
+    - uses: cachix/install-nix-action@v31
       with:
         # DESIGN: matching current in NixOS 25.05
-        install_url: https://releases.nixos.org/nix/nix-2.28.4/install
+        install_url: https://releases.nixos.org/nix/nix-2.28.5/install
         extra_nix_config: |
           substituters = https://cache.nixos.org https://nix-community.cachix.org https://haskell-language-server.cachix.org https://cache.iog.io
           trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= haskell-language-server.cachix.org-1:juFfHrwkOxqIOZShtC4YC1uT1bBcq2RSvC7OMKx0Nz8= hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=
@@ -40,10 +40,10 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v5
-    - uses: cachix/install-nix-action@v31.6.1
+    - uses: cachix/install-nix-action@v31
       with:
         # DESIGN: matching current in NixOS 25.05
-        install_url: https://releases.nixos.org/nix/nix-2.28.4/install
+        install_url: https://releases.nixos.org/nix/nix-2.28.5/install
         extra_nix_config: |
           substituters = https://cache.nixos.org https://nix-community.cachix.org https://haskell-language-server.cachix.org https://cache.iog.io
           trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= haskell-language-server.cachix.org-1:juFfHrwkOxqIOZShtC4YC1uT1bBcq2RSvC7OMKx0Nz8= hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=
@@ -65,10 +65,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v5
-    - uses: cachix/install-nix-action@v31.6.1
+    - uses: cachix/install-nix-action@v31
       with:
         # DESIGN: matching current in NixOS 25.05
-        install_url: https://releases.nixos.org/nix/nix-2.28.4/install
+        install_url: https://releases.nixos.org/nix/nix-2.28.5/install
         extra_nix_config: |
           substituters = https://cache.nixos.org https://nix-community.cachix.org https://haskell-language-server.cachix.org https://cache.iog.io
           trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= haskell-language-server.cachix.org-1:juFfHrwkOxqIOZShtC4YC1uT1bBcq2RSvC7OMKx0Nz8= hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=
@@ -86,10 +86,10 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v5
-    - uses: cachix/install-nix-action@v31.6.1
+    - uses: cachix/install-nix-action@v31
       with:
         # DESIGN: matching current in NixOS 25.05
-        install_url: https://releases.nixos.org/nix/nix-2.28.4/install
+        install_url: https://releases.nixos.org/nix/nix-2.28.5/install
         extra_nix_config: |
           substituters = https://cache.nixos.org https://nix-community.cachix.org https://haskell-language-server.cachix.org https://cache.iog.io
           trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= haskell-language-server.cachix.org-1:juFfHrwkOxqIOZShtC4YC1uT1bBcq2RSvC7OMKx0Nz8= hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=
