@@ -11,7 +11,6 @@ rec {
     "application/x-extension-xhtml" = "firefox-beta.desktop";
     "application/xhtml+xml" = "firefox-beta.desktop";
     "text/html" = "firefox-beta.desktop";
-    "x-scheme-handler/chrome" = "firefox-beta.desktop";
     "x-scheme-handler/http" = "firefox-beta.desktop";
     "x-scheme-handler/https" = "firefox-beta.desktop";
     "x-scheme-handler/mailto" = "firefox-beta.desktop";

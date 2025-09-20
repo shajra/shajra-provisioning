@@ -41,7 +41,8 @@
   casks = [
     # Browsers
     "firefox@beta"
-    "google-chrome@beta"
+    "duckduckgo"
+    #"google-chrome@beta"
     "tor-browser"
 
     "cleanmymac"
