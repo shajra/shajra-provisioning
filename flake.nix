@@ -170,6 +170,9 @@
             legacyPackages = build.shajra-provision;
             devshells.default =
               let
+                inherit (nixpkgs.stable.hostPlatform) isDarwin;
+                osCmd = if isDarwin then ''shajra-darwin-rebuild'' else ''shajra-nixos-rebuild'';
+                osProvision = if isDarwin then ''switch'' else ''boot'';
                 withPrivate =
                   cmd:
                   cmd
@@ -189,22 +192,12 @@
                     command = ''treefmt "$@"'';
                   }
                   {
-                    name = "project-check-linux";
-                    help = "check Linux build comprehensively";
+                    name = "project-check";
+                    help = "check build comprehensively";
                     command = ''
-                      shajra-nixos-rebuild --flake "$PRJ_ROOT#$(hostname)" \
-                      && shajra-home-manager --flake "$PRJ_ROOT#$(hostname)" \
-                      && project-check-build \
-                      && project-check-caching
-                    '';
-                  }
-                  {
-                    name = "project-check-darwin";
-                    help = "check Darwin build comprehensively";
-                    command = ''
-                      shajra-darwin-rebuild --flake "$PRJ_ROOT#$(hostname)" \
-                      && shajra-home-manager --flake "$PRJ_ROOT#$(hostname)" \
-                      && project-check-build \
+                      project-check-build \
+                      && ${osCmd} build --flake "$PRJ_ROOT#$(hostname)" \
+                      && shajra-home-manager build --flake "$PRJ_ROOT#$(hostname)" \
                       && project-check-caching
                     '';
                   }
@@ -224,18 +217,10 @@
                     command = ''org2gfm "$@"'';
                   }
                   {
-                    name = "project-install-linux";
-                    help = "install everything for Linux";
+                    name = "project-install";
+                    help = "install both system and home";
                     command = ''
-                      sudo -H shajra-nixos-rebuild boot --flake "path:$PRJ_ROOT#$(hostname)" \
-                      && shajra-home-manager switch --flake "$PRJ_ROOT#$(hostname)"
-                    '';
-                  }
-                  {
-                    name = "project-install-darwin";
-                    help = "install everything for Darwin";
-                    command = ''
-                      sudo -H shajra-darwin-rebuild switch --flake "path:$PRJ_ROOT#$(hostname)" \
+                      sudo -H ${osCmd} ${osProvision} --flake "path:$PRJ_ROOT#$(hostname)" \
                       && shajra-home-manager switch --flake "$PRJ_ROOT#$(hostname)"
                     '';
                   }
