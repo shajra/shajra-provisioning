@@ -40,6 +40,9 @@ in
   system.defaults.dock.autohide = true;
   system.defaults.NSGlobalDomain._HIHideMenuBar = true;
   system.defaults.NSGlobalDomain.ApplePressAndHoldEnabled = false;
+  # REVISIT: 2025-09-20: Animation disabled as work-around
+  # See https://github.com/FelixKratz/JankyBorders/issues/172
+  system.defaults.NSGlobalDomain.NSAutomaticWindowAnimationsEnabled = false;
   system.defaults.NSGlobalDomain.NSWindowShouldDragOnGesture = true;
   system.defaults.spaces.spans-displays = true;
 

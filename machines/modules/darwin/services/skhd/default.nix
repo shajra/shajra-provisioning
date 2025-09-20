@@ -167,8 +167,8 @@ in
     # open terminal
     # REVISIT: 2025-09-20: Would prefer Kitty over Alacritty (pictures in terminal)
     # https://github.com/FelixKratz/JankyBorders/issues/172
-    #lcmd - return : "${kitty}" --single-instance --wait-for-single-instance-window-close --directory ~
-    lcmd - return : "${alacritty}" msg create-window || open -a Alacritty
+    lcmd - return : "${kitty}" --single-instance --wait-for-single-instance-window-close --directory ~
+    #lcmd - return : "${alacritty}" msg create-window || open -a Alacritty
 
     # close window
     lcmd - q : aerospace close
