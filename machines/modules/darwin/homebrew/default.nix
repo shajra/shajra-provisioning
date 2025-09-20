@@ -8,8 +8,6 @@
   };
 
   taps = [
-    "homebrew/bundle"
-    "homebrew/services"
     "nikitabobko/tap"
   ];
 
