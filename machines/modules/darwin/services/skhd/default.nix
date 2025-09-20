@@ -2,6 +2,7 @@ pkgs: build: colors:
 
 let
 
+  alacritty = "${build.infra.np.nixpkgs.home.alacritty}/bin/alacritty";
   kitty = "${build.infra.np.nixpkgs.home.kitty}/bin/kitty";
   sketchybar-refresh = "${pkgs.sketchybar}/bin/sketchybar --trigger refresh_workspaces";
 
@@ -164,7 +165,10 @@ in
     #lcmd + shift + alt - 0x2F : "''${space-move}" next
 
     # open terminal
-    lcmd - return : "${kitty}" --single-instance --wait-for-single-instance-window-close --directory ~
+    # REVISIT: 2025-09-20: Would prefer Kitty over Alacritty (pictures in terminal)
+    # https://github.com/FelixKratz/JankyBorders/issues/172
+    #lcmd - return : "${kitty}" --single-instance --wait-for-single-instance-window-close --directory ~
+    lcmd - return : "${alacritty}" msg create-window || open -a Alacritty
 
     # close window
     lcmd - q : aerospace close
