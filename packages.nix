@@ -165,9 +165,8 @@ rec {
     all.picked // { inherit (all) aspell; };
 
   nixpkgs.prebuilt.centralized = np.pick { linux = "home"; } [
-    # REVISIT: Not really using buku for bookmarks
-    "buku"
-    "bukubrow"
+    "ente-desktop"
+    "ente-cli"
   ];
 
   nixpkgs.prebuilt.chat.gui =
