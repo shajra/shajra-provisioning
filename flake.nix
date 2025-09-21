@@ -184,7 +184,7 @@
                   {
                     name = "project-update";
                     help = "update project dependencies";
-                    command = withPrivate "nix flake update --commit-lock-file";
+                    command = (withPrivate "nix flake update --commit-lock-file") + " \"$@\"";
                   }
                   {
                     name = "project-format";
