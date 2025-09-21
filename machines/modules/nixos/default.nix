@@ -1,4 +1,7 @@
 {
-  imports = [ services/mealie ];
+  imports = [
+    services/mealie
+    services/nextcloud
+  ];
   system.stateVersion = "24.11";
 }

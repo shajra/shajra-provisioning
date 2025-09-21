@@ -142,22 +142,22 @@ in
   services.locate.enable = true;
   services.mealie.enable = true;
 
+  services.nextcloud = {
+    enable = true;
+    package = pkgs.nextcloud31;
+    hostName = "nextcloud.hajra.xyz";
+    https = true;
+    config.adminpassFile = "/run/secrets/nextcloud/adminpassFile";
+    config.dbtype = "sqlite";
+  };
+
   services.nginx = {
     enable = true;
     virtualHosts = {
       "meali.home.arpa" = {
-        listen = [
-          {
-            addr = "0.0.0.0";
-            port = 443;
-            ssl = true;
-          }
-        ];
         forceSSL = true;
-        inherit (config.services.mealie)
-          sslCertificate
-          sslCertificateKey
-          ;
+        sslCertificate = "/run/secrets/nginx/ssl.crt";
+        sslCertificateKey = "/run/secrets/nginx/ssl.key";
         locations."/" = {
           proxyPass = "http://127.0.0.1:9000";
           extraConfig = ''
@@ -167,6 +167,11 @@ in
             proxy_set_header X-Forwarded-Proto https;
           '';
         };
+      };
+      "nextcloud.hajra.xyz" = {
+        forceSSL = true;
+        sslCertificate = "/run/secrets/nginx/ssl.crt";
+        sslCertificateKey = "/run/secrets/nginx/ssl.key";
       };
     };
   };
