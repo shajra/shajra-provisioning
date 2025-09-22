@@ -7,14 +7,15 @@
     codex.url = "github:openai/codex";
     devshell.url = "github:numtide/devshell";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
-    vscode-overlay.url = "github:nix-community/nix-vscode-extensions";
     flake-parts.url = "github:hercules-ci/flake-parts";
     haskell-nix.url = "github:input-output-hk/haskell.nix";
     home-manager.url = "github:shajra/home-manager/feature/lieer-address-override";
     nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-25.05";
     nix-project.url = "github:shajra/nix-project";
     nur.url = "github:nix-community/NUR";
+    shajra-private.url = "github:shajra/empty";
     treefmt-nix.url = "github:numtide/treefmt-nix";
+    vscode-overlay.url = "github:nix-community/nix-vscode-extensions";
     vscode-server.url = "github:nix-community/nixos-vscode-server";
     delta = {
       url = "github:dandavison/delta";
@@ -99,8 +100,8 @@
   };
 
   outputs =
-    inputs@{ flake-parts, shajra-private, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } (
+    inputs@{ ... }:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } (
       { withSystem, ... }:
       let
         overlay = import build/overlay.nix inputs withSystem;
@@ -172,19 +173,18 @@
               let
                 inherit (nixpkgs.stable.hostPlatform) isDarwin;
                 osCmd = if isDarwin then ''shajra-darwin-rebuild'' else ''shajra-nixos-rebuild'';
-                osProvision = if isDarwin then ''switch'' else ''boot'';
-                withPrivate =
-                  cmd:
-                  cmd
-                  + " --override-input shajra-private"
+                osInstall = if isDarwin then ''sudo -H ${osCmd} switch'' else ''${osCmd} boot --use-remote-sudo'';
+                privateOpts =
+                  "--refresh --override-input shajra-private"
                   + " git+ssh://tnks@cake/home/tnks/src/shajra/shajra-private?ref=main";
+                flakeOpt = ''--flake "$PRJ_ROOT#$(hostname)"'';
               in
               {
                 commands = [
                   {
                     name = "project-update";
                     help = "update project dependencies";
-                    command = (withPrivate "nix flake update --commit-lock-file") + " \"$@\"";
+                    command = ''nix flake update --commit-lock-file "$@\"'';
                   }
                   {
                     name = "project-format";
@@ -196,15 +196,15 @@
                     help = "check build comprehensively";
                     command = ''
                       project-check-build \
-                      && ${osCmd} build --flake "$PRJ_ROOT#$(hostname)" \
-                      && shajra-home-manager build --flake "$PRJ_ROOT#$(hostname)" \
+                      && ${osCmd} build ${flakeOpt} ${privateOpts} \
+                      && shajra-home-manager build ${flakeOpt} ${privateOpts} \
                       && project-check-caching
                     '';
                   }
                   {
                     name = "project-check-build";
                     help = "run all checks/tests/linters";
-                    command = withPrivate "nix --print-build-logs flake check --show-trace";
+                    command = "nix --print-build-logs flake check --show-trace ${privateOpts}";
                   }
                   {
                     name = "project-check-caching";
@@ -220,9 +220,18 @@
                     name = "project-install";
                     help = "install both system and home";
                     command = ''
-                      sudo -H ${osCmd} ${osProvision} --flake "path:$PRJ_ROOT#$(hostname)" \
-                      && shajra-home-manager switch --flake "$PRJ_ROOT#$(hostname)"
+                      project-install-system && project-install-home
                     '';
+                  }
+                  {
+                    name = "project-install-system";
+                    help = "install system configuration";
+                    command = ''${osInstall} ${flakeOpt} ${privateOpts}'';
+                  }
+                  {
+                    name = "project-install-home";
+                    help = "install home configuration";
+                    command = ''shajra-home-manager switch ${flakeOpt} ${privateOpts}'';
                   }
                 ];
                 packages = [
@@ -281,7 +290,7 @@
             nixosConfigurations.cake = configLib.nixosConfiguration {
               system = "x86_64-linux";
               path = machines/target/cake;
-              privateModule = shajra-private.nixosModules.cake;
+              privateModule = inputs.shajra-private.nixosModules.cake;
             };
             darwinConfigurations.bagel = configLib.darwinConfiguration {
               system = "aarch64-darwin";
@@ -298,7 +307,7 @@
             homeConfigurations.cake = configLib.homeConfiguration {
               system = "x86_64-linux";
               path = home/target/cake;
-              privateModule = shajra-private.homeModules.cake;
+              privateModule = inputs.shajra-private.homeModules.cake;
             };
             homeConfigurations.lemon = configLib.homeConfiguration {
               system = "aarch64-darwin";

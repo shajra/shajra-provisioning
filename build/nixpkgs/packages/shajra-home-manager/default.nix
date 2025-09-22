@@ -24,12 +24,18 @@ nix-project-lib.writeShellCheckedExe progName
       "DBUS_SESSION_BUS_ADDRESS"
       "HOME"
       "PATH"
+      "SSH_ASKPASS"
+      "SSH_AUTH_SOCK"
+      "SSH_CLIENT"
+      "SSH_CONNECTION"
+      "SSH_TTY"
       "TERM"
       "TERMINFO"
       "USER"
     ];
     pathKeep = [
       "nix"
+      "ssh"
     ];
     pathPackages = [
       coreutils

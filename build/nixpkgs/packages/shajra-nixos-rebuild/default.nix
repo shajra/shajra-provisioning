@@ -19,12 +19,19 @@ nix-project-lib.writeShellCheckedExe progName
     envKeep = [
       "LOCALE_ARCHIVE"
       "PATH"
+      "SSH_ASKPASS"
+      "SSH_AUTH_SOCK"
+      "SSH_CLIENT"
+      "SSH_CONNECTION"
+      "SSH_TTY"
       "TERM"
       "TERMINFO"
     ];
     pathKeep = [
       "nix"
       "nixos-rebuild"
+      "ssh"
+      "sudo"
       "systemd-run"
     ];
     pathPackages = [
