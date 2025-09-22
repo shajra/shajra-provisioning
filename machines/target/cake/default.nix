@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   build,
   ...
@@ -143,6 +144,9 @@ in
 
   services.nextcloud = {
     enable = true;
+    extraApps = with config.services.nextcloud.package.packages.apps; {
+      inherit memories;
+    };
     package = pkgs.nextcloud31;
     hostName = "nextcloud.hajra.xyz";
     https = true;
