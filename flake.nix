@@ -69,6 +69,10 @@
       url = "tarball+https://infinitekind.com/stabledl/current/moneydance-linux.tar.gz";
       flake = false;
     };
+    nc4nix = {
+      url = "github:helsinki-systems/nc4nix";
+      flake = false;
+    };
     pointless-xcompose = {
       url = "github:leoboiko/pointless-xcompose";
       flake = false;

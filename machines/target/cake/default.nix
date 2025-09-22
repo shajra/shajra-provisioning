@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   build,
   ...
@@ -144,14 +143,33 @@ in
 
   services.nextcloud = {
     enable = true;
-    extraApps = with config.services.nextcloud.package.packages.apps; {
-      inherit memories;
+    config = {
+      adminpassFile = "/run/secrets/nextcloud/adminpassFile";
+      dbtype = "sqlite";
     };
-    package = pkgs.nextcloud31;
+    datadir = "/srv/nextcloud";
+    extraApps = {
+      #inherit (pkgs.nc4nix.nextcloud-31);
+      #inherit (pkgs.nextcloud31Packages.apps);
+      inherit (infra.np.nixpkgs.unstable.nextcloud31Packages.apps)
+        recognize
+        memories
+        previewgenerator
+        ;
+    };
     hostName = "nextcloud.hajra.xyz";
     https = true;
-    config.adminpassFile = "/run/secrets/nextcloud/adminpassFile";
-    config.dbtype = "sqlite";
+    package = infra.np.nixpkgs.unstable.nextcloud31;
+    phpOptions."opcache.interned_strings_buffer" = "23";
+    settings = {
+      "log_type" = "file";
+      #"loglevel" = 0;
+      "maintenance_window_start" = 7;
+      "memories.exiftool" = "${pkgs.exiftool}/bin/exiftool";
+      "memories.vod.ffmpeg" = "${pkgs.ffmpeg-headless}/bin/ffmpeg";
+      "memories.vod.ffprobe" = "${pkgs.ffmpeg-headless}/bin/ffprobe";
+      "preview_ffmpeg_path" = "${pkgs.ffmpeg-headless}/bin/ffmpeg";
+    };
   };
 
   services.nginx = {
@@ -175,6 +193,9 @@ in
         forceSSL = true;
         sslCertificate = "/run/secrets/nginx/ssl.crt";
         sslCertificateKey = "/run/secrets/nginx/ssl.key";
+        extraConfig = ''
+          add_header X-XSS-Protection "1;mode=block";
+        '';
       };
     };
   };
