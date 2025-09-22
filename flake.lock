@@ -2019,11 +2019,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1758507004,
-        "narHash": "sha256-yJW07tEk3Eca6P4xIs0BrzRfQlI/51jgqnpLxvD+p4s=",
+        "lastModified": 1758510705,
+        "narHash": "sha256-airdKQ4fYTbex7ezbvigYpPgNfasgH0wuc3/gZZYirU=",
         "ref": "main",
-        "rev": "05fe6e2fff2a81ffc296240bd8d166bfa111dd7a",
-        "revCount": 7,
+        "rev": "d149349e84e37954556479558dfa0bde450ac94f",
+        "revCount": 8,
         "type": "git",
         "url": "ssh://tnks@cake/home/tnks/src/shajra/shajra-private"
       },
