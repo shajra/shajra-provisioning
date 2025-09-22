@@ -182,28 +182,32 @@
               {
                 commands = [
                   {
-                    name = "project-update";
-                    help = "update project dependencies";
-                    command = ''nix flake update --commit-lock-file "$@\"'';
+                    name = "project-build";
+                    help = "build both system and home configuration for this host";
+                    command = ''project-build-system && project-build-home'';
                   }
                   {
-                    name = "project-format";
-                    help = "format all files in one command";
-                    command = ''treefmt "$@"'';
+                    name = "project-build-system";
+                    help = "build both system configuration for this host";
+                    command = ''${osCmd} build ${flakeOpt} ${privateOpts}'';
+                  }
+                  {
+                    name = "project-build-home";
+                    help = "build both home configuration for this host";
+                    command = ''shajra-home-manager build ${flakeOpt} ${privateOpts}'';
                   }
                   {
                     name = "project-check";
-                    help = "check build comprehensively";
+                    help = "check flake and builds comprehensively";
                     command = ''
-                      project-check-build \
-                      && ${osCmd} build ${flakeOpt} ${privateOpts} \
-                      && shajra-home-manager build ${flakeOpt} ${privateOpts} \
+                      project-check-flake \
+                      && project-build \
                       && project-check-caching
                     '';
                   }
                   {
-                    name = "project-check-build";
-                    help = "run all checks/tests/linters";
+                    name = "project-check-flake";
+                    help = "run all flake checks";
                     command = "nix --print-build-logs flake check --show-trace ${privateOpts}";
                   }
                   {
@@ -217,21 +221,31 @@
                     command = ''org2gfm "$@"'';
                   }
                   {
+                    name = "project-format";
+                    help = "format all files in one command";
+                    command = ''treefmt "$@"'';
+                  }
+                  {
                     name = "project-install";
-                    help = "install both system and home";
+                    help = "install both system and home configuration for this host";
                     command = ''
                       project-install-system && project-install-home
                     '';
                   }
                   {
                     name = "project-install-system";
-                    help = "install system configuration";
+                    help = "install system configuration for this host";
                     command = ''${osInstall} ${flakeOpt} ${privateOpts}'';
                   }
                   {
                     name = "project-install-home";
-                    help = "install home configuration";
+                    help = "install home configuration for this host";
                     command = ''shajra-home-manager switch ${flakeOpt} ${privateOpts}'';
+                  }
+                  {
+                    name = "project-update";
+                    help = "update project dependencies";
+                    command = ''nix flake update --commit-lock-file "$@\"'';
                   }
                 ];
                 packages = [
