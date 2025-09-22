@@ -290,7 +290,6 @@
             darwinConfigurations.lemon = configLib.darwinConfiguration {
               system = "aarch64-darwin";
               path = machines/target/lemon;
-              privateModule = shajra-private.darwinModules.lemon;
             };
             homeConfigurations.bagel = configLib.homeConfiguration {
               system = "aarch64-darwin";
