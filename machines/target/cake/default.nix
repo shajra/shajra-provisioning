@@ -1,5 +1,6 @@
 {
   pkgs,
+  config,
   build,
   ...
 }:
@@ -132,6 +133,33 @@ in
   services.displayManager.defaultSession = "none+i3";
   services.fwupd.enable = true;
   services.geoclue2.enable = true;
+
+  services.immich = {
+    enable = true;
+    accelerationDevices = null;
+    machine-learning.environment = {
+      HF_XET_CACHE = "/var/cache/immich/huggingface-xet";
+    };
+    mediaLocation = "/srv/immich";
+    openFirewall = true;
+    package = infra.np.nixpkgs.unstable.immich;
+    secretsFile = "/run/secrets/immich";
+    settings = {
+      server.externalDomain = "https://immich.hajra.xyz";
+      storageTemplate = {
+        enabled = true;
+        hashVerificationEnabled = true;
+        template = "{{y}}/{{#if album}}{{album}}{{else}}Other{{/if}}/{{MM}}/{{filename}}";
+      };
+    };
+  };
+
+  services.immich-public-proxy = {
+    enable = true;
+    immichUrl = "https://immich.hajra.xyz";
+    openFirewall = true;
+  };
+
   services.jellyfin.enable = true;
   services.jellyfin.openFirewall = true;
   services.libinput.enable = true;
@@ -142,7 +170,7 @@ in
   services.mealie.enable = true;
 
   services.nextcloud = {
-    enable = true;
+    enable = false;
     config = {
       adminpassFile = "/run/secrets/nextcloud/adminpassFile";
       dbtype = "sqlite";
@@ -175,12 +203,44 @@ in
   services.nginx = {
     enable = true;
     virtualHosts = {
-      "meali.home.arpa" = {
+      "immich.hajra.xyz" = {
+        extraConfig = ''
+          client_max_body_size 50000M;
+
+          proxy_http_version 1.1;
+
+          proxy_set_header Connection "upgrade";
+          proxy_set_header Host $host;
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto https;
+          proxy_set_header X-Real-IP $remote_addr;
+
+          proxy_read_timeout 600s;
+          proxy_send_timeout 600s;
+          send_timeout 600s;
+        '';
+        forceSSL = true;
+        sslCertificate = "/run/secrets/nginx/ssl.crt";
+        sslCertificateKey = "/run/secrets/nginx/ssl.key";
+        locations."/share" = {
+          proxyPass = "http://127.0.0.1:${builtins.toString config.services.immich-public-proxy.port}";
+        };
+        locations."/" =
+          let
+            host = config.services.immich.host;
+            port = builtins.toString config.services.immich.port;
+          in
+          {
+            proxyPass = "http://${host}:${port}";
+          };
+      };
+      "mealie.hajra.xyz" = {
         forceSSL = true;
         sslCertificate = "/run/secrets/nginx/ssl.crt";
         sslCertificateKey = "/run/secrets/nginx/ssl.key";
         locations."/" = {
-          proxyPass = "http://127.0.0.1:9000";
+          proxyPass = "http://127.0.0.1:${builtins.toString config.services.mealie.port}";
           extraConfig = ''
             proxy_set_header Host $host;
             proxy_set_header X-Real-IP $remote_addr;
@@ -207,6 +267,7 @@ in
   services.openssh.ports = [ 64896 ];
   services.picom.enable = true;
   services.picom.vSync = true;
+  services.postgresql.dataDir = "/srv/postgresql";
   services.printing.drivers = [ hplip ];
   services.printing.enable = true;
   services.roon-server.enable = true;
@@ -367,6 +428,11 @@ in
       "wheel"
     ];
   };
+
+  users.users.immich.extraGroups = [
+    "render"
+    "video"
+  ];
 
   users.defaultUserShell = pkgs.bashInteractive;
 
