@@ -1,4 +1,7 @@
 { config, ... }:
+let
+  domain = import ./domain.nix;
+in
 {
   services.immich.secretsFile = config.sops.templates."immich.env".path;
   sops.templates = {
@@ -23,7 +26,7 @@
             password = config.sops.placeholder."immich/smtp/password";
           };
         };
-        server.externalDomain = "https://immich.hajra.xyz";
+        server.externalDomain = "https://${domain.immich}";
         storageTemplate = {
           enabled = true;
           hashVerificationEnabled = true;

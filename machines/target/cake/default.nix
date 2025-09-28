@@ -8,9 +8,12 @@
 let
 
   inherit (build) infra;
+
   # REVISIT: Noticed printer unreachable from some upgrade
   #hplip = pkgs.hplipWithPlugin;
   hplip = infra.np.nixpkgs.unstable.hplipWithPlugin;
+
+  domain = import ./domain.nix;
   hostname = "cake";
   user = build.config.provision.user."${hostname}".username;
 
@@ -147,7 +150,7 @@ in
 
   services.immich-public-proxy = {
     enable = true;
-    immichUrl = "https://immich.hajra.xyz";
+    immichUrl = "https://${domain.immich}";
     openFirewall = true;
   };
 
@@ -176,7 +179,7 @@ in
         previewgenerator
         ;
     };
-    hostName = "nextcloud.hajra.xyz";
+    hostName = domain.nextcloud;
     https = true;
     package = infra.np.nixpkgs.unstable.nextcloud31;
     phpOptions."opcache.interned_strings_buffer" = "23";
@@ -194,7 +197,7 @@ in
   services.nginx = {
     enable = true;
     virtualHosts = {
-      "immich.hajra.xyz" = {
+      "${domain.immich}" = {
         extraConfig = ''
           client_max_body_size 50000M;
 
@@ -226,7 +229,7 @@ in
             proxyPass = "http://${host}:${port}";
           };
       };
-      "mealie.hajra.xyz" = {
+      "${domain.mealie}" = {
         forceSSL = true;
         sslCertificate = "/run/secrets/nginx/ssl.crt";
         sslCertificateKey = "/run/secrets/nginx/ssl.key";
@@ -240,7 +243,7 @@ in
           '';
         };
       };
-      "nextcloud.hajra.xyz" = {
+      "${domain.nextcloud}" = {
         forceSSL = true;
         sslCertificate = "/run/secrets/nginx/ssl.crt";
         sslCertificateKey = "/run/secrets/nginx/ssl.key";
