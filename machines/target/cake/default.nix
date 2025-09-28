@@ -143,15 +143,6 @@ in
     mediaLocation = "/srv/immich";
     openFirewall = true;
     package = infra.np.nixpkgs.unstable.immich;
-    secretsFile = "/run/secrets/immich";
-    settings = {
-      server.externalDomain = "https://immich.hajra.xyz";
-      storageTemplate = {
-        enabled = true;
-        hashVerificationEnabled = true;
-        template = "{{y}}/{{#if album}}{{album}}{{else}}Other{{/if}}/{{MM}}/{{filename}}";
-      };
-    };
   };
 
   services.immich-public-proxy = {

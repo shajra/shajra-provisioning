@@ -308,7 +308,10 @@
             nixosConfigurations.cake = configLib.nixosConfiguration {
               system = "x86_64-linux";
               path = machines/target/cake;
-              privateModule = inputs.shajra-private.nixosModules.cake;
+              privateModules = [
+                inputs.shajra-private.nixosModules.cake
+                machines/target/cake/private.nix
+              ];
             };
             darwinConfigurations.bagel = configLib.darwinConfiguration {
               system = "aarch64-darwin";
@@ -325,7 +328,7 @@
             homeConfigurations.cake = configLib.homeConfiguration {
               system = "x86_64-linux";
               path = home/target/cake;
-              privateModule = inputs.shajra-private.homeModules.cake;
+              privateModules = [ inputs.shajra-private.homeModules.cake ];
             };
             homeConfigurations.lemon = configLib.homeConfiguration {
               system = "aarch64-darwin";

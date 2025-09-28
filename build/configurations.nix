@@ -9,16 +9,13 @@ inputs: withSystem:
     {
       system,
       path,
-      privateModule ? { },
+      privateModules ? [ ],
     }:
     withSystem system (
       { config, ... }:
       config.legacyPackages.infra.np.nixpkgs.system.nixos {
         _module.args.build = config.legacyPackages;
-        imports = [
-          path
-          privateModule
-        ];
+        imports = [ path ] ++ privateModules;
       }
     );
 
@@ -26,17 +23,14 @@ inputs: withSystem:
     {
       system,
       path,
-      privateModule ? { },
+      privateModules ? [ ],
     }:
     withSystem system (
       { config, ... }:
       inputs.nix-darwin.lib.darwinSystem {
         pkgs = config.legacyPackages.infra.np.nixpkgs.system;
         specialArgs.build = config.legacyPackages;
-        modules = [
-          path
-          privateModule
-        ];
+        modules = [ path ] ++ privateModules;
       }
     );
 
@@ -44,17 +38,14 @@ inputs: withSystem:
     {
       system,
       path,
-      privateModule ? { },
+      privateModules ? [ ],
     }:
     withSystem system (
       { config, ... }:
       inputs.home-manager.lib.homeManagerConfiguration {
         pkgs = config.legacyPackages.infra.np.nixpkgs.home;
         extraSpecialArgs.build = config.legacyPackages;
-        modules = [
-          path
-          privateModule
-        ];
+        modules = [ path ] ++ privateModules;
       }
     );
 
