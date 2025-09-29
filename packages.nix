@@ -9,6 +9,9 @@ let
 
   when = lib.optionalAttrs;
 
+  #REVISIT: 2025-09-29: 9.10.3 isn't cached well
+  ghc = "ghc984";
+
   pickAll =
     nixpkgsName:
     np.pick {
@@ -325,45 +328,44 @@ rec {
     "cabal2nix"
     "cabal-install"
     "stack"
-    # REVISIT: 25-09-04: ghc9102 packages not all building/cached
-    "haskell.compiler.ghc984"
-    "haskell.packages.ghc984.apply-refact"
-    "haskell.packages.ghc984.cabal-fmt"
-    "haskell.packages.ghc984.djinn"
-    "haskell.packages.ghc984.eventlog2html"
-    "haskell.packages.ghc984.fast-tags"
-    "haskell.packages.ghc984.ghc-events"
-    "haskell.packages.ghc984.ghcid"
-    "haskell.packages.ghc984.haskdogs"
-    "haskell.packages.ghc984.haskell-language-server"
-    "haskell.packages.ghc984.hasktags"
-    "haskell.packages.ghc984.hlint"
-    "haskell.packages.ghc984.hoogle"
-    "haskell.packages.ghc984.hp2pretty"
-    "haskell.packages.ghc984.profiterole"
-    "haskell.packages.ghc984.profiteur"
-    "haskell.packages.ghc984.stylish-haskell"
+    "haskell.compiler.${ghc}"
+    "haskell.packages.${ghc}.apply-refact"
+    "haskell.packages.${ghc}.cabal-fmt"
+    "haskell.packages.${ghc}.djinn"
+    "haskell.packages.${ghc}.eventlog2html"
+    "haskell.packages.${ghc}.fast-tags"
+    "haskell.packages.${ghc}.ghc-events"
+    "haskell.packages.${ghc}.ghcid"
+    "haskell.packages.${ghc}.haskdogs"
+    "haskell.packages.${ghc}.haskell-language-server"
+    "haskell.packages.${ghc}.hasktags"
+    "haskell.packages.${ghc}.hlint"
+    "haskell.packages.${ghc}.hoogle"
+    "haskell.packages.${ghc}.hp2pretty"
+    "haskell.packages.${ghc}.profiterole"
+    "haskell.packages.${ghc}.profiteur"
+    "haskell.packages.${ghc}.stylish-haskell"
   ];
 
   haskell-nix.prebuilt.programming.haskell = {
     # DESIGN: don't use enough to want to think about a cache miss
-    #nix-tools = hn.nixpkgs.haskell-nix.nix-tools.ghc984;
+    #nix-tools = hn.nixpkgs.haskell-nix.nix-tools."${ghc}";
   };
 
   haskell-nix.build.programming.haskell = when (!isDevBuild) { }
   # DESIGN: Nixpkgs-built binaries above are fine (maybe bloated)
   #({}
-  #// (hn.fromHackage "ghc984" "apply-refact")
-  #// (hn.fromHackage "ghc984" "fast-tags")
-  #// (hn.fromHackage "ghc984" "ghc-events")
-  #// (hn.fromHackage "ghc984" "ghcid")
-  #// (hn.fromHackage "ghc984" "haskdogs")
-  #// (hn.fromHackage "ghc984" "hasktags")
-  #// (hn.fromHackage "ghc984" "hlint")
-  #// (hn.fromHackage "ghc984" "hoogle")
-  #// (hn.fromHackage "ghc984" "hp2pretty")
-  #// (hn.fromHackage "ghc984" "threadscope")
-  #// (hn.fromHackageCustomized "ghc984" "stylish-haskell" { configureArgs = "-f ghc-lib"; })
+  #// (hn.fromHackage ghc "apply-refact")
+  #// (hn.fromHackage ghc "fast-tags")
+  #// (hn.fromHackage ghc "ghc-events")
+  #// (hn.fromHackage ghc "ghcid")
+  #// (hn.fromHackage ghc "haskdogs")
+  #// (hn.fromHackage ghc "hasktags")
+  #// (hn.fromHackage ghc "hlint")
+  #// (hn.fromHackage ghc "hoogle")
+  #// (hn.fromHackage ghc "hp2pretty")
+  #// (hn.fromHackage ghc "threadscope")
+  #// (hn.fromHackageCustomized ghc "stylish-haskell" { configureArgs = "-f ghc-lib"; })
   #)
   ;
 
