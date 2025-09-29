@@ -3,20 +3,23 @@
   description = "Sukant Hajra's personal machine configuration";
 
   inputs = {
+
+    nix-project.url = "github:shajra/nix-project";
+    devshell.follows = "nix-project/devshell";
+    flake-parts.follows = "nix-project/flake-parts";
+    treefmt-nix.follows = "nix-project/treefmt-nix";
+
     bluos-nix.url = "github:shajra/bluos-nix";
     codex.url = "github:openai/codex";
-    devshell.url = "github:numtide/devshell";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
-    flake-parts.url = "github:hercules-ci/flake-parts";
     haskell-nix.url = "github:input-output-hk/haskell.nix";
     home-manager.url = "github:shajra/home-manager/feature/lieer-address-override";
     nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-25.05";
-    nix-project.url = "github:shajra/nix-project";
     nur.url = "github:nix-community/NUR";
     shajra-private.url = "github:shajra/empty";
-    treefmt-nix.url = "github:numtide/treefmt-nix";
     vscode-overlay.url = "github:nix-community/nix-vscode-extensions";
     vscode-server.url = "github:nix-community/nixos-vscode-server";
+
     delta = {
       url = "github:dandavison/delta";
       flake = false;
@@ -86,7 +89,7 @@
       flake = false;
     };
     sketchybar-font-dist = {
-      url = "https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.42/sketchybar-app-font.ttf";
+      url = "https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.45/sketchybar-app-font.ttf";
       flake = false;
     };
     sketchybar-font-src = {
