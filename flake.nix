@@ -177,7 +177,9 @@
               let
                 inherit (nixpkgs.stable.hostPlatform) isDarwin;
                 osCmd = if isDarwin then ''shajra-darwin-rebuild'' else ''shajra-nixos-rebuild'';
-                osInstall = if isDarwin then ''sudo -H ${osCmd} switch'' else ''${osCmd} boot --use-remote-sudo'';
+                osInstall =
+                  nixosCmd:
+                  if isDarwin then ''sudo -H ${osCmd} switch'' else ''${osCmd} ${nixosCmd} --use-remote-sudo'';
                 privateOpts =
                   "--refresh --override-input shajra-private"
                   + " git+ssh://tnks@cake/home/tnks/src/shajra/shajra-private?ref=main";
@@ -238,8 +240,13 @@
                   }
                   {
                     name = "project-install-system";
-                    help = "install system configuration for this host";
-                    command = ''${osInstall} ${flakeOpt} ${privateOpts}'';
+                    help = "install system configuration for this host (on NixOS, boot record only)";
+                    command = ''${osInstall "boot"} ${flakeOpt} ${privateOpts}'';
+                  }
+                  {
+                    name = "project-activate-system";
+                    help = "activate (switch) system configuration for this host";
+                    command = ''${osInstall "switch"} ${flakeOpt} ${privateOpts}'';
                   }
                   {
                     name = "project-install-home";
