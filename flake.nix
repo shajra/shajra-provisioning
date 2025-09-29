@@ -222,7 +222,17 @@
                   {
                     name = "project-check-caching";
                     help = "check package caching assumptions";
-                    command = "check-caching-prebuilt && check-caching-build";
+                    command = "project-check-caching-prebuilt && project-check-caching-build";
+                  }
+                  {
+                    name = "project-check-caching-prebuilt";
+                    help = "check caching of expected prebuilt packages";
+                    command = ''nix --print-build-logs run "$PRJ_ROOT#ci.check-prebuilt"'';
+                  }
+                  {
+                    name = "project-check-caching-build";
+                    help = "check caching of packages expected to build";
+                    command = ''nix --print-build-logs run "$PRJ_ROOT#ci.check-build"'';
                   }
                   {
                     name = "project-doc-gen";
@@ -265,8 +275,6 @@
                 packages = [
                   config.treefmt.build.wrapper
                   config.org2gfm.finalPackage
-                  build.shajra-provision.ci.check-prebuilt
-                  build.shajra-provision.ci.check-build
                   pkgs-system.shajra-nixos-rebuild
                   pkgs-system.shajra-darwin-rebuild
                   pkgs-home.shajra-home-manager
