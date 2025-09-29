@@ -7,10 +7,10 @@
 
 let
 
-  when = lib.optionalAttrs;
-
   #REVISIT: 2025-09-29: 9.10.3 isn't cached well
   ghc = "ghc984";
+
+  when = lib.optionalAttrs;
 
   pickAll =
     nixpkgsName:
