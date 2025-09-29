@@ -259,7 +259,7 @@
                   {
                     name = "project-update";
                     help = "update project dependencies";
-                    command = ''nix flake update --commit-lock-file \"$@\"'';
+                    command = ''nix flake update --commit-lock-file "$@"'';
                   }
                 ];
                 packages = [
