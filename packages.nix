@@ -7,7 +7,9 @@
 
 let
 
-  #REVISIT: 2025-09-29: 9.10.3 isn't cached well
+  #REVISIT: 2025-09-29: not building with 9.10.3:
+  #- apply-refact
+  #- hlint
   ghc = "ghc984";
 
   when = lib.optionalAttrs;
@@ -329,7 +331,7 @@ rec {
     "cabal-install"
     "stack"
     "haskell.compiler.${ghc}"
-    "haskell.packages.${ghc}.apply-refact"
+    #"haskell.packages.${ghc}.apply-refact"
     "haskell.packages.${ghc}.cabal-fmt"
     "haskell.packages.${ghc}.djinn"
     "haskell.packages.${ghc}.eventlog2html"
@@ -339,7 +341,7 @@ rec {
     "haskell.packages.${ghc}.haskdogs"
     "haskell.packages.${ghc}.haskell-language-server"
     "haskell.packages.${ghc}.hasktags"
-    "haskell.packages.${ghc}.hlint"
+    #"haskell.packages.${ghc}.hlint"
     "haskell.packages.${ghc}.hoogle"
     "haskell.packages.${ghc}.hp2pretty"
     "haskell.packages.${ghc}.profiterole"
