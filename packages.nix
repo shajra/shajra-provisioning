@@ -291,7 +291,6 @@ rec {
   ];
 
   nixpkgs.prebuilt.programming.general = pickAll "home" [
-    "aider-chat-full"
     "global"
     "gnumake"
     "nil"
@@ -303,7 +302,8 @@ rec {
     "wireshark"
   ];
 
-  nixpkgs.build.programming.general = pickAll "master" [
+  nixpkgs.build.programming.general = pickAll "home" [
+    "aider-chat-full"
     "code-cursor"
     #"codex"  # REVISIT: 25-08-11: Broken, using Cursor
   ];
