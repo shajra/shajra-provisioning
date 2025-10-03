@@ -6,7 +6,7 @@
 
 stdenvNoCC.mkDerivation {
   pname = "sf-symbols";
-  version = "5";
+  version = "7";
   src = sources.sf-symbols;
   dontUnpack = true;
   nativeBuildInputs = [ p7zip ];

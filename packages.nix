@@ -7,7 +7,7 @@
 
 let
 
-  #REVISIT: 2025-09-29: not building with 9.10.3:
+  #REVISIT: 2025-10-03: not building with 9.10.3:
   #- apply-refact
   #- hlint
   ghc = "ghc984";
@@ -57,7 +57,6 @@ rec {
         "fontpreview"
         "maim"
         "pavucontrol"
-        "qutebrowser"
         "simple-scan"
         "sxiv"
         "tor-browser"

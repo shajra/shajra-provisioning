@@ -5,7 +5,7 @@
 
 stdenvNoCC.mkDerivation {
   pname = "sketchybar-font";
-  version = "1.0.21";
+  version = "2.0.45";
   src = sources.sketchybar-font-dist;
   dontUnpack = true;
   installPhase = ''
