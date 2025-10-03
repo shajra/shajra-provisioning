@@ -93,8 +93,10 @@ let
     in
     prev.writeShellApplication {
       name = "check-caching-${name}";
+      inheritPath = false;
       runtimeInputs = [
-        prev.coreutils
+        # DESIGN: Don't understand, but prev.coreutils leads to cache miss
+        final.coreutils
         prev.curl
       ];
       text = ''
