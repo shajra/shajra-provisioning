@@ -212,7 +212,7 @@ nix search nixpkgs 'gpu|opengl|accel' terminal
     * legacyPackages.x86_64-linux.darktile (0.0.11)
       GPU rendered terminal emulator designed for tiling window managers
     
-    * legacyPackages.x86_64-linux.kitty (0.42.2)
+    * legacyPackages.x86_64-linux.kitty (0.43.1)
       Fast, feature-rich, GPU based terminal emulator
     
     * legacyPackages.x86_64-linux.rio (0.2.30)
@@ -273,7 +273,7 @@ After a successful call of `nix build`, you'll see one or more symlinks for each
 readlink result*
 ```
 
-    /nix/store/h5f6dqjb8nymz7zs861jf5rjk9qfvl77-home-manager
+    /nix/store/6qrrxigxvyd0y5f99ax2ixc46hnhfhr5-home-manager
 
 Following these symlinks, we can see the files the project provides:
 
@@ -301,7 +301,7 @@ It's common to configure these “result” symlinks as ignored in source contro
 nix path-info .#home-manager
 ```
 
-    /nix/store/h5f6dqjb8nymz7zs861jf5rjk9qfvl77-home-manager
+    /nix/store/6qrrxigxvyd0y5f99ax2ixc46hnhfhr5-home-manager
 
 ## Running commands in a shell<a id="sec-4-6"></a>
 
@@ -317,7 +317,7 @@ nix shell \
     --command home-manager --help
 ```
 
-    Usage: /nix/store/h5f6dqjb8nymz7zs861jf5rjk9qfvl77-home-manager/bin/home-manager [OPTION] COMMAND
+    Usage: /nix/store/6qrrxigxvyd0y5f99ax2ixc46hnhfhr5-home-manager/bin/home-manager [OPTION] COMMAND
     
     Options
     
@@ -367,7 +367,7 @@ Here's the `nix run` equivalent of the `nix shell` invocation from the previous 
 nix run .#home-manager  -- --help
 ```
 
-    Usage: /nix/store/h5f6dqjb8nymz7zs861jf5rjk9qfvl77-home-manager/bin/home-manager [OPTION] COMMAND
+    Usage: /nix/store/6qrrxigxvyd0y5f99ax2ixc46hnhfhr5-home-manager/bin/home-manager [OPTION] COMMAND
     
     Options
     
@@ -414,7 +414,7 @@ nix shell --ignore-environment \
     --command which home-manager
 ```
 
-    /nix/store/h5f6dqjb8nymz7zs861jf5rjk9qfvl77-home-manager/bin/home-manager
+    /nix/store/6qrrxigxvyd0y5f99ax2ixc46hnhfhr5-home-manager/bin/home-manager
 
 What we do with local flake references can work just as well with remote flake references.
 
@@ -442,7 +442,7 @@ nix profile list
     Flake attribute:    packages.x86_64-linux.home-manager
     Original flake URL: git+file:///home/shajra/src/shajra-provisioning
     Locked flake URL:   git+file:///home/shajra/src/shajra-provisioning
-    Store paths:        /nix/store/h5f6dqjb8nymz7zs861jf5rjk9qfvl77-home-manager
+    Store paths:        /nix/store/6qrrxigxvyd0y5f99ax2ixc46hnhfhr5-home-manager
 
 If we want to uninstall a program from our profile, we can reference it by name:
 
