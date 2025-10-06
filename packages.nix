@@ -295,7 +295,9 @@ rec {
   ];
 
   nixpkgs.prebuilt.programming.general = pickAll "home" [
-    "aider-chat-full"
+    # REVISIT: 2025-10-06: Not cached, build takes too long
+    # "aider-chat-full"
+    "codex"
     "global"
     "gnumake"
     "nil"
@@ -309,7 +311,6 @@ rec {
 
   nixpkgs.build.programming.general = pickAll "home" [
     "code-cursor"
-    #"codex"  # REVISIT: 25-08-11: Broken, using Cursor
   ];
 
   nixpkgs.prebuilt.programming.go = pickAll "home" [

@@ -44,7 +44,6 @@ let
   };
 
   external.packages = _final: _prev: {
-    codex = inputs'.codex.packages.codex-rs;
     home-manager-latest = inputs'.home-manager.packages.default;
     nix-project-lib = inputs'.nix-project.legacyPackages.lib.scripts;
     inherit (inputs'.nix-project.packages) org2gfm;

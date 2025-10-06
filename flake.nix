@@ -10,7 +10,6 @@
     treefmt-nix.follows = "nix-project/treefmt-nix";
 
     bluos-nix.url = "github:shajra/bluos-nix";
-    codex.url = "github:openai/codex";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     haskell-nix.url = "github:input-output-hk/haskell.nix";
     home-manager.url = "github:shajra/home-manager/feature/lieer-address-override";
