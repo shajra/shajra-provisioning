@@ -191,6 +191,11 @@
               {
                 commands = [
                   {
+                    name = "project-format";
+                    help = "format all files in one command";
+                    command = ''treefmt "$@"'';
+                  }
+                  {
                     name = "project-build";
                     help = "build both system and home configuration for this host";
                     command = ''project-build-system && project-build-home'';
@@ -204,15 +209,6 @@
                     name = "project-build-home";
                     help = "build both home configuration for this host";
                     command = ''shajra-home-manager build ${flakeOpt} ${privateOpts}'';
-                  }
-                  {
-                    name = "project-check";
-                    help = "check flake and builds comprehensively";
-                    command = ''
-                      project-check-flake \
-                      && project-build \
-                      && project-check-caching
-                    '';
                   }
                   {
                     name = "project-check-flake";
@@ -235,31 +231,9 @@
                     command = ''nix --print-build-logs run "$PRJ_ROOT#ci.check-build"'';
                   }
                   {
-                    name = "project-doc-gen";
-                    help = "generate GitHub Markdown from Org files";
-                    command = ''org2gfm "$@"'';
-                  }
-                  {
-                    name = "project-format";
-                    help = "format all files in one command";
-                    command = ''treefmt "$@"'';
-                  }
-                  {
-                    name = "project-install";
-                    help = "install both system and home configuration for this host";
-                    command = ''
-                      project-install-system && project-install-home
-                    '';
-                  }
-                  {
                     name = "project-install-system";
                     help = "install system configuration for this host (on NixOS, boot record only)";
                     command = ''${osInstall "boot"} ${flakeOpt} ${privateOpts}'';
-                  }
-                  {
-                    name = "project-activate-system";
-                    help = "activate (switch) system configuration for this host";
-                    command = ''${osInstall "switch"} ${flakeOpt} ${privateOpts}'';
                   }
                   {
                     name = "project-install-home";
@@ -267,9 +241,39 @@
                     command = ''shajra-home-manager switch ${flakeOpt} ${privateOpts}'';
                   }
                   {
+                    name = "project-activate-system";
+                    help = "activate (switch) system configuration for this host";
+                    command = ''${osInstall "switch"} ${flakeOpt} ${privateOpts}'';
+                  }
+                  {
+                    category = "[release]";
                     name = "project-update";
-                    help = "update project dependencies";
+                    help = "1) update project dependencies";
                     command = ''nix flake update --commit-lock-file "$@"'';
+                  }
+                  {
+                    category = "[release]";
+                    name = "project-check";
+                    help = "2) check flake and builds comprehensively";
+                    command = ''
+                      project-check-flake \
+                      && project-build \
+                      && project-check-caching
+                    '';
+                  }
+                  {
+                    category = "[release]";
+                    name = "project-doc-gen";
+                    help = "3) generate GitHub Markdown from Org files";
+                    command = ''org2gfm "$@"'';
+                  }
+                  {
+                    category = "[release]";
+                    name = "project-install";
+                    help = "4) install both system and home configuration for this host";
+                    command = ''
+                      project-install-system && project-install-home
+                    '';
                   }
                 ];
                 packages = [
