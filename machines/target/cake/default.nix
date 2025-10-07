@@ -154,8 +154,6 @@ in
     openFirewall = true;
   };
 
-  services.jellyfin.enable = true;
-  services.jellyfin.openFirewall = true;
   services.libinput.enable = true;
   services.libinput.mouse.horizontalScrolling = true;
   services.libinput.mouse.naturalScrolling = true;
