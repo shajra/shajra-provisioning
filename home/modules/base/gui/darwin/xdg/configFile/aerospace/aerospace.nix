@@ -17,7 +17,7 @@ pkgs:
       left = 8;
       bottom = 8;
       top = [
-        { monitor."Built-in Retina Display" = 16; }
+        { monitor."Built-in Retina Display" = 9; }
         48
       ];
       right = 8;
