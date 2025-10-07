@@ -171,57 +171,101 @@ in
   services.locate.enable = true;
   services.mealie.enable = true;
 
-  services.nginx = {
-    enable = true;
-    virtualHosts = {
-      "${domain.immich}" = {
-        extraConfig = ''
-          client_max_body_size 50000M;
-
-          proxy_http_version 1.1;
-
-          proxy_set_header Connection "upgrade";
-          proxy_set_header Host $host;
-          proxy_set_header Upgrade $http_upgrade;
-          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-          proxy_set_header X-Forwarded-Proto https;
-          proxy_set_header X-Real-IP $remote_addr;
-
-          proxy_read_timeout 600s;
-          proxy_send_timeout 600s;
-          send_timeout 600s;
-        '';
-        forceSSL = true;
-        sslCertificate = "/var/lib/acme/gallery.hajra.xyz/cert.pem";
-        sslCertificateKey = "/var/lib/acme/gallery.hajra.xyz/key.pem";
-        locations."/share" = {
-          proxyPass = "http://127.0.0.1:${builtins.toString config.services.immich-public-proxy.port}";
-        };
-        locations."/" =
-          let
-            host = config.services.immich.host;
-            port = builtins.toString config.services.immich.port;
-          in
-          {
-            proxyPass = "http://${host}:${port}";
-          };
-      };
-      "${domain.mealie}" = {
-        forceSSL = true;
-        sslCertificate = "/var/lib/acme/recipes.hajra.xyz/cert.pem";
-        sslCertificateKey = "/var/lib/acme/recipes.hajra.xyz/key.pem";
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:${builtins.toString config.services.mealie.port}";
+  services.nginx =
+    let
+      # DESIGN: https://www.cloudflare.com/ips-v4
+      allowCloudflare = ''
+        allow 173.245.48.0/20;
+        allow 103.21.244.0/22;
+        allow 103.22.200.0/22;
+        allow 103.31.4.0/22;
+        allow 141.101.64.0/18;
+        allow 108.162.192.0/18;
+        allow 190.93.240.0/20;
+        allow 188.114.96.0/20;
+        allow 197.234.240.0/22;
+        allow 198.41.128.0/17;
+        allow 162.158.0.0/15;
+        allow 104.16.0.0/13;
+        allow 104.24.0.0/14;
+        allow 172.64.0.0/13;
+        allow 131.0.72.0/22;
+        deny all;
+      '';
+    in
+    {
+      enable = true;
+      virtualHosts = {
+        "${domain.immich}" = {
           extraConfig = ''
+            ${allowCloudflare}
+
+            client_max_body_size 50000M;
+
+            proxy_http_version 1.1;
+
+            proxy_set_header Connection "upgrade";
             proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header Upgrade $http_upgrade;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_set_header X-Forwarded-Proto https;
+            proxy_set_header X-Real-IP $remote_addr;
+
+            proxy_read_timeout 600s;
+            proxy_send_timeout 600s;
+            send_timeout 600s;
           '';
+          forceSSL = true;
+          sslCertificate = "/var/lib/acme/${domain.immich}/cert.pem";
+          sslCertificateKey = "/var/lib/acme/${domain.immich}/key.pem";
+          locations."/share" = {
+            proxyPass = "http://127.0.0.1:${builtins.toString config.services.immich-public-proxy.port}";
+          };
+          locations."/" =
+            let
+              host = config.services.immich.host;
+              port = builtins.toString config.services.immich.port;
+            in
+            {
+              proxyPass = "http://${host}:${port}";
+            };
+        };
+        "${domain.mealie}" = {
+          forceSSL = true;
+          sslCertificate = "/var/lib/acme/${domain.mealie}/cert.pem";
+          sslCertificateKey = "/var/lib/acme/${domain.mealie}/key.pem";
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:${builtins.toString config.services.mealie.port}";
+            extraConfig = ''
+              ${allowCloudflare}
+              proxy_set_header Host $host;
+              proxy_set_header X-Real-IP $remote_addr;
+              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+              proxy_set_header X-Forwarded-Proto https;
+            '';
+          };
+        };
+        "${domain.vaultwarden}" = {
+          forceSSL = true;
+          sslCertificate = "/var/lib/acme/${domain.vaultwarden}/cert.pem";
+          sslCertificateKey = "/var/lib/acme/${domain.vaultwarden}/key.pem";
+          extraConfig = ''
+            allow 192.168.1.0/24;
+            allow 192.168.7.0/24;
+            deny all;
+          '';
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:${builtins.toString config.services.vaultwarden.config.ROCKET_PORT}";
+            extraConfig = ''
+              proxy_set_header Host $host;
+              proxy_set_header X-Real-IP $remote_addr;
+              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+              proxy_set_header X-Forwarded-Proto https;
+            '';
+          };
         };
       };
     };
-  };
 
   services.ntp.enable = true;
   services.openssh.enable = true;
@@ -310,6 +354,19 @@ in
       builtins.replaceStrings [ '', SYMLINK'' ''}:='' ] [ '', MODE="0666", SYMLINK'' ''}='' ] origRules
     }
   '';
+
+  services.vaultwarden.enable = true;
+  services.vaultwarden.backupDir = "/srv/vaultwarden/backup";
+  services.vaultwarden.config = {
+    DOMAIN = "https://${domain.vaultwarden}";
+    SIGNUPS_ALLOWED = true;
+    INVITATIONS_ALLOWED = true;
+    ROCKET_ADDRESS = "127.0.0.1";
+    ROCKET_PORT = 8222;
+    SMTP_HOST = "smtp.improvmx.com";
+    SMTP_PORT = 587;
+    SMTP_SECURITY = "starttls";
+  };
 
   services.xrdp.enable = true;
   services.xrdp.defaultWindowManager = "i3";
