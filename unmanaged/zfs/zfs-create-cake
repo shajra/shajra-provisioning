@@ -12,5 +12,3 @@ zfs create -o mountpoint=/home                 cake/data/home
 zfs create -o mountpoint=/srv  -o canmount=off cake/data/srv
 zfs create                                     cake/data/srv/audio
 zfs create                                     cake/data/srv/pictures
-zfs create                                     cake/data/srv/nextcloud
-
