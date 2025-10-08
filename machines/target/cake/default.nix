@@ -113,6 +113,16 @@ in
   programs.command-not-found.enable = false;
   programs.dconf.enable = true;
 
+  security.acme = {
+    acceptTerms = true;
+    defaults = {
+      dnsProvider = "cloudflare";
+      credentialFiles.CLOUDFLARE_DNS_API_TOKEN_FILE = "/run/secrets/acme/cloudflare/apiToken";
+      group = config.services.nginx.group;
+    };
+    certs = pkgs.lib.mapAttrs' (_k: v: pkgs.lib.nameValuePair v { }) domain;
+  };
+
   services.avahi.enable = true;
   services.avahi.ipv4 = true;
   services.avahi.ipv6 = true;
@@ -213,8 +223,8 @@ in
           send_timeout 600s;
         '';
         forceSSL = true;
-        sslCertificate = "/run/secrets/nginx/ssl.crt";
-        sslCertificateKey = "/run/secrets/nginx/ssl.key";
+        sslCertificate = "/var/lib/acme/gallery.hajra.xyz/cert.pem";
+        sslCertificateKey = "/var/lib/acme/gallery.hajra.xyz/key.pem";
         locations."/share" = {
           proxyPass = "http://127.0.0.1:${builtins.toString config.services.immich-public-proxy.port}";
         };
@@ -229,8 +239,8 @@ in
       };
       "${domain.mealie}" = {
         forceSSL = true;
-        sslCertificate = "/run/secrets/nginx/ssl.crt";
-        sslCertificateKey = "/run/secrets/nginx/ssl.key";
+        sslCertificate = "/var/lib/acme/recipes.hajra.xyz/cert.pem";
+        sslCertificateKey = "/var/lib/acme/recipes.hajra.xyz/key.pem";
         locations."/" = {
           proxyPass = "http://127.0.0.1:${builtins.toString config.services.mealie.port}";
           extraConfig = ''
