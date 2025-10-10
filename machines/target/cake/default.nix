@@ -271,7 +271,6 @@ in
   services.openssh.enable = true;
   services.openssh.extraConfig = ''AllowUsers tnks mzhajra'';
   services.openssh.openFirewall = true;
-  services.openssh.ports = [ 64896 ];
   services.picom.enable = true;
   services.picom.vSync = true;
   services.postgresql.dataDir = "/srv/postgresql";
