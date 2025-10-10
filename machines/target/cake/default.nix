@@ -131,6 +131,7 @@ in
   services.avahi.publish.domain = true;
   services.avahi.publish.enable = true;
   services.avahi.publish.userServices = true;
+
   services.dbus.packages = [
     pkgs.dconf # DESIGN: for notifications (I think)
     pkgs.gcr # DESIGN: for Gnome3 pinentry
@@ -141,9 +142,11 @@ in
   services.ddclient.server = "members.dyndns.org";
   services.ddclient.username = "tnksknt";
   services.ddclient.verbose = true;
+
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = user;
   services.displayManager.defaultSession = "none+i3";
+
   services.fwupd.enable = true;
   services.geoclue2.enable = true;
 
@@ -168,6 +171,7 @@ in
   services.libinput.mouse.horizontalScrolling = true;
   services.libinput.mouse.naturalScrolling = true;
   services.libinput.mouse.scrollMethod = "button";
+
   services.locate.enable = true;
   services.mealie.enable = true;
 
@@ -268,14 +272,19 @@ in
     };
 
   services.ntp.enable = true;
+
   services.openssh.enable = true;
   services.openssh.extraConfig = ''AllowUsers tnks mzhajra'';
   services.openssh.openFirewall = true;
+
   services.picom.enable = true;
   services.picom.vSync = true;
+
   services.postgresql.dataDir = "/srv/postgresql";
+
   services.printing.drivers = [ hplip ];
   services.printing.enable = true;
+
   services.roon-server.enable = true;
   services.roon-server.openFirewall = true;
 
