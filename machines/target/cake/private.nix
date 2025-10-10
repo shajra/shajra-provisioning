@@ -3,7 +3,12 @@ let
   domain = import ./domain.nix;
 in
 {
-  services.immich.secretsFile = config.sops.templates."immich.env".path;
+
+  services = {
+    immich.secretsFile = config.sops.templates."immich.env".path;
+    vaultwarden.environmentFile = config.sops.templates."vaultwarden.env".path;
+  };
+
   sops.templates = {
     "immich.env" = {
       restartUnits = [ config.systemd.services.immich-server.name ];
@@ -34,5 +39,15 @@ in
         };
       };
     };
+    "vaultwarden.env" = {
+      restartUnits = [ config.systemd.services.vaultwarden.name ];
+      content = ''
+        SMTP_FROM=${config.sops.placeholder."smtp/username"}
+        SMTP_USERNAME=${config.sops.placeholder."smtp/username"}
+        SMTP_PASSWORD=${config.sops.placeholder."smtp/password"}
+      '';
+    };
   };
 }
+
+
