@@ -212,6 +212,7 @@ in
       enable = true;
       virtualHosts = {
         "${domain.immich}" = {
+          # DESIGN: https://docs.immich.app/administration/reverse-proxy/
           extraConfig = ''
             ${allowOnlyCloudflare}
             ${proxyDefaults}
