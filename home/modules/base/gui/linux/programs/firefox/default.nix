@@ -18,6 +18,8 @@ let
   };
   extensions.common = with pkgs.nur.repos.rycee.firefox-addons; [
     auto-tab-discard
+    bitwarden
+    cookie-quick-manager
     grammarly
     tridactyl
   ];
