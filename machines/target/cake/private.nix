@@ -1,8 +1,18 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 let
   domain = import ./domain.nix;
 in
 {
+
+  security.acme = {
+    acceptTerms = true;
+    defaults = {
+      dnsProvider = "cloudflare";
+      credentialFiles.CLOUDFLARE_DNS_API_TOKEN_FILE = "/run/secrets/acme/cloudflare/apiToken";
+      group = config.services.nginx.group;
+    };
+    certs = pkgs.lib.mapAttrs' (_k: v: pkgs.lib.nameValuePair v { }) domain;
+  };
 
   services = {
     immich.secretsFile = config.sops.templates."immich.env".path;

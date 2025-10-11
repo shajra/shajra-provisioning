@@ -113,16 +113,6 @@ in
   programs.command-not-found.enable = false;
   programs.dconf.enable = true;
 
-  security.acme = {
-    acceptTerms = true;
-    defaults = {
-      dnsProvider = "cloudflare";
-      credentialFiles.CLOUDFLARE_DNS_API_TOKEN_FILE = "/run/secrets/acme/cloudflare/apiToken";
-      group = config.services.nginx.group;
-    };
-    certs = pkgs.lib.mapAttrs' (_k: v: pkgs.lib.nameValuePair v { }) domain;
-  };
-
   services.avahi.enable = true;
   services.avahi.ipv4 = true;
   services.avahi.ipv6 = true;
