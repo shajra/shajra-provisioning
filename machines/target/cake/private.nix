@@ -23,12 +23,12 @@ in
       content = builtins.toJSON {
         notifications.smtp = {
           enabled = true;
-          from = config.sops.placeholder."immich/smtp/username";
-          replyTo = config.sops.placeholder."immich/smtp/replyTo";
+          from = config.sops.placeholder."smtp/username";
+          replyTo = config.sops.placeholder."smtp/username";
           transport = {
             host = "smtp.improvmx.com";
-            username = config.sops.placeholder."immich/smtp/username";
-            password = config.sops.placeholder."immich/smtp/password";
+            username = config.sops.placeholder."smtp/username";
+            password = config.sops.placeholder."smtp/password";
           };
         };
         server.externalDomain = "https://${domain.immich}";
