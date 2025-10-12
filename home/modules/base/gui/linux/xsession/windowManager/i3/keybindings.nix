@@ -13,6 +13,7 @@ let
   pkill = "${pkgs.procps}/bin/pkill";
   rofi = "${config.programs.rofi.finalPackage}/bin/rofi";
   rofi-pass = "${config.programs.rofi.pass.package}/bin/rofi-pass";
+  rofi-rbw = "${pkgs.rofi-rbw}/bin/rofi-rbw";
   user = config.home.username;
 
   rofi-clip = pkgs.writers.writeDash "rofi-clip" ''
@@ -190,6 +191,7 @@ in
 
   # password management
   "${mod}+p" = ''exec ${rofi-pass}'';
+  "${mod}+Shift+p" = ''exec ${rofi-rbw}'';
 
   # PulseAudio controls
   "XF86AudioRaiseVolume" = ''exec --no-startup-id ${dunst-osd} volume up'';
