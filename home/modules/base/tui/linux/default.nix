@@ -1,25 +1,8 @@
 { pkgs, ... }:
 
 let
-
-  # DESIGN: Gives freedom to chose the pin entry program explicitly, rather
-  # than rely on built-in fallbacks.  Gnome3's curses fallback is not
-  # convenient, but using Gnome3 as a default for Solarized theming.
-  pinentry = pkgs.writers.writeDash "pinentry" ''
-    case "$PINENTRY_USER_DATA" in
-        curses) PINENTRY="${pkgs.pinentry.curses}" ;;
-        emacs)  PINENTRY="${pkgs.pinentry.emacs}"  ;;
-        gnome3) PINENTRY="${pkgs.pinentry.gnome3}" ;;
-        gtk2)   PINENTRY="${pkgs.pinentry.gtk2}"   ;;
-        qt)     PINENTRY="${pkgs.pinentry.qt}"     ;;
-        tty)    PINENTRY="${pkgs.pinentry.tty}"    ;;
-        *)      PINENTRY="${pkgs.pinentry.gtk2}"   ;;
-    esac
-    exec "$PINENTRY/bin/pinentry" "''${@}"
-  '';
-
+  pinentry = "${pkgs.pinentry-selected-linux}/bin/pinentry";
 in
-
 {
   imports = [
     ../../../ubiquity
@@ -30,6 +13,8 @@ in
 
   # REVISIT: DEBUG: removing to understand infinite recursion
   #programs.direnv-nix-lorelei.enable = true;
+
+  programs.rbw.settings.pinentry = pkgs.pinentry-selected-linux;
 
   # DESIGN: Doom loads up much faster these days
   #services.emacs = import services/emacs;

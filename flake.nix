@@ -354,6 +354,7 @@
             homeConfigurations.lemon = configLib.homeConfiguration {
               system = "aarch64-darwin";
               path = home/target/lemon;
+              privateModules = [ inputs.shajra-private.homeModules.lemon ];
             };
 
             # DESIGN: "Slim" configurations below are for CI. These

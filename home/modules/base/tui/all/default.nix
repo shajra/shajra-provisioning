@@ -64,6 +64,8 @@ in
     programs.lesspipe.enable = true;
     programs.man.generateCaches = true;
     programs.neovim = import programs/neovim config pkgs;
+    programs.rbw.enable = true;
+    programs.rbw.settings.base_url = "https://vault.hajra.xyz";
     programs.readline = import programs/readline;
     programs.ripgrep.enable = true;
     programs.starship = import programs/starship;
