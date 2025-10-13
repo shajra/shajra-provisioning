@@ -7,10 +7,7 @@
 
 let
 
-  #REVISIT: 2025-10-03: not building with 9.10.3:
-  #- apply-refact
-  #- hlint
-  ghc = "ghc984";
+  ghc = "ghc9103";
 
   when = lib.optionalAttrs;
 
@@ -176,13 +173,11 @@ rec {
   nixpkgs.prebuilt.chat.gui =
     let
       all = pickAll "home" [
+        # REVISIT: 2025-10-12: element-desktop probably will cache soon
         "element-desktop"
       ];
       linux = np.pick { linux = "home"; } [
-        # REVISIT: 2025-04-12: Unsupported for Darwin
-        "irccloud"
-
-        # REVISIT: 2025-03-23: Prebuilt for Linux, but not for Darwin
+        "irccloud" # REVISIT: 2025-04-12: Unsupported for Darwin
         "caprine"
         "signal-desktop-bin"
       ];
@@ -295,8 +290,7 @@ rec {
   ];
 
   nixpkgs.prebuilt.programming.general = pickAll "home" [
-    # REVISIT: 2025-10-06: Not cached, build takes too long
-    # "aider-chat-full"
+    "aider-chat-full"
     "codex"
     "global"
     "gnumake"
@@ -331,7 +325,6 @@ rec {
     "cabal-install"
     "stack"
     "haskell.compiler.${ghc}"
-    #"haskell.packages.${ghc}.apply-refact"
     "haskell.packages.${ghc}.cabal-fmt"
     "haskell.packages.${ghc}.djinn"
     "haskell.packages.${ghc}.eventlog2html"
@@ -341,6 +334,7 @@ rec {
     "haskell.packages.${ghc}.haskdogs"
     "haskell.packages.${ghc}.haskell-language-server"
     "haskell.packages.${ghc}.hasktags"
+    #REVISIT: 2025-10-12: HLint incompatible with 9.10; wait for 9.12
     #"haskell.packages.${ghc}.hlint"
     "haskell.packages.${ghc}.hoogle"
     "haskell.packages.${ghc}.hp2pretty"
@@ -385,7 +379,7 @@ rec {
   ];
 
   nixpkgs.prebuilt.programming.lua = pickAll "home" [
-    "luaformatter"
+    #"luaformatter"  # REVISIT: 2024-10-12: build broken
     "lua5_4"
   ];
 

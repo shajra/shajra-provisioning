@@ -54,7 +54,7 @@ in
     programs.gh.enable = true;
     programs.gh-dash.enable = true;
     programs.git = import programs/git sources.delta;
-    programs.gitui.enable = true;
+    programs.gitui.enable = false; # REVISIT: 25-10-13: broken on Darwin
     # DESIGN: not using Home-manager module because all it does it tie
     # the executable to dynamic configuration.
     programs.home-manager.enable = false;
