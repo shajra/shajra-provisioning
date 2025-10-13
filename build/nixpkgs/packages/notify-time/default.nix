@@ -1,5 +1,4 @@
 {
-  lib,
   stdenv,
   dunst,
   jq,
@@ -85,7 +84,9 @@ nix-project-lib.writeShellCheckedExe progName
       "XDG_DATA_DIRS"
       "XDG_RUNTIME_DIR"
     ];
-    pathKeep = lib.optionals (!isDarwin) [ "i3-msg" ];
+
+    # DESIGN: notify-time by-design calls commands on the path
+    pathCleaned = false;
   }
   ''
     set -eu
