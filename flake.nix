@@ -167,11 +167,13 @@
             checks.ci-prebuilt-nixpkgs-split1 = build.shajra-provision.ci.prebuilt.nixpkgs.split1;
             checks.ci-prebuilt-nixpkgs-split2 = build.shajra-provision.ci.prebuilt.nixpkgs.split2;
             checks.ci-prebuilt-nixpkgs-split3 = build.shajra-provision.ci.prebuilt.nixpkgs.split3;
+            checks.ci-prebuilt-nixpkgs-split4 = build.shajra-provision.ci.prebuilt.nixpkgs.split4;
             checks.ci-prebuilt-haskellnix = build.shajra-provision.ci.prebuilt.haskell-nix;
             checks.ci-prebuilt-shajra = build.shajra-provision.ci.prebuilt.shajra;
             checks.ci-build-nixpkgs-split1 = build.shajra-provision.ci.build.nixpkgs.split1;
             checks.ci-build-nixpkgs-split2 = build.shajra-provision.ci.build.nixpkgs.split2;
             checks.ci-build-nixpkgs-split3 = build.shajra-provision.ci.build.nixpkgs.split3;
+            checks.ci-build-nixpkgs-split4 = build.shajra-provision.ci.build.nixpkgs.split4;
             checks.ci-build-haskellnix = build.shajra-provision.ci.build.haskell-nix;
             checks.ci-build-shajra = build.shajra-provision.ci.build.shajra;
             legacyPackages = build.shajra-provision;

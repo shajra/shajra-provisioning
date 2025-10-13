@@ -21,9 +21,10 @@ let
       hashChar = builtins.substring 11 1 drv.outPath;
     in
     lib.elem hashChar (lib.stringToCharacters section);
-  isSplit1 = isInSection (builtins.substring 0 11 base32Chars);
-  isSplit2 = isInSection (builtins.substring 11 11 base32Chars);
-  isSplit3 = isInSection (builtins.substring 22 10 base32Chars);
+  isSplit1 = isInSection (builtins.substring 0 8 base32Chars);
+  isSplit2 = isInSection (builtins.substring 8 8 base32Chars);
+  isSplit3 = isInSection (builtins.substring 16 8 base32Chars);
+  isSplit4 = isInSection (builtins.substring 24 8 base32Chars);
   isAny = _drv: true;
 
   isDrvSet = s: lib.isAttrs s && (lib.any lib.isDerivation (builtins.attrValues s) || s == { });
@@ -145,11 +146,13 @@ let
   ci.prebuilt.nixpkgs.split1 = joinForCi "prebuilt-nixpkgs" isSplit1 build.pkgs.nixpkgs.prebuilt;
   ci.prebuilt.nixpkgs.split2 = joinForCi "prebuilt-nixpkgs" isSplit2 build.pkgs.nixpkgs.prebuilt;
   ci.prebuilt.nixpkgs.split3 = joinForCi "prebuilt-nixpkgs" isSplit3 build.pkgs.nixpkgs.prebuilt;
+  ci.prebuilt.nixpkgs.split4 = joinForCi "prebuilt-nixpkgs" isSplit4 build.pkgs.nixpkgs.prebuilt;
   ci.prebuilt.haskell-nix = joinForCi "prebuilt-haskellnix" isAny build.pkgs.haskell-nix.prebuilt;
   ci.prebuilt.shajra = joinForCi "prebuilt-shajra" isAny build.pkgs.shajra.prebuilt;
   ci.build.nixpkgs.split1 = joinForCi "build-nixpkgs" isSplit1 build.pkgs.nixpkgs.build;
   ci.build.nixpkgs.split2 = joinForCi "build-nixpkgs" isSplit2 build.pkgs.nixpkgs.build;
   ci.build.nixpkgs.split3 = joinForCi "build-nixpkgs" isSplit3 build.pkgs.nixpkgs.build;
+  ci.build.nixpkgs.split4 = joinForCi "build-nixpkgs" isSplit4 build.pkgs.nixpkgs.build;
   ci.build.haskell-nix = joinForCi "build-haskellnix" isAny build.pkgs.haskell-nix.build;
   ci.build.shajra = joinForCi "build-shajra" isAny build.pkgs.shajra.build;
   ci.all = joinForCi "all" isAny build.pkgs;
