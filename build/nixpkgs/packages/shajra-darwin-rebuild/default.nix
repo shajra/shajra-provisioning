@@ -20,6 +20,7 @@ nix-project-lib.writeShellCheckedExe progName
       "PATH"
       "TERM"
       "TERMINFO"
+      "SSH_AUTH_SOCK"
     ];
     pathKeep = [
       "nix"

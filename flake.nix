@@ -181,6 +181,8 @@
               let
                 inherit (nixpkgs.stable.hostPlatform) isDarwin;
                 osCmd = if isDarwin then ''shajra-darwin-rebuild'' else ''shajra-nixos-rebuild'';
+                osBootstrap =
+                  if isDarwin then ''sudo -H git config set --global safe.directory "$PRJ_ROOT"'' else ''true'';
                 osInstall =
                   nixosCmd:
                   if isDarwin then ''sudo -H ${osCmd} switch'' else ''${osCmd} ${nixosCmd} --use-remote-sudo'';
@@ -191,6 +193,11 @@
               in
               {
                 commands = [
+                  {
+                    name = "project-bootstrap";
+                    help = "minimal root config to run installers";
+                    command = ''${osBootstrap}'';
+                  }
                   {
                     name = "project-format";
                     help = "format all files in one command";
