@@ -304,7 +304,7 @@ in
         security = "user";
         "hostname lookups" = "yes";
         "name resolve order" = "bcast";
-        "hosts allow" = "192.168.1. 192.168.2. 192.168.3. 192.168.4. 127.0.0.1 localhost";
+        "hosts allow" = "192.168.1. 192.168.3. 192.168.4. 192.168.8. 127.0.0.1 localhost";
         "hosts deny" = "0.0.0.0/0";
       };
       audio = {
