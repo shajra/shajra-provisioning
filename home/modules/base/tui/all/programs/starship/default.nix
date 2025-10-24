@@ -2,6 +2,7 @@
   enable = true;
   settings = {
     cmd_duration.show_notifications = false;
+    gcloud.format = "[$symbol$active]($style) ";
     status = {
       disabled = false;
       format = "[$symbol $status]($style)";
