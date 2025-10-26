@@ -270,7 +270,7 @@ rec {
 
   nixpkgs.build.programming.cloud =
     pickAll "home" [
-      "terraform"
+      "opentofu"
     ]
     // {
       google-cloud-sdk =
