@@ -1,7 +1,7 @@
 {
   dash,
   nix-project-lib,
-  pinentry,
+  pinentry-all,
 }:
 
 let
@@ -22,14 +22,5 @@ nix-project-lib.writeShellCheckedExe progName
     envCleaned = false;
   }
   ''
-    case "$PINENTRY_USER_DATA" in
-        curses) PINENTRY="${pinentry.curses}" ;;
-        emacs)  PINENTRY="${pinentry.emacs}"  ;;
-        gnome3) PINENTRY="${pinentry.gnome3}" ;;
-        gtk2)   PINENTRY="${pinentry.gtk2}"   ;;
-        qt)     PINENTRY="${pinentry.qt}"     ;;
-        tty)    PINENTRY="${pinentry.tty}"    ;;
-        *)      PINENTRY="${pinentry.gtk2}"   ;;
-    esac
-    exec "$PINENTRY/bin/pinentry" "''${@}"
+    exec "${pinentry-all}/bin/pinentry-''${PINENTRY_USER_DATA:-gtk-2}" "''${@}"
   ''

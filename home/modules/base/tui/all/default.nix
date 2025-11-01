@@ -7,8 +7,6 @@
 }:
 
 let
-
-  inherit (pkgs) sources;
   # DESIGN: lorelei isn't likely to return...
   #module-lorelei = (import sources.direnv-nix-lorelei).direnv-nix-lorelei-home;
   extraPackages = [ pkgs.sqlite ] ++ build.pkgs.lists.base.tui;
@@ -39,6 +37,9 @@ in
     programs.bottom.settings.flags.color = config.theme.external.bottom.name;
     programs.btop.enable = true;
     programs.btop.settings.color_theme = config.theme.external.btop.name;
+    programs.delta.enable = true;
+    programs.delta.enableGitIntegration = true;
+    programs.delta.options.features = "hoopoe";
     programs.dircolors.enable = true;
     programs.dircolors.extraConfig = config.theme.external.dircolors.extraConfig;
     # DESIGN: Not using the Direnv module because Home Manager automatically
@@ -53,7 +54,7 @@ in
     programs.fzf.enable = true;
     programs.gh.enable = true;
     programs.gh-dash.enable = true;
-    programs.git = import programs/git sources.delta;
+    programs.git = import programs/git;
     programs.gitui.enable = false; # REVISIT: 25-10-13: broken on Darwin
     # DESIGN: not using Home-manager module because all it does it tie
     # the executable to dynamic configuration.

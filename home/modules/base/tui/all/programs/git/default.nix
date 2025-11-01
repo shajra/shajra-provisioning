@@ -1,47 +1,36 @@
-delta:
-
 {
   enable = true;
 
-  userName = "Sukant Hajra";
-  userEmail = "dev.sukant@hajra.xyz";
-
-  aliases = {
-    a = "add";
-    b = "branch";
-    ca = "commit -a";
-    c = "commit";
-    cma = "commit -a -m";
-    cm = "commit -m";
-    co = "checkout";
-    d = "diff --patience";
-    f = "fetch";
-    l = "log --date=local";
-    lp = "log -p --date=local";
-    lga =
-      "log --color --graph --decorate"
-      + " --pretty=format:'%Cred%h%Creset -%C(bold black)%d%Creset %s,"
-      + " %Cblue%an, %Cgreen%cd%Creset'"
-      + " --abbrev-commit --date=local --all";
-    lg =
-      "log --color --graph --decorate"
-      + " --pretty=format:'%Cred%h%Creset -%C(bold black)%d%Creset %s,"
-      + " %Cblue%an, %Cgreen%cd%Creset'"
-      + " --abbrev-commit --date=local";
-    p = "push";
-    r = "reset";
-    s = "status --short --branch";
-    t = "tag";
-    wipe = "clean -d -x -e .dir-locals.el -e .envrc -e .direnv";
-    wipeall = "clean -d -x";
-  };
-  delta = {
-    enable = true;
-    options.features = "hoopoe";
-  };
-  # DESIGN: For now I like delta more, maybe switch back later
-  #difftastic.enable = false;
-  extraConfig = {
+  settings = {
+    aliases = {
+      a = "add";
+      b = "branch";
+      ca = "commit -a";
+      c = "commit";
+      cma = "commit -a -m";
+      cm = "commit -m";
+      co = "checkout";
+      d = "diff --patience";
+      f = "fetch";
+      l = "log --date=local";
+      lp = "log -p --date=local";
+      lga =
+        "log --color --graph --decorate"
+        + " --pretty=format:'%Cred%h%Creset -%C(bold black)%d%Creset %s,"
+        + " %Cblue%an, %Cgreen%cd%Creset'"
+        + " --abbrev-commit --date=local --all";
+      lg =
+        "log --color --graph --decorate"
+        + " --pretty=format:'%Cred%h%Creset -%C(bold black)%d%Creset %s,"
+        + " %Cblue%an, %Cgreen%cd%Creset'"
+        + " --abbrev-commit --date=local";
+      p = "push";
+      r = "reset";
+      s = "status --short --branch";
+      t = "tag";
+      wipe = "clean -d -x -e .dir-locals.el -e .envrc -e .direnv";
+      wipeall = "clean -d -x";
+    };
     branch.autosetuprebase = "remote";
     color = {
       branch = "auto";
@@ -75,7 +64,10 @@ delta:
     push.default = "simple";
     rerere.enabled = true;
     status.submodulesummary = true;
+    user.name = "Sukant Hajra";
+    user.email = "dev.sukant@hajra.xyz";
   };
+
   ignores = [
     # Macs
     ".DS_Store"
@@ -140,5 +132,5 @@ delta:
     #
     ".ipynb_checkpoints/"
   ];
-  includes = [ { path = "${delta}/themes.gitconfig"; } ];
+
 }

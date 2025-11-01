@@ -12,7 +12,7 @@
   gnused,
   imagemagick,
   p7zip,
-  poppler_utils,
+  poppler-utils,
   unrar,
   unzip,
   xxHash,
@@ -57,7 +57,7 @@ nix-project-lib.writeShellCheckedExe progName
       gnused
       imagemagick
       p7zip
-      poppler_utils
+      poppler-utils
       unrar
       unzip
       xxHash

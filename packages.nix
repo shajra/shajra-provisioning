@@ -30,7 +30,7 @@ rec {
   nixpkgs.prebuilt.audio.tui =
     let
       all = pickAll "home" [
-        "mpc_cli"
+        "mpc"
         "whipper"
       ];
       linux = np.pick { linux = "home"; } [
@@ -135,7 +135,7 @@ rec {
       ];
       # DESIGN: these are all Mac-only applications; unstable is fine
       darwin = np.pick { darwin = "unstable"; } [
-        "asitop"
+        "macpm"
         "mas"
       ];
       linux = np.pick { linux = "home"; } [
@@ -210,13 +210,13 @@ rec {
         "graphviz"
         "imagemagick"
         "nodePackages.textlint"
-        "poppler_utils"
+        "poppler-utils"
         "proselint"
         "python3Packages.grip"
         "t-rec"
       ];
       linux = np.pick { linux = "home"; } [
-        "dia"
+        #"dia"  # REVISIT: 2025-11-01: package broken
         "freemind"
         "gimp"
         "inkscape"
@@ -238,8 +238,7 @@ rec {
       "font-awesome_6" # for i3status-rust icons
       "freefont_ttf" # a Unicode fallback font
       "hasklig" # font with Haskell ligatures
-      "noto-fonts-emoji" # popular font, might like it
-      "noto-fonts-extra" # popular font, might like it
+      "noto-fonts-color-emoji" # popular font, might like it
       "noto-fonts" # popular font, might like it
       "source-serif" # serif font to complement Sauce Code Pro
     ]
@@ -266,19 +265,16 @@ rec {
   nixpkgs.prebuilt.programming.cloud = pickAll "home" [
     "dockfmt"
     "kubectl"
+    "opentofu"
   ];
 
-  nixpkgs.build.programming.cloud =
-    pickAll "home" [
-      "opentofu"
-    ]
-    // {
-      google-cloud-sdk =
-        with np.nixpkgs.home;
-        google-cloud-sdk.withExtraComponents [
-          google-cloud-sdk.components.gke-gcloud-auth-plugin
-        ];
-    };
+  nixpkgs.build.programming.cloud = pickAll "home" [ ] // {
+    google-cloud-sdk =
+      with np.nixpkgs.home;
+      google-cloud-sdk.withExtraComponents [
+        google-cloud-sdk.components.gke-gcloud-auth-plugin
+      ];
+  };
 
   nixpkgs.prebuilt.programming.db = pickAll "home" [
     "pgformatter"
@@ -300,7 +296,7 @@ rec {
     "plantuml"
     "tcount"
     "tokei"
-    "wireshark"
+    #"wireshark" # REVISIT: 2025-11-01: broken on Darwin
   ];
 
   nixpkgs.build.programming.general = pickAll "home" [
@@ -379,7 +375,7 @@ rec {
   ];
 
   nixpkgs.prebuilt.programming.lua = pickAll "home" [
-    #"luaformatter"  # REVISIT: 2024-10-12: build broken
+    "luaformatter"
     "lua5_4"
   ];
 
