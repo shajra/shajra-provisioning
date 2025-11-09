@@ -216,7 +216,7 @@ rec {
         "t-rec"
       ];
       linux = np.pick { linux = "home"; } [
-        #"dia"  # REVISIT: 2025-11-01: package broken
+        "dia"
         "freemind"
         "gimp"
         "inkscape"
@@ -286,7 +286,6 @@ rec {
   ];
 
   nixpkgs.prebuilt.programming.general = pickAll "home" [
-    "aider-chat-full"
     "codex"
     "global"
     "gnumake"
@@ -296,10 +295,11 @@ rec {
     "plantuml"
     "tcount"
     "tokei"
-    #"wireshark" # REVISIT: 2025-11-01: broken on Darwin
+    #"wireshark" # REVISIT: 2025-11-09: broken on Darwin
   ];
 
   nixpkgs.build.programming.general = pickAll "home" [
+    "aider-chat-full"
     "code-cursor"
   ];
 
@@ -330,7 +330,7 @@ rec {
     "haskell.packages.${ghc}.haskdogs"
     "haskell.packages.${ghc}.haskell-language-server"
     "haskell.packages.${ghc}.hasktags"
-    #REVISIT: 2025-10-12: HLint incompatible with 9.10; wait for 9.12
+    # REVISIT: 2025-10-12: HLint incompatible with 9.10; wait for 9.12
     #"haskell.packages.${ghc}.hlint"
     "haskell.packages.${ghc}.hoogle"
     "haskell.packages.${ghc}.hp2pretty"

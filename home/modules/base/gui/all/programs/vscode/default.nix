@@ -71,9 +71,14 @@ in
       "editor.fontLigatures" = true;
       "editor.fontSize" = 12;
       "editor.minimap.enabled" = false;
-      "files.exclude" = { "**/.direnv" = true; };
+      "files.exclude" = {
+        "**/.direnv" = true;
+      };
       "files.trimTrailingWhitespace" = true;
-      "files.watcherExclude" = { "**/.bloop" = true; "**/.metals" = true; };
+      "files.watcherExclude" = {
+        "**/.bloop" = true;
+        "**/.metals" = true;
+      };
       "git.openRepositoryInParentFolders" = "always";
       "haskell.formattingProvider" = "none";
       "haskell.manageHLS" = "PATH";
