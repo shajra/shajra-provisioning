@@ -13,7 +13,7 @@
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     haskell-nix.url = "github:input-output-hk/haskell.nix";
     home-manager.url = "github:shajra/home-manager/feature/lieer-address-override";
-    nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-25.05";
+    nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-25.11";
     nur.url = "github:nix-community/NUR";
     shajra-private.url = "github:shajra/empty";
     vscode-overlay.url = "github:nix-community/nix-vscode-extensions";
@@ -88,7 +88,7 @@
       flake = false;
     };
     sketchybar-font-dist = {
-      url = "https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.47/sketchybar-app-font.ttf";
+      url = "https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.49/sketchybar-app-font.ttf";
       flake = false;
     };
     sketchybar-font-src = {

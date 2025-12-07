@@ -45,5 +45,5 @@ in
 
   system.primaryUser = superUser;
 
-  system.stateVersion = 5;
+  system.stateVersion = 6;
 }
