@@ -7,8 +7,7 @@
 }:
 
 let
-  # DESIGN: lorelei isn't likely to return...
-  #module-lorelei = (import sources.direnv-nix-lorelei).direnv-nix-lorelei-home;
+
   extraPackages = [ pkgs.sqlite ] ++ build.pkgs.lists.base.tui;
 
 in
