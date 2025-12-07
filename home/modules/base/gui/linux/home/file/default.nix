@@ -5,7 +5,7 @@ let
 in
 
 {
-  ".XCompose".text = import xcompose/text.nix pkgs.sources;
+  ".XCompose".text = import xcompose/text.nix pkgs.shajra-sources;
   ".Xdefaults".source = makeLink "${config.home.homeDirectory}/.Xresources";
 
   # DESIGN: Ideally, Home Manager and Nixpkgs would make this easier

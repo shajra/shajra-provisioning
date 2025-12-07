@@ -163,7 +163,7 @@ in
   plugins = [
     {
       name = "fzf";
-      src = pkgs.sources.fzf-fish;
+      src = pkgs.shajra-sources.fzf-fish;
     }
   ];
 

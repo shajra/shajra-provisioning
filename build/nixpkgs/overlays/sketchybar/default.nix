@@ -2,7 +2,7 @@ final: prev:
 
 {
   sketchybar = prev.sketchybar.overrideAttrs (_old: {
-    src = final.sources.sketchybar;
+    src = final.shajra-sources.sketchybar;
     version = "head";
     buildInputs = [ prev.apple-sdk_15 ];
 

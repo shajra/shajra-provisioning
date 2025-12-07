@@ -26,7 +26,7 @@ let
 
   scrollback.actionAlias =
     "kitty_scrollback_nvim kitten"
-    + " ${pkgs.sources.kitty-scrollback-nvim}/python/kitty_scrollback_nvim.py";
+    + " ${pkgs.shajra-sources.kitty-scrollback-nvim}/python/kitty_scrollback_nvim.py";
 
 in
 

@@ -8,7 +8,7 @@
   home-manager-latest,
   hostname,
   nix-project-lib,
-  sources,
+  shajra-sources,
   which,
 }:
 
@@ -54,7 +54,7 @@ nix-project-lib.writeShellCheckedExe progName
     set -o pipefail
 
 
-    FLAKE="${sources.shajra-provisioning}#$(hostname)"
+    FLAKE="${shajra-sources.shajra-provisioning}#$(hostname)"
     HELP_RESPONSE=true
     ARGS=()
 

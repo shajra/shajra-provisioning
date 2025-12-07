@@ -5,7 +5,7 @@
   less,
   man-db,
   nix-project-lib,
-  sources,
+  shajra-sources,
 }:
 
 let
@@ -47,7 +47,7 @@ nix-project-lib.writeShellCheckedExe progName
     set -o pipefail
 
 
-    FLAKE="${sources.shajra-provisioning}#$(hostname)"
+    FLAKE="${shajra-sources.shajra-provisioning}#$(hostname)"
     HELP_RESPONSE=true
     ARGS=()
 

@@ -5,7 +5,7 @@ let
   font = builtins.replaceStrings [ " " ] [ "\\ " ] config.theme.fonts.monospaced.code.name;
   kitty-scrollback = pkgs.vimUtils.buildVimPlugin {
     name = "kitty-scrollback.nvim";
-    src = pkgs.sources.kitty-scrollback-nvim;
+    src = pkgs.shajra-sources.kitty-scrollback-nvim;
   };
 
 in

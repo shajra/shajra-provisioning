@@ -19,7 +19,7 @@ let
   };
 
   external.sources = _final: prev: {
-    sources = prev.sources or { } // {
+    shajra-sources = prev.shajra-sources or { } // {
       inherit (inputs)
         delta
         dircolors-solarized
@@ -64,7 +64,7 @@ let
         type != "directory" || builtins.match regex path == null;
     in
     {
-      sources = prev.sources or { } // {
+      shajra-sources = prev.shajra-sources or { } // {
         shajra-provisioning = builtins.path {
           path = ../..;
           name = "shajra-provisioning";

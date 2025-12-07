@@ -73,9 +73,9 @@ in
   hardware.graphics.enable = true;
   hardware.graphics.extraPackages = with pkgs; [
     intel-media-driver
+    intel-vaapi-driver
+    libva-vdpau-driver
     libvdpau-va-gl
-    vaapiIntel
-    vaapiVdpau
   ];
   hardware.keyboard.zsa.enable = true;
   hardware.sane.enable = true;
@@ -345,7 +345,7 @@ in
 
     ${
       let
-        origFile = "${pkgs.sources.kaleidoscope}/etc/60-kaleidoscope.rules";
+        origFile = "${pkgs.shajra-sources.kaleidoscope}/etc/60-kaleidoscope.rules";
         origRules = builtins.readFile origFile;
       in
       builtins.replaceStrings [ '', SYMLINK'' ''}:='' ] [ '', MODE="0666", SYMLINK'' ''}='' ] origRules

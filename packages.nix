@@ -270,7 +270,8 @@ rec {
 
   nixpkgs.build.programming.cloud = pickAll "home" [ ] // {
     google-cloud-sdk =
-      with np.nixpkgs.home;
+      # REVISIT: 2025-12-07: https://github.com/NixOS/nixpkgs/issues/468388
+      with np.nixpkgs.stable; # when fixed return to np.nixpkgs.home;
       google-cloud-sdk.withExtraComponents [
         google-cloud-sdk.components.gke-gcloud-auth-plugin
       ];
@@ -286,6 +287,7 @@ rec {
   ];
 
   nixpkgs.prebuilt.programming.general = pickAll "home" [
+    #"aider-chat-full" # DESIGN: Using Cursor or Codex for now
     "codex"
     "global"
     "gnumake"
@@ -299,7 +301,6 @@ rec {
   ];
 
   nixpkgs.build.programming.general = pickAll "home" [
-    "aider-chat-full"
     "code-cursor"
   ];
 

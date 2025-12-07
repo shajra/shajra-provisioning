@@ -1,13 +1,13 @@
 {
   stdenvNoCC,
-  sources,
+  shajra-sources,
   p7zip,
 }:
 
 stdenvNoCC.mkDerivation {
   pname = "sf-symbols";
   version = "7";
-  src = sources.sf-symbols;
+  src = shajra-sources.sf-symbols;
   dontUnpack = true;
   nativeBuildInputs = [ p7zip ];
   installPhase = ''

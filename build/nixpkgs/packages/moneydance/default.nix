@@ -7,7 +7,7 @@
   stdenv,
   jre,
   writers,
-  sources,
+  shajra-sources,
 }:
 
 let
@@ -16,7 +16,7 @@ let
     pname = "moneydance-lib";
     version = "2022.5_4091";
     name = "${pname}-${version}";
-    src = sources.moneydance;
+    src = shajra-sources.moneydance;
     phases = [ "installPhase" ];
     installPhase = ''
       cp -r "$src/lib" "$out"

@@ -4,7 +4,7 @@
   gnutar,
   gzip,
   nix-project-lib,
-  sources,
+  shajra-sources,
 }:
 
 let
@@ -37,8 +37,8 @@ nix-project-lib.writeShellCheckedExe progName
     set -o pipefail
 
 
-    BOOTSTRAP="${sources.shajra-provisioning}#darwinConfigurations.lemon-slim.system"
-    FLAKE="${sources.shajra-provisioning}#$(hostname)"
+    BOOTSTRAP="${shajra-sources.shajra-provisioning}#darwinConfigurations.lemon-slim.system"
+    FLAKE="${shajra-sources.shajra-provisioning}#$(hostname)"
     HELP_RESPONSE=true
     ARGS=()
 

@@ -1,12 +1,12 @@
 {
   stdenvNoCC,
-  sources,
+  shajra-sources,
 }:
 
 stdenvNoCC.mkDerivation {
   pname = "sketchybar-font";
   version = "2.0.45";
-  src = sources.sketchybar-font-dist;
+  src = shajra-sources.sketchybar-font-dist;
   dontUnpack = true;
   installPhase = ''
     runHook preInstall

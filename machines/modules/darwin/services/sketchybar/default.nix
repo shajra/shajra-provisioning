@@ -42,7 +42,7 @@ let
     {
         printf 'return {\n'
         "${pkgs.findutils}/bin/find" \
-            "${pkgs-unstable.sources.sketchybar-font-src}/mappings" \
+            "${pkgs-unstable.shajra-sources.sketchybar-font-src}/mappings" \
             -type f \
             -mindepth 1 \
             -maxdepth 1 | while read -r f
@@ -75,7 +75,7 @@ let
   luaposix = pkgs-unstable.lua5_4.pkgs.buildLuarocksPackage {
     pname = "luaposix";
     version = "36.3-1";
-    src = pkgs-unstable.sources.luaposix;
+    src = pkgs-unstable.shajra-sources.luaposix;
   };
 
   lua = pkgs-unstable.lua5_4.withPackages (ps: [

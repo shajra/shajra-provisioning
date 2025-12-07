@@ -1,13 +1,13 @@
 {
   clang,
-  sources,
+  shajra-sources,
   stdenv,
 }:
 
 stdenv.mkDerivation {
   pname = "sketchybar-helpers";
   version = "0.0.0.0";
-  src = "${sources.dotfiles-felixkratz}/.config/sketchybar/helpers";
+  src = "${shajra-sources.dotfiles-felixkratz}/.config/sketchybar/helpers";
   nativeBuildInputs = [ clang ];
   installPhase = ''
     mkdir -p "$out/bin"

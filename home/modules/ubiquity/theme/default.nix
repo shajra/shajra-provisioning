@@ -61,7 +61,7 @@ let
       bat.name = "Solarized (light)";
       bottom.name = "gruvbox-light";
       btop.name = "solarized_light";
-      dircolors.extraConfig = builtins.readFile "${pkgs.sources.dircolors-solarized}/dircolors.ansi-light";
+      dircolors.extraConfig = builtins.readFile "${pkgs.shajra-sources.dircolors-solarized}/dircolors.ansi-light";
       doom.name = "doom-solarized-light";
       gtk = {
         name = "NumixSolarizedLightMagenta";
