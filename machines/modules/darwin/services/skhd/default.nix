@@ -113,18 +113,18 @@ in
     lcmd        - 0x18 : aerospace balance-sizes
 
     # focus workspace
-    lcmd - 1    : aerospace workspace 1              && ${sketchybar-refresh}
-    lcmd - 2    : aerospace workspace 2              && ${sketchybar-refresh}
-    lcmd - 3    : aerospace workspace 3              && ${sketchybar-refresh}
-    lcmd - 4    : aerospace workspace 4              && ${sketchybar-refresh}
-    lcmd - 5    : aerospace workspace 5              && ${sketchybar-refresh}
-    lcmd - 6    : aerospace workspace 6              && ${sketchybar-refresh}
-    lcmd - 7    : aerospace workspace 7              && ${sketchybar-refresh}
-    lcmd - 8    : aerospace workspace 8              && ${sketchybar-refresh}
-    lcmd - 9    : aerospace workspace 9              && ${sketchybar-refresh}
-    lcmd - 0x2C : aerospace workspace-back-and-forth && ${sketchybar-refresh}
-    lcmd - 0x2B : aerospace workspace prev           && ${sketchybar-refresh}
-    lcmd - 0x2F : aerospace workspace next           && ${sketchybar-refresh}
+    lcmd - 1    : aerospace workspace 1               && ${sketchybar-refresh}
+    lcmd - 2    : aerospace workspace 2               && ${sketchybar-refresh}
+    lcmd - 3    : aerospace workspace 3               && ${sketchybar-refresh}
+    lcmd - 4    : aerospace workspace 4               && ${sketchybar-refresh}
+    lcmd - 5    : aerospace workspace 5               && ${sketchybar-refresh}
+    lcmd - 6    : aerospace workspace 6               && ${sketchybar-refresh}
+    lcmd - 7    : aerospace workspace 7               && ${sketchybar-refresh}
+    lcmd - 8    : aerospace workspace 8               && ${sketchybar-refresh}
+    lcmd - 9    : aerospace workspace 9               && ${sketchybar-refresh}
+    lcmd - 0x2C : aerospace workspace-back-and-forth  && ${sketchybar-refresh}
+    lcmd - 0x2B : aerospace workspace --no-stdin prev && ${sketchybar-refresh}
+    lcmd - 0x2F : aerospace workspace --no-stdin next && ${sketchybar-refresh}
 
     # summon workspace
     lcmd + ctrl - 1 : aerospace summon-workspace 1 && ${sketchybar-refresh}
@@ -138,17 +138,17 @@ in
     lcmd + ctrl - 9 : aerospace summon-workspace 9 && ${sketchybar-refresh}
 
     # move window to workspace
-    lcmd + shift - 1    : aerospace move-node-to-workspace 1    && ${sketchybar-refresh}
-    lcmd + shift - 2    : aerospace move-node-to-workspace 2    && ${sketchybar-refresh}
-    lcmd + shift - 3    : aerospace move-node-to-workspace 3    && ${sketchybar-refresh}
-    lcmd + shift - 4    : aerospace move-node-to-workspace 4    && ${sketchybar-refresh}
-    lcmd + shift - 5    : aerospace move-node-to-workspace 5    && ${sketchybar-refresh}
-    lcmd + shift - 6    : aerospace move-node-to-workspace 6    && ${sketchybar-refresh}
-    lcmd + shift - 7    : aerospace move-node-to-workspace 7    && ${sketchybar-refresh}
-    lcmd + shift - 8    : aerospace move-node-to-workspace 8    && ${sketchybar-refresh}
-    lcmd + shift - 9    : aerospace move-node-to-workspace 9    && ${sketchybar-refresh}
-    lcmd + shift - 0x2B : aerospace move-node-to-workspace prev && ${sketchybar-refresh}
-    lcmd + shift - 0x2F : aerospace move-node-to-workspace next && ${sketchybar-refresh}
+    lcmd + shift - 1    : aerospace move-node-to-workspace 1               && ${sketchybar-refresh}
+    lcmd + shift - 2    : aerospace move-node-to-workspace 2               && ${sketchybar-refresh}
+    lcmd + shift - 3    : aerospace move-node-to-workspace 3               && ${sketchybar-refresh}
+    lcmd + shift - 4    : aerospace move-node-to-workspace 4               && ${sketchybar-refresh}
+    lcmd + shift - 5    : aerospace move-node-to-workspace 5               && ${sketchybar-refresh}
+    lcmd + shift - 6    : aerospace move-node-to-workspace 6               && ${sketchybar-refresh}
+    lcmd + shift - 7    : aerospace move-node-to-workspace 7               && ${sketchybar-refresh}
+    lcmd + shift - 8    : aerospace move-node-to-workspace 8               && ${sketchybar-refresh}
+    lcmd + shift - 9    : aerospace move-node-to-workspace 9               && ${sketchybar-refresh}
+    lcmd + shift - 0x2B : aerospace move-node-to-workspace --no-stdin prev && ${sketchybar-refresh}
+    lcmd + shift - 0x2F : aerospace move-node-to-workspace --no-stdin next && ${sketchybar-refresh}
 
     # REVISIT: move workspace (hard to implement with current Aerospace)
     #lcmd + shift + alt - 1    : "''${space-move}" 1
