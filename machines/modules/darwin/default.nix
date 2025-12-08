@@ -33,7 +33,7 @@ in
   services.karabiner-elements.enable = false; # DESIGN: so far, don't really need it
   services.sketchybar = import services/sketchybar config pkgs pkgs-unstable colors;
   services.skhd = import services/skhd pkgs build colors;
-  services.tailscale.enable = true;
+  services.tailscale.enable = false;
 
   system.checks.verifyNixPath = false;
 
