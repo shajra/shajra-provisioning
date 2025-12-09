@@ -269,7 +269,7 @@ in
   services.picom.enable = true;
   services.picom.vSync = true;
 
-  services.postgresql.dataDir = "/srv/postgresql";
+  services.postgresql.dataDir = "/srv/postgresql/17";
 
   services.printing.drivers = [ hplip ];
   services.printing.enable = true;
