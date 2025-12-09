@@ -185,7 +185,7 @@
                   if isDarwin then ''sudo -H git config set --global safe.directory "$PRJ_ROOT"'' else ''true'';
                 osInstall =
                   nixosCmd:
-                  if isDarwin then ''sudo -H ${osCmd} switch'' else ''${osCmd} ${nixosCmd} --use-remote-sudo'';
+                  if isDarwin then ''sudo -H ${osCmd} switch'' else ''${osCmd} ${nixosCmd} --sudo'';
                 privateOpts =
                   "--refresh --override-input shajra-private"
                   + " git+ssh://tnks@cake/home/tnks/src/shajra/shajra-private?ref=main";
