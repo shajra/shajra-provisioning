@@ -59,7 +59,7 @@ in
 nix-project-lib.writeShellCheckedExe progName
   {
     inherit meta;
-
+    envKeep = [ "SSH_AUTH_SOCK" ];
     pathPackages = [
       coreutils
       fd
@@ -151,9 +151,11 @@ nix-project-lib.writeShellCheckedExe progName
         starship prompt | head -2
         if [ -d .jj ]
         then
-            jj git fetch --all-remotes 2>/dev/null && jj st --no-pager \
-                | awk -f "${awkScript}" - "''${BRANCHES[@]}" \
-                | indent
+            if [ "$(jj git remote list | wc -l)" -gt 0 ]
+            then jj git fetch --all-remotes 2>/dev/null
+            fi && jj st --no-pager \
+            | awk -f "${awkScript}" - "''${BRANCHES[@]}" \
+            | indent
         fi
     }
 
