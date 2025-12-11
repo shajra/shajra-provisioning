@@ -59,7 +59,12 @@ in
 nix-project-lib.writeShellCheckedExe progName
   {
     inherit meta;
-    envKeep = [ "SSH_AUTH_SOCK" ];
+    envKeep = [
+      "HOME"
+      "LANG"
+      "LOCALE_ARCHIVE"
+      "SSH_AUTH_SOCK"
+    ];
     pathPackages = [
       coreutils
       fd
