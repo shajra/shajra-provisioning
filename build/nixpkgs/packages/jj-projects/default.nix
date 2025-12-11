@@ -40,13 +40,13 @@ let
     }
 
     {
-        if ( /^Parent commit:/ ) {
+        if ( /^Parent commit.*:/ ) {
             if (matches_all_args($0))
                 print "\033[0;32m" $0 "\033[0m"
             else
                 print "\033[0;33m" $0 "\033[0m"
         } else if ( /[Ww]orking copy/ ) {
-            if ( /copy is clean/ )
+            if ( /copy has no changes/ )
                 print "\033[0;32m" $0 "\033[0m"
             else if ( /copy changes/ )
                 print "\033[0;33m" $0 "\033[0m"
