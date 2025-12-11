@@ -26,6 +26,12 @@ in
         {
           block = "focused_window";
           format = " $title.str(max_w:70) $visible_marks |";
+          click = [
+            {
+              button = "middle";
+              cmd = "i3-msg kill";
+            }
+          ];
         }
         {
           block = "disk_space";
