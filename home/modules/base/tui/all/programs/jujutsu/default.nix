@@ -8,7 +8,8 @@
     ui.default-command = "l";
     revset-aliases = {
       "interesting" = "interesting(2)";
-      "interesting(last_n)" = "ancestors(author(substring:\"Sukant Hajra\") ~ ::trunk(), last_n) | trunk() | @";
+      "interesting(last_n)" =
+        "ancestors(author(substring:\"Sukant Hajra\") ~ ::trunk(), last_n) | trunk() | @";
     };
     aliases = {
       l = [
