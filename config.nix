@@ -24,8 +24,8 @@
       ];
       # DESIGN: https://github.com/input-output-hk/hackage.nix/blob/master/index-state-hashes.nix
       hackage.index = {
-        state = "2025-12-07T00:00:00Z";
-        sha256 = "b0f54f4464aa4adfd73568b8e986d527a1e81bbe8e36f17469297169c2c71cc3";
+        state = "2025-12-22T00:00:00Z";
+        sha256 = "7823990923289af8ca52c92c2b0152c7f53bb03eaae871b66a90e80e3900faf4";
       };
       nixpkgs-pin = "nixpkgs-unstable";
     };

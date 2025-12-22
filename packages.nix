@@ -177,7 +177,7 @@ rec {
         "element-desktop"
       ];
       linux = np.pick { linux = "home"; } [
-        "irccloud" # REVISIT: 2025-04-12: Unsupported for Darwin
+        "irccloud" # REVISIT: 2025-12-22: Unsupported for Darwin
         "caprine"
         "signal-desktop-bin"
       ];
@@ -270,8 +270,7 @@ rec {
 
   nixpkgs.build.programming.cloud = pickAll "home" [ ] // {
     google-cloud-sdk =
-      # REVISIT: 2025-12-07: https://github.com/NixOS/nixpkgs/issues/468388
-      with np.nixpkgs.stable; # when fixed return to np.nixpkgs.home;
+      with np.nixpkgs.home;
       google-cloud-sdk.withExtraComponents [
         google-cloud-sdk.components.gke-gcloud-auth-plugin
       ];
@@ -297,7 +296,7 @@ rec {
     "plantuml"
     "tcount"
     "tokei"
-    #"wireshark" # REVISIT: 2025-11-09: broken on Darwin
+    "wireshark"
   ];
 
   nixpkgs.build.programming.general = pickAll "home" [
@@ -331,7 +330,7 @@ rec {
     "haskell.packages.${ghc}.haskdogs"
     "haskell.packages.${ghc}.haskell-language-server"
     "haskell.packages.${ghc}.hasktags"
-    # REVISIT: 2025-10-12: HLint incompatible with 9.10; wait for 9.12
+    # REVISIT: 2025-12-22: HLint incompatible with 9.10; wait for 9.12
     #"haskell.packages.${ghc}.hlint"
     "haskell.packages.${ghc}.hoogle"
     "haskell.packages.${ghc}.hp2pretty"
@@ -390,7 +389,7 @@ rec {
     "python3Packages.setuptools"
   ];
 
-  # REVISIT: 2025-06-07: Unsupported for Darwin
+  # REVISIT: 2025-12-22: Unsupported for Darwin
   nixpkgs.prebuilt.programming.racket = np.pick { linux = "home"; } [
     "racket"
   ];
