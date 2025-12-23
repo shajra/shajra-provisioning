@@ -303,18 +303,33 @@ rec {
     "code-cursor"
   ];
 
-  nixpkgs.prebuilt.programming.go = pickAll "home" [
-    "delve"
-    "go"
-    "gocode-gomod"
-    "golangci-lint"
-    "gomodifytags"
-    "gopkgs"
-    "gopls"
-    "gore"
-    "goreleaser"
-    "gotools"
-  ];
+  nixpkgs.prebuilt.programming.go =
+    let
+      all = pickAll "home" [
+        "delve"
+        "go"
+        "gocode-gomod"
+        "golangci-lint"
+        "gomodifytags"
+        "gopkgs"
+        "gore"
+        "goreleaser"
+        "gotools"
+      ];
+      linux = np.pick { linux = "home"; } [
+        "gopls"
+      ];
+    in
+    all // linux;
+
+  # REVISIT: 2025-12-22: Not cached
+  nixpkgs.build.programming.go =
+    let
+      darwin = np.pick { darwin = "home"; } [
+        "gopls"
+      ];
+    in
+    darwin;
 
   nixpkgs.prebuilt.programming.haskell = pickAll "home" [
     "cabal2nix"
