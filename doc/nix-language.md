@@ -140,7 +140,7 @@ nix eval --expr '
                 2|     let a_number = 42;
                 3|     in "${a_number} is a terrible number"
                  |         ^
-
+    
            error: cannot coerce an integer to a string: 42
 
 We can use a builtin `toString` function to coerce types to strings:
@@ -288,7 +288,7 @@ nix eval --expr '({ a }: a + 2 ) { a = 3; b = 4; }' 2>&1 || true
              at «string»:1:1:
                 1| ({ a }: a + 2 ) { a = 3; b = 4; }
                  | ^
-
+    
            error: function 'anonymous lambda' called with unexpected argument 'b'
            at «string»:1:2:
                 1| ({ a }: a + 2 ) { a = 3; b = 4; }
