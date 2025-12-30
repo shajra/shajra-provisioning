@@ -57,11 +57,11 @@ let
     _final: prev:
     let
       rejectFile =
-        path: type: regex:
-        type != "regular" || builtins.match regex path == null;
+        path': type: regex:
+        type != "regular" || builtins.match regex path' == null;
       rejectDir =
-        path: type: regex:
-        type != "directory" || builtins.match regex path == null;
+        path': type: regex:
+        type != "directory" || builtins.match regex path' == null;
     in
     {
       shajra-sources = prev.shajra-sources or { } // {
@@ -69,11 +69,11 @@ let
           path = ../..;
           name = "shajra-provisioning";
           filter =
-            path: type:
-            (rejectFile path type ".*[.](md|org)")
-            && (rejectDir path type "[.]git")
-            && (rejectDir path type "[.]github")
-            && (rejectFile path type "result.*");
+            path': type:
+            (rejectFile path' type ".*[.](md|org)")
+            && (rejectDir path' type "[.]git")
+            && (rejectDir path' type "[.]github")
+            && (rejectFile path' type "result.*");
         };
       };
     };

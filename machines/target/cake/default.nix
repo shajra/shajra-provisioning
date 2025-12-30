@@ -222,12 +222,12 @@ in
           sslCertificate = "/run/secrets/cloudflared/originCertificate";
           sslCertificateKey = "/run/secrets/cloudflared/originKey";
           locations."/share" = {
-            proxyPass = "http://127.0.0.1:${builtins.toString config.services.immich-public-proxy.port}";
+            proxyPass = "http://127.0.0.1:${toString config.services.immich-public-proxy.port}";
           };
           locations."/" =
             let
               host = config.services.immich.host;
-              port = builtins.toString config.services.immich.port;
+              port = toString config.services.immich.port;
             in
             {
               proxyPass = "http://${host}:${port}";
@@ -242,7 +242,7 @@ in
             ${proxyDefaults}
           '';
           locations."/" = {
-            proxyPass = "http://127.0.0.1:${builtins.toString config.services.mealie.port}";
+            proxyPass = "http://127.0.0.1:${toString config.services.mealie.port}";
           };
         };
         "${domain.vaultwarden}" = {
@@ -254,7 +254,7 @@ in
             ${proxyDefaults}
           '';
           locations."/" = {
-            proxyPass = "http://127.0.0.1:${builtins.toString config.services.vaultwarden.config.ROCKET_PORT}";
+            proxyPass = "http://127.0.0.1:${toString config.services.vaultwarden.config.ROCKET_PORT}";
           };
         };
       };

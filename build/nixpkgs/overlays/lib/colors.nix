@@ -236,9 +236,9 @@ let
         blue
         alpha
       ];
-      dec = builtins.map builtins.toString raw;
+      dec = map toString raw;
       hexPad = x: if x < 10 then "0" else "";
-      hex = builtins.map (x: hexPad x + d2h x) raw;
+      hex = map (x: hexPad x + d2h x) raw;
     in
     lib.replaceStrings [
       "%r"
@@ -292,7 +292,7 @@ let
         let
           value = palette."${name}";
         in
-        if builtins.isNull acc then
+        if isNull acc then
           (
             if colorEqual value c then
               name

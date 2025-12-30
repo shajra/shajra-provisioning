@@ -29,7 +29,7 @@ rec {
 
   nixpkgs.prebuilt.audio.tui =
     let
-      all = pickAll "home" [
+      every = pickAll "home" [
         "mpc"
         "whipper"
       ];
@@ -39,7 +39,7 @@ rec {
         "pulsemixer"
       ];
     in
-    all // linux;
+    every // linux;
 
   nixpkgs.prebuilt.base.gui =
     let
@@ -67,7 +67,7 @@ rec {
 
   nixpkgs.build.base.gui =
     let
-      all = pickAll "home" [
+      every = pickAll "home" [
         "notify-time"
       ];
       # DESIGN: these are all Mac-only applications; unstable is fine
@@ -85,11 +85,11 @@ rec {
         "i3-workspace-name"
       ];
     in
-    all // darwin // linux // nixpkgs.build.fonts;
+    every // darwin // linux // nixpkgs.build.fonts;
 
   nixpkgs.prebuilt.base.tui =
     let
-      all = pickAll "home" [
+      every = pickAll "home" [
         "ansifilter"
         "bzip2"
         "cachix"
@@ -147,15 +147,15 @@ rec {
         "usbutils"
       ];
     in
-    all // darwin // linux;
+    every // darwin // linux;
 
   nixpkgs.build.base.tui =
     let
-      all.picked = pickAll "home" [
+      every.picked = pickAll "home" [
         "home-manager-latest"
         "preview-file"
       ];
-      all.aspell = np.nixpkgs.home.aspellWithDicts (
+      every.aspell = np.nixpkgs.home.aspellWithDicts (
         d: with d; [
           en
           en-computers
@@ -163,7 +163,7 @@ rec {
         ]
       );
     in
-    all.picked // { inherit (all) aspell; };
+    every.picked // { inherit (every) aspell; };
 
   nixpkgs.prebuilt.centralized = np.pick { linux = "home"; } [
     "ente-desktop"
@@ -172,21 +172,21 @@ rec {
 
   nixpkgs.prebuilt.chat.gui =
     let
-      all = pickAll "home" [
+      every = pickAll "home" [
         # REVISIT: 2025-10-12: element-desktop probably will cache soon
         "element-desktop"
       ];
       linux = np.pick { linux = "home"; } [
-        "irccloud" # REVISIT: 2025-12-22: Unsupported for Darwin
+        "irccloud" # REVISIT: 2025-12-30: Unsupported for Darwin
         "caprine"
         "signal-desktop-bin"
       ];
     in
-    all // linux;
+    every // linux;
 
   nixpkgs.build.chat.gui =
     let
-      all = pickAll "home" [
+      every = pickAll "home" [
         "discord"
         "zoom-us"
       ];
@@ -198,7 +198,7 @@ rec {
         "slack"
       ];
     in
-    all // darwin // linux;
+    every // darwin // linux;
 
   nixpkgs.prebuilt.chat.tui = pickAll "home" [
     "slack-term"
@@ -206,7 +206,7 @@ rec {
 
   nixpkgs.prebuilt.documentation =
     let
-      all = pickAll "home" [
+      every = pickAll "home" [
         "graphviz"
         "imagemagick"
         "nodePackages.textlint"
@@ -224,7 +224,7 @@ rec {
         "peek"
       ];
     in
-    all // linux;
+    every // linux;
 
   nixpkgs.build.finance = pickAll "home" [
     "moneydance"
@@ -252,7 +252,7 @@ rec {
 
   nixpkgs.prebuilt.programming.c =
     let
-      all = pickAll "home" [
+      every = pickAll "home" [
         "clang-tools" # for clang-format
         "cmake"
       ];
@@ -260,7 +260,7 @@ rec {
         "gcc"
       ];
     in
-    all // linux;
+    every // linux;
 
   nixpkgs.prebuilt.programming.cloud = pickAll "home" [
     "dockfmt"
@@ -305,7 +305,7 @@ rec {
 
   nixpkgs.prebuilt.programming.go =
     let
-      all = pickAll "home" [
+      every = pickAll "home" [
         "delve"
         "go"
         "gocode-gomod"
@@ -320,7 +320,7 @@ rec {
         "gopls"
       ];
     in
-    all // linux;
+    every // linux;
 
   # REVISIT: 2025-12-22: Not cached
   nixpkgs.build.programming.go =
@@ -345,7 +345,7 @@ rec {
     "haskell.packages.${ghc}.haskdogs"
     "haskell.packages.${ghc}.haskell-language-server"
     "haskell.packages.${ghc}.hasktags"
-    # REVISIT: 2025-12-22: HLint incompatible with 9.10; wait for 9.12
+    # REVISIT: 2025-12-30: HLint incompatible with 9.10; wait for 9.12
     #"haskell.packages.${ghc}.hlint"
     "haskell.packages.${ghc}.hoogle"
     "haskell.packages.${ghc}.hp2pretty"
@@ -404,7 +404,7 @@ rec {
     "python3Packages.setuptools"
   ];
 
-  # REVISIT: 2025-12-22: Unsupported for Darwin
+  # REVISIT: 2025-12-30: Unsupported for Darwin
   nixpkgs.prebuilt.programming.racket = np.pick { linux = "home"; } [
     "racket"
   ];

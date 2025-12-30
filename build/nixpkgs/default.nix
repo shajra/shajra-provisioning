@@ -66,27 +66,23 @@ in
     paths:
     let
       pkgs =
-        if (isDarwin && !builtins.isNull darwin) then
+        if (isDarwin && !isNull darwin) then
           pickPkgs darwin
-        else if (!isDarwin && !builtins.isNull linux) then
+        else if (!isDarwin && !isNull linux) then
           pickPkgs linux
         else
           { };
       pick' =
         p:
         let
-          path = lib.splitString "." p;
-          attrName = lib.concatStrings (lib.intersperse "-" path);
-          pkg = lib.getAttrFromPath path pkgs;
+          path' = lib.splitString "." p;
+          attrName = lib.concatStrings (lib.intersperse "-" path');
+          pkg = lib.getAttrFromPath path' pkgs;
         in
         {
           "${attrName}" = pkg;
         };
-      paths' =
-        if (isDarwin && !builtins.isNull darwin) || (!isDarwin && !builtins.isNull linux) then
-          paths
-        else
-          [ ];
+      paths' = if (isDarwin && !isNull darwin) || (!isDarwin && !isNull linux) then paths else [ ];
     in
     lib.fold (a: b: a // b) { } (map pick' paths');
 

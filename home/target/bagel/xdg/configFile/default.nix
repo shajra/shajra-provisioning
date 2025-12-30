@@ -7,9 +7,9 @@ let
     raycast-shajra/tmux-lab-srv38.applescript
   ];
 
-  toConfig = path: {
-    "raycast-shajra/${baseNameOf path}" = {
-      source = path;
+  toConfig = path': {
+    "raycast-shajra/${baseNameOf path'}" = {
+      source = path';
       executable = true;
     };
   };

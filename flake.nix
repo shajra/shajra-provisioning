@@ -88,7 +88,7 @@
       flake = false;
     };
     sketchybar-font-dist = {
-      url = "https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.49/sketchybar-app-font.ttf";
+      url = "https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.51/sketchybar-app-font.ttf";
       flake = false;
     };
     sketchybar-font-src = {
@@ -336,7 +336,7 @@
 
             nixosConfigurations.cake = configLib.nixosConfiguration {
               system = "x86_64-linux";
-              path = machines/target/cake;
+              path' = machines/target/cake;
               privateModules = [
                 inputs.shajra-private.nixosModules.cake
                 machines/target/cake/private.nix
@@ -344,24 +344,24 @@
             };
             darwinConfigurations.bagel = configLib.darwinConfiguration {
               system = "aarch64-darwin";
-              path = machines/target/bagel;
+              path' = machines/target/bagel;
             };
             darwinConfigurations.lemon = configLib.darwinConfiguration {
               system = "aarch64-darwin";
-              path = machines/target/lemon;
+              path' = machines/target/lemon;
             };
             homeConfigurations.bagel = configLib.homeConfiguration {
               system = "aarch64-darwin";
-              path = home/target/bagel;
+              path' = home/target/bagel;
             };
             homeConfigurations.cake = configLib.homeConfiguration {
               system = "x86_64-linux";
-              path = home/target/cake;
+              path' = home/target/cake;
               privateModules = [ inputs.shajra-private.homeModules.cake ];
             };
             homeConfigurations.lemon = configLib.homeConfiguration {
               system = "aarch64-darwin";
-              path = home/target/lemon;
+              path' = home/target/lemon;
               privateModules = [ inputs.shajra-private.homeModules.lemon ];
             };
 
@@ -373,27 +373,27 @@
 
             nixosConfigurations.cake-slim = configLib.nixosConfiguration {
               system = "x86_64-linux";
-              path = machines/target/cake;
+              path' = machines/target/cake;
             };
             darwinConfigurations.bagel-slim = configLib.darwinConfiguration {
               system = "aarch64-darwin";
-              path = machines/target/bagel;
+              path' = machines/target/bagel;
             };
             darwinConfigurations.lemon-slim = configLib.darwinConfiguration {
               system = "aarch64-darwin";
-              path = machines/target/lemon;
+              path' = machines/target/lemon;
             };
             homeConfigurations.bagel-slim = configLib.homeConfiguration {
               system = "aarch64-darwin";
-              path = home/target/bagel/slim.nix;
+              path' = home/target/bagel/slim.nix;
             };
             homeConfigurations.cake-slim = configLib.homeConfiguration {
               system = "x86_64-linux";
-              path = home/target/cake/slim.nix;
+              path' = home/target/cake/slim.nix;
             };
             homeConfigurations.lemon-slim = configLib.homeConfiguration {
               system = "aarch64-darwin";
-              path = home/target/lemon/slim.nix;
+              path' = home/target/lemon/slim.nix;
             };
           };
       }

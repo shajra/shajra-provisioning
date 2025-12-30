@@ -32,10 +32,10 @@ let
   deepMerge = builtins.foldl' (acc: a: lib.recursiveUpdate acc a) { };
 
   joinForCi =
-    name: filter: set:
+    name: filter': set:
     let
       found = deepMerge (lib.collect isDrvSet set);
-      filtered = lib.filterAttrs (_n: filter) found;
+      filtered = lib.filterAttrs (_n: filter') found;
     in
     prev.linkFarm "shajra-provision-ci-${name}" filtered;
 

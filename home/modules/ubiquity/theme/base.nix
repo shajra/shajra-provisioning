@@ -71,18 +71,18 @@ let
       type = lib.types.functionTo color.type;
     };
 
-  placeholder.options = {
+  placeholder'.options = {
     background = color.mkOpt "Background color for placeholder title bar.";
     text = color.mkOpt "Text color for placeholder title bar.";
     border = color.mkOpt "Border color for placeholder window (ignored by I3).";
     indicator = color.mkOpt "Color for placeholder windowing indicator (ignored by I3).";
   };
 
-  placeholder.type = lib.types.submodule (optsOf placeholder);
+  placeholder'.type = lib.types.submodule (optsOf placeholder');
 
-  placeholder.mkOpt = lib.mkOption {
+  placeholder'.mkOpt = lib.mkOption {
     description = "When restoring a layout, colors for window not yet populated.";
-    inherit (placeholder) type;
+    inherit (placeholder') type;
   };
 
   window.options = {
@@ -179,7 +179,7 @@ let
         selected.unfocused = window.mkOpt "Colors for a selected window or workspace that is not the current focus.";
         unselected = window.mkOpt "Colors for a unselected window or workspace.";
         urgent = window.mkOpt "Colors for a window or workspace marked urgent.";
-        placeholder = placeholder.mkOpt;
+        placeholder' = placeholder'.mkOpt;
         bindingMode = bindingMode.mkOpt;
         border.tabs = color.mkOpt "Color for 1-pixel border of tabs";
       };
@@ -280,10 +280,10 @@ let
           border.window = urgent.background;
           indicator = darkened urgent.border.window;
         };
-        placeholder = {
+        placeholder' = {
           background = base3; # 97
           text = base01; # 45
-          border = placeholder.background; # ignored
+          border = placeholder'.background; # ignored
           indicator = base2; # 92, ignored
         };
         bindingMode = {

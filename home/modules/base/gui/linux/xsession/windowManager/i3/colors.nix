@@ -31,9 +31,9 @@ colors:
   };
   placeholder = {
     border = colors.window.border.tabs;
-    inherit (colors.window.placeholder) background;
-    inherit (colors.window.placeholder) text;
-    inherit (colors.window.placeholder) indicator;
-    childBorder = colors.window.placeholder.border;
+    inherit (colors.window.placeholder') background;
+    inherit (colors.window.placeholder') text;
+    inherit (colors.window.placeholder') indicator;
+    childBorder = colors.window.placeholder'.border;
   };
 }

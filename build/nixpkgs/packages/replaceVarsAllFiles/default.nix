@@ -2,14 +2,14 @@
   callPackage,
   symlinkJoin,
   runCommand,
-  path,
+  pkgs,
 }:
 { src, files }:
 substitutions:
 
 let
   replaceVarsWithQuiet = callPackage (runCommand "replace-vars-with-quiet" { } ''
-    cp "${path}/pkgs/build-support/replace-vars/replace-vars-with.nix" "$out"
+    cp "${pkgs.path}/pkgs/build-support/replace-vars/replace-vars-with.nix" "$out"
     substituteInPlace "$out" --replace "--replace-fail" "--replace-quiet"
   '') { };
   replaceVarsQuiet = src: replacements: (replaceVarsWithQuiet { inherit src replacements; });
