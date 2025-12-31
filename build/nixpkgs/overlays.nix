@@ -14,10 +14,6 @@ let
   external.nur = inputs.nur.overlays.default;
   external.vscode = inputs.vscode-overlay.overlays.default;
 
-  external.nc4nix = _final: prev: {
-    nc4nix = prev.callPackage "${inputs.nc4nix}/default.nix" { };
-  };
-
   external.sources = _final: prev: {
     shajra-sources = prev.shajra-sources or { } // {
       inherit (inputs)
@@ -93,7 +89,6 @@ in
   external.emacs
   external.nur
   external.vscode
-  external.nc4nix
   external.sources
   external.modules
   external.packages

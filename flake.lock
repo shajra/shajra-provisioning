@@ -900,22 +900,6 @@
         "url": "https://infinitekind.com/stabledl/current/moneydance-linux.tar.gz"
       }
     },
-    "nc4nix": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1767103423,
-        "narHash": "sha256-2N/EeNptinWngR9rdS5vwNSIuvNdh67zljwkxEfYQnk=",
-        "owner": "helsinki-systems",
-        "repo": "nc4nix",
-        "rev": "d66629e3510f532dda93171ec4d83f4039e416f4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "helsinki-systems",
-        "repo": "nc4nix",
-        "type": "github"
-      }
-    },
     "nix-darwin": {
       "inputs": {
         "nixpkgs": "nixpkgs_6"
@@ -1576,7 +1560,6 @@
         "lieer": "lieer",
         "luaposix": "luaposix",
         "moneydance": "moneydance",
-        "nc4nix": "nc4nix",
         "nix-darwin": "nix-darwin",
         "nix-project": "nix-project_2",
         "nur": "nur",
