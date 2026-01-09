@@ -7,11 +7,11 @@ in
   imports = [
     ../../../ubiquity
     ../all
-    # REVISIT: DEBUG: removing to understand infinite recursion
+    # REVISIT: Remove Lorelei one day
     #module-lorelei
   ];
 
-  # REVISIT: DEBUG: removing to understand infinite recursion
+  # REVISIT: Remove Lorelei one day
   #programs.direnv-nix-lorelei.enable = true;
 
   programs.rbw.settings.pinentry = pkgs.pinentry-selected-linux;

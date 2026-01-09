@@ -14,8 +14,6 @@ let
 
   vscodeSettings = "${vscodeSettingsBase}/Code/User/settings.json";
 
-  # REVISIT: 2024-11-07: Darwin build broken on unstable
-
 in
 {
   imports = [
@@ -60,9 +58,7 @@ in
   programs.kitty = import programs/kitty config pkgs;
   programs.neovide = import programs/neovide config;
   programs.noti.enable = true;
-  # REVISIT: 2024-12-10: even stable package broken for Darwin
-  programs.sioyek.enable = !isDarwin;
-  #programs.sioyek.package = sioyekPkg;
+  programs.sioyek.enable = true;
   programs.urxvt = import programs/urxvt config pkgs;
   programs.vscode = import programs/vscode config pkgs;
   programs.zathura.enable = true;

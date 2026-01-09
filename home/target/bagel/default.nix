@@ -21,7 +21,7 @@ in
     ../../modules/programming/python
     ../../modules/programming/shell
 
-    #../../modules/sync  # REVISIT: Ocaml not built/cached
+    ../../modules/sync
     ../../modules/video/all
     ../../modules/work
   ];

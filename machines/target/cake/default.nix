@@ -9,9 +9,10 @@ let
 
   inherit (build) infra;
 
-  # REVISIT: Noticed printer unreachable from some upgrade
-  #hplip = pkgs.hplipWithPlugin;
-  hplip = infra.np.nixpkgs.unstable.hplipWithPlugin;
+  hplip = pkgs.hplipWithPlugin;
+  # REVISIT: 2026-01-09: Leaving around in case the stable plugin breaks
+  # Delete if printing seems to work fine.
+  #hplip = infra.np.nixpkgs.unstable.hplipWithPlugin;
 
   domain = import ./domain.nix;
   hostname = "cake";

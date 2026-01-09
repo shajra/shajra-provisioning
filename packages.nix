@@ -281,14 +281,14 @@ rec {
     "postgresql"
     "schemaspy"
     "sqitchPg"
-    "sqlint"
+    #"sqlint" # REVISIT: 2026-01-09: package broken
     "sqlite"
   ];
 
   nixpkgs.prebuilt.programming.general = pickAll "home" [
     #"aider-chat-full" # DESIGN: Using Cursor or Codex for now
     "codex"
-    "global"
+    #"global" # REVISIT: 2026-01-09: package broken
     "gnumake"
     "nil"
     "nixd"
@@ -303,33 +303,18 @@ rec {
     "code-cursor"
   ];
 
-  nixpkgs.prebuilt.programming.go =
-    let
-      every = pickAll "home" [
-        "delve"
-        "go"
-        "gocode-gomod"
-        "golangci-lint"
-        "gomodifytags"
-        "gopkgs"
-        "gore"
-        "goreleaser"
-        "gotools"
-      ];
-      linux = np.pick { linux = "home"; } [
-        "gopls"
-      ];
-    in
-    every // linux;
-
-  # REVISIT: 2025-12-22: Not cached
-  nixpkgs.build.programming.go =
-    let
-      darwin = np.pick { darwin = "home"; } [
-        "gopls"
-      ];
-    in
-    darwin;
+  nixpkgs.prebuilt.programming.go = pickAll "home" [
+    "delve"
+    "go"
+    "gocode-gomod"
+    "golangci-lint"
+    "gomodifytags"
+    "gopkgs"
+    "gopls"
+    "gore"
+    "goreleaser"
+    "gotools"
+  ];
 
   nixpkgs.prebuilt.programming.haskell = pickAll "home" [
     "cabal2nix"
@@ -345,7 +330,7 @@ rec {
     "haskell.packages.${ghc}.haskdogs"
     "haskell.packages.${ghc}.haskell-language-server"
     "haskell.packages.${ghc}.hasktags"
-    # REVISIT: 2025-12-30: HLint incompatible with 9.10; wait for 9.12
+    # REVISIT: 2026-01-09: HLint incompatible with 9.10; wait for 9.12
     #"haskell.packages.${ghc}.hlint"
     "haskell.packages.${ghc}.hoogle"
     "haskell.packages.${ghc}.hp2pretty"
@@ -404,7 +389,7 @@ rec {
     "python3Packages.setuptools"
   ];
 
-  # REVISIT: 2025-12-30: Unsupported for Darwin
+  # REVISIT: 2026-01-09: Unsupported for Darwin
   nixpkgs.prebuilt.programming.racket = np.pick { linux = "home"; } [
     "racket"
   ];

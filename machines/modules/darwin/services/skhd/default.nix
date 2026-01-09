@@ -31,10 +31,11 @@ in
     :: passthru   : sketchybar --bar border_color=${colors.semantic.warning}
     :: size     @ : borders active_color=${colors.semantic.info}
 
-    # REVISIT: Return all references to cmd back to lcmd This has been done only for
-    # `cmd ... - escape`, because the Kaleidoscope firmware for my keyboards has a
-    # defect that breaks my preferred keymapping.  Rather than change the
-    # keymapping, I'm relaxing the keybinding here to cover more on the Mac side.
+    # REVISIT: 2026-01-09: Return all references to cmd back to lcmd
+    # This has been done only for `cmd ... - escape`, because the Kaleidoscope
+    # firmware for my keyboards has a defect that breaks my preferred
+    # keymapping.  Rather than change the keymapping, I'm relaxing the
+    # keybinding here to cover more on the Mac side.
     # See https://github.com/keyboardio/Kaleidoscope/issues/1395
 
     # mode: returning home
@@ -165,8 +166,7 @@ in
     #lcmd + shift + alt - 0x2F : "''${space-move}" next
 
     # open terminal
-    # REVISIT: 2025-09-20: Would prefer Kitty over Alacritty (pictures in terminal)
-    # https://github.com/FelixKratz/JankyBorders/issues/172
+    # DESIGN:  Prefer Kitty over Alacritty (pictures in terminal)
     lcmd - return : "${kitty}" --single-instance --wait-for-single-instance-window-close --directory ~
     #lcmd - return : "${alacritty}" msg create-window || open -a Alacritty
 

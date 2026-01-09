@@ -12,8 +12,8 @@ let
   pkgsConfig = config.provision.pkgs;
   isDevBuild = config.build.dev;
 
-  # REVISIT: Splitting large link farms for known issue with Darwin sandboxes.
-  # https://github.com/NixOS/nix/issues/4119
+  # REVISIT: 2026-01-09: Splitting large link farms for known issue with Darwin
+  # sandboxes.  https://github.com/NixOS/nix/issues/4119
   base32Chars = "0123456789abcdfghijklmnpqrsvwxyz";
   isInSection =
     section: drv:
