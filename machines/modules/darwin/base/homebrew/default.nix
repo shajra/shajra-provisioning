@@ -40,27 +40,15 @@
     # Browsers
     "firefox@beta"
     #"duckduckgo"
-    "google-chrome@beta"
-    "tor-browser"
+    #"google-chrome@beta"
+    #"microsoft-edge@beta"
 
     "cleanmymac"
-    "microsoft-teams"
     # REVISIT: Aerospace doesn't build from source on Nix just yet.
     # What Nixpkgs does is just repackage a published binary release.
     # See https://github.com/NixOS/nixpkgs/issues/101229.
     "nikitabobko/tap/aerospace"
-    "slack"
     "tidal"
-
-    # DESIGN: sometimes useful, not needed for now
-    #"docker"
-    #"libreoffice"
-    #"microsoft-edge@beta"
-    #"notion-enhanced"
-    #"notion"
-    #"openvpn-connect"
-    #"virtualbox-extension-pack"
-    #"virtualbox"
   ];
 
   # DESIGN: homebrew.masApps seems a bit too hacky

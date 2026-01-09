@@ -59,9 +59,9 @@
       };
     };
     user = {
-      bagel = rec {
+      shajra-93PF7L4 = rec {
         homeDirectory = "/Users/${username}";
-        username = "shajra";
+        username = "sukant.hajra";
       };
       cake = rec {
         homeDirectory = "/home/${username}";

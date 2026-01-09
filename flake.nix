@@ -338,17 +338,17 @@
                 machines/target/cake/private.nix
               ];
             };
-            darwinConfigurations.bagel = configLib.darwinConfiguration {
+            darwinConfigurations.shajra-93PF7L4 = configLib.darwinConfiguration {
               system = "aarch64-darwin";
-              path' = machines/target/bagel;
+              path' = machines/target/shajra-93PF7L4;
             };
             darwinConfigurations.lemon = configLib.darwinConfiguration {
               system = "aarch64-darwin";
               path' = machines/target/lemon;
             };
-            homeConfigurations.bagel = configLib.homeConfiguration {
+            homeConfigurations.shajra-93PF7L4 = configLib.homeConfiguration {
               system = "aarch64-darwin";
-              path' = home/target/bagel;
+              path' = home/target/shajra-93PF7L4;
             };
             homeConfigurations.cake = configLib.homeConfiguration {
               system = "x86_64-linux";
@@ -371,17 +371,17 @@
               system = "x86_64-linux";
               path' = machines/target/cake;
             };
-            darwinConfigurations.bagel-slim = configLib.darwinConfiguration {
+            darwinConfigurations.shajra-93PF7L4-slim = configLib.darwinConfiguration {
               system = "aarch64-darwin";
-              path' = machines/target/bagel;
+              path' = machines/target/shajra-93PF7L4;
             };
             darwinConfigurations.lemon-slim = configLib.darwinConfiguration {
               system = "aarch64-darwin";
               path' = machines/target/lemon;
             };
-            homeConfigurations.bagel-slim = configLib.homeConfiguration {
+            homeConfigurations.shajra-93PF7L4-slim = configLib.homeConfiguration {
               system = "aarch64-darwin";
-              path' = home/target/bagel/slim.nix;
+              path' = home/target/shajra-93PF7L4/slim.nix;
             };
             homeConfigurations.cake-slim = configLib.homeConfiguration {
               system = "x86_64-linux";

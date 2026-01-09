@@ -2,28 +2,35 @@
 
 let
   userConfig = build.config.provision.user;
-  hostname = "bagel";
+  hostname = "shajra-93PF7L4";
 in
 
 {
   imports = [
     ../../modules/base/gui/darwin
+    ../../modules/work
 
     ../../modules/audio/gui
-    ../../modules/chat/gui
+    #../../modules/chat/gui  # DESIGN: Disallowed by firewall
     ../../modules/documentation/all
     ../../modules/laptop/darwin
 
     ../../modules/programming/c
+    ../../modules/programming/cloud
     ../../modules/programming/db
     ../../modules/programming/general
+    ../../modules/programming/go
+    ../../modules/programming/haskell
+    ../../modules/programming/java
     ../../modules/programming/lua
     ../../modules/programming/python
+    ../../modules/programming/rust
+    ../../modules/programming/scala
     ../../modules/programming/shell
+    ../../modules/programming/web
 
     ../../modules/sync
     ../../modules/video/all
-    ../../modules/work
   ];
 
   home.file = import home/file userConfig hostname;

@@ -6,7 +6,7 @@ in
 {
   imports = [
     ../../modules/ubiquity
-    ../../modules/darwin
+    ../../modules/darwin/personal
   ];
   networking.hostName = hostname;
 }
