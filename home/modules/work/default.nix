@@ -1,8 +1,5 @@
-{ lib, pkgs, ... }:
+{ config, pkgs, ... }:
 
-let
-  workEmail = lib.mkForce "sukant.hajra@sailpoint.com";
-in
 {
   programs.fish.functions.shajra-repo-fix = {
     description = "Fix configurations of non-work repositories";
@@ -10,11 +7,11 @@ in
       "${pkgs.fd}/bin/fd" '^[.]jj$' ~/src/shajra \
           --type directory --no-ignore-vcs --hidden \
           --exec "${pkgs.jujutsu}/bin/jj" --repository {//} \
-              config set --repo user.email dev.sukant@hajra.xyz
+              config set --repo user.email ${config.shajra.email.dev}
       "${pkgs.fd}/bin/fd" '^[.]git$' ~/src/shajra \
           --type directory --no-ignore-vcs --hidden \
           --exec "${pkgs.git}/bin/git" -C {//} \
-              config user.email dev.sukant@hajra.xyz
+              config user.email ${config.shajra.email.dev}
     '';
   };
   programs.fish.functions.sailpoint-rebase-mine = {
@@ -26,9 +23,7 @@ in
       )
     '';
   };
-  programs.git.settings.user.email = workEmail;
   programs.jujutsu.settings = {
-    user.email = workEmail;
     revset-aliases = {
       # DESIGN: https://jj-vcs.github.io/jj/latest/config/#set-of-immutable-commits
       #"immutable_heads()" =

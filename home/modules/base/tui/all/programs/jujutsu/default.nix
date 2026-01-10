@@ -1,9 +1,11 @@
+config:
+
 {
   enable = true;
   settings = {
     user = {
       name = "Sukant Hajra";
-      email = "dev.sukant@hajra.xyz";
+      email = config.programs.git.settings.user.email;
     };
     ui.default-command = "l";
     revset-aliases = {

@@ -60,7 +60,7 @@ in
     programs.home-manager.enable = false;
     programs.htop.enable = true;
     programs.jq = import programs/jq;
-    programs.jujutsu = import programs/jujutsu;
+    programs.jujutsu = import programs/jujutsu config;
     programs.lesspipe.enable = true;
     programs.man.generateCaches = true;
     programs.neovim = import programs/neovim config pkgs;

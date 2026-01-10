@@ -349,6 +349,7 @@
             homeConfigurations.shajra-93PF7L4 = configLib.homeConfiguration {
               system = "aarch64-darwin";
               path' = home/target/shajra-93PF7L4;
+              privateModules = [ inputs.shajra-private.homeModules.shajra-93PF7L4 ];
             };
             homeConfigurations.cake = configLib.homeConfiguration {
               system = "x86_64-linux";

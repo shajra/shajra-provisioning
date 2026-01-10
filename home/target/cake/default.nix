@@ -12,9 +12,9 @@ in
 {
   imports = [
     ../../modules/base/gui/linux
+    ../../modules/centralized
 
     ../../modules/audio/gui
-    ../../modules/centralized
     ../../modules/chat/gui
     ../../modules/documentation/linux
     ../../modules/finance
@@ -46,26 +46,4 @@ in
   programs.fish = import programs/fish pkgs;
   programs.i3status-rust = import programs/i3status-rust config pkgs;
   programs.kitty.extraConfig = "font_size 11";
-  programs.password-store.enable = true;
-
-  accounts.email.accounts.gmail = {
-    flavor = "gmail.com";
-    lieer.enable = true;
-    lieer.settings.account = "me";
-    lieer.settings.ignore_tags = [ "new" ];
-    lieer.sync.enable = true;
-    notmuch.enable = true;
-    primary = true;
-    realName = "Do Not Reply";
-  };
-  accounts.email.maildirBasePath = "${userConfig.cake.homeDirectory}/var/mail";
-
-  programs.lieer.enable = true;
-  programs.notmuch.enable = true;
-  programs.notmuch.extraConfig.index."header.List" = "List-Id";
-  programs.notmuch.extraConfig.index."header.SneakAddr" = "X-Sneakemail-Address";
-  programs.notmuch.extraConfig.index."header.SneakFrom" = "X-Sneakemail-From";
-  programs.notmuch.new.tags = [ "new" ];
-
-  #services.lieer.enable = true;
 }

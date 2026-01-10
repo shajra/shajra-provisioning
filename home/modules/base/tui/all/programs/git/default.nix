@@ -65,7 +65,6 @@
     rerere.enabled = true;
     status.submodulesummary = true;
     user.name = "Sukant Hajra";
-    user.email = "dev.sukant@hajra.xyz";
   };
 
   ignores = [
