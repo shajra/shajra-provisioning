@@ -26,7 +26,7 @@ in
       )
     '';
   };
-  programs.git.userEmail = workEmail;
+  programs.git.settings.user.email = workEmail;
   programs.jujutsu.settings = {
     user.email = workEmail;
     revset-aliases = {
