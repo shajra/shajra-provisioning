@@ -1,6 +1,7 @@
 {
   coreutils,
   hostname,
+  git,
   gnutar,
   gzip,
   nix-project-lib,
@@ -27,9 +28,10 @@ nix-project-lib.writeShellCheckedExe progName
     ];
     pathPackages = [
       coreutils
-      hostname
+      git
       gnutar
       gzip
+      hostname
     ];
   }
   ''

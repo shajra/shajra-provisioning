@@ -4,5 +4,6 @@
     "tor-browser"
     "microsoft-teams"
     "slack"
+    "tidal"
   ];
 }

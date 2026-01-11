@@ -12,7 +12,6 @@
     ../all
   ];
 
-  disabledModules = [ "targets/darwin/linkapps.nix" ];
   home.activation = import home/activation config lib pkgs;
 
   # REVISIT: 2026-01-09: Nix-darwin broke

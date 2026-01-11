@@ -176,21 +176,29 @@
             devshells.default =
               let
                 inherit (nixpkgs.stable.hostPlatform) isDarwin;
+                git = "${pkgs-system.git}/bin/git";
                 osCmd = if isDarwin then ''shajra-darwin-rebuild'' else ''shajra-nixos-rebuild'';
+                # DESIGN: Sudo sometimes won't change HOME to the root home
+                rootGitConfig = (if isDarwin then "/var" else "") + "/root/.gitconfig";
                 osBootstrap =
-                  if isDarwin then ''sudo -H git config set --global safe.directory "$PRJ_ROOT"'' else ''true'';
+                  if isDarwin then
+                    ''sudo ${git} config set --file "${rootGitConfig}" safe.directory "$PRJ_ROOT"''
+                  else
+                    ''true'';
                 osInstall =
                   nixosCmd: if isDarwin then ''sudo -H ${osCmd} switch'' else ''${osCmd} ${nixosCmd} --sudo'';
                 privateOpts =
                   "--refresh --override-input shajra-private"
-                  + " git+ssh://tnks@cake/home/tnks/src/shajra/shajra-private?ref=main";
+                  + " git+ssh://cake/home/tnks/src/shajra/shajra-private?ref=main";
                 flakeOpt = ''--flake "$PRJ_ROOT#$(hostname)" --show-trace'';
               in
               {
                 commands = [
                   {
+                    # REVISIT: 2026-01-09: Bootstrap is incomplete
+                    # For secrets, /var/root/.ssh/config should define access to cake.
                     name = "project-bootstrap";
-                    help = "minimal root config to run installers";
+                    help = "partial root config to run installers (missing SSH config)";
                     command = ''${osBootstrap}'';
                   }
                   {

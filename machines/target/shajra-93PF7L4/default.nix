@@ -8,5 +8,7 @@ in
     ../../modules/ubiquity
     ../../modules/darwin/work
   ];
+  ids.gids.nixbld = 352;
+  ids.uids.nixbld = 352;
   networking.hostName = hostname;
 }
