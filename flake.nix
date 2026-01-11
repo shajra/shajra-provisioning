@@ -184,7 +184,7 @@
                 privateOpts =
                   "--refresh --override-input shajra-private"
                   + " git+ssh://tnks@cake/home/tnks/src/shajra/shajra-private?ref=main";
-                flakeOpt = ''--flake "$PRJ_ROOT#$(hostname)"'';
+                flakeOpt = ''--flake "$PRJ_ROOT#$(hostname)" --show-trace'';
               in
               {
                 commands = [
