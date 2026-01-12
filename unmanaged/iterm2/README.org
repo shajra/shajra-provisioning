@@ -1,4 +1,4 @@
-#+title: Unmanaged MacOS iTerm2 Configuration
+#+title: Unmanaged macOS iTerm2 Configuration
 
 There's some configuration in iTerm that support export/import options. Most
 import for are iTerm2 profiles:

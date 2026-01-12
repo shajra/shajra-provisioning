@@ -10,7 +10,7 @@
 
 let
   progName = "shajra-darwin-rebuild";
-  meta.description = "Controlled MacOS rebuild";
+  meta.description = "Controlled macOS rebuild";
 in
 
 nix-project-lib.writeShellCheckedExe progName

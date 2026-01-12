@@ -33,12 +33,12 @@ eventually.
 
 The main idea of this project is to come into a vanilla OS installation and with
 only a few steps get a fully provisioned system including
-- all system-level and user-level packages and services
+- all system-level and user-level packages installation and running services
 - all system-level and user-level “dot-file” configurations.
 
 This project can be at least partially useful on any operating system that Nix
 can be installed on. For example, one of my machines runs NixOS, a full Linux
-operating system built upon Nix. Another runs MacOS and has the Nix package
+operating system built upon Nix. Another runs macOS and has the Nix package
 manager installed within it.
 
 Using Nix and the supporting Nix ecosystem gives us
@@ -63,9 +63,9 @@ configuration]] in a separate document.
 
 This project delegates heavily to the following tools:
 - [[nixos-manual-rebuild][NixOS's =nixos-rebuild=]], for NixOS system-level provisioning
-- [[nix-darwin][Nix-Darwin]], for MacOS system-level provisioning with Nix
+- [[nix-darwin][Nix-Darwin]], for macOS system-level provisioning with Nix
 - [[homemanager][The Home Manager project for Nix]], to provision a home directory in either
-  NixOS or MacOS.
+  NixOS or macOS.
 
 Each project gives us a community-curated catalog of configuration modules that
 dramatically simplify the code we need. Our configurations can end up
@@ -79,10 +79,10 @@ extraordinarily concise and declarative. Here's an example:
 }
 #+end_src
 
-You can see this configuration concretely in the [[file:./home][./home]] and [[file:./machines][./machines]]
+You can find these configurations concretely in the [[file:./home][./home]] and [[file:./machines][./machines]]
 directories.
 
-These configuration modules also provide a battery of checking to make sure
+Upstream configuration modules also provide a battery of checking to make sure
 settings are valid and congruent.
 
 * Basic operation
@@ -98,16 +98,19 @@ You'd attempt to turn your computer into mine.
 On a NixOS machine:
 
 #+begin_src sh :eval no
-nix run github:shajra/shajra-provisioning#shajra-nixos-rebuild switch
+nix run github:shajra/shajra-provisioning#shajra-nixos-rebuild boot
 nix run github:shajra/shajra-provisioning#shajra-home-manager switch
 #+end_src
 
-On MacOS with Nix installed:
+On macOS with Nix installed:
 
 #+begin_src sh :eval no
 nix run github:shajra/shajra-provisioning#shajra-darwin-rebuild switch
 nix run github:shajra/shajra-provisioning#shajra-home-manager switch
 #+end_src
+
+In practice, my configuration requires [[file:unmanaged/README.org][a little more setup]] than just the
+installation of the Nix package manager.
 
 Managing the home directory with a separate command from the command for
 system-level configuration is a design decision to help with system stability.
@@ -115,39 +118,56 @@ We can experiment more with our user-level configuration without accidentally
 breaking the whole system. We don't even need to use the system-level
 provisioning if we don't want to, and we can use Home Manager alone.
 
-After we have Git on the system, we can also clone this repository to any target
-system for more convenient provisioning.
-
-On a NixOS machine:
-
-#+begin_src sh :eval no
-./nixos-rebuild switch
-./home-manager switch
-#+end_src
-
-On MacOS with Nix installed:
+Most of the time, I'm not bootstrapping a machine from scratch.  I'll clone the
+repository to a target system.  Then I can develop the code using =nix develop=
+which enters a shell, puts some helpful commands on the =PATH=, and prints a
+helpful message documenting these commands:
 
 #+begin_src sh :eval no
-./darwin-rebuild switch
-./home-manager switch
+nix develop
 #+end_src
 
-You can also call each script with a =build= command, which builds out the
-configuration in =/nix/store= without provisioning and activating it. Instead,
-it will generate a symlink named "result" in the project root directory pointing
-back to the build. You can look within it and see that it looks right before
-switching to it.
-
-Use =--help= with these scripts for more options.
-
-Furthermore, updating supporting software to the latest released versions is as
-simple as a single command:
-
-#+begin_src sh :eval no
-nix flake update
+#+name: nix-develop
+#+begin_src sh :results output :exports results
+nix develop --command menu | ansifilter
 #+end_src
 
-And because all of the code needed for provisioning is within this repository,
+#+RESULTS: nix-develop
+#+begin_example
+
+[[general commands]]
+
+  menu                           - prints this menu
+  project-activate-system        - activate (switch) system configuration for this host
+  project-bootstrap              - partial root config to run installers (missing SSH config)
+  project-build                  - build both system and home configuration for this host
+  project-build-home             - build both home configuration for this host
+  project-build-system           - build both system configuration for this host
+  project-check-caching          - check package caching assumptions
+  project-check-caching-build    - check caching of packages expected to build
+  project-check-caching-prebuilt - check caching of expected prebuilt packages
+  project-check-flake            - run all flake checks
+  project-format                 - format all files in one command
+  project-install-home           - install home configuration for this host
+  project-install-system         - install system configuration for this host (on NixOS, boot record only)
+
+[[release]]
+
+  project-check                  - 2) check flake and builds comprehensively
+  project-doc-gen                - 3) generate GitHub Markdown from Org files
+  project-install                - 4) install both system and home configuration for this host
+  project-update                 - 1) update project dependencies
+
+#+end_example
+
+Some of these "project-" commands detect the current platform and call the
+appropriate "shajra-" command (also on the =PATH=), which then calls the
+appropriate upstream command (=home-manager=, =nixos-rebuild=, or =darwin-rebuild=).
+Each "shajra-" command then detects the hostname to invoke the correct
+configuration. The goal of all these wrappers is to remove the need to call any
+of the "project-" commands with arguments.
+
+Note, because all of the code needed for provisioning is within this repository,
 rolling back to a previous version can be as simple as checking out an alternate
 commit in history, and provisioning from that.
 
@@ -174,8 +194,8 @@ some helpful code for Nix projects in general. Nix-project doesn't have a lot of
 code and primarily builds on top of another project called [[flake-parts][Flake-parts]].
 Flake-parts helps make working with flakes a little easier.
 
-Once you're comfortable with Nix and basic usage, the next two guides will help
-get up to speed with this project:
+Once you're comfortable with Nix and basic usage, these next guides (two from
+another project) can help you get up to speed with this project:
 
 - [[nix-project-dev-basics][Nix-project's flakes basic development guide]]
 - [[nix-project-dev-modules][Nix-project's flake modules development guide]]
@@ -198,50 +218,6 @@ projects out there. I looked at all of these, some more than others:
 - [[https://github.com/martinbaillie/dotfiles][martinbaillie/dotfiles]]
 - [[https://github.com/michaelpj/nixos-config][michaelpj/nixos-config]]
 - [[https://gitlab.com/rossabaker/nix-config][rossabaker/nix-config]]
-
-* Ideas for the future
-
-When provisioning with Nix we try to do everything we possibly can with files
-built out in =/nix/store= that we then symlink to.
-
-However, there are some limitations to this approach. Fundamental to Nix,
-=/nix/store= has two fundamental properties:
-- it's read-only
-- it's publicly visible.
-
-The fact that it's read-only provides some impedance when dealing with mutable
-configuration. Mutable configuration is generally something to avoid, but it's
-hard to avoid when provisioning machines completely.
-
-Home Manager has a system of activation scripts that are run after provisioning
-symlinks back to =/nix/store=.  These side-effecting scripts enable things like
-cycling services on/off for a new configuration.
-
-However, we can do more with activation scripts provided we work hard to make
-sure they are robust and idemopotent. We don't want to abuse this escape hatch,
-but here are some things that would be possible:
-
-- We can check out "live repositories" to a specified version. Sometimes, these
-  repositories are designed to maintain a mutable state during runtime. This is
-  the case with Spacemacs and Spacevim, for instance. These projects configure a
-  =.gitignore= file to ignore their respective mutable runtime state.
-
-- We can manage secrets without worrying about encrypting secrets that might be
-  visible from =/nix/store= or elsewhere. I should be able to transiently pull a
-  secret from a trusted value and prepare it appropriately on the target system.
-  This might involve weaving the secret with a template installed in
-  =/nix/store=. We just have to be careful that the secret stays out of
-  =/nix/store=, only persisting in its target destination.
-
-This last possibility is big for me. Even if modern encryption is highly
-unlikely to be cracked, keeping encrypted secrets in public spaces is strictly
-less secure than hiding them behind other barriers. Security is a complicated
-field, and we shouldn't compromise our expectations merely because our
-provisioning tools are missing a feature.
-
-I could call another script after the Nix-based provisioning scripts. But this
-adds more steps. Also, there are benefits to configuring these activation
-scripts as a declaratively used NixOS-style module.
 
 * Release
 

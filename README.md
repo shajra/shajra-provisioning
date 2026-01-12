@@ -3,10 +3,9 @@
 - [Basic operation](#sec-3)
 - [Understanding this project](#sec-4)
 - [Similar projects](#sec-5)
-- [Ideas for the future](#sec-6)
-- [Release](#sec-7)
-- [License](#sec-8)
-- [Contribution](#sec-9)
+- [Release](#sec-6)
+- [License](#sec-7)
+- [Contribution](#sec-8)
 
 [![img](https://github.com/shajra/shajra-provisioning/workflows/CI/badge.svg)](https://github.com/shajra/shajra-provisioning/actions)
 
@@ -20,10 +19,10 @@ This project uses [Nix](https://nixos.org/nix) to provision three machines of mi
 
 The main idea of this project is to come into a vanilla OS installation and with only a few steps get a fully provisioned system including
 
--   all system-level and user-level packages and services
+-   all system-level and user-level packages installation and running services
 -   all system-level and user-level “dot-file” configurations.
 
-This project can be at least partially useful on any operating system that Nix can be installed on. For example, one of my machines runs NixOS, a full Linux operating system built upon Nix. Another runs MacOS and has the Nix package manager installed within it.
+This project can be at least partially useful on any operating system that Nix can be installed on. For example, one of my machines runs NixOS, a full Linux operating system built upon Nix. Another runs macOS and has the Nix package manager installed within it.
 
 Using Nix and the supporting Nix ecosystem gives us
 
@@ -42,8 +41,8 @@ This repository is designed to be forked and modified. The likelihood that anyon
 This project delegates heavily to the following tools:
 
 -   [NixOS's `nixos-rebuild`](https://nixos.org/manual/nixos/stable/index.html#sec-changing-config), for NixOS system-level provisioning
--   [Nix-Darwin](https://daiderd.com/nix-darwin), for MacOS system-level provisioning with Nix
--   [The Home Manager project for Nix](https://github.com/nix-community/home-manager), to provision a home directory in either NixOS or MacOS.
+-   [Nix-Darwin](https://daiderd.com/nix-darwin), for macOS system-level provisioning with Nix
+-   [The Home Manager project for Nix](https://github.com/nix-community/home-manager), to provision a home directory in either NixOS or macOS.
 
 Each project gives us a community-curated catalog of configuration modules that dramatically simplify the code we need. Our configurations can end up extraordinarily concise and declarative. Here's an example:
 
@@ -55,9 +54,9 @@ Each project gives us a community-curated catalog of configuration modules that 
 }
 ```
 
-You can see this configuration concretely in the [./home](./home) and [./machines](./machines) directories.
+You can find these configurations concretely in the [./home](./home) and [./machines](./machines) directories.
 
-These configuration modules also provide a battery of checking to make sure settings are valid and congruent.
+Upstream configuration modules also provide a battery of checking to make sure settings are valid and congruent.
 
 # Basic operation<a id="sec-3"></a>
 
@@ -68,46 +67,54 @@ The only prerequisite should be the installation of the Nix package manager, aft
 On a NixOS machine:
 
 ```sh
-nix run github:shajra/shajra-provisioning#shajra-nixos-rebuild switch
+nix run github:shajra/shajra-provisioning#shajra-nixos-rebuild boot
 nix run github:shajra/shajra-provisioning#shajra-home-manager switch
 ```
 
-On MacOS with Nix installed:
+On macOS with Nix installed:
 
 ```sh
 nix run github:shajra/shajra-provisioning#shajra-darwin-rebuild switch
 nix run github:shajra/shajra-provisioning#shajra-home-manager switch
 ```
 
+In practice, my configuration requires [a little more setup](unmanaged/README.md) than just the installation of the Nix package manager.
+
 Managing the home directory with a separate command from the command for system-level configuration is a design decision to help with system stability. We can experiment more with our user-level configuration without accidentally breaking the whole system. We don't even need to use the system-level provisioning if we don't want to, and we can use Home Manager alone.
 
-After we have Git on the system, we can also clone this repository to any target system for more convenient provisioning.
-
-On a NixOS machine:
+Most of the time, I'm not bootstrapping a machine from scratch. I'll clone the repository to a target system. Then I can develop the code using `nix develop` which enters a shell, puts some helpful commands on the `PATH`, and prints a helpful message documenting these commands:
 
 ```sh
-./nixos-rebuild switch
-./home-manager switch
+nix develop
 ```
 
-On MacOS with Nix installed:
+    
+    [[general commands]]
+    
+      menu                           - prints this menu
+      project-activate-system        - activate (switch) system configuration for this host
+      project-bootstrap              - partial root config to run installers (missing SSH config)
+      project-build                  - build both system and home configuration for this host
+      project-build-home             - build both home configuration for this host
+      project-build-system           - build both system configuration for this host
+      project-check-caching          - check package caching assumptions
+      project-check-caching-build    - check caching of packages expected to build
+      project-check-caching-prebuilt - check caching of expected prebuilt packages
+      project-check-flake            - run all flake checks
+      project-format                 - format all files in one command
+      project-install-home           - install home configuration for this host
+      project-install-system         - install system configuration for this host (on NixOS, boot record only)
+    
+    [[release]]
+    
+      project-check                  - 2) check flake and builds comprehensively
+      project-doc-gen                - 3) generate GitHub Markdown from Org files
+      project-install                - 4) install both system and home configuration for this host
+      project-update                 - 1) update project dependencies
 
-```sh
-./darwin-rebuild switch
-./home-manager switch
-```
+Some of these "project-" commands detect the current platform and call the appropriate "shajra-" command (also on the `PATH`), which then calls the appropriate upstream command (`home-manager`, `nixos-rebuild`, or `darwin-rebuild`). Each "shajra-" command then detects the hostname to invoke the correct configuration. The goal of all these wrappers is to remove the need to call any of the "project-" commands with arguments.
 
-You can also call each script with a `build` command, which builds out the configuration in `/nix/store` without provisioning and activating it. Instead, it will generate a symlink named "result" in the project root directory pointing back to the build. You can look within it and see that it looks right before switching to it.
-
-Use `--help` with these scripts for more options.
-
-Furthermore, updating supporting software to the latest released versions is as simple as a single command:
-
-```sh
-nix flake update
-```
-
-And because all of the code needed for provisioning is within this repository, rolling back to a previous version can be as simple as checking out an alternate commit in history, and provisioning from that.
+Note, because all of the code needed for provisioning is within this repository, rolling back to a previous version can be as simple as checking out an alternate commit in history, and provisioning from that.
 
 # Understanding this project<a id="sec-4"></a>
 
@@ -124,7 +131,7 @@ If you don't know much about Nix, consider reading the following provided guides
 
 This project leans heavily on an experimental Nix feature called *flakes*. This project is built on top of another project called [Nix-project](https://github.com/shajra/nix-project), which factors out some helpful code for Nix projects in general. Nix-project doesn't have a lot of code and primarily builds on top of another project called [Flake-parts](https://github.com/hercules-ci/flake-parts). Flake-parts helps make working with flakes a little easier.
 
-Once you're comfortable with Nix and basic usage, the next two guides will help get up to speed with this project:
+Once you're comfortable with Nix and basic usage, these next guides (two from another project) can help you get up to speed with this project:
 
 -   [Nix-project's flakes basic development guide](https://github.com/shajra/nix-project/blob/main/doc/project-developing-basics.md)
 -   [Nix-project's flake modules development guide](https://github.com/shajra/nix-project/blob/main/doc/project-developing-modules.md)
@@ -144,42 +151,19 @@ This project wasn't made in isolation. It's just one of many other similar proje
 -   [michaelpj/nixos-config](https://github.com/michaelpj/nixos-config)
 -   [rossabaker/nix-config](https://gitlab.com/rossabaker/nix-config)
 
-# Ideas for the future<a id="sec-6"></a>
-
-When provisioning with Nix we try to do everything we possibly can with files built out in `/nix/store` that we then symlink to.
-
-However, there are some limitations to this approach. Fundamental to Nix, `/nix/store` has two fundamental properties:
-
--   it's read-only
--   it's publicly visible.
-
-The fact that it's read-only provides some impedance when dealing with mutable configuration. Mutable configuration is generally something to avoid, but it's hard to avoid when provisioning machines completely.
-
-Home Manager has a system of activation scripts that are run after provisioning symlinks back to `/nix/store`. These side-effecting scripts enable things like cycling services on/off for a new configuration.
-
-However, we can do more with activation scripts provided we work hard to make sure they are robust and idemopotent. We don't want to abuse this escape hatch, but here are some things that would be possible:
-
--   We can check out "live repositories" to a specified version. Sometimes, these repositories are designed to maintain a mutable state during runtime. This is the case with Spacemacs and Spacevim, for instance. These projects configure a `.gitignore` file to ignore their respective mutable runtime state.
-
--   We can manage secrets without worrying about encrypting secrets that might be visible from `/nix/store` or elsewhere. I should be able to transiently pull a secret from a trusted value and prepare it appropriately on the target system. This might involve weaving the secret with a template installed in `/nix/store`. We just have to be careful that the secret stays out of `/nix/store`, only persisting in its target destination.
-
-This last possibility is big for me. Even if modern encryption is highly unlikely to be cracked, keeping encrypted secrets in public spaces is strictly less secure than hiding them behind other barriers. Security is a complicated field, and we shouldn't compromise our expectations merely because our provisioning tools are missing a feature.
-
-I could call another script after the Nix-based provisioning scripts. But this adds more steps. Also, there are benefits to configuring these activation scripts as a declaratively used NixOS-style module.
-
-# Release<a id="sec-7"></a>
+# Release<a id="sec-6"></a>
 
 The "main" branch of the GitHub repository has the latest version of this code. There is currently no commitment to either forward or backward compatibility.
 
 "user/shajra" branches are personal branches that may be force-pushed to. The "main" branch should not experience force-pushes and is recommended for general use.
 
-# License<a id="sec-8"></a>
+# License<a id="sec-7"></a>
 
 All files in this "shajra-provisioning" project are licensed under the terms of GPLv3 or (at your option) any later version.
 
 Please see the [./COPYING.md](./COPYING.md) file for more details.
 
-# Contribution<a id="sec-9"></a>
+# Contribution<a id="sec-8"></a>
 
 Feel free to file issues and submit pull requests with GitHub.
 

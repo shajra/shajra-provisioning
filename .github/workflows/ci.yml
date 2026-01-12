@@ -80,6 +80,7 @@ jobs:
     - run: cat /etc/nix/nix.conf
     - run: cat ~/.config/nix/nix.conf
     # DESIGN: Can't CI homes; even slimmed they're too big for GitHub
+    # DESIGN: Can't use shajra-nixos-rebuild because it expects nixos-rebuild on the PATH
     - run: nix run .#nixosConfigurations.cake-slim.nixos-rebuild -- --flake .#cake-slim build
   installers-darwin:
     needs: [pkgs-darwin]
@@ -101,4 +102,4 @@ jobs:
     - run: cat /etc/nix/nix.conf
     - run: cat ~/.config/nix/nix.conf
     # DESIGN: Can't CI home because sketchybar-lua won't build on x86_64
-    - run: ./darwin-rebuild --flake .#lemon-slim build
+    - run: nix run .#shajra-darwin-rebuild -- --flake .#lemon-slim build

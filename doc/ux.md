@@ -57,12 +57,12 @@ The first of these tables covers tools that vary between Linux and Mac platforms
 | Status bar             | [i3status-rust](https://github.com/greshake/i3status-rust)                                                                                       | [SketchyBar](https://github.com/FelixKratz/SketchyBar) + [SbarLua](https://github.com/FelixKratz/SbarLua)          |
 | GUI selection/launcher | [Rofi](https://github.com/davatorium/rofi)                                                                                                       | [Raycast](https://www.raycast.com/)                                                                                |
 | GUI clipboard manager  | [Clipmenu](https://github.com/cdown/clipmenu) + [Rofi](https://github.com/davatorium/rofi)                                                       | [Raycast Clipboard History extension](https://www.raycast.com/extensions/clipboard-history)                        |
-| GUI notification       | [Dunst](https://dunst-project.org/)                                                                                                              | MacOS-native notifications                                                                                         |
-| GUI screenshots        | [Maim](https://github.com/naelstrof/maim)                                                                                                        | MacOS-native screenshots                                                                                           |
-| Color temperature      | [Gammastep](https://gitlab.com/chinstrap/gammastep)                                                                                              | MacOS-native Night Shift                                                                                           |
+| GUI notification       | [Dunst](https://dunst-project.org/)                                                                                                              | macOS-native notifications                                                                                         |
+| GUI screenshots        | [Maim](https://github.com/naelstrof/maim)                                                                                                        | macOS-native screenshots                                                                                           |
+| Color temperature      | [Gammastep](https://gitlab.com/chinstrap/gammastep)                                                                                              | macOS-native Night Shift                                                                                           |
 | Package management     | [Nix](https://nixos.org/nix)                                                                                                                     | [Nix](https://nixos.org/nix) + [Homebrew](https://brew.sh/)                                                        |
 
-Where I've listed multiple applications, my primary is listed first. Notably, for Macs, I'm using iTerm2, which does not configure easily with Nix. However, I use it because its native `tmux` integration with its `-CC` switch is too useful when working with remote machines.
+Where I've listed multiple applications, my primary is listed first. Notably, for Macs, I'm using iTerm2, which does not configure easily with Nix. However, I use it because its native `tmux` integration with its `-CC` option is too useful when working with remote machines.
 
 The second table below covers tools common to the terminal experience in all platforms:
 
@@ -98,7 +98,7 @@ In general, I've come to expect the following conventions with my keybindings:
 | USB HID key         | Side          | Purpose                     |
 |------------------- |------------- |--------------------------- |
 | `GUI`               | left          | custom window management    |
-| `GUI`               | right         | standard MacOS bindings     |
+| `GUI`               | right         | standard macOS bindings     |
 | `Alt`               | left          | application shortcuts       |
 | `Alt`               | right         | special character entry     |
 | `Control`           | left or right | application shortcuts       |
@@ -106,9 +106,9 @@ In general, I've come to expect the following conventions with my keybindings:
 
 Having conventions like this helps with my recall of shortcuts as well as the fluidity of their usage. It's even nicer when it's consistent across operating systems.
 
-In Linux, settling on the `Windows` (`GUI`) key for my shortcuts for `i3` window management is natural because no default shortcuts in Linux use the `Windows` key. On Macs, the corresponding `Command` key is used quite a bit for MacOS shortcuts. So I configure `skhd` to use only the right `Command` key for AeroSpace window management.
+In Linux, settling on the `Windows` (`GUI`) key for my shortcuts for `i3` window management is natural because no default shortcuts in Linux use the `Windows` key. On Macs, the corresponding `Command` key is used quite a bit for macOS shortcuts. So I configure `skhd` to use only the right `Command` key for AeroSpace window management.
 
-By default, Macs use the `Option` key for special character input. Similarly, Linux is often configured such that the right `Alt` key is used to emulate the legacy [`Compose`](https://en.wikipedia.org/wiki/Compose_key) key or [`Alt Graph`](https://en.wikipedia.org/wiki/AltGr_key) key, for special characters. In Linux, this leaves the left `Alt` key for application shortcuts. In this spirit, some terminal emulators running in MacOS, such as iTerm2 and Kitty, can be configured to emit escaped codes with the left `Alt` key, the same as Linux.
+By default, Macs use the `Option` key for special character input. Similarly, Linux is often configured such that the right `Alt` key is used to emulate the legacy [`Compose`](https://en.wikipedia.org/wiki/Compose_key) key or [`Alt Graph`](https://en.wikipedia.org/wiki/AltGr_key) key, for special characters. In Linux, this leaves the left `Alt` key for application shortcuts. In this spirit, some terminal emulators running in macOS, such as iTerm2 and Kitty, can be configured to emit escaped codes with the left `Alt` key, the same as Linux.
 
 Finally, terminal emulators are a little special because we don't want their shortcuts to override the terminal application running within them, which might have shortcuts of their own. By convention, many terminal emulators use `Shift=+=Control`, leaving other modifier combinations for applications.
 
@@ -116,7 +116,7 @@ Finally, terminal emulators are a little special because we don't want their sho
 
 It can be nice when colors are consistent across different applications, though not all applications make it easy or possible. The pictures at the top of this document illustrate how I theme my Linux and Mac environments.
 
-The Mac screenshot is a bit disingenuous. I don't use a wallpaper day-to-day because I find MacOS's transparency of unfocused windows distracting. I also don't have that wide a gap between windows. But it all makes for a nice screenshot.
+The Mac screenshot is a bit disingenuous. I don't use a wallpaper day-to-day because I find macOS's transparency of unfocused windows distracting. I also don't have that wide a gap between windows. But it all makes for a nice screenshot.
 
 ## Color Selection<a id="sec-5-1"></a>
 
@@ -158,7 +158,7 @@ It would be great if this convergence of the expert and beginner experience coul
 
 # Brew<a id="sec-7"></a>
 
-Ideally, we'd install and configure everything with Nix. Unfortunately, for a few programs, there's no Nix expression yet for MacOS. So we have to fall back to a package manager like [Homebrew](https://brew.sh/). This includes programs like Firefox and Chromium.
+Ideally, we'd install and configure everything with Nix. Unfortunately, for a few programs, there's no Nix expression yet for macOS. So we have to fall back to a package manager like [Homebrew](https://brew.sh/). This includes programs like Firefox and Chromium.
 
 Though it's not ideal, Home Manager supports control over Homebrew. Assuming Homebrew has been already, this project will manage which packages/casks are installed, and remove any other packages/casks not specified.
 

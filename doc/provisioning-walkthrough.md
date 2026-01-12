@@ -10,11 +10,11 @@
 
 # About this document<a id="sec-1"></a>
 
-This document helps explain the code of this project for provisioning my personal machines, which rely on the convergence of a variety of third-party software and techniques.
+This document gives an overview of the code of this project for provisioning my personal machines, which rely on the convergence of a variety of third-party software and techniques.
 
 You *very certainly* do not want to try to configure your machines precisely like mine. This is my personal repository, with hard-coded things like my name and emails.
 
-This document should help explain what it takes to modify this project, or mimic its approach, to suit the provisioning of your own machines.
+This document should help you get started modifying this project, or mimicking its approach, to suit the provisioning of your own machines.
 
 # Recommended prior reading<a id="sec-2"></a>
 
@@ -42,19 +42,19 @@ This project builds packages in two ways. The first way is with standard Nixpkgs
 
 For the Nixpkgs infrastructure, packages are built against a specific version of Nixpkgs. Some versions of Nixpkgs are considered stable, others unstable. Which version we consider stable or unstable might vary with platform. We might want all the packages installed at the system-level to be from a stable set. But we might be willing to try out unstable packages at the user-level. Even then, we might want to make exceptions for specific packages.
 
-To deal with this complexity, this project builds out multiple versions of Nixpkgs. Each instance is further extended by an overlay that augments them with custom packages. The Haskell.nix infrastructure independently uses its own instance of Nixpkgs.
+To deal with this complexity, this project can build from multiple versions of Nixpkgs. Each instance is further extended by an overlay that augments them with custom packages. The Haskell.nix infrastructure independently uses its own instance of Nixpkgs.
 
 Nixpkgs is gigantic, with many thousands of packages. On top of that, we now have multiple instances of Nixpkgs to choose packages from. Fortunately, because Nix is lazily evaluated, we only have to build what we need. So, our next step is to select packages.
 
 The selection of packages is done within the top-level [`packages.nix`](../packages.nix) file. The Nix expression in this file is a function. The input of this function passes in a small API from both the Nixpkgs and Haskell.nix infrastructure to select out packages and group them into sets, later used in configuration modules.
 
-By building selected packages separately from system-level or home directory configuration, we can easily integrate the build of these packages into CI. Some CI services like GitHub Actions have limits on both compute time and disk space per job, so it helps break up package sets into chunks.
+By building selected packages separately from system-level or home directory configuration, we can easily integrate the build of these packages into CI. Some CI services like GitHub Actions have limits on both compute time and disk space per job, so it helps break up the build into chunks.
 
 ## Configuration modules<a id="sec-3-2"></a>
 
 Whether setting system-level configuration with `nixos-rebuild` or `darwin-rebuild`, or user-level configuration with `home-manager`, all of these tools are configured with the NixOS-style configuration module infrastructure.
 
-Nix's configuration module infrastructure originally targeted the configuration of just NixOS. The goal of NixOS modules is to make it easy to toggle features on/off with lightweight declarative configuration options. However, the module infrastructure is general enough to be used as a configuration system for any project, not just NixOS, but Nix-Darawin and Home Manager as well.
+Nix's configuration module infrastructure originally targeted the configuration of just NixOS. The goal of NixOS modules is to make it easy to toggle features on/off with lightweight declarative configuration options. However, the module infrastructure is general enough to be used as a configuration system for any project, not just NixOS, but Nix-Darwin and Home Manager as well.
 
 These upstream projects all maintain many modules for various tools and configurations. The code in these modules does all the complicated tasks of installing the correct packages and weaving everything into configuration files. These modules also bake in a lot of helpful verification of our configuration. Using upstream modules simplifies our configuration considerably.
 
@@ -69,7 +69,7 @@ Read the NixOS documentation on configuration syntax first, even if you aren't r
 
 Once you understand the format of NixOS-style modules and how they work, you can look at the rest of the documentation for all the options available to you by all the modules provided by upstream projects.
 
-Also, once you've provisioned a system for the first time, it will have some man pages you can call instead of looking up documentation online. To get details on system-level configuration for NixOS or MacOS/Nix-Darwin call
+Also, once you've provisioned a system for the first time, it will have some man pages you can call instead of looking up documentation online. To get details on system-level configuration for NixOS or macOS/Nix-Darwin call
 
 ```sh
 man configuration.nix
@@ -91,18 +91,15 @@ The following table gives an overview of this project's layout and includes poin
 | `build/nixpkgs/overlays`    | Yes       | Custom Nixpkgs overlays                                    |
 | `build/nixpkgs/packages`    | Yes       | Custom packages                                            |
 | `config.nix`                | Yes       | Top-level project configuration                            |
-| `darwin-rebuild`            |           | Script to provision MacOS system-level                     |
 | `flake.lock`                | Generated | Generated file locking dependencies                        |
-| `flake.nix`                 | Yes       | Declares the OS and home directory configurations          |
-| `home-manager`              |           | Script to configure a home directory                       |
+| `flake.nix`                 | Yes       | Entry point for Nix evaluation                             |
 | `home/modules`              | Yes       | Modules to assist building up home directory configuration |
 | `home/target/$HOSTNAME`     | Yes       | Home directory configuration by target machine hostname    |
 | `machines/modules`          | Yes       | Modules to assist building up system-level configuration   |
 | `machines/target/$HOSTNAME` | Yes       | System-level configuration by target machine hostname      |
-| `nixos-rebuild`             |           | Script to provision NixOS system-level                     |
 | `packages.nix`              | Yes       | Selected packages for provisioning                         |
 
-The entrypoint for all flake-enabled projects is a file called [flake.nix](../flake.nix) at the project's root.
+The entry point for all flake-enabled projects is a file called [flake.nix](../flake.nix) at the project's root.
 
 The flake has an output attribute of `overlays.default` set to the overlay that starts with a bootstrap Nixpkgs instance and builds out an attribute tree of lots of packages, some configuration, and helpful functions. This “build” is output by the flake as `legacyPackages`.
 
@@ -137,21 +134,19 @@ Each configuration specifies
 -   the system architecture to target for building packages and configuration
 -   a path to the top-level Nix module for configuration.
 
-We use NixOS library calls from Nixpkgs to build `nixConfigurations`. Similarly, we use library calls from the `nix-darwin` and `home-manager` flake inputs to build out `darwinConfigurations` and `homeConfiguration` configurations respectively. To keep `flake.nix` clean, the complications of these library calls are factored out into [build/configurations.nix](../build/configurations.nix). This is also where the `build` parameter is set.
+We use NixOS library calls from Nixpkgs to build `nixConfigurations`. Similarly, we use library calls from the Nix-darwin and Home Manager flake inputs to build out `darwinConfigurations` and `homeConfiguration` configurations respectively. To keep `flake.nix` clean, the complications of these library calls are factored out into [build/configurations.nix](../build/configurations.nix). This is also where the `build` parameter is set.
 
 # This project's module convention<a id="sec-5"></a>
 
-Each wrapper script for `nixos-rebuild`, `darwin-rebuild`, and `home-manager` by default guesses what module to load by inspecting the hostname of the caller's computer. Each script provides a `--flake` switch to override this inspection.
+Technically, the code under `home/target` and `machines/target` are NixOS-style modules, same as the code under `home/modules` and `machines/modules`. The only difference is that the modules under the `target` directories are entry points named after their respective machine. This is why the directories under `home/target` and `machines/target` have funny names (they are the hostnames of my machines). You can see these "target" modules referenced in the definitions of configurations in the top-level `flake.nix` file.
 
-This is why the directories under `home/target` and `machines/target` have funny names (they are the hostnames of my machines).
+Wrapper scripts/commands that ultimately invoke `nixos-rebuild`, `darwin-rebuild`, or `home-manager` by default guess what "target" module to load by inspecting the hostname of the caller's computer. These wrappers each provide a `--flake` option to override this inspection.
 
 It's unlikely that your machines have hostnames that match mine, so you can just create new configurations in sibling directories named after your machines.
 
-As common among Nix users, the system-level configuration is kept minimal to the hardware configuration and services that either can't or shouldn't be run at the user level. Home Manager manages everything else in a home directory.
+As is common among Nix users, the system-level configuration is kept minimal to the hardware configuration and services that either can't or shouldn't be run at the user level. Home Manager manages everything else in a home directory.
 
-Because there's more user-level configuration, I take advantage of the modularity of NixOS-style configuration modules to factor it into reusable units. Technically, `home/target` and `home/modules` both have the same NixOS-style modules. The ones under `home/target` are just entry points that import modules from `home/modules`.
-
-You may notice that this project uses a more inheritance-style approach for user-level modules, rather than a mixin-style approach. The inheritance style leads to less importing but more coupling of configuration that might technically be more separable. This is just a personal choice. Creating quality mixins requires thinking more about coupling, leading to more work than seemed worth it for my few computers. I may use a hybrid of inheritance- and mixin-style as I add more computers.
+Because there's more user-level configuration, I take advantage of the modularity of NixOS-style configuration modules to factor it into reusable units. You may notice that this project uses a more inheritance-style approach for user-level modules, rather than a mixin-style approach. The inheritance style leads to less importing but more coupling of configuration that might technically be more separable. This is just a personal choice. Creating quality mixins requires thinking more about coupling, leading to more work than seemed worth it for my few computers. I may use a hybrid of inheritance- and mixin-style as I add more computers.
 
 # Nixpkgs instances used for configuration<a id="sec-6"></a>
 
@@ -164,9 +159,9 @@ Just be aware that the version of Nixpkgs you'll get will vary as follows:
 | Configuration | Operating system | Nixpkgs version of `pkgs` |
 |------------- |---------------- |------------------------- |
 | NixOS         | NixOS            | `nixos-25.11`             |
-| Darwin        | MacOS            | `nixpkgs-25.11-darwin`    |
-| Home          | not MacOS        | `nixpkgs-unstable`        |
-| Home          | MacOS            | `nixpkgs-unstable`        |
+| Darwin        | macOS            | `nixpkgs-25.11-darwin`    |
+| Home          | not macOS        | `nixpkgs-unstable`        |
+| Home          | macOS            | `nixpkgs-unstable`        |
 
 You can change this in [`config.nix`](../config.nix) if you like. The code doesn't vary this selection by machine, just platform. I just haven't needed anything fancier yet.
 

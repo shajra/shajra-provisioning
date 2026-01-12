@@ -70,14 +70,14 @@ platforms:
 | Status bar             | [[i3status-rust][i3status-rust]]                  | [[sketchybar][SketchyBar]] + [[sbarlua][SbarLua]]                |
 | GUI selection/launcher | [[rofi][Rofi]]                           | [[raycast][Raycast]]                             |
 | GUI clipboard manager  | [[clipmenu][Clipmenu]] + [[rofi][Rofi]]                | [[raycast-clipboard][Raycast Clipboard History extension]] |
-| GUI notification       | [[dunst][Dunst]]                          | MacOS-native notifications          |
-| GUI screenshots        | [[maim][Maim]]                           | MacOS-native screenshots            |
-| Color temperature      | [[gammastep][Gammastep]]                      | MacOS-native Night Shift            |
+| GUI notification       | [[dunst][Dunst]]                          | macOS-native notifications          |
+| GUI screenshots        | [[maim][Maim]]                           | macOS-native screenshots            |
+| Color temperature      | [[gammastep][Gammastep]]                      | macOS-native Night Shift            |
 | Package management     | [[nix][Nix]]                            | [[nix][Nix]] + [[homebrew][Homebrew]]                      |
 
 Where I've listed multiple applications, my primary is listed first. Notably,
 for Macs, I'm using iTerm2, which does not configure easily with Nix. However, I
-use it because its native =tmux= integration with its =-CC= switch is too useful
+use it because its native =tmux= integration with its =-CC= option is too useful
 when working with remote machines.
 
 The second table below covers tools common to the terminal experience in all
@@ -118,7 +118,7 @@ In general, I've come to expect the following conventions with my keybindings:
 | USB HID key     | Side          | Purpose                     |
 |-----------------+---------------+-----------------------------|
 | =GUI=             | left          | custom window management    |
-| =GUI=             | right         | standard MacOS bindings     |
+| =GUI=             | right         | standard macOS bindings     |
 | =Alt=             | left          | application shortcuts       |
 | =Alt=             | right         | special character entry     |
 | =Control=         | left or right | application shortcuts       |
@@ -130,7 +130,7 @@ systems.
 
 In Linux, settling on the =Windows= (=GUI=) key for my shortcuts for =i3= window
 management is natural because no default shortcuts in Linux use the =Windows=
-key. On Macs, the corresponding =Command= key is used quite a bit for MacOS
+key. On Macs, the corresponding =Command= key is used quite a bit for macOS
 shortcuts. So I configure =skhd= to use only the right =Command= key for
 AeroSpace window management.
 
@@ -138,7 +138,7 @@ By default, Macs use the =Option= key for special character input. Similarly,
 Linux is often configured such that the right =Alt= key is used to emulate the
 legacy [[key-compose][=Compose=]] key or [[key-altgr][=Alt Graph=]] key, for special characters. In Linux, this
 leaves the left =Alt= key for application shortcuts. In this spirit, some
-terminal emulators running in MacOS, such as iTerm2 and Kitty, can be configured
+terminal emulators running in macOS, such as iTerm2 and Kitty, can be configured
 to emit escaped codes with the left =Alt= key, the same as Linux.
 
 Finally, terminal emulators are a little special because we don't want their
@@ -153,7 +153,7 @@ not all applications make it easy or possible. The pictures at the top of this
 document illustrate how I theme my Linux and Mac environments.
 
 The Mac screenshot is a bit disingenuous. I don't use a wallpaper day-to-day
-because I find MacOS's transparency of unfocused windows distracting. I also
+because I find macOS's transparency of unfocused windows distracting. I also
 don't have that wide a gap between windows. But it all makes for a nice
 screenshot.
 
@@ -246,7 +246,7 @@ discovery.
 * Brew
 
 Ideally, we'd install and configure everything with Nix. Unfortunately, for a
-few programs, there's no Nix expression yet for MacOS. So we have to fall back
+few programs, there's no Nix expression yet for macOS. So we have to fall back
 to a package manager like [[homebrew][Homebrew]]. This includes programs like Firefox and
 Chromium.
 

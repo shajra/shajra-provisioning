@@ -182,7 +182,7 @@ nix search . ^
       A user environment configurator
     
     * packages.x86_64-linux.shajra-darwin-rebuild
-      Controlled MacOS rebuild
+      Controlled macOS rebuild
     
     * packages.x86_64-linux.shajra-home-manager
       Controlled home directory management with Nix

@@ -1,6 +1,0 @@
-#!/bin/sh -eu
-
-cd "$(dirname "$0")"
-
-nix --extra-experimental-features 'nix-command flakes' \
-    run .#shajra-nixos-rebuild -- "$@"

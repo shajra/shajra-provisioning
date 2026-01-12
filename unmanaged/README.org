@@ -2,16 +2,60 @@
 #+setupfile: ../doc/internal/links.org
 
 I'm grateful that Nix is able to configure so much of my systems, both Linux and
-MacOS included. However, projects like [[nix-darwin][Nix-darwin]] can only go so far. The rest
+macOS included. However, projects like [[nix-darwin][Nix-darwin]] can only go so far. The rest
 requires manual configuration. This folder contains what little is left for me.
+
+* Prerequisites beyond installing Nix itself
+
+** Access to private repository
+
+The top-level flake pulls in a =shajra-private= repository that is by default set
+to an empty flake.  When using =shajra-provisioning= with real machines, I
+override this input with a repository that provides modules for each of my hosts
+containing more sensitive configuration.  You can see this overriding for
+various development shell commands defined in the top-level =flake.nix= file.
+
+Note, I access this repository via SSH within a private network.  Since
+system-level provisioning is done via =sudo=, SSH needs to be configured for both
+root as well as my normal user.
+
+It would be nice to configure keys and SSH configuration with Nix, but that
+would just lead to a bootstrapping paradox.
+
+If you're referencing my configuration to make your own, it's possible you may
+encounter a few missing settings provided by my private repository.  There is no
+requirement to use private repositories.  You can put all your configuration in
+one project.
+
+** Git repository ownership 
+
+Git now protects commands from executing on repositories not owned by the user.
+This can cause problems when running commands with =sudo=, which is a requirement
+for system-level configuration with Nix-darwin.
+
+The development shell environment provides a =project-bootstrap= command to
+configure =/var/root/.gitconfig= (only for macOS) to consider the cloned
+repository of =shajra-provisioning= safe to run as the =root= user.
+
+** Homebrew installation
+
+For macOS, Nixpkgs provides every terminal application I want, but there are a
+few GUI applications we have to get elsewhere.  For this reason, Home Manager
+suppports orchestrating [[homebrew][Homebrew]] package installation, which this project takes
+advantage of (see [[file:../machines/modules/darwin][../machines/modules/darwin]]).
+
+However, this means I need to install Homebrew as well as Nix as a prerequisite
+for provisioning with this project.  I just use the simple terminal command to
+install it as recommended from the Homebrew site.
+
+* Other little things
 
 I don't want to make this document a giant list of things all the settings I set
 manually. Nix manages most things that matter. Everything else is either
-frivolous, or changes too dynamically to care to capture.
+frivolous, or changes too dynamic to care to capture.
 
-Here's a miscellaneous configuration that didn't have a better place:
+Here's some remaining miscellany:
 
-- the "notify-time" script won't work until "terminal-notifier" is enabled in
+- The "notify-time" script won't work until "terminal-notifier" is enabled in
   "System Preferences -> Notifications."
-
-I'll put more here as they come.
+- See subdirectories for more notes on manual configuration.
