@@ -3,4 +3,5 @@
 {
   imports = [ ../../ubiquity ];
   home.extraPackages = build.pkgs.lists.programming.cloud;
+  programs.awscli.enable = true;
 }
