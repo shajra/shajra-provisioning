@@ -1,7 +1,7 @@
 config: lib: pkgs:
 
 {
-  # REVISIT: 2026-01-09: Fix has merged, commenting out workaround.
+  # REVISIT: DARWIN: 2026-01-09: Fix has merged, commenting out workaround.
   # Remove dead code upon validating upstream fix works.
   # https://github.com/nix-community/home-manager/issues/1341
   # https://github.com/nix-darwin/nix-darwin/pull/1396

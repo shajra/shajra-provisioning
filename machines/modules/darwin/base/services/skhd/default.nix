@@ -31,7 +31,7 @@ in
     :: passthru   : sketchybar --bar border_color=${colors.semantic.warning}
     :: size     @ : borders active_color=${colors.semantic.info}
 
-    # REVISIT: 2026-01-09: Return all references to cmd back to lcmd
+    # REVISIT: 2026-01-27: Return all references to cmd back to lcmd
     # This has been done only for `cmd ... - escape`, because the Kaleidoscope
     # firmware for my keyboards has a defect that breaks my preferred
     # keymapping.  Rather than change the keymapping, I'm relaxing the
@@ -151,7 +151,7 @@ in
     lcmd + shift - 0x2B : aerospace move-node-to-workspace --no-stdin prev && ${sketchybar-refresh}
     lcmd + shift - 0x2F : aerospace move-node-to-workspace --no-stdin next && ${sketchybar-refresh}
 
-    # REVISIT: move workspace (hard to implement with current Aerospace)
+    # REVISIT: 2026-01-27: move workspace (hard to implement with current Aerospace)
     #lcmd + shift + alt - 1    : "''${space-move}" 1
     #lcmd + shift + alt - 2    : "''${space-move}" 2
     #lcmd + shift + alt - 3    : "''${space-move}" 3
@@ -176,7 +176,7 @@ in
     # close all but focused window on focused workspace
     lcmd + alt - q : aerospace close-all-windows-but-current
 
-    # REVISIT: cycle windows (hard to implement with current Aerospace)
+    # REVISIT: 2026-01-27: cycle windows (hard to implement with current Aerospace)
     #lcmd        - tab : "''${window-cycle}" reverse
     #cmd + shift - tab : "''${window-cycle}" '.'
 

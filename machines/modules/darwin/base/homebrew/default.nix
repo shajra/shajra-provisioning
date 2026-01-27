@@ -44,7 +44,7 @@
     #"microsoft-edge@beta"
 
     "cleanmymac"
-    # REVISIT: Aerospace doesn't build from source on Nix just yet.
+    # REVISIT: 2026-01-27: Aerospace doesn't build from source on Nix just yet.
     # What Nixpkgs does is just repackage a published binary release.
     # See https://github.com/NixOS/nixpkgs/issues/101229.
     "nikitabobko/tap/aerospace"
@@ -52,8 +52,8 @@
 
   # DESIGN: homebrew.masApps seems a bit too hacky
 
-  # REVISIT: installed manually; haven't figured out with either Homebrew or
-  # Nix
+  # REVISIT: 2026-01-27: installed manually; haven't figured out with either
+  # Homebrew or Nix
   #
   # /Applications/'Chrome Remote Desktop Host Uninstaller.app'
   # /Applications/DDPM

@@ -10,8 +10,8 @@ let
   inherit (build) infra;
 
   hplip = pkgs.hplipWithPlugin;
-  # REVISIT: 2026-01-09: Leaving around in case the stable plugin breaks
-  # Delete if printing seems to work fine.
+  # DESIGN: Leaving around in case the stable plugin breaks; printing for a time
+  # felt fragile.
   #hplip = infra.np.nixpkgs.unstable.hplipWithPlugin;
 
   domain = import ./domain.nix;

@@ -3,9 +3,6 @@ config: pkgs:
 {
   enable = true;
 
-  # REVISIT: home-manager pointing to obsolete attribute name
-  package = pkgs.rxvt-unicode-unwrapped;
-
   fonts = [
     "xft:${config.theme.fonts.monospaced.code.name}:size=11,xft:Symbola"
   ];

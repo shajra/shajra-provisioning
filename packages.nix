@@ -7,6 +7,8 @@
 
 let
 
+  # REVISIT: 2026-01-27: Can't build profiterole with 9.12.3
+  # nix --refresh build nixpkgs/nixpkgs-unstable#haskell.packages.ghc9123.profiterole
   ghc = "ghc9103";
 
   when = lib.optionalAttrs;
@@ -31,7 +33,7 @@ rec {
     let
       every = pickAll "home" [
         "mpc"
-        "whipper"
+        #"whipper" # REVISIT: 2026-01-27: broken on unstable
       ];
       linux = np.pick { linux = "home"; } [
         "playerctl"
@@ -115,7 +117,7 @@ rec {
         "nix-template"
         "nix-tree"
         "nix-update"
-        "nixfmt-rfc-style"
+        "nixfmt"
         "nvd"
         "paperkey"
         "patchelf"
@@ -173,12 +175,12 @@ rec {
   nixpkgs.prebuilt.chat.gui =
     let
       every = pickAll "home" [
-        # REVISIT: 2025-10-12: element-desktop probably will cache soon
+        # DESIGN: element-desktop may start to cache eventually
         "element-desktop"
+        "caprine"
       ];
       linux = np.pick { linux = "home"; } [
-        "irccloud" # REVISIT: 2025-12-30: Unsupported for Darwin
-        "caprine"
+        "irccloud" # REVISIT: 2025-01-27: Unsupported for Darwin
         "signal-desktop-bin"
       ];
     in
@@ -191,7 +193,6 @@ rec {
         "zoom-us"
       ];
       darwin = np.pick { darwin = "home"; } [
-        "caprine"
         "signal-desktop-bin"
       ];
       linux = np.pick { linux = "home"; } [
@@ -247,7 +248,9 @@ rec {
   nixpkgs.build.fonts = pickAll "home" [
     "sf-symbols" # font with application icons
     "sketchybar-font" # font with application icons
-    "symbola" # another Unicode fallback font
+
+    # REVISIT: 2026-01-27: Broken on unstable
+    #"symbola" # another Unicode fallback font
   ];
 
   nixpkgs.prebuilt.programming.c =
@@ -281,14 +284,14 @@ rec {
     "postgresql"
     "schemaspy"
     "sqitchPg"
-    #"sqlint" # REVISIT: 2026-01-09: package broken
+    #"sqlint" # REVISIT: 2026-01-27: package broken
     "sqlite"
   ];
 
   nixpkgs.prebuilt.programming.general = pickAll "home" [
     #"aider-chat-full" # DESIGN: Using Cursor or Codex for now
     "codex"
-    #"global" # REVISIT: 2026-01-09: package broken
+    #"global" # REVISIT: 2026-01-27: package broken
     "gnumake"
     "nil"
     "nixd"
@@ -330,7 +333,7 @@ rec {
     "haskell.packages.${ghc}.haskdogs"
     "haskell.packages.${ghc}.haskell-language-server"
     "haskell.packages.${ghc}.hasktags"
-    # REVISIT: 2026-01-09: HLint incompatible with 9.10; wait for 9.12
+    # REVISIT: 2026-01-27: HLint incompatible with 9.10; wait for 9.12
     #"haskell.packages.${ghc}.hlint"
     "haskell.packages.${ghc}.hoogle"
     "haskell.packages.${ghc}.hp2pretty"
@@ -389,7 +392,7 @@ rec {
     "python3Packages.setuptools"
   ];
 
-  # REVISIT: 2026-01-09: Unsupported for Darwin
+  # REVISIT: 2026-01-27: Unsupported for Darwin
   nixpkgs.prebuilt.programming.racket = np.pick { linux = "home"; } [
     "racket"
   ];
