@@ -12,24 +12,12 @@
 
   function __direnv_export_fish
       if set --query __direnv_hook_enabled
-          __direnv_export_fish_filtered | source
+          __direnv_export_fish_unsourced | source
       end
   end
 
-  function __direnv_export_fish_filtered
-      # REVISIT: 2025-09-15: see if filtering is still needed with nix-direnv
-      # DESIGN: Note "&& false" below to disable filtering
-      if ! set --query __direnv_hook_debug && false
-          begin
-              ${direnv}/bin/direnv export fish 3>&1 1>&2 2>&3 \
-              | ${gnugrep}/bin/grep --ignore-case --color=never --perl-regexp \
-                  '^direnv: load|error|fail|unknown|unexpected|warn|\e' \
-              | ${gnugrep}/bin/grep --invert-match --ignore-case --color=never --perl-regexp \
-                  '^direnv: export|export|unset'
-          end 3>&1 1>&2 2>&3
-      else
-          ${direnv}/bin/direnv export fish
-      end
+  function __direnv_export_fish_unsourced
+      ${direnv}/bin/direnv export fish
   end
 
   function direnv-toggle \
@@ -83,7 +71,7 @@
               echo "direnv: setting up shell environment for directory $argv[1]"
           end
           pushd $argv[1] >/dev/null; or return 1
-          __direnv_export_fish_filtered | source
+          __direnv_export_fish_unsourced | source
           set --erase __direnv_hook_enabled
           popd >/dev/null
       end

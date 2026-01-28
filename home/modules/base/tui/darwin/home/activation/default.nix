@@ -1,31 +1,6 @@
 config: lib: pkgs:
 
 {
-  # REVISIT: DARWIN: 2026-01-09: Fix has merged, commenting out workaround.
-  # Remove dead code upon validating upstream fix works.
-  # https://github.com/nix-community/home-manager/issues/1341
-  # https://github.com/nix-darwin/nix-darwin/pull/1396
-  #
-  # copyApplications = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-  #   app_folder="Home Manager Apps"
-  #   app_path="$(echo ~/Applications)/$app_folder"
-  #   tmp_path="$(mktemp -dt "$app_folder.XXXXXXXXXX")" || exit 1
-  #   find "$newGenPath/home-path/Applications" -type l \
-  #           -exec readlink -f {} \; | \
-  #       while read -r app
-  #       do
-  #         $DRY_RUN_CMD /usr/bin/osascript \
-  #           -e "tell app \"Finder\"" \
-  #           -e "make new alias file \
-  #                   at POSIX file \"$tmp_path\" \
-  #                   to POSIX file \"$app\"" \
-  #           -e "set name of result to \"$(basename "$app")\"" \
-  #           -e "end tell"
-  #       done
-  #   $DRY_RUN_CMD [ -e "$app_path" ] && rm -r "$app_path"
-  #   $DRY_RUN_CMD mv "$tmp_path" "$app_path"
-  # '';
-
   # DESIGN: Allows Karabiner to override settings, but we catch changes when
   # performing a home-manager switch.
   restoreImmutableKarabinerJson = lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
