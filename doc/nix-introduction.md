@@ -194,7 +194,7 @@ However, if industrial users move to flakes to address these problems, we have t
 
 ### Nix quick releases compete with stability<a id="sec-4-2-3"></a>
 
-The latest major version of the Nix package manager is currently Nix 2.33.0, but NixOS 25.11, the latest stable release of NixOS, uses Nix 2.31.2. NixOS is the primary way the Nix package manager gets used in the field. Far fewer users install Nix as a package manager atop another operating system. From a community perspective it makes sense to consider Nix 2.31.2 the stable release of the package manager. This version gets the most scrutiny and critical bug fixes.
+The latest major version of the Nix package manager is currently Nix 2.31.3, but NixOS 25.11, the latest stable release of NixOS, uses Nix 2.31.2. NixOS is the primary way the Nix package manager gets used in the field. Far fewer users install Nix as a package manager atop another operating system. From a community perspective it makes sense to consider Nix 2.31.2 the stable release of the package manager. This version gets the most scrutiny and critical bug fixes.
 
 As mentioned above, there are strong reasons to use still-experimental features, particularly flakes. However, APIs and calculated hashes change too frequently in experimental features from version-to-version. By sticking with the version used in NixOS, we get less breaking changes. For example, the [flake.lock](../flake.lock) file included with this project has calculated hashes for dependencies. These hashes were computed with Nix 2.31.2, and could change with later versions.
 
