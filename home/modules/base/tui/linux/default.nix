@@ -7,12 +7,7 @@ in
   imports = [
     ../../../ubiquity
     ../all
-    # REVISIT: Remove Lorelei one day
-    #module-lorelei
   ];
-
-  # REVISIT: Remove Lorelei one day
-  #programs.direnv-nix-lorelei.enable = true;
 
   programs.rbw.settings.pinentry = pkgs.pinentry-selected-linux;
 

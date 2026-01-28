@@ -45,8 +45,6 @@ in
     # integrates Fish with Direnv in a way that's hard to override, and I
     # have my own preferred Direnv integration scripts for Fish.
     programs.direnv.enable = false;
-    # DESIGN: Lorelei is not likely to return...
-    #programs.direnv-nix-lorelei.enable = true;
     programs.emacs = import programs/emacs pkgs;
     programs.feh.enable = true;
     programs.fish = import programs/fish config pkgs lib;

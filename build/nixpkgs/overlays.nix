@@ -19,7 +19,6 @@ let
       inherit (inputs)
         delta
         dircolors-solarized
-        direnv-nix-lorelei
         dotfiles-felixkratz
         fzf-fish
         jankyborders

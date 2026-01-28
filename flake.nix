@@ -27,10 +27,6 @@
       url = "github:seebi/dircolors-solarized";
       flake = false;
     };
-    direnv-nix-lorelei = {
-      url = "github:shajra/direnv-nix-lorelei";
-      flake = false;
-    };
     dotfiles-felixkratz = {
       url = "github:FelixKratz/dotfiles";
       flake = false;

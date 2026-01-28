@@ -212,22 +212,6 @@
         "type": "github"
       }
     },
-    "direnv-nix-lorelei": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1632290273,
-        "narHash": "sha256-KhLyeRqIQsa4axO6+RSMxIi8iibWefgnLcaWC+dL7Gc=",
-        "owner": "shajra",
-        "repo": "direnv-nix-lorelei",
-        "rev": "7342d5b95e84e4d9b885d4afa82b061c7278297c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "shajra",
-        "repo": "direnv-nix-lorelei",
-        "type": "github"
-      }
-    },
     "dotfiles-felixkratz": {
       "flake": false,
       "locked": {
@@ -1560,7 +1544,6 @@
           "devshell"
         ],
         "dircolors-solarized": "dircolors-solarized",
-        "direnv-nix-lorelei": "direnv-nix-lorelei",
         "dotfiles-felixkratz": "dotfiles-felixkratz",
         "emacs-overlay": "emacs-overlay",
         "flake-parts": [
