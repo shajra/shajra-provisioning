@@ -177,16 +177,15 @@
               let
                 inherit (nixpkgs.stable.hostPlatform) isDarwin;
                 git = "${pkgs-system.git}/bin/git";
-                osCmd = if isDarwin then ''shajra-darwin-rebuild'' else ''shajra-nixos-rebuild'';
+                osCmd = if isDarwin then "shajra-darwin-rebuild" else "shajra-nixos-rebuild";
                 # DESIGN: Sudo sometimes won't change HOME to the root home
                 rootGitConfig = (if isDarwin then "/var" else "") + "/root/.gitconfig";
                 osBootstrap =
                   if isDarwin then
                     ''sudo ${git} config set --file "${rootGitConfig}" safe.directory "$PRJ_ROOT"''
                   else
-                    ''true'';
-                osInstall =
-                  nixosCmd: if isDarwin then ''sudo -H ${osCmd} switch'' else ''${osCmd} ${nixosCmd} --sudo'';
+                    "true";
+                osInstall = nixosCmd: if isDarwin then "sudo -H ${osCmd} switch" else "${osCmd} ${nixosCmd} --sudo";
                 privateOpts =
                   "--refresh --override-input shajra-private"
                   + " git+ssh://cake/home/tnks/src/shajra/shajra-private?ref=main";
@@ -199,7 +198,7 @@
                     # For secrets, /var/root/.ssh/config should define access to cake.
                     name = "project-bootstrap";
                     help = "partial root config to run installers (missing SSH config)";
-                    command = ''${osBootstrap}'';
+                    command = "${osBootstrap}";
                   }
                   {
                     name = "project-format";
@@ -209,17 +208,17 @@
                   {
                     name = "project-build";
                     help = "build both system and home configuration for this host";
-                    command = ''project-build-system && project-build-home'';
+                    command = "project-build-system && project-build-home";
                   }
                   {
                     name = "project-build-system";
                     help = "build both system configuration for this host";
-                    command = ''${osCmd} build ${flakeOpt} ${privateOpts}'';
+                    command = "${osCmd} build ${flakeOpt} ${privateOpts}";
                   }
                   {
                     name = "project-build-home";
                     help = "build both home configuration for this host";
-                    command = ''shajra-home-manager build ${flakeOpt} ${privateOpts}'';
+                    command = "shajra-home-manager build ${flakeOpt} ${privateOpts}";
                   }
                   {
                     name = "project-check-flake";
@@ -244,17 +243,17 @@
                   {
                     name = "project-install-system";
                     help = "install system configuration for this host (on NixOS, boot record only)";
-                    command = ''${osInstall "boot"} ${flakeOpt} ${privateOpts}'';
+                    command = "${osInstall "boot"} ${flakeOpt} ${privateOpts}";
                   }
                   {
                     name = "project-install-home";
                     help = "install home configuration for this host";
-                    command = ''shajra-home-manager switch ${flakeOpt} ${privateOpts}'';
+                    command = "shajra-home-manager switch ${flakeOpt} ${privateOpts}";
                   }
                   {
                     name = "project-activate-system";
                     help = "activate (switch) system configuration for this host";
-                    command = ''${osInstall "switch"} ${flakeOpt} ${privateOpts}'';
+                    command = "${osInstall "switch"} ${flakeOpt} ${privateOpts}";
                   }
                   {
                     category = "[release]";

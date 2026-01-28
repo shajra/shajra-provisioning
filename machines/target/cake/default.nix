@@ -36,7 +36,7 @@ in
   #     kernel: sd 1:0:0:0: [sdb] tag#28 uas_eh_abort_handler 0 uas-tag 29 inflight: CMD IN
   #
   # https://www.cnx-software.com/2020/08/12/how-to-fix-unreliable-usb-hard-drives-stalled-transfers-linux-windows
-  boot.extraModprobeConfig = '''';
+  boot.extraModprobeConfig = "";
 
   # DESIGN: Sometimes it's worth trying to go with newer kernels than default
   #boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -264,7 +264,7 @@ in
   services.ntp.enable = true;
 
   services.openssh.enable = true;
-  services.openssh.extraConfig = ''AllowUsers tnks mzhajra'';
+  services.openssh.extraConfig = "AllowUsers tnks mzhajra";
   services.openssh.openFirewall = true;
 
   services.picom.enable = true;
@@ -349,7 +349,7 @@ in
         origFile = "${pkgs.shajra-sources.kaleidoscope}/etc/60-kaleidoscope.rules";
         origRules = builtins.readFile origFile;
       in
-      builtins.replaceStrings [ '', SYMLINK'' ''}:='' ] [ '', MODE="0666", SYMLINK'' ''}='' ] origRules
+      builtins.replaceStrings [ ", SYMLINK" "}:=" ] [ '', MODE="0666", SYMLINK'' "}=" ] origRules
     }
   '';
 

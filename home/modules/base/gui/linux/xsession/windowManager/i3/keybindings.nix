@@ -126,13 +126,13 @@ in
     + " -terminal \\\\\"${kitty} --single-instance\\\\\"\"";
 
   # open terminal
-  "${mod}+Return" = ''exec ${kitty} --single-instance'';
+  "${mod}+Return" = "exec ${kitty} --single-instance";
 
   # kill the current client
   "${mod}+q" = "kill";
 
   # kill frame with mouse click on titlebar
-  "button2" = ''--release kill'';
+  "button2" = "--release kill";
 
   # toggle tabbed
   "${mod}+t" = "layout toggle tabbed split";
@@ -182,37 +182,37 @@ in
     && ${dunstctl} history-pop \
     && ${pkill} -u ${user} -SIGRTMIN+0 i3status-rs
   '';
-  "${mod}+${modAlt}+n" = ''exec ${dunstctl} action'';
-  "${mod}+${modAlt}+Shift+n" = ''exec ${dunstctl} context'';
-  "${mod}+Control+n" = ''exec ${dunstctl} set-paused toggle'';
+  "${mod}+${modAlt}+n" = "exec ${dunstctl} action";
+  "${mod}+${modAlt}+Shift+n" = "exec ${dunstctl} context";
+  "${mod}+Control+n" = "exec ${dunstctl} set-paused toggle";
 
   # clipboard management
-  "${mod}+c" = ''exec CM_LAUNCHER=${rofi-clip} ${clipmenu}'';
+  "${mod}+c" = "exec CM_LAUNCHER=${rofi-clip} ${clipmenu}";
 
   # password management
-  "${mod}+p" = ''exec ${rofi-pass}'';
-  "${mod}+Shift+p" = ''exec ${rofi-rbw}'';
+  "${mod}+p" = "exec ${rofi-pass}";
+  "${mod}+Shift+p" = "exec ${rofi-rbw}";
 
   # PulseAudio controls
-  "XF86AudioRaiseVolume" = ''exec --no-startup-id ${dunst-osd} volume up'';
-  "XF86AudioLowerVolume" = ''exec --no-startup-id ${dunst-osd} volume down'';
-  "XF86AudioMute" = ''exec --no-startup-id ${dunst-osd} volume mute-toggle'';
+  "XF86AudioRaiseVolume" = "exec --no-startup-id ${dunst-osd} volume up";
+  "XF86AudioLowerVolume" = "exec --no-startup-id ${dunst-osd} volume down";
+  "XF86AudioMute" = "exec --no-startup-id ${dunst-osd} volume mute-toggle";
 
   # screen brightness
-  "XF86MonBrightnessUp" = ''exec --no-startup-id ${dunst-osd} brightness up'';
-  "XF86MonBrightnessDown" = ''exec --no-startup-id ${dunst-osd} brightness down'';
+  "XF86MonBrightnessUp" = "exec --no-startup-id ${dunst-osd} brightness up";
+  "XF86MonBrightnessDown" = "exec --no-startup-id ${dunst-osd} brightness down";
 
   # media
-  "XF86Search" = ''exec ${browser}'';
+  "XF86Search" = "exec ${browser}";
 
   # screen capture
-  "${mod}+${modAlt}+s" = ''exec ${flameshot} gui'';
+  "${mod}+${modAlt}+s" = "exec ${flameshot} gui";
 
   # reload i3 configuration
   "${mod}+Shift+r" = "reload";
 
   # reload i3 configuration via autorand
-  "${mod}+Control+r" = ''exec ${autorandr} --change --default home'';
+  "${mod}+Control+r" = "exec ${autorandr} --change --default home";
 
   # restart i3 inplace
   "${mod}+Control+Shift+r" = "restart";

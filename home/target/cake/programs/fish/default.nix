@@ -26,7 +26,7 @@ in
   };
 
   shellAliases = {
-    sync-drive-reference = ''${rclone} bisync google-tnks-public-drive:reference ~/doc/reference'';
-    sync-drive-purchased = ''${rclone} bisync google-tnks-public-drive:purchased ~/doc/purchased'';
+    sync-drive-reference = "${rclone} bisync google-tnks-public-drive:reference ~/doc/reference";
+    sync-drive-purchased = "${rclone} bisync google-tnks-public-drive:purchased ~/doc/purchased";
   };
 }

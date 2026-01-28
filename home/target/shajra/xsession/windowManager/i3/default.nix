@@ -9,7 +9,7 @@ in
 {
   config = {
     keybindings = {
-      "${mod}+Return" = lib.mkForce ''exec ${urxvt}'';
+      "${mod}+Return" = lib.mkForce "exec ${urxvt}";
       "${mod}+F4" = lib.mkForce ''exec ${rofi} -show ssh -terminal "${urxvt}'';
       "${mod}+g" = lib.mkForce ''exec ${rofi} -show ssh -terminal "${urxvt}'';
     };

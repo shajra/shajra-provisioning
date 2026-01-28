@@ -21,7 +21,7 @@ in
     programs.macchina.package = lib.mkOption {
       type = lib.types.package;
       default = pkgs.macchina;
-      description = ''Package of Macchina to use.'';
+      description = "Package of Macchina to use.";
     };
   };
 

@@ -2,7 +2,6 @@
   cacheHome,
   coreutils,
   direnv,
-  gnugrep,
   gnused,
 }:
 
