@@ -190,8 +190,8 @@ in
   "${mod}+c" = "exec CM_LAUNCHER=${rofi-clip} ${clipmenu}";
 
   # password management
-  "${mod}+p" = "exec ${rofi-pass}";
-  "${mod}+Shift+p" = "exec ${rofi-rbw}";
+  "${mod}+p" = "exec ${rofi-rbw}";
+  "${mod}+Shift+p" = "exec ${rofi-pass}";
 
   # PulseAudio controls
   "XF86AudioRaiseVolume" = "exec --no-startup-id ${dunst-osd} volume up";
