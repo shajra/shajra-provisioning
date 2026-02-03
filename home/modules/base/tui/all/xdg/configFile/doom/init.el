@@ -72,8 +72,9 @@
   syntax              ; tasing you for every semicolon you forget
 
   :tools
-  emacs-direnv
+  direnv            ; Doom built-in Direnv integration
   docker            ; +lsp available
+  ;emacs-direnv     ; an alternate Direnv integration that broke
   (eval +overlay)   ; run code, run (also, repls)
   (lookup           ; navigate your code and its documentation
    +dictionary      ;     may help from needing the browser as much
