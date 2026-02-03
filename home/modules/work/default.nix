@@ -14,6 +14,10 @@
               --type directory --no-ignore-vcs --hidden \
               --exec "${pkgs.git}/bin/git" -C {//} \
                   config user.email ${config.shajra.email.dev}
+          "${pkgs.fd}/bin/fd" '^[.]git$' ~/src/shajra \
+              --type directory --no-ignore-vcs --hidden \
+              --exec "${pkgs.git}/bin/git" -C {//} \
+                  config core.sshCommand 'ssh -i ~/.ssh/id_ed25519.shajra'
         '';
       };
       sailpoint-rebase-mine = {
