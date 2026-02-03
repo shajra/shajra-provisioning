@@ -280,6 +280,7 @@ rec {
   };
 
   nixpkgs.prebuilt.programming.db = pickAll "home" [
+    "pgadmin4-desktopmode"
     "pgformatter"
     "postgresql"
     "schemaspy"
