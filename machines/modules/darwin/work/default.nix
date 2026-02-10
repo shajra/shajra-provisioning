@@ -1,6 +1,7 @@
 {
   imports = [ ../base ];
   homebrew.casks = [
+    "tunnelblick"
     # DESIGN: sometimes useful, not needed for now
     #"docker"
     #"libreoffice"
