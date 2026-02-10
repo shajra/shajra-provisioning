@@ -280,6 +280,8 @@ rec {
   };
 
   nixpkgs.prebuilt.programming.db = pickAll "home" [
+    "dbeaver-bin"
+    "mariadb.client"
     "pgadmin4-desktopmode"
     "pgformatter"
     "postgresql"
