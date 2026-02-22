@@ -2,7 +2,8 @@
   enable = true;
 
   settings = {
-    aliases = {
+    # Git config section is [alias] (singular), not [aliases]
+    alias = {
       a = "add";
       b = "branch";
       ca = "commit -a";
