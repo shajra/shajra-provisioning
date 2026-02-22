@@ -175,12 +175,11 @@ rec {
   nixpkgs.prebuilt.chat.gui =
     let
       every = pickAll "home" [
-        # DESIGN: element-desktop may start to cache eventually
-        "element-desktop"
         "caprine"
       ];
       linux = np.pick { linux = "home"; } [
         "irccloud" # REVISIT: 2026-02-21: Unsupported for Darwin
+        "element-desktop" # REVISIT: 2026-02-21: Broken for Darwin
         "signal-desktop-bin"
       ];
     in
