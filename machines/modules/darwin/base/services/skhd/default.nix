@@ -31,7 +31,7 @@ in
     :: passthru   : sketchybar --bar border_color=${colors.semantic.warning}
     :: size     @ : borders active_color=${colors.semantic.info}
 
-    # REVISIT: 2026-01-27: Return all references to cmd back to lcmd
+    # REVISIT: 2026-02-21: Return all references to cmd back to lcmd
     # This has been done only for `cmd ... - escape`, because the Kaleidoscope
     # firmware for my keyboards has a defect that breaks my preferred
     # keymapping.  Rather than change the keymapping, I'm relaxing the

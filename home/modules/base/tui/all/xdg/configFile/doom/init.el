@@ -1,7 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
 
-;; REVISIT: 2025-09-07: Periodically check for new modules to consider
+;; REVISIT: 2026-02-21: Periodically check for new modules to consider
 (doom!
 
   :completion
@@ -49,6 +49,9 @@
   ;;parinfer          ; turn lisp into python, sort of
   rotate-text         ; cycle region at point between text candidates
   snippets            ; my elves. They type so I don't have to
+  (whitespace         ; a butler for your whitespace
+   +guess             ;     recommended default flag
+   +trim)             ;     recommended default flag
   word-wrap           ; soft wrapping with language-aware indent
 
   :emacs
@@ -57,6 +60,7 @@
   electric            ; smarter, keyword-based electric-indent
   ;;eww               ; the internet is gross
   (ibuffer +icons)    ; interactive buffer management
+  tramp               ; remote files at your arthritic fingertips
   undo                ; persistent, smarter undo for your inevitable mistakes
   vc                  ; version-control and Emacs, sitting in a tree
 
@@ -136,7 +140,6 @@
   ;;everywhere        ; *leave* Emacs!? You must be joking
   ;;irc               ; how neckbeards socialize
   ;;(rss +org)        ; emacs as an RSS reader
-  ;;twitter           ; twitter client https://twitter.com/vnought
 
   :config
   dir-locals

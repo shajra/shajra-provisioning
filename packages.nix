@@ -7,7 +7,7 @@
 
 let
 
-  # REVISIT: 2026-01-27: Can't build profiterole with 9.12.3
+  # REVISIT: 2026-02-21: Can't build profiterole with 9.12.3
   # nix --refresh build nixpkgs/nixpkgs-unstable#haskell.packages.ghc9123.profiterole
   ghc = "ghc9103";
 
@@ -33,7 +33,7 @@ rec {
     let
       every = pickAll "home" [
         "mpc"
-        #"whipper" # REVISIT: 2026-01-27: broken on unstable
+        "whipper"
       ];
       linux = np.pick { linux = "home"; } [
         "playerctl"
@@ -180,7 +180,7 @@ rec {
         "caprine"
       ];
       linux = np.pick { linux = "home"; } [
-        "irccloud" # REVISIT: 2025-01-27: Unsupported for Darwin
+        "irccloud" # REVISIT: 2026-02-21: Unsupported for Darwin
         "signal-desktop-bin"
       ];
     in
@@ -248,9 +248,7 @@ rec {
   nixpkgs.build.fonts = pickAll "home" [
     "sf-symbols" # font with application icons
     "sketchybar-font" # font with application icons
-
-    # REVISIT: 2026-01-27: Broken on unstable
-    #"symbola" # another Unicode fallback font
+    "symbola" # another Unicode fallback font
   ];
 
   nixpkgs.prebuilt.programming.c =
@@ -287,14 +285,13 @@ rec {
     "postgresql"
     "schemaspy"
     "sqitchPg"
-    #"sqlint" # REVISIT: 2026-01-27: package broken
+    "sqlfluff"
     "sqlite"
   ];
 
   nixpkgs.prebuilt.programming.general = pickAll "home" [
     #"aider-chat-full" # DESIGN: Using Cursor or Codex for now
     "codex"
-    #"global" # REVISIT: 2026-01-27: package broken
     "gnumake"
     "nil"
     "nixd"
@@ -336,7 +333,7 @@ rec {
     "haskell.packages.${ghc}.haskdogs"
     "haskell.packages.${ghc}.haskell-language-server"
     "haskell.packages.${ghc}.hasktags"
-    # REVISIT: 2026-01-27: HLint incompatible with 9.10; wait for 9.12
+    # REVISIT: 2026-02-21: HLint incompatible with 9.10; wait for 9.12
     #"haskell.packages.${ghc}.hlint"
     "haskell.packages.${ghc}.hoogle"
     "haskell.packages.${ghc}.hp2pretty"
@@ -395,7 +392,7 @@ rec {
     "python3Packages.setuptools"
   ];
 
-  # REVISIT: 2026-01-27: Unsupported for Darwin
+  # REVISIT: 2026-02-21: Unsupported for Darwin
   nixpkgs.prebuilt.programming.racket = np.pick { linux = "home"; } [
     "racket"
   ];

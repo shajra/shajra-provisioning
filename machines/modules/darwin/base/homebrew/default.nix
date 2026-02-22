@@ -44,7 +44,7 @@
     #"microsoft-edge@beta"
 
     "cleanmymac"
-    # REVISIT: 2026-01-27: Aerospace doesn't build from source on Nix just yet.
+    # REVISIT: 2026-01-27: May be able to build from source now.
     # What Nixpkgs does is just repackage a published binary release.
     # See https://github.com/NixOS/nixpkgs/issues/101229.
     "nikitabobko/tap/aerospace"
