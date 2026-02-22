@@ -61,8 +61,8 @@ rec {
         "tor-browser"
         "xclip"
         "xdotool"
-        "xorg.xdpyinfo"
-        "xorg.xev"
+        "xdpyinfo"
+        "xev"
       ];
     in
     darwin // linux // nixpkgs.prebuilt.fonts;
@@ -234,7 +234,7 @@ rec {
   nixpkgs.prebuilt.fonts =
     pickAll "home" [
       "emacs-all-the-icons-fonts" # for Emacs, used automatically by Doom
-      "etBook" # stylish font from Edward Tufte's books
+      "et-book" # stylish font from Edward Tufte's books
       "fira" # variable font to complement Fira Code
       "font-awesome_6" # for i3status-rust icons
       "freefont_ttf" # a Unicode fallback font
