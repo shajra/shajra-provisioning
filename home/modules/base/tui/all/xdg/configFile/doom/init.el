@@ -1,7 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
 
-;; REVISIT: 2026-02-21: Periodically check for new modules to consider
+;; REVISIT: 2026-03-01: DELAYED: Periodically check for new modules to consider
 (doom!
 
   :completion

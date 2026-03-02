@@ -7,7 +7,7 @@
 
 let
 
-  # REVISIT: 2026-02-21: Can't build profiterole with 9.12.3
+  # REVISIT: 2026-03-01: BLOCKED: Can't build profiterole with 9.12.3
   # nix --refresh build nixpkgs/nixpkgs-unstable#haskell.packages.ghc9123.profiterole
   ghc = "ghc9103";
 
@@ -178,8 +178,8 @@ rec {
         "caprine"
       ];
       linux = np.pick { linux = "home"; } [
-        "irccloud" # REVISIT: 2026-02-21: Unsupported for Darwin
-        "element-desktop" # REVISIT: 2026-02-21: Broken for Darwin
+        "irccloud" # REVISIT: 2026-03-01: BLOCKED: Unsupported for Darwin
+        "element-desktop" # REVISIT: 2026-03-01: BLOCKED: Broken for Darwin
         "signal-desktop-bin"
       ];
     in
@@ -239,7 +239,8 @@ rec {
       "freefont_ttf" # a Unicode fallback font
       "hasklig" # font with Haskell ligatures
       "noto-fonts-color-emoji" # popular font, might like it
-      "noto-fonts" # popular font, might like it
+      # REVISIT: 2026-03-01: Broken build
+      #"noto-fonts" # popular font, might like it
       "source-serif" # serif font to complement Sauce Code Pro
     ]
     // (lib.filterAttrs (_: v: lib.isDerivation v) np.nixpkgs.home.nerd-fonts);
@@ -332,7 +333,7 @@ rec {
     "haskell.packages.${ghc}.haskdogs"
     "haskell.packages.${ghc}.haskell-language-server"
     "haskell.packages.${ghc}.hasktags"
-    # REVISIT: 2026-02-21: HLint incompatible with 9.10; wait for 9.12
+    # REVISIT: 2026-03-01: BLOCKED: HLint incompatible with 9.10; wait for 9.12
     #"haskell.packages.${ghc}.hlint"
     "haskell.packages.${ghc}.hoogle"
     "haskell.packages.${ghc}.hp2pretty"
@@ -391,7 +392,7 @@ rec {
     "python3Packages.setuptools"
   ];
 
-  # REVISIT: 2026-02-21: Unsupported for Darwin
+  # REVISIT: 2026-03-01: BLOCKED: Unsupported for Darwin
   nixpkgs.prebuilt.programming.racket = np.pick { linux = "home"; } [
     "racket"
   ];
