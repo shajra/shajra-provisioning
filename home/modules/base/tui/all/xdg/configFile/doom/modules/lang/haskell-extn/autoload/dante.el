@@ -152,7 +152,7 @@ ancestor of D."
 
 ;;;###autoload
 (defun +haskell--dante-load-current-buffer ()
-  ;; REVISIT: 2026-03-01: FIXABLE? This loading of the buffer was a reverse engineered as a fix to
+  ;; REVISIT: 2026-03-05: FIXABLE? This loading of the buffer was a reverse engineered as a fix to
   ;; what appears to be a defect in Dante.  Closing/reopenning a Haskell file
   ;; severes the connection with the Dante session.
   (lcr-cps-let ((_ (dante-async-load-current-buffer t nil)))))

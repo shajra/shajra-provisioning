@@ -7,7 +7,7 @@
 
 let
 
-  # REVISIT: 2026-03-01: BLOCKED: Can't build profiterole with 9.12.3
+  # REVISIT: 2026-03-05: BLOCKED: Can't build profiterole with 9.12.3
   # nix --refresh build nixpkgs/nixpkgs-unstable#haskell.packages.ghc9123.profiterole
   ghc = "ghc9103";
 
@@ -176,11 +176,11 @@ rec {
     let
       every = pickAll "home" [
         "caprine"
+        "signal-desktop"
       ];
       linux = np.pick { linux = "home"; } [
-        "irccloud" # REVISIT: 2026-03-01: BLOCKED: Unsupported for Darwin
-        "element-desktop" # REVISIT: 2026-03-01: BLOCKED: Broken for Darwin
-        "signal-desktop-bin"
+        "irccloud" # REVISIT: 2026-03-05: BLOCKED: Unsupported for Darwin
+        "element-desktop" # REVISIT: 2026-03-05: BLOCKED: Broken for Darwin
       ];
     in
     every // linux;
@@ -191,14 +191,11 @@ rec {
         "discord"
         "zoom-us"
       ];
-      darwin = np.pick { darwin = "home"; } [
-        "signal-desktop-bin"
-      ];
       linux = np.pick { linux = "home"; } [
         "slack"
       ];
     in
-    every // darwin // linux;
+    every // linux;
 
   nixpkgs.prebuilt.chat.tui = pickAll "home" [
     "slack-term"
@@ -217,7 +214,7 @@ rec {
       ];
       linux = np.pick { linux = "home"; } [
         "dia"
-        "freemind"
+        # "freemind" # REVISIT: 2026-03-05: Broken build
         "gimp"
         "inkscape"
         "libreoffice"
@@ -239,8 +236,7 @@ rec {
       "freefont_ttf" # a Unicode fallback font
       "hasklig" # font with Haskell ligatures
       "noto-fonts-color-emoji" # popular font, might like it
-      # REVISIT: 2026-03-01: Broken build
-      #"noto-fonts" # popular font, might like it
+      "noto-fonts" # popular font, might like it
       "source-serif" # serif font to complement Sauce Code Pro
     ]
     // (lib.filterAttrs (_: v: lib.isDerivation v) np.nixpkgs.home.nerd-fonts);
@@ -289,22 +285,35 @@ rec {
     "sqlite"
   ];
 
-  nixpkgs.prebuilt.programming.general = pickAll "home" [
-    #"aider-chat-full" # DESIGN: Using Cursor or Codex for now
-    "codex"
-    "gnumake"
-    "nil"
-    "nixd"
-    "nodejs" # DESIGN: needed for Cursor remote SSH extension
-    "plantuml"
-    "tcount"
-    "tokei"
-    "wireshark"
-  ];
+  nixpkgs.prebuilt.programming.general =
+    let
+      every = pickAll "home" [
+        #"aider-chat-full" # DESIGN: Using Cursor or Codex for now
+        "codex"
+        "gnumake"
+        "nil"
+        "nixd"
+        "nodejs" # DESIGN: needed for Cursor remote SSH extension
+        "plantuml"
+        "tcount"
+        "tokei"
+      ];
+      linux = np.pick { linux = "home"; } [
+        "wireshark"
+      ];
+    in
+    every // linux;
 
-  nixpkgs.build.programming.general = pickAll "home" [
-    "code-cursor"
-  ];
+  nixpkgs.build.programming.general =
+    let
+      every = pickAll "home" [
+        "code-cursor"
+      ];
+      darwin = np.pick { darwin = "home"; } [
+        "wireshark"
+      ];
+    in
+    every // darwin;
 
   nixpkgs.prebuilt.programming.go = pickAll "home" [
     "delve"
@@ -333,7 +342,7 @@ rec {
     "haskell.packages.${ghc}.haskdogs"
     "haskell.packages.${ghc}.haskell-language-server"
     "haskell.packages.${ghc}.hasktags"
-    # REVISIT: 2026-03-01: BLOCKED: HLint incompatible with 9.10; wait for 9.12
+    # REVISIT: 2026-03-05: BLOCKED: HLint incompatible with 9.10; wait for 9.12
     #"haskell.packages.${ghc}.hlint"
     "haskell.packages.${ghc}.hoogle"
     "haskell.packages.${ghc}.hp2pretty"
@@ -392,8 +401,7 @@ rec {
     "python3Packages.setuptools"
   ];
 
-  # REVISIT: 2026-03-01: BLOCKED: Unsupported for Darwin
-  nixpkgs.prebuilt.programming.racket = np.pick { linux = "home"; } [
+  nixpkgs.prebuilt.programming.racket = pickAll "home" [
     "racket"
   ];
 

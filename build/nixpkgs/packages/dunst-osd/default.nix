@@ -1,9 +1,9 @@
 {
   nix-project-lib,
+  brightnessctl,
   coreutils,
   dunst,
   libcanberra-gtk3,
-  light,
   ponymix,
 }:
 
@@ -23,10 +23,10 @@ nix-project-lib.writeShellCheckedExe progName
       "XDG_RUNTIME_DIR"
     ];
     pathPackages = [
+      brightnessctl
       coreutils
       dunst
       libcanberra-gtk3
-      light
       ponymix
     ];
   }
@@ -62,8 +62,8 @@ nix-project-lib.writeShellCheckedExe progName
             ;;
         brightness)
             case "$2" in
-            up)   change_brightness -A 1.0 ;;
-            down) change_brightness -U 1.0 ;;
+            up)   change_brightness set 1%  ;;
+            down) change_brightness set 1%- ;;
             *) die "unrecognized brightness subcommand: $2" ;;
             esac
             ;;
@@ -104,8 +104,8 @@ nix-project-lib.writeShellCheckedExe progName
 
     change_brightness()
     {
-        light "$@"
-        local setting; setting="$(light -G)"
+        brightnessctl "$@"
+        local setting; setting="$(brightnessctl get)"
         setting="$(printf '%.f\n' "$setting")"
         dunstify \
             --timeout 1500 \
