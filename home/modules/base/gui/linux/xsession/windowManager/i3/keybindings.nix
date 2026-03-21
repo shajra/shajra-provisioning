@@ -62,7 +62,7 @@ in
   # insertion orientation
   "${mod}+${modAlt}+j" = "split v";
   "${mod}+${modAlt}+l" = "split h";
-  # REVISIT: 2026-03-05: FIXABLE? Keep these?
+  # REVISIT: 2026-03-21: FIXABLE? Keep these?
   "${mod}+bracketleft" = "split v";
   "${mod}+bracketright" = "split h";
 

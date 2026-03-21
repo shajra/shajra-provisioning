@@ -7,7 +7,7 @@
 
 let
 
-  # REVISIT: 2026-03-05: BLOCKED: Can't build profiterole with 9.12.3
+  # REVISIT: 2026-03-21: BLOCKED: Can't build profiterole with 9.12.3
   # nix --refresh build nixpkgs/nixpkgs-unstable#haskell.packages.ghc9123.profiterole
   ghc = "ghc9103";
 
@@ -179,8 +179,8 @@ rec {
         "signal-desktop"
       ];
       linux = np.pick { linux = "home"; } [
-        "irccloud" # REVISIT: 2026-03-05: BLOCKED: Unsupported for Darwin
-        "element-desktop" # REVISIT: 2026-03-05: BLOCKED: Broken for Darwin
+        "irccloud" # REVISIT: 2026-03-21: BLOCKED: Unsupported for Darwin
+        "element-desktop" # REVISIT: 2026-03-21: BLOCKED: Broken for Darwin
       ];
     in
     every // linux;
@@ -214,7 +214,7 @@ rec {
       ];
       linux = np.pick { linux = "home"; } [
         "dia"
-        # "freemind" # REVISIT: 2026-03-05: Broken build
+        "freemind"
         "gimp"
         "inkscape"
         "libreoffice"
@@ -342,7 +342,7 @@ rec {
     "haskell.packages.${ghc}.haskdogs"
     "haskell.packages.${ghc}.haskell-language-server"
     "haskell.packages.${ghc}.hasktags"
-    # REVISIT: 2026-03-05: BLOCKED: HLint incompatible with 9.10; wait for 9.12
+    # REVISIT: 2026-03-21: BLOCKED: HLint incompatible with 9.10; wait for 9.12
     #"haskell.packages.${ghc}.hlint"
     "haskell.packages.${ghc}.hoogle"
     "haskell.packages.${ghc}.hp2pretty"
