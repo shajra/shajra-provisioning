@@ -72,13 +72,15 @@ let
     ];
   };
 
-  luaposix = pkgs-unstable.lua5_4.pkgs.buildLuarocksPackage {
+  luaposix = pkgs-unstable.lua5_5.pkgs.buildLuarocksPackage {
     pname = "luaposix";
-    version = "36.3-1";
-    src = pkgs-unstable.shajra-sources.luaposix;
+    version = "git-1";
+    src = pkgs-unstable.luaposix;
   };
 
-  lua = pkgs-unstable.lua5_4.withPackages (ps: [
+  # SbarLua links sketchybar.so against its bundled Lua (5.5 on main). Use
+  # lua5_5; luaposix rockspec is patched in build/nixpkgs/packages/luaposix.
+  lua = pkgs-unstable.lua5_5.withPackages (ps: [
     ps.lua-cjson
     luaposix
   ]);

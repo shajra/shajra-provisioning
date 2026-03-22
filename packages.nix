@@ -439,6 +439,7 @@ rec {
   ];
 
   nixpkgs.build.uncategorized.darwin = np.pick { darwin = "home"; } [
+    "luaposix"
     "sketchybar-helpers"
     "sketchybar-lua"
   ];

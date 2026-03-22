@@ -56,7 +56,7 @@
       flake = false;
     };
     luaposix = {
-      url = "github:luaposix/luaposix/v36.3";
+      url = "github:luaposix/luaposix";
       flake = false;
     };
     lieer = {

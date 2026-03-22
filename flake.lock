@@ -857,16 +857,15 @@
     "luaposix": {
       "flake": false,
       "locked": {
-        "lastModified": 1739737057,
-        "narHash": "sha256-RKDH1sB7r7xDqueByWwps5fBfl5GBL9L86FjzfStBUw=",
+        "lastModified": 1760396624,
+        "narHash": "sha256-C4cLTm/9EnMB7J205PeMqwVoqd4mf954PLgioP+AGDg=",
         "owner": "luaposix",
         "repo": "luaposix",
-        "rev": "e6b94b37c19c4bd19a7dc475a4f4cb56f61f5da9",
+        "rev": "830c92903b1043a1c417015cd70a6410a109ff3e",
         "type": "github"
       },
       "original": {
         "owner": "luaposix",
-        "ref": "v36.3",
         "repo": "luaposix",
         "type": "github"
       }
