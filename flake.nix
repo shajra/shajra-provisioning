@@ -364,6 +364,10 @@
               path' = home/target/lemon;
               privateModules = [ inputs.shajra-private.homeModules.lemon ];
             };
+            homeConfigurations.saas-perflab = configLib.homeConfiguration {
+              system = "x86_64-linux";
+              path' = home/target/saas-perflab;
+            };
 
             # DESIGN: "Slim" configurations below are for CI. These
             # avoid references to the shajra-private local Nix registry.

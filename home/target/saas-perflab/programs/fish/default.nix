@@ -5,7 +5,8 @@ let
 in
 {
   interactiveShellInit = ''
-    sft-update
+    #sft-update
+    source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
 
     # DESIGN: We don't want the socket set by Ubuntu's `sshd`
     set -gx SSH_AUTH_SOCK "$("${gpgconf}" --list-dirs agent-ssh-socket)"

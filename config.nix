@@ -71,9 +71,9 @@
         homeDirectory = "/Users/${username}";
         username = "tnks";
       };
-      shajra = rec {
+      saas-perflab = rec {
         homeDirectory = "/home/${username}";
-        username = "shajra";
+        username = "ec2-user";
       };
     };
   };
