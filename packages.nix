@@ -260,6 +260,7 @@ rec {
     every // linux;
 
   nixpkgs.prebuilt.programming.cloud = pickAll "home" [
+    "ssm-session-manager-plugin"
     "dockfmt"
     "kubectl"
     "opentofu"
