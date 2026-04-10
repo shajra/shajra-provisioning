@@ -134,6 +134,7 @@ rec {
         "which"
         "yq-go"
         "yq-go"
+        "zstd"
       ];
       # DESIGN: these are all Mac-only applications; unstable is fine
       darwin = np.pick { darwin = "unstable"; } [
