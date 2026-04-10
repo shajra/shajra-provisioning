@@ -1607,13 +1607,13 @@
     "sketchybar-font-dist": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-ZPQexNrTc24xjK/0vBxQo1c8OeuWwYwOa9Y78BHHfbI=",
+        "narHash": "sha256-ce6sgS/ga0LLu8XcvASqDuwXL7vU1tM2t0Z5kGrd2+I=",
         "type": "file",
-        "url": "https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.56/sketchybar-app-font.ttf"
+        "url": "https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.58/sketchybar-app-font.ttf"
       },
       "original": {
         "type": "file",
-        "url": "https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.56/sketchybar-app-font.ttf"
+        "url": "https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.58/sketchybar-app-font.ttf"
       }
     },
     "sketchybar-font-src": {

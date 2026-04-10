@@ -7,7 +7,7 @@
 
 let
 
-  # REVISIT: 2026-03-21: BLOCKED: Can't build profiterole with 9.12.3
+  # REVISIT: 2026-04-12: BLOCKED: Can't build profiterole with 9.12.3
   # nix --refresh build nixpkgs/nixpkgs-unstable#haskell.packages.ghc9123.profiterole
   ghc = "ghc9103";
 
@@ -177,11 +177,11 @@ rec {
     let
       every = pickAll "home" [
         "caprine"
+        "element-desktop"
         "signal-desktop"
       ];
       linux = np.pick { linux = "home"; } [
-        "irccloud" # REVISIT: 2026-03-21: BLOCKED: Unsupported for Darwin
-        "element-desktop" # REVISIT: 2026-03-21: BLOCKED: Broken for Darwin
+        "irccloud" # REVISIT: 2026-04-12: BLOCKED: Unsupported for Darwin
       ];
     in
     every // linux;
@@ -207,7 +207,7 @@ rec {
       every = pickAll "home" [
         "graphviz"
         "imagemagick"
-        "nodePackages.textlint"
+        "textlint"
         "poppler-utils"
         "proselint"
         "python3Packages.grip"
@@ -344,7 +344,7 @@ rec {
     "haskell.packages.${ghc}.haskdogs"
     "haskell.packages.${ghc}.haskell-language-server"
     "haskell.packages.${ghc}.hasktags"
-    # REVISIT: 2026-03-21: BLOCKED: HLint incompatible with 9.10; wait for 9.12
+    # REVISIT: 2026-04-12: BLOCKED: HLint incompatible with 9.10; wait for 9.12
     #"haskell.packages.${ghc}.hlint"
     "haskell.packages.${ghc}.hoogle"
     "haskell.packages.${ghc}.hp2pretty"
@@ -433,7 +433,7 @@ rec {
   nixpkgs.prebuilt.programming.web = pickAll "home" [
     "html-tidy"
     "stylelint"
-    "nodePackages.js-beautify"
+    "js-beautify"
   ];
 
   nixpkgs.prebuilt.sync = pickAll "home" [

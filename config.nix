@@ -24,8 +24,8 @@
       ];
       # DESIGN: https://github.com/input-output-hk/hackage.nix/blob/master/index-state-hashes.nix
       hackage.index = {
-        state = "2026-03-21T00:00:00Z";
-        sha256 = "fa8d295b2f88bdda1bbb569c15d3e7bd2c1b597811121db2971a7a3186cdbda6";
+        state = "2026-04-12T00:00:00Z";
+        sha256 = "a55d0e8658a321ada11bf2ea0835247a74a17cf70a440e00c8ec704d2937292e";
       };
       nixpkgs-pin = "nixpkgs-unstable";
     };
@@ -33,9 +33,10 @@
       config.allowUnfree = true;
       masterPkgsOverUnstable =
         # DESIGN: inherit temporarily when a fix is still only on master
-        _masterPkgs: # with masterPkgs;
-        {
-          # inherit ...;
+        masterPkgs: with masterPkgs; {
+          inherit
+            code-cursor # REVISIT: BROKEN: 2026-04-12
+            ;
         };
     };
   };
