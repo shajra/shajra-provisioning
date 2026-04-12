@@ -299,9 +299,9 @@ rec {
         "plantuml"
         "tcount"
         "tokei"
+        "wireshark"
       ];
       linux = np.pick { linux = "home"; } [
-        "wireshark"
       ];
     in
     every // linux;
@@ -312,7 +312,6 @@ rec {
         "code-cursor"
       ];
       darwin = np.pick { darwin = "home"; } [
-        "wireshark"
       ];
     in
     every // darwin;
@@ -324,7 +323,10 @@ rec {
     "golangci-lint"
     "gomodifytags"
     "gopkgs"
-    "gopls"
+    # DESIGN: Leaving in case coding Go later
+    # Don't really code Go, but this package provides `gopls` and `modernize`.
+    # The latter is provided by `gotools`.
+    #"gopls"
     "gore"
     "goreleaser"
     "gotools"
