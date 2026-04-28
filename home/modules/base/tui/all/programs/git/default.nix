@@ -29,8 +29,8 @@
       r = "reset";
       s = "status --short --branch";
       t = "tag";
-      wipe = "clean -d -x -e .dir-locals.el -e .envrc -e .direnv";
-      wipeall = "clean -d -x";
+      wipe = "clean -d -x -e .dir-locals.el -e .envrc -e .direnv -e .jj";
+      wipeall = "clean -d -x -e .jj";
     };
     branch.autosetuprebase = "remote";
     color = {
