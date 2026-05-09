@@ -25,6 +25,7 @@
   programs.qutebrowser = import programs/qutebrowser lib;
   programs.rofi = import programs/rofi config pkgs;
   programs.vscode = import programs/vscode;
+  programs.zathura.enable = true;
 
   services.clipmenu.enable = true;
   services.dunst = import services/dunst config pkgs;
