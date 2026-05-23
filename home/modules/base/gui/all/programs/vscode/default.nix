@@ -33,9 +33,10 @@ in
       pkgs.vscode-marketplace.ms-azuretools.vscode-containers
       pkgs.vscode-marketplace.ms-azuretools.vscode-docker
       pkgs.vscode-marketplace.ms-kubernetes-tools.vscode-kubernetes-tools
-      pkgs.vscode-marketplace.ms-python.debugpy
-      pkgs.vscode-marketplace.ms-python.python
-      pkgs.vscode-marketplace.ms-python.vscode-pylance
+      # REVISIT: 2026-05-23: BLOCKED: broken build, try again next time
+      #pkgs.vscode-marketplace.ms-python.debugpy
+      #pkgs.vscode-marketplace.ms-python.python
+      #pkgs.vscode-marketplace.ms-python.vscode-pylance
       pkgs.vscode-marketplace.ms-vscode-remote.remote-containers
       pkgs.vscode-marketplace.ms-vscode-remote.remote-ssh
       pkgs.vscode-marketplace.ms-vscode-remote.remote-ssh-edit
