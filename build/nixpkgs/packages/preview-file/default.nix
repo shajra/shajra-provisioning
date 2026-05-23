@@ -15,7 +15,7 @@
   poppler-utils,
   unrar,
   unzip,
-  xxHash,
+  xxhash,
 }:
 
 let
@@ -60,7 +60,7 @@ nix-project-lib.writeShellCheckedExe progName
       poppler-utils
       unrar
       unzip
-      xxHash
+      xxhash
     ];
 
   }
