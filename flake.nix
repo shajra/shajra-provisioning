@@ -13,7 +13,7 @@
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     haskell-nix.url = "github:input-output-hk/haskell.nix";
     home-manager.url = "github:shajra/home-manager/feature/lieer-address-override";
-    nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-25.11";
+    nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-26.05";
     nur.url = "github:nix-community/NUR";
     shajra-private.url = "github:shajra/empty";
     vscode-overlay.url = "github:nix-community/nix-vscode-extensions";
@@ -80,7 +80,7 @@
       flake = false;
     };
     sketchybar-font-dist = {
-      url = "https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.60/sketchybar-app-font.ttf";
+      url = "https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.62/sketchybar-app-font.ttf";
       flake = false;
     };
     sketchybar-font-src = {
@@ -171,7 +171,7 @@
             legacyPackages = build.shajra-provision;
             devshells.default =
               let
-                inherit (nixpkgs.stable.hostPlatform) isDarwin;
+                inherit (nixpkgs.stable.stdenv.hostPlatform) isDarwin;
                 git = "${pkgs-system.git}/bin/git";
                 osCmd = if isDarwin then "shajra-darwin-rebuild" else "shajra-nixos-rebuild";
                 # DESIGN: Sudo sometimes won't change HOME to the root home
@@ -190,7 +190,7 @@
               {
                 commands = [
                   {
-                    # REVISIT: 2026-05-23: FIXABLE? Bootstrap is incomplete
+                    # REVISIT: 2026-05-31: FIXABLE? Bootstrap is incomplete
                     # For secrets, /var/root/.ssh/config should define access to cake.
                     name = "project-bootstrap";
                     help = "partial root config to run installers (missing SSH config)";

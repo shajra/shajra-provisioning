@@ -6,7 +6,7 @@
     ./theme
   ];
 
-  home.stateVersion = "25.11";
+  home.stateVersion = "26.05";
 
   nix.package = build.infra.np.nixpkgs.system.nix;
 }

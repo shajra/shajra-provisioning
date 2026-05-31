@@ -51,7 +51,6 @@ in
   programs.jq = import programs/jq;
   programs.jujutsu = import programs/jujutsu config;
   programs.lesspipe.enable = true;
-  programs.man.generateCaches = true;
   programs.neovim = import programs/neovim config pkgs;
   programs.rbw.enable = true;
   programs.rbw.settings.base_url = "https://vault.hajra.xyz";

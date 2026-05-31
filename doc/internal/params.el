@@ -11,8 +11,8 @@
  (run-target-short     . "home-manager")
  ;; run-target-long will always prefix "bin/"
  (nix-latest           . "2.34.7")
- (nix-stable           . "2.31.5")
- (nixos-latest         . "25.11")
+ (nix-stable           . "2.34.7")
+ (nixos-latest         . "26.05")
  (platforms            . "\n\
 - Linux on x86-64 machines\n\
 - MacOS on x86-64 machines\n\

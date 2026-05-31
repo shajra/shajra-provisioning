@@ -13,7 +13,6 @@ in
       pkgs.vscode-marketplace.bbenoist.nix
       pkgs.vscode-marketplace.bodil.file-browser
       pkgs.vscode-marketplace.bpruitt-goddard.mermaid-markdown-syntax-highlighting
-      #pkgs.vscode-marketplace.bradlc.vscode-tailwindcss
       #pkgs.vscode-marketplace.connor4312.esbuild-problem-matchers
       pkgs.vscode-marketplace.dbaeumer.vscode-eslint
       pkgs.vscode-marketplace.editorconfig.editorconfig
@@ -33,10 +32,9 @@ in
       pkgs.vscode-marketplace.ms-azuretools.vscode-containers
       pkgs.vscode-marketplace.ms-azuretools.vscode-docker
       pkgs.vscode-marketplace.ms-kubernetes-tools.vscode-kubernetes-tools
-      # REVISIT: 2026-05-23: BLOCKED: broken build, try again next time
-      #pkgs.vscode-marketplace.ms-python.debugpy
-      #pkgs.vscode-marketplace.ms-python.python
-      #pkgs.vscode-marketplace.ms-python.vscode-pylance
+      pkgs.vscode-marketplace.ms-python.debugpy
+      pkgs.vscode-marketplace.ms-python.python
+      pkgs.vscode-marketplace.ms-python.vscode-pylance
       pkgs.vscode-marketplace.ms-vscode-remote.remote-containers
       pkgs.vscode-marketplace.ms-vscode-remote.remote-ssh
       pkgs.vscode-marketplace.ms-vscode-remote.remote-ssh-edit

@@ -7,7 +7,7 @@
 
 let
 
-  # REVISIT: 2026-05-23: BLOCKED: Can't build profiterole with 9.12.3
+  # REVISIT: 2026-05-31: BLOCKED: Can't build profiterole with 9.12.3
   # nix --refresh build nixpkgs/nixpkgs-unstable#haskell.packages.ghc9123.profiterole
   ghc = "ghc9103";
 
@@ -219,10 +219,13 @@ rec {
         "gimp"
         "inkscape"
         "libreoffice"
-        "peek"
       ];
     in
     every // linux;
+
+  nixpkgs.build.documentation = np.pick { linux = "home"; } [
+    "peek"
+  ];
 
   nixpkgs.build.finance = pickAll "home" [
     "moneydance"
@@ -268,23 +271,36 @@ rec {
   ];
 
   nixpkgs.build.programming.cloud = pickAll "home" [ ] // {
-    google-cloud-sdk =
-      with np.nixpkgs.home;
-      google-cloud-sdk.withExtraComponents [
-        google-cloud-sdk.components.gke-gcloud-auth-plugin
-      ];
+    # REVISIT: 2026-05-31: Broken build
+    /*
+      google-cloud-sdk =
+        with np.nixpkgs.home;
+        google-cloud-sdk.withExtraComponents [
+          google-cloud-sdk.components.gke-gcloud-auth-plugin
+        ];
+    */
   };
 
-  nixpkgs.prebuilt.programming.db = pickAll "home" [
-    "dbeaver-bin"
-    "mariadb.client"
+  nixpkgs.prebuilt.programming.db =
+    let
+      every = pickAll "home" [
+        "dbeaver-bin"
+        "mariadb.client"
+        "pgformatter"
+        "postgresql"
+        "schemaspy"
+        "sqitchPg"
+        "sqlfluff"
+        "sqlite"
+      ];
+      linux = np.pick { linux = "home"; } [
+        "pgadmin4-desktopmode"
+      ];
+    in
+    every // linux;
+
+  nixpkgs.build.programming.db = np.pick { darwin = "home"; } [
     "pgadmin4-desktopmode"
-    "pgformatter"
-    "postgresql"
-    "schemaspy"
-    "sqitchPg"
-    "sqlfluff"
-    "sqlite"
   ];
 
   nixpkgs.prebuilt.programming.general =
@@ -346,7 +362,7 @@ rec {
     "haskell.packages.${ghc}.haskdogs"
     "haskell.packages.${ghc}.haskell-language-server"
     "haskell.packages.${ghc}.hasktags"
-    # REVISIT: 2026-05-23: BLOCKED: HLint incompatible with 9.10; wait for 9.12
+    # REVISIT: 2026-05-31: BLOCKED: HLint incompatible with 9.10; wait for 9.12
     #"haskell.packages.${ghc}.hlint"
     "haskell.packages.${ghc}.hoogle"
     "haskell.packages.${ghc}.hp2pretty"

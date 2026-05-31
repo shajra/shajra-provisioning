@@ -84,7 +84,7 @@ in
         };
       paths' = if (isDarwin && !isNull darwin) || (!isDarwin && !isNull linux) then paths else [ ];
     in
-    lib.fold (a: b: a // b) { } (map pick' paths');
+    lib.foldr (a: b: a // b) { } (map pick' paths');
 
   hs.fromTopLevel =
     nixpkgsName: hsPkgName:

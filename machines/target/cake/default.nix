@@ -57,6 +57,7 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.extraPools = [ "cake" ];
+  boot.zfs.forceImportRoot = false;
 
   environment.systemPackages = # with pkgs;
     [
