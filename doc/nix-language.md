@@ -148,7 +148,7 @@ We can use a builtin `toString` function to coerce types to strings:
 ```sh
 nix eval --expr '
     let a_number = 42;
-    in "${toString a_number} is a terrible number"' 2>&1 || true
+    in "${builtins.toString a_number} is a terrible number"' 2>&1 || true
 ```
 
     "42 is a terrible number"

@@ -361,12 +361,15 @@ the following problems:
 *** Nix quick releases compete with stability
 
 The latest major version of the Nix package manager is currently Nix
-{{{nix-latest}}}, but NixOS {{{nixos-latest}}}, the latest stable release of
-NixOS, uses Nix {{{nix-stable}}}. NixOS is the primary way the Nix package
-manager gets used in the field. Far fewer users install Nix as a package manager
-atop another operating system. From a community perspective it makes sense to
-consider Nix {{{nix-stable}}} the stable release of the package manager. This
-version gets the most scrutiny and critical bug fixes.
+{{{nix-latest}}}.  NixOS {{{nixos-latest}}}, the latest stable release of NixOS,
+is not guaranteed to use this latest Nix release.
+
+Currently, NixOS {{{nixos-latest}}} defaults to using Nix {{{nix-stable}}}.
+NixOS is the primary way the Nix package manager gets used in the field. Far
+fewer users install Nix as a package manager atop another operating system. From
+a community perspective it makes sense to consider the stable version of Nix
+whatever the stable release of NixOS defaults to.  This version gets the most
+scrutiny and critical bug fixes.
 
 As mentioned above, there are strong reasons to use still-experimental features,
 particularly flakes. However, APIs and calculated hashes change too frequently
@@ -376,7 +379,7 @@ included with this project has calculated hashes for dependencies. These hashes
 were computed with Nix {{{nix-stable}}}, and could change with later versions.
 
 For these reasons, the [[file:nix-installation.org][installation guide included with this project]] recommends
-installing Nix {{{nix-stable}}}, rather than the latest official release.
+installing Nix {{{nix-stable}}}, currently used by NixOS {{{nixos-latest}}}.
 
 ** A few gaps in determinism
 

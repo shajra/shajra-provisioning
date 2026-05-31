@@ -158,8 +158,8 @@ Just be aware that the version of Nixpkgs you'll get will vary as follows:
 
 | Configuration | Operating system | Nixpkgs version of `pkgs` |
 |------------- |---------------- |------------------------- |
-| NixOS         | NixOS            | `nixos-25.11`             |
-| Darwin        | macOS            | `nixpkgs-25.11-darwin`    |
+| NixOS         | NixOS            | `nixos-26.05`             |
+| Darwin        | macOS            | `nixpkgs-26.05-darwin`    |
 | Home          | not macOS        | `nixpkgs-unstable`        |
 | Home          | macOS            | `nixpkgs-unstable`        |
 
