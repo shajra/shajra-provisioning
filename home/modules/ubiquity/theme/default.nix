@@ -70,7 +70,7 @@ let
       neovim.plugins = [
         {
           plugin = pkgs.vimPlugins.nvim-solarized-lua;
-          config = "colorscheme solarized";
+          config = "vim.cmd('colorscheme solarized')";
         }
       ];
       tridactyl = {
