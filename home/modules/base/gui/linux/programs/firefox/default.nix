@@ -37,6 +37,7 @@ in
         feedbroreader
       ]
       ++ extensions.common;
+    name = "tnks";
     inherit settings;
   };
   profiles.work = {
