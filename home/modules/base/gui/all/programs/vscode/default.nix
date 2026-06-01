@@ -15,6 +15,7 @@ in
       pkgs.vscode-marketplace.bodil.file-browser
       pkgs.vscode-marketplace.dbaeumer.vscode-eslint
       pkgs.vscode-marketplace.editorconfig.editorconfig
+      pkgs.vscode-marketplace.effectful-tech.effect-vscode
       pkgs.vscode-marketplace.github.vscode-github-actions
       pkgs.vscode-marketplace.golang.go
       pkgs.vscode-marketplace.googlecloudtools.cloudcode
