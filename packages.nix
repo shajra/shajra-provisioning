@@ -324,13 +324,14 @@ rec {
 
   nixpkgs.build.programming.general =
     let
-      every = pickAll "home" [
-        "code-cursor"
+      linux = np.pick { linux = "home"; } [
+        "code-cursor-fhs"
       ];
       darwin = np.pick { darwin = "home"; } [
+        "code-cursor"
       ];
     in
-    every // darwin;
+    linux // darwin;
 
   nixpkgs.prebuilt.programming.go = pickAll "home" [
     "delve"
