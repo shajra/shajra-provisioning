@@ -43,7 +43,6 @@ in
     theme_background = colors.semantic.background;
     theme_background_hl = colors.semantic.background_highlighted;
     theme_foreground_sh = colors.semantic.foreground_shadowed;
-    theme_inv_foreground = colors.semantic.inverse.foreground;
     theme_foreground = colors.semantic.foreground;
     theme_foreground_em = colors.semantic.foreground_emphasized;
     theme_inv_background_hl = colors.semantic.inverse.background_highlighted;
@@ -52,9 +51,6 @@ in
     theme_cyan = colors.nominal.cyan;
     theme_green = colors.nominal.green;
     theme_magenta = colors.nominal.magenta;
-    theme_red = colors.nominal.red;
-    theme_violet = colors.nominal.violet;
-    theme_yellow = colors.nominal.yellow;
   };
   macchina.source = ./macchina;
 }

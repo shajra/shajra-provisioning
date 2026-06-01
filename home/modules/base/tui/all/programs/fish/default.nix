@@ -3,6 +3,8 @@ config: pkgs: lib:
 let
 
   gpg-connect-agent = "${config.programs.gpg.package}/bin/gpg-connect-agent";
+  format = pkgs.lib.colors.format "%R%G%B";
+  colors = pkgs.lib.colors.transformColors format config.theme.colors;
 
 in
 
@@ -11,10 +13,79 @@ in
 
   functions = {
 
+    __fish_color = {
+      description = "Set custom color theme";
+      body = ''
+        set --global fish_color_autosuggestion ${colors.semantic.foreground_shadowed}
+        set --global fish_color_cancel -r
+        set --global fish_color_command ${colors.semantic.foreground_emphasized}
+        set --global fish_color_comment ${colors.semantic.foreground_shadowed}
+        set --global fish_color_cwd ${colors.nominal.green}
+        set --global fish_color_cwd_root ${colors.nominal.red}
+        set --global fish_color_end ${colors.nominal.blue}
+        set --global fish_color_error ${colors.nominal.red}
+        set --global fish_color_escape ${colors.semantic.inverse.background}
+        set --global fish_color_history_current --bold
+        set --global fish_color_host normal
+        set --global fish_color_match --background=${colors.nominal.cyan}
+        set --global fish_color_normal normal
+        set --global fish_color_operator ${colors.semantic.inverse.background}
+        set --global fish_color_param ${colors.semantic.foreground}
+        set --global fish_color_quote ${colors.semantic.inverse.foreground}
+        set --global fish_color_redirection ${colors.nominal.violet}
+        set --global fish_color_search_match \
+            ${colors.nominal.yellow} \
+            --background=${colors.semantic.background_highlighted}
+        set --global fish_color_selection \
+            ${colors.semantic.background} \
+            --bold \
+            --background=${colors.semantic.inverse.background}
+        set --global fish_color_user ${colors.nominal.cyan}
+        set --global fish_color_valid_path --underline
+        set --global fish_pager_color_completion ${colors.nominal.green}
+        set --global fish_pager_color_description ${colors.nominal.yellow}
+        set --global fish_pager_color_prefix \
+            ${colors.nominal.cyan} \
+            --underline
+        set --global fish_pager_color_progress \
+            ${colors.semantic.background} \
+            --background=${colors.nominal.cyan}
+      '';
+    };
+
     __fish_insert_date = {
       description = "Insert current date in command line";
       body = ''
         commandline -i (date +"%y%m%d")
+      '';
+    };
+
+    __fish_key_bindings = {
+      description = "Set custom VI-style keybindings";
+      body = ''
+        fish_vi_key_bindings
+
+        # DESIGN: Rebinding to "j" for "jump" because base/gui/linux
+        # will bind to "c" for "clipboard".
+        bind \ej fzf-cd-widget
+
+        # DESIGN: Rebinding PatrickF1/fzf.fish's history search, which
+        # is nicer than the standard fzf function. Home Manager's fzf
+        # module had a later precedence than the plugins of this module.
+        bind \cr _fzf_search_history
+
+        # DESIGN: Wrapping with hack for rendering images correctly.
+        # Also, rebinding to not require extra Ctrl modifier.
+        bind   \ef __fzf_search_directory
+        bind \e\cf __fzf_search_directory
+
+        if bind -M insert > /dev/null 2>&1
+            bind -M insert   \et __fish_insert_date
+            bind -M insert   \ej   fzf-cd-widget
+            bind -M insert   \cr  _fzf_search_history
+            bind -M insert   \ef __fzf_search_directory
+            bind -M insert \e\cf __fzf_search_directory
+        end
       '';
     };
 
@@ -121,37 +192,15 @@ in
   interactiveShellInit =
     let
       early = ''
-        set -gx COLORTERM truecolor
-        set -gx EDITOR vim
-        set -gx LESS FRX
-        fish_vi_key_bindings
+        set --global --export COLORTERM truecolor
+        set --global --export EDITOR vim
+        set --global --export LESS FRX
+        set --global fish_key_bindings __fish_key_bindings
+        __fish_color
         system-info
       '';
       late = lib.mkAfter ''
         umask 077
-
-        # DESIGN: Rebinding to "j" for "jump" because base/gui/linux
-        # will bind to "c" for "clipboard".
-        bind \ej fzf-cd-widget
-
-        # DESIGN: Rebinding PatrickF1/fzf.fish's history search, which
-        # is nicer than the standard fzf function. Home Manager's fzf
-        # module had a later precedence than the plugins of this module.
-        bind \cr _fzf_search_history
-
-        # DESIGN: Wrapping with hack for rendering images correctly.
-        # Also, rebinding to not require extra Ctrl modifier.
-        bind   \ef __fzf_search_directory
-        bind \e\cf __fzf_search_directory
-
-        if bind -M insert > /dev/null 2>&1
-            bind -M insert   \et __fish_insert_date
-            bind -M insert   \ej   fzf-cd-widget
-            bind -M insert   \cr  _fzf_search_history
-            bind -M insert   \ef __fzf_search_directory
-            bind -M insert \e\cf __fzf_search_directory
-        end
-
         gpg-pinentry-claim > /dev/null
       '';
     in
