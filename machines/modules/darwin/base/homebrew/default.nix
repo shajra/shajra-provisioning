@@ -1,7 +1,13 @@
 {
   enable = true;
-  onActivation.cleanup = "zap";
+
   onActivation.autoUpdate = true;
+  onActivation.cleanup = "zap";
+
+  # REVISIT: 2026-06-10: Workaround to get installation working
+  # https://github.com/nix-darwin/nix-darwin/issues/1787
+  onActivation.extraFlags = [ "--force-cleanup" ];
+
   global = {
     autoUpdate = true;
     brewfile = true;
