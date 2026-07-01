@@ -142,7 +142,7 @@ local function create_observer()
 end
 
 local function initialize()
-    -- REVISIT: 2026-05-31: BLOCKED: Creating empty workspaces up front instead of on the
+    -- REVISIT: 2026-07-01: BLOCKED: Creating empty workspaces up front instead of on the
     -- fly because the Lua API doesn't yet support moving spaces.
     -- See https://github.com/FelixKratz/SbarLua/issues/11.
     for i = 1, 10 do create_empty_workspace(tostring(i), 1) end

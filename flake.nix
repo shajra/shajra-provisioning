@@ -190,7 +190,7 @@
               {
                 commands = [
                   {
-                    # REVISIT: 2026-05-31: FIXABLE? Bootstrap is incomplete
+                    # REVISIT: 2026-07-01: FIXABLE? Bootstrap is incomplete
                     # For secrets, /var/root/.ssh/config should define access to cake.
                     name = "project-bootstrap";
                     help = "partial root config to run installers (missing SSH config)";

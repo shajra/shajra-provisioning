@@ -10,7 +10,7 @@ jobs:
     name: "pkgs-linux: ${{ matrix.infra }}"
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
     - uses: cachix/install-nix-action@v31
       with:
         # DESIGN: matching current in NixOS 26.05
@@ -39,7 +39,7 @@ jobs:
     needs: [pkgs-linux]
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
     - uses: cachix/install-nix-action@v31
       with:
         # DESIGN: matching current in NixOS 26.05
@@ -64,7 +64,7 @@ jobs:
     needs: [pkgs-linux]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
     - uses: cachix/install-nix-action@v31
       with:
         # DESIGN: matching current in NixOS 26.05
@@ -86,7 +86,7 @@ jobs:
     needs: [pkgs-darwin]
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
     - uses: cachix/install-nix-action@v31
       with:
         # DESIGN: matching current in NixOS 26.05

@@ -1,7 +1,7 @@
 _final: prev:
 
 {
-  # REVISIT: 2026-05-31: FIXABLE? Research removing the installation hack
+  # REVISIT: 2026-07-01: FIXABLE? Research removing the installation hack
   # Without this hack, was running into permissions problems when creating an
   # Applications directory.
   # https://github.com/nix-darwin/nix-darwin/issues/1315#issuecomment-2683833344

@@ -7,7 +7,7 @@
 
 let
 
-  # REVISIT: 2026-05-31: BLOCKED: Can't build profiterole with 9.12.3
+  # REVISIT: 2026-07-01: BLOCKED: Can't build profiterole with 9.12.4
   # nix --refresh build nixpkgs/nixpkgs-unstable#haskell.packages.ghc9123.profiterole
   ghc = "ghc9103";
 
@@ -125,7 +125,6 @@ rec {
         "pstree"
         "rsync"
         "scc"
-        "statix"
         "tree"
         "unzip"
         "w3m"
@@ -147,6 +146,7 @@ rec {
         "niv"
         "pciutils"
         "powertop"
+        "statix"
         "usbutils"
       ];
     in
@@ -154,6 +154,9 @@ rec {
 
   nixpkgs.build.base.tui =
     let
+      darwin = np.pick { darwin = "home"; } [
+        "statix"
+      ];
       every.picked = pickAll "home" [
         "home-manager-latest"
         "preview-file"
@@ -166,7 +169,7 @@ rec {
         ]
       );
     in
-    every.picked // { inherit (every) aspell; };
+    darwin // every.picked // { inherit (every) aspell; };
 
   nixpkgs.prebuilt.centralized = np.pick { linux = "home"; } [
     "ente-desktop"
@@ -181,7 +184,7 @@ rec {
         "signal-desktop"
       ];
       linux = np.pick { linux = "home"; } [
-        "irccloud" # REVISIT: 2026-05-09: BLOCKED: Unsupported for Darwin
+        "irccloud" # REVISIT: 2026-07-01: BLOCKED: Unsupported for Darwin
       ];
     in
     every // linux;
@@ -219,12 +222,12 @@ rec {
         "gimp"
         "inkscape"
         "libreoffice"
+        "peek"
       ];
     in
     every // linux;
 
   nixpkgs.build.documentation = np.pick { linux = "home"; } [
-    "peek"
   ];
 
   nixpkgs.build.finance = pickAll "home" [
@@ -271,14 +274,11 @@ rec {
   ];
 
   nixpkgs.build.programming.cloud = pickAll "home" [ ] // {
-    # REVISIT: 2026-05-31: Broken build
-    /*
-      google-cloud-sdk =
-        with np.nixpkgs.home;
-        google-cloud-sdk.withExtraComponents [
-          google-cloud-sdk.components.gke-gcloud-auth-plugin
-        ];
-    */
+    google-cloud-sdk =
+      with np.nixpkgs.home;
+      google-cloud-sdk.withExtraComponents [
+        google-cloud-sdk.components.gke-gcloud-auth-plugin
+      ];
   };
 
   nixpkgs.prebuilt.programming.db =
@@ -290,17 +290,18 @@ rec {
         "postgresql"
         "schemaspy"
         "sqitchPg"
-        "sqlfluff"
         "sqlite"
       ];
       linux = np.pick { linux = "home"; } [
         "pgadmin4-desktopmode"
+        "sqlfluff"
       ];
     in
     every // linux;
 
   nixpkgs.build.programming.db = np.pick { darwin = "home"; } [
     "pgadmin4-desktopmode"
+    "sqlfluff"
   ];
 
   nixpkgs.prebuilt.programming.general =
@@ -324,6 +325,9 @@ rec {
 
   nixpkgs.build.programming.general =
     let
+      every = pickAll "home" [
+        "cursor-cli"
+      ];
       linux = np.pick { linux = "home"; } [
         "code-cursor-fhs"
       ];
@@ -331,7 +335,7 @@ rec {
         "code-cursor"
       ];
     in
-    linux // darwin;
+    every // linux // darwin;
 
   nixpkgs.prebuilt.programming.go = pickAll "home" [
     "delve"
@@ -363,7 +367,7 @@ rec {
     "haskell.packages.${ghc}.haskdogs"
     "haskell.packages.${ghc}.haskell-language-server"
     "haskell.packages.${ghc}.hasktags"
-    # REVISIT: 2026-05-31: BLOCKED: HLint incompatible with 9.10; wait for 9.12
+    # REVISIT: 2026-07-01: BLOCKED: HLint incompatible with 9.10; wait for 9.12
     #"haskell.packages.${ghc}.hlint"
     "haskell.packages.${ghc}.hoogle"
     "haskell.packages.${ghc}.hp2pretty"
