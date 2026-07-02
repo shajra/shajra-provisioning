@@ -4,6 +4,13 @@ local unistd = require("posix.unistd")
 
 local json = cjson.new()
 
+local NULL = cjson.null
+
+-- DESIGN: AeroSpace's socket protocol (as of v0.21) begins each connection with
+-- a version handshake and frames every message with a 4-byte little-endian
+-- length prefix.
+local SOCKET_PROTOCOL_VERSION = 1
+
 local function get_user_name()
     local handle = io.popen("id -un")
     if handle then
@@ -35,9 +42,7 @@ end
 local username = get_user_name()
 
 local DEFAULT_CONFIG = {
-    SOCKET_PATH = string.format("/tmp/bobko.aerospace-%s.sock", username),
-    MAX_BUFFER_SIZE = 2048,
-    EXTENDED_BUFFER_SIZE = 4096
+    SOCKET_PATH = string.format("/tmp/bobko.aerospace-%s.sock", username)
 }
 
 local ERROR_MESSAGES = {
@@ -48,8 +53,52 @@ local ERROR_MESSAGES = {
     SOCKET_CLOSE = "Failed to close socket connection",
     SOCKET_NOT_CONNECTED = "Socket is not connected",
     JSON_DECODE = "Failed to decode JSON response",
+    PROTOCOL_MISMATCH = "AeroSpace socket protocol version mismatch (restart AeroSpace)",
     INVALID_WORKSPACE = "Invalid workspace identifier provided"
 }
+
+local function write_all(fd, data)
+    local total = #data
+    local sent = 0
+    while sent < total do
+        local n, err = unistd.write(fd, data:sub(sent + 1))
+        if not n then
+            error(string.format("%s: %s", ERROR_MESSAGES.SOCKET_SEND,
+                                tostring(err)))
+        end
+        sent = sent + n
+    end
+    return sent
+end
+
+local function read_exactly(fd, count)
+    local parts = {}
+    local got = 0
+    while got < count do
+        local chunk, err = unistd.read(fd, count - got)
+        if not chunk then
+            error(string.format("%s: %s", ERROR_MESSAGES.SOCKET_RECEIVE,
+                                tostring(err)))
+        end
+        if chunk == "" then
+            error(string.format("%s: %s", ERROR_MESSAGES.SOCKET_RECEIVE,
+                                "connection closed by server"))
+        end
+        parts[#parts + 1] = chunk
+        got = got + #chunk
+    end
+    return table.concat(parts)
+end
+
+local function handshake(fd)
+    write_all(fd, string.pack("<I4", SOCKET_PROTOCOL_VERSION))
+    local server_version = string.unpack("<I4", read_exactly(fd, 4))
+    if server_version ~= SOCKET_PROTOCOL_VERSION then
+        error(string.format("%s: client=%d server=%d",
+                            ERROR_MESSAGES.PROTOCOL_MISMATCH,
+                            SOCKET_PROTOCOL_VERSION, server_version))
+    end
+end
 
 local Aerospace = {}
 Aerospace.__index = Aerospace
@@ -73,6 +122,8 @@ function Aerospace.new(socketPath)
         error(string.format(ERROR_MESSAGES.SOCKET_CONNECT, self.socketPath))
     end
 
+    handshake(self.fd)
+
     return self
 end
 
@@ -93,6 +144,8 @@ function Aerospace:reconnect()
         unistd.close(fd)
         error(string.format(ERROR_MESSAGES.SOCKET_CONNECT, self.socketPath))
     end
+
+    handshake(self.fd)
 end
 
 function Aerospace:is_initialized() return self.fd ~= nil end
@@ -102,31 +155,23 @@ function Aerospace:send(query)
         error(ERROR_MESSAGES.SOCKET_NOT_CONNECTED)
     end
 
-    local encoded_query = json.encode(query)
-    encoded_query = encoded_query .. "\n"
-    local bytes_sent, err = unistd.write(self.fd, encoded_query)
+    -- Newer AeroSpace servers reject requests that omit these fields, so pass
+    -- explicit JSON null when we have no window/workspace context to forward.
+    if query.windowId == nil then query.windowId = NULL end
+    if query.workspace == nil then query.workspace = NULL end
 
-    if not bytes_sent then
-        error(string.format("%s: %s", ERROR_MESSAGES.SOCKET_SEND, tostring(err)))
-    end
-
-    return bytes_sent
+    local payload = json.encode(query)
+    local framed = string.pack("<I4", #payload) .. payload
+    return write_all(self.fd, framed)
 end
 
-function Aerospace:receive(maxBytes)
+function Aerospace:receive()
     if not self:is_initialized() then
         error(ERROR_MESSAGES.SOCKET_NOT_CONNECTED)
     end
 
-    maxBytes = maxBytes or DEFAULT_CONFIG.MAX_BUFFER_SIZE
-    local response, err = unistd.read(self.fd, maxBytes)
-
-    if not response then
-        error(string.format("%s: %s", ERROR_MESSAGES.SOCKET_RECEIVE,
-                            tostring(err)))
-    end
-
-    return response
+    local length = string.unpack("<I4", read_exactly(self.fd, 4))
+    return read_exactly(self.fd, length)
 end
 
 function Aerospace:close()
@@ -157,8 +202,7 @@ function Aerospace:list_workspaces(switches, callback)
     table.move(switches, 1, #switches, #args + 1, args)
     local query = {command = "", args = args, stdin = ""}
     self:send(query)
-    local response = decode_response(self:receive(
-                                         DEFAULT_CONFIG.EXTENDED_BUFFER_SIZE))
+    local response = decode_response(self:receive())
     local workspaces = decode_response(response.stdout)
     if callback then return callback(workspaces) end
     return workspaces
@@ -169,8 +213,7 @@ function Aerospace:list_workspace_names(switches, callback)
     table.move(switches, 1, #switches, #args + 1, args)
     local query = {command = "", args = args, stdin = ""}
     self:send(query)
-    local response = split(decode_response(self:receive(
-                                               DEFAULT_CONFIG.MAX_BUFFER_SIZE)).stdout)
+    local response = split(decode_response(self:receive()).stdout)
     if callback then return callback(response) end
     return response
 end
@@ -189,8 +232,7 @@ function Aerospace:workspace(workspace)
     local query = {command = "", args = {"workspace", workspace}, stdin = ""}
 
     self:send(query)
-    local response = decode_response(
-                         self:receive(DEFAULT_CONFIG.MAX_BUFFER_SIZE))
+    local response = decode_response(self:receive())
 
     return response.stdout
 end
@@ -206,8 +248,7 @@ function Aerospace:list_all_windows(callback)
     }
 
     self:send(query)
-    local response = decode_response(self:receive(
-                                         DEFAULT_CONFIG.EXTENDED_BUFFER_SIZE))
+    local response = decode_response(self:receive())
     local windows = decode_response(response.stdout)
 
     if callback then return callback(windows) end
