@@ -326,6 +326,7 @@ rec {
   nixpkgs.build.programming.general =
     let
       every = pickAll "home" [
+        "claude-code"
         "cursor-cli"
       ];
       linux = np.pick { linux = "home"; } [
