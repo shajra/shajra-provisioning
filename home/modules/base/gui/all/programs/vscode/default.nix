@@ -25,8 +25,8 @@ in
       pkgs.vscode-marketplace.jdinhlife.gruvbox
       pkgs.vscode-marketplace.jj-view.jj-view
       pkgs.vscode-marketplace.jnoortheen.nix-ide
-      # REVISIT: 2026-06-10: Download missing (hopefully temporarily)
-      # pkgs.vscode-marketplace.justusadam.language-haskell
+      # REVISIT: 2026-08-01: BLOCKED: Not found any more
+      #pkgs.vscode-marketplace.justusadam.language-haskell
       pkgs.vscode-marketplace.kahole.magit
       pkgs.vscode-marketplace.marp-team.marp-vscode
       pkgs.vscode-marketplace.mermaidchart.vscode-mermaid-chart

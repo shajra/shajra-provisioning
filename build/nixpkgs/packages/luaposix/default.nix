@@ -4,7 +4,7 @@
   lib,
 }:
 
-# REVISIT: 2026-07-01: BLOCKED: Not officially supporting Lua 5.5
+# REVISIT: 2026-08-01: BLOCKED: Not officially supporting Lua 5.5
 # See https://github.com/luaposix/luaposix/blob/master/luaposix-git-1.rockspec
 #
 # The last luaposix release (v36.3) works as well, but also is not yet

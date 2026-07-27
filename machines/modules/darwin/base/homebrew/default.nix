@@ -4,10 +4,6 @@
   onActivation.autoUpdate = true;
   onActivation.cleanup = "zap";
 
-  # REVISIT: 2026-06-10: Workaround to get installation working
-  # https://github.com/nix-darwin/nix-darwin/issues/1787
-  onActivation.extraFlags = [ "--force-cleanup" ];
-
   global = {
     autoUpdate = true;
     brewfile = true;
@@ -50,7 +46,7 @@
     #"microsoft-edge@beta"
 
     "cleanmymac"
-    # REVISIT: 2026-07-01: FIXABLE? May be able to build from source now.
+    # REVISIT: 2026-08-01: FIXABLE? May be able to build from source now.
     # What Nixpkgs does is just repackage a published binary release.
     # See https://github.com/NixOS/nixpkgs/issues/101229.
     "nikitabobko/tap/aerospace"
@@ -58,7 +54,7 @@
 
   # DESIGN: homebrew.masApps seems a bit too hacky
 
-  # REVISIT: 2026-07-01: DELAYED: installed manually; haven't figured out with either
+  # REVISIT: 2026-08-01: DELAYED: installed manually; haven't figured out with either
   # Homebrew or Nix
   #
   # /Applications/'Chrome Remote Desktop Host Uninstaller.app'

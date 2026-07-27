@@ -8,7 +8,7 @@ in
   ".XCompose".text = import xcompose/text.nix pkgs.shajra-sources;
   ".Xdefaults".source = makeLink "${config.home.homeDirectory}/.Xresources";
 
-  # REVISIT: 2026-07-01: FIXABLE? Clean up Tridactyl configuration
+  # REVISIT: 2026-08-01: FIXABLE? Clean up Tridactyl configuration
   # With the following ticket closed, maybe Home Manager and Nixpkgs would make
   # this easier:
   # https://github.com/NixOS/nixpkgs/issues/47340

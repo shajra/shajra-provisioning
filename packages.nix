@@ -7,7 +7,7 @@
 
 let
 
-  # REVISIT: 2026-07-01: BLOCKED: Can't build profiterole with 9.12.4
+  # REVISIT: 2026-08-01: BLOCKED: Can't build profiterole with 9.12.4
   # nix --refresh build nixpkgs/nixpkgs-unstable#haskell.packages.ghc9123.profiterole
   ghc = "ghc9103";
 
@@ -125,6 +125,7 @@ rec {
         "pstree"
         "rsync"
         "scc"
+        "statix"
         "tree"
         "unzip"
         "w3m"
@@ -146,7 +147,6 @@ rec {
         "niv"
         "pciutils"
         "powertop"
-        "statix"
         "usbutils"
       ];
     in
@@ -155,7 +155,6 @@ rec {
   nixpkgs.build.base.tui =
     let
       darwin = np.pick { darwin = "home"; } [
-        "statix"
       ];
       every.picked = pickAll "home" [
         "home-manager-latest"
@@ -184,7 +183,7 @@ rec {
         "signal-desktop"
       ];
       linux = np.pick { linux = "home"; } [
-        "irccloud" # REVISIT: 2026-07-01: BLOCKED: Unsupported for Darwin
+        "irccloud" # REVISIT: 2026-08-01: BLOCKED: Unsupported for Darwin
       ];
     in
     every // linux;
@@ -286,22 +285,20 @@ rec {
       every = pickAll "home" [
         "dbeaver-bin"
         "mariadb.client"
+        "pgadmin4-desktopmode"
         "pgformatter"
         "postgresql"
         "schemaspy"
         "sqitchPg"
+        "sqlfluff"
         "sqlite"
       ];
       linux = np.pick { linux = "home"; } [
-        "pgadmin4-desktopmode"
-        "sqlfluff"
       ];
     in
     every // linux;
 
   nixpkgs.build.programming.db = np.pick { darwin = "home"; } [
-    "pgadmin4-desktopmode"
-    "sqlfluff"
   ];
 
   nixpkgs.prebuilt.programming.general =
@@ -368,7 +365,7 @@ rec {
     "haskell.packages.${ghc}.haskdogs"
     "haskell.packages.${ghc}.haskell-language-server"
     "haskell.packages.${ghc}.hasktags"
-    # REVISIT: 2026-07-01: BLOCKED: HLint incompatible with 9.10; wait for 9.12
+    # REVISIT: 2026-08-01: BLOCKED: HLint incompatible with 9.10; wait for 9.12
     #"haskell.packages.${ghc}.hlint"
     "haskell.packages.${ghc}.hoogle"
     "haskell.packages.${ghc}.hp2pretty"
