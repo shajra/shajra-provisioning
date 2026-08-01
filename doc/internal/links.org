@@ -14,7 +14,6 @@
 #+link: flake-parts https://github.com/hercules-ci/flake-parts
 #+link: fzf https://github.com/junegunn/fzf
 #+link: gammastep https://gitlab.com/chinstrap/gammastep
-#+link: garnix https://garnix.io
 #+link: haskell-nix https://github.com/input-output-hk/haskell.nix
 #+link: homebrew https://brew.sh/
 #+link: homemanager https://github.com/nix-community/home-manager

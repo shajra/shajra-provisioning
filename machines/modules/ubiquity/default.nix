@@ -14,14 +14,12 @@ in
     '';
     nix.optimise.automatic = true;
     nix.settings.substituters = [
-      "https://cache.garnix.io"
       "https://shajra.cachix.org"
       "https://nix-community.cachix.org"
       "https://haskell-language-server.cachix.org"
       "https://cache.iog.io"
     ];
     nix.settings.trusted-public-keys = [
-      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
       "shajra.cachix.org-1:V0x7Wjgd/mHGk2KQwzXv8iydfIgLupbnZKLSQt5hh9o="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "haskell-language-server.cachix.org-1:juFfHrwkOxqIOZShtC4YC1uT1bBcq2RSvC7OMKx0Nz8="

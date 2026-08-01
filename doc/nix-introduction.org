@@ -186,7 +186,7 @@ builds more easily without worrying about deviations in environment
 configuration.
 
 Nix has a central substituter at https://cache.nixos.org, but there are
-third-party ones as well, like [[garnix][Garnix]] and [[cachix][Cachix]]. Before building a package, the
+third-party ones as well, like [[cachix][Cachix]]. Before building a package, the
 hash for the package is calculated. If any configured substituter has a build
 for the hash, it's pulled down as a substitute. A certificate-based protocol is
 used to establish the trust of substituters. Between this protocol and the

@@ -107,10 +107,9 @@ the Nix manual]].
 
 * Cache setup
 
-This project pushes built Nix packages to two substituters, [[garnix][Garnix]] and [[cachix][Cachix]],
-as part of its continuous integration. It's recommended to install at least one
-of these. Configuring both to have a fallback works as well. Garnix caches a few
-more packages than Cachix. Both should have similar availability.
+This project pushes built Nix packages to the [[cachix][Cachix]] substituter as part
+of its continuous integration. It's recommended to configure Nix to use this
+cache.
 
 We need to extend two settings in either the system-level Nix configuration file
 at =/etc/nix/nix.conf=, or the user-level configuration at
@@ -119,13 +118,10 @@ at =/etc/nix/nix.conf=, or the user-level configuration at
 The choice of whether to perform these settings system-level or user-level is up
 to your preference.
 
-First we need to specify one or both of the following substituters:
-- https://cache.garnix.io
+First we need to specify the following substituter:
 - https://shajra.cachix.org
 
-For each substituter we use, we need to also configure Nix to trust their public
-keys:
-- cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=
+We also need to configure Nix to trust its public key:
 - shajra.cachix.org-1:V0x7Wjgd/mHGk2KQwzXv8iydfIgLupbnZKLSQt5hh9o=
 
 ** System-level cache configuration
@@ -139,8 +135,8 @@ Your file will likely look like the following:
 
 #+begin_example
 …
-substituters = https://cache.nixos.org/ https://cache.garnix.io https://shajra.cachix.org
-trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g= shajra.cachix.org-1:V0x7Wjgd/mHGk2KQwzXv8iydfIgLupbnZKLSQt5hh9o=
+substituters = https://cache.nixos.org/ https://shajra.cachix.org
+trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= shajra.cachix.org-1:V0x7Wjgd/mHGk2KQwzXv8iydfIgLupbnZKLSQt5hh9o=
 …
 #+end_example
 
@@ -158,8 +154,8 @@ the following content:
 
 #+begin_example
 …
-extra-substituters = https://cache.garnix.io https://shajra.cachix.org
-extra-trusted-public-keys = cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g= shajra.cachix.org-1:V0x7Wjgd/mHGk2KQwzXv8iydfIgLupbnZKLSQt5hh9o=
+extra-substituters = https://shajra.cachix.org
+extra-trusted-public-keys = shajra.cachix.org-1:V0x7Wjgd/mHGk2KQwzXv8iydfIgLupbnZKLSQt5hh9o=
 #+end_example
 
 ** Testing your configuration
