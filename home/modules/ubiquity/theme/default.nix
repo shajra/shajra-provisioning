@@ -28,7 +28,15 @@ let
         description = "Name of theme for Doom Emacs.";
         type = lib.types.str;
       };
-      gtk = options.gtk.theme;
+      gtk = lib.mkOption {
+        description = "GTK theme settings.";
+        type = lib.types.submodule {
+          options = {
+            theme = options.gtk.theme;
+            colorScheme = options.gtk.colorScheme;
+          };
+        };
+      };
       neovim.plugins = options.programs.neovim.plugins // {
         description = "Plugins to configure theme for Neovim";
       };
@@ -64,8 +72,11 @@ let
       dircolors.extraConfig = builtins.readFile "${pkgs.shajra-sources.dircolors-solarized}/dircolors.ansi-light";
       doom.name = "doom-solarized-light";
       gtk = {
-        name = "NumixSolarizedLightMagenta";
-        package = pkgs.numix-solarized-gtk-theme;
+        theme = {
+          name = "adw-gtk3-solarized";
+          package = pkgs.adw-gtk3-solarized;
+        };
+        colorScheme = "light";
       };
       neovim.plugins = [
         {

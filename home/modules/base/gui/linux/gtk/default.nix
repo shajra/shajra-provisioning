@@ -1,7 +1,13 @@
 config:
 
+let
+  inherit (config.theme.external.gtk) colorScheme theme;
+in
+
 {
   enable = true;
   font = config.theme.fonts.proportional;
-  theme = config.theme.external.gtk;
+  inherit colorScheme;
+  gtk3.theme = theme;
+  gtk4.theme = theme;
 }

@@ -23,6 +23,10 @@
       url = "github:dandavison/delta";
       flake = false;
     };
+    adw-colors = {
+      url = "github:lassekongo83/adw-colors";
+      flake = false;
+    };
     dircolors-solarized = {
       url = "github:seebi/dircolors-solarized";
       flake = false;

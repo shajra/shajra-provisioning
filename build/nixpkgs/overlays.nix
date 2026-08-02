@@ -17,6 +17,7 @@ let
   external.sources = _final: prev: {
     shajra-sources = prev.shajra-sources or { } // {
       inherit (inputs)
+        adw-colors
         delta
         dircolors-solarized
         dotfiles-felixkratz
