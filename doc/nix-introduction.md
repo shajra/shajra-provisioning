@@ -109,7 +109,7 @@ A system of thorough hashing accomplishes this degree of precision. In Nix, the 
 
 The repeatability and precision of Nix form the basis of how substituters are trusted as caching services across the world. It also allows us to trust remote builds more easily without worrying about deviations in environment configuration.
 
-Nix has a central substituter at <https://cache.nixos.org>, but there are third-party ones as well, like [Garnix](https://garnix.io) and [Cachix](https://cachix.org/). Before building a package, the hash for the package is calculated. If any configured substituter has a build for the hash, it's pulled down as a substitute. A certificate-based protocol is used to establish the trust of substituters. Between this protocol and the algorithm for calculating hashes in Nix, you can have confidence that a package pulled from a substituter will be equivalent to what you would have built locally.
+Nix has a central substituter at <https://cache.nixos.org>, but there are third-party ones as well, like [Cachix](https://cachix.org/). Before building a package, the hash for the package is calculated. If any configured substituter has a build for the hash, it's pulled down as a substitute. A certificate-based protocol is used to establish the trust of substituters. Between this protocol and the algorithm for calculating hashes in Nix, you can have confidence that a package pulled from a substituter will be equivalent to what you would have built locally.
 
 Finally, all packages are stored in `/nix/store` by their hash. This simple scheme allows us to install multiple versions of the same package without conflicts. References to dependencies all point back to the desired version in `/nix/store` they need. Though Nix has not eliminated the risk of concurrently running different versions of the same program, at least the flexibility to do so is in the user's hands.
 
@@ -194,13 +194,13 @@ However, if industrial users move to flakes to address these problems, we have t
 
 ### Nix quick releases compete with stability<a id="sec-4-2-3"></a>
 
-The latest major version of the Nix package manager is currently Nix 2.34.7. NixOS 26.05, the latest stable release of NixOS, is not guaranteed to use this latest Nix release.
+The latest major version of the Nix package manager is currently Nix 2.35.1. NixOS 26.05, the latest stable release of NixOS, is not guaranteed to use this latest Nix release.
 
-Currently, NixOS 26.05 defaults to using Nix 2.34.7. NixOS is the primary way the Nix package manager gets used in the field. Far fewer users install Nix as a package manager atop another operating system. From a community perspective it makes sense to consider the stable version of Nix whatever the stable release of NixOS defaults to. This version gets the most scrutiny and critical bug fixes.
+Currently, NixOS 26.05 defaults to using Nix 2.34.8. NixOS is the primary way the Nix package manager gets used in the field. Far fewer users install Nix as a package manager atop another operating system. From a community perspective it makes sense to consider the stable version of Nix whatever the stable release of NixOS defaults to. This version gets the most scrutiny and critical bug fixes.
 
-As mentioned above, there are strong reasons to use still-experimental features, particularly flakes. However, APIs and calculated hashes change too frequently in experimental features from version-to-version. By sticking with the version used in NixOS, we get less breaking changes. For example, the [flake.lock](../flake.lock) file included with this project has calculated hashes for dependencies. These hashes were computed with Nix 2.34.7, and could change with later versions.
+As mentioned above, there are strong reasons to use still-experimental features, particularly flakes. However, APIs and calculated hashes change too frequently in experimental features from version-to-version. By sticking with the version used in NixOS, we get less breaking changes. For example, the [flake.lock](../flake.lock) file included with this project has calculated hashes for dependencies. These hashes were computed with Nix 2.34.8, and could change with later versions.
 
-For these reasons, the [installation guide included with this project](nix-installation.md) recommends installing Nix 2.34.7, currently used by NixOS 26.05.
+For these reasons, the [installation guide included with this project](nix-installation.md) recommends installing Nix 2.34.8, currently used by NixOS 26.05.
 
 ## A few gaps in determinism<a id="sec-4-3"></a>
 

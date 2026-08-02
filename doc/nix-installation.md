@@ -43,12 +43,12 @@ Hopefully, this alleviates any worry about installing a complex program on your 
 
 > **<span class="underline">NOTE:</span>** You don't need this step if you're running NixOS, which comes with Nix baked in.
 
-Though the latest version of Nix is Nix 2.34.7, we'll be installing the version that the last release of NixOS (26.05) uses, specifically Nix 2.34.7. As discussed in the included [introduction to Nix](nix-introduction.md), this version is considered stable by the Nix community.
+Though the latest version of Nix is Nix 2.35.1, we'll be installing the version that the last release of NixOS (26.05) uses, specifically Nix 2.34.8. As discussed in the included [introduction to Nix](nix-introduction.md), this version is considered stable by the Nix community.
 
 The following command calls the official installation script for the recommended version of Nix. Note, this script will require `sudo` access.
 
 ```bash
-sh <(curl -L https://releases.nixos.org/nix/nix-2.34.7/install) --daemon
+sh <(curl -L https://releases.nixos.org/nix/nix-2.34.8/install) --daemon
 ```
 
 The `--daemon` option installs Nix in the multi-user mode, which is generally recommended (single-user installation with `--no-daemon` instead is recommended for WSL). The script reports everything it does and touches.
@@ -69,20 +69,18 @@ The Nix manual describes [other methods of installing Nix](https://nixos.org/man
 
 # Cache setup<a id="sec-5"></a>
 
-This project pushes built Nix packages to two substituters, [Garnix](https://garnix.io) and [Cachix](https://cachix.org/), as part of its continuous integration. It's recommended to install at least one of these. Configuring both to have a fallback works as well. Garnix caches a few more packages than Cachix. Both should have similar availability.
+This project pushes built Nix packages to the [Cachix](https://cachix.org/) substituter as part of its continuous integration. It's recommended to configure Nix to use this cache.
 
 We need to extend two settings in either the system-level Nix configuration file at `/etc/nix/nix.conf`, or the user-level configuration at `~/.config/nix/nix.conf` (which may not exist yet).
 
 The choice of whether to perform these settings system-level or user-level is up to your preference.
 
-First we need to specify one or both of the following substituters:
+First we need to specify the following substituter:
 
--   <https://cache.garnix.io>
 -   <https://shajra.cachix.org>
 
-For each substituter we use, we need to also configure Nix to trust their public keys:
+We also need to configure Nix to trust its public key:
 
--   cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=
 -   shajra.cachix.org-1:V0x7Wjgd/mHGk2KQwzXv8iydfIgLupbnZKLSQt5hh9o=
 
 ## System-level cache configuration<a id="sec-5-1"></a>
@@ -94,8 +92,8 @@ Next, similarly suffix the key(s) to the `trusted-public-keys` parameter.
 Your file will likely look like the following:
 
     …
-    substituters = https://cache.nixos.org/ https://cache.garnix.io https://shajra.cachix.org
-    trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g= shajra.cachix.org-1:V0x7Wjgd/mHGk2KQwzXv8iydfIgLupbnZKLSQt5hh9o=
+    substituters = https://cache.nixos.org/ https://shajra.cachix.org
+    trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= shajra.cachix.org-1:V0x7Wjgd/mHGk2KQwzXv8iydfIgLupbnZKLSQt5hh9o=
     …
 
 ## User-level cache configuration<a id="sec-5-2"></a>
@@ -105,8 +103,8 @@ User-level Nix configuration overrides system-level settings. For user-level con
 For user-level Nix configuration, create a file at `~/.config/nix/nix.conf` with the following content:
 
     …
-    extra-substituters = https://cache.garnix.io https://shajra.cachix.org
-    extra-trusted-public-keys = cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g= shajra.cachix.org-1:V0x7Wjgd/mHGk2KQwzXv8iydfIgLupbnZKLSQt5hh9o=
+    extra-substituters = https://shajra.cachix.org
+    extra-trusted-public-keys = shajra.cachix.org-1:V0x7Wjgd/mHGk2KQwzXv8iydfIgLupbnZKLSQt5hh9o=
 
 ## Testing your configuration<a id="sec-5-3"></a>
 
