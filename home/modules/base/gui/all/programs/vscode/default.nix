@@ -25,7 +25,7 @@ in
       pkgs.vscode-marketplace.jdinhlife.gruvbox
       pkgs.vscode-marketplace.jj-view.jj-view
       pkgs.vscode-marketplace.jnoortheen.nix-ide
-      # REVISIT: 2026-08-01: BLOCKED: Not found any more
+      # REVISIT: 2026-08-12: BLOCKED: Not found any more
       #pkgs.vscode-marketplace.justusadam.language-haskell
       pkgs.vscode-marketplace.kahole.magit
       pkgs.vscode-marketplace.marp-team.marp-vscode

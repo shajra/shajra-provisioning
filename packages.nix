@@ -7,7 +7,7 @@
 
 let
 
-  # REVISIT: 2026-08-01: BLOCKED: Can't build profiterole with 9.12.4
+  # REVISIT: 2026-08-12: BLOCKED: Can't build profiterole with 9.12.4
   # nix --refresh build nixpkgs/nixpkgs-unstable#haskell.packages.ghc9123.profiterole
   ghc = "ghc9103";
 
@@ -365,7 +365,7 @@ rec {
     "haskell.packages.${ghc}.haskdogs"
     "haskell.packages.${ghc}.haskell-language-server"
     "haskell.packages.${ghc}.hasktags"
-    # REVISIT: 2026-08-01: BLOCKED: HLint incompatible with 9.10; wait for 9.12
+    # REVISIT: 2026-08-12: BLOCKED: HLint incompatible with 9.10; wait for 9.12
     #"haskell.packages.${ghc}.hlint"
     "haskell.packages.${ghc}.hoogle"
     "haskell.packages.${ghc}.hp2pretty"
