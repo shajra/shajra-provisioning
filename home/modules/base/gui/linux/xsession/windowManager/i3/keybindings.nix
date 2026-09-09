@@ -12,7 +12,6 @@ let
   i3-scratchpad = "${pkgs.i3-scratchpad}/bin/i3-scratchpad";
   pkill = "${pkgs.procps}/bin/pkill";
   rofi = "${config.programs.rofi.finalPackage}/bin/rofi";
-  rofi-pass = "${config.programs.rofi.pass.package}/bin/rofi-pass";
   rofi-rbw = "${pkgs.rofi-rbw}/bin/rofi-rbw";
   user = config.home.username;
 
@@ -62,7 +61,7 @@ in
   # insertion orientation
   "${mod}+${modAlt}+j" = "split v";
   "${mod}+${modAlt}+l" = "split h";
-  # REVISIT: 2026-08-12: FIXABLE? Keep these?
+  # REVISIT: 2026-09-09: FIXABLE? Keep these?
   "${mod}+bracketleft" = "split v";
   "${mod}+bracketright" = "split h";
 
@@ -191,7 +190,6 @@ in
 
   # password management
   "${mod}+p" = "exec ${rofi-rbw}";
-  "${mod}+Shift+p" = "exec ${rofi-pass}";
 
   # PulseAudio controls
   "XF86AudioRaiseVolume" = "exec --no-startup-id ${dunst-osd} volume up";

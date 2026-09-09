@@ -1,4 +1,4 @@
-{ build, config, ... }:
+{ build, ... }:
 
 let
   userConfig = build.config.provision.user;
@@ -38,9 +38,6 @@ in
       };
     };
   };
-
-  programs.rofi.pass.enable = true;
-  programs.rofi.pass.stores = [ "${config.home.homeDirectory}/src/live/password-store" ];
 
   programs.lieer.enable = true;
 

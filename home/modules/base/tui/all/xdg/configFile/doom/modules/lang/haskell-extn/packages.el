@@ -4,11 +4,11 @@
 (load! "modules/lang/haskell/packages" doom-emacs-dir)
 
 ;; DESIGN: match Doom
-(package! haskell-mode :pin "2dd755a5fa11577a9388af88f385d2a8e18f7a8d")
+(package! haskell-mode :pin "781e4669a0e0917fa8c532371cbfb1eb5b03b645")
 
 (when (and (modulep! +lsp) (not (modulep! :tools lsp +eglot)))
   ;; DESIGN: match Doom
-  (package! lsp-haskell :pin "871a0ef2e98b3a749d0b69d958698000ca5640d3"))
+  (package! lsp-haskell :pin "49e39b2bc02014110805f950758716615d96cd3c"))
 
 (when (modulep! +dante)
   ;; DESIGN: target latest for both
