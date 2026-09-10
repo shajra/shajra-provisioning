@@ -194,7 +194,7 @@ However, if industrial users move to flakes to address these problems, we have t
 
 ### Nix quick releases compete with stability<a id="sec-4-2-3"></a>
 
-The latest major version of the Nix package manager is currently Nix 2.35.1. NixOS 26.05, the latest stable release of NixOS, is not guaranteed to use this latest Nix release.
+The latest major version of the Nix package manager is currently Nix 2.35.2. NixOS 26.05, the latest stable release of NixOS, is not guaranteed to use this latest Nix release.
 
 Currently, NixOS 26.05 defaults to using Nix 2.34.8. NixOS is the primary way the Nix package manager gets used in the field. Far fewer users install Nix as a package manager atop another operating system. From a community perspective it makes sense to consider the stable version of Nix whatever the stable release of NixOS defaults to. This version gets the most scrutiny and critical bug fixes.
 
