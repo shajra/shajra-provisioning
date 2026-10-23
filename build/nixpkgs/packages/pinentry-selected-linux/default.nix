@@ -22,5 +22,5 @@ nix-project-lib.writeShellCheckedExe progName
     envCleaned = false;
   }
   ''
-    exec "${pinentry-all}/bin/pinentry-''${PINENTRY_USER_DATA:-gtk-2}" "''${@}"
+    exec "${pinentry-all}/bin/pinentry-''${PINENTRY_USER_DATA:-gnome3}" "''${@}"
   ''
