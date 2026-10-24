@@ -1,20 +1,20 @@
 {
   stdenvNoCC,
   shajra-sources,
-  p7zip,
+  _7zz,
 }:
 
 stdenvNoCC.mkDerivation {
   pname = "sf-symbols";
-  version = "7";
+  version = "27";
   src = shajra-sources.sf-symbols;
   dontUnpack = true;
-  nativeBuildInputs = [ p7zip ];
+  nativeBuildInputs = [ _7zz ];
   installPhase = ''
-    7z x "$src"
-    cd SFSymbols
-    7z x "SF Symbols.pkg"
-    7z x "Payload~"
+    7zz x "$src"
+    7zz x SFSymbols.pkg
+    7zz x SFSymbolsPackage.pkg/Payload
+    7zz x "Payload~"
     mkdir -p "$out/share/fonts/opentype" "$out/share/fonts/truetype"
     mv Library/Fonts/*.otf "$out/share/fonts/opentype"
     mv Library/Fonts/*.ttf "$out/share/fonts/truetype"

@@ -12,7 +12,7 @@ let
   pkgsConfig = config.provision.pkgs;
   isDevBuild = config.build.dev;
 
-  # REVISIT: 2026-09-09: BLOCKED: Splitting large link farms for known issue with Darwin
+  # REVISIT: 2026-10-24: BLOCKED: Splitting large link farms for known issue with Darwin
   # sandboxes.  https://github.com/NixOS/nix/issues/4119
   base32Chars = "0123456789abcdfghijklmnpqrsvwxyz";
   isInSection =
@@ -30,6 +30,10 @@ let
   isDrvSet = s: lib.isAttrs s && (lib.any lib.isDerivation (builtins.attrValues s) || s == { });
 
   deepMerge = builtins.foldl' (acc: a: lib.recursiveUpdate acc a) { };
+
+  nixProjectLib = withSystem system (
+    { inputs', ... }: inputs'.nix-project.legacyPackages.lib.scripts
+  );
 
   joinForCi =
     name: filter': set:
@@ -89,15 +93,17 @@ let
       found = builtins.attrValues (deepMerge (lib.collect isDrvSet sets));
       bashOutPaths = lib.concatMapStringsSep " " (d: d.outPath) found;
     in
-    prev.writeShellApplication {
-      name = "check-caching-${name}";
-      inheritPath = false;
-      runtimeInputs = [
-        # DESIGN: Don't understand, but prev.coreutils leads to cache miss
-        final.coreutils
-        prev.curl
-      ];
-      text = ''
+    nixProjectLib.writeShellCheckedExe "check-caching-${name}"
+      {
+        pathKeep = [
+          "nix"
+        ];
+        pathPackages = [
+          # DESIGN: Don't understand, but prev.coreutils leads to cache miss
+          final.coreutils
+        ];
+      }
+      ''
         set -eu
         set -o pipefail
         OUT_PATHS=(${bashOutPaths})
@@ -110,10 +116,9 @@ let
         }"
         for path in "''${OUT_PATHS[@]}"
         do
-            PATH_PREFIX="''${path%%-*}"
-            HASH="$(basename "$PATH_PREFIX")"
-            if ${if checkCacheHit then "!" else ""} curl --fail --silent --head \
-                "https://cache.nixos.org/$HASH.narinfo" >/dev/null
+            if ${if checkCacheHit then "!" else ""} nix path-info \
+                --store https://cache.nixos.org \
+                "$path" >/dev/null 2>&1
             then
                 echo "${if checkCacheHit then "NOT" else ""} FOUND: $path"
                 EXIT_CODE=1
@@ -121,7 +126,6 @@ let
         done
         exit "$EXIT_CODE"
       '';
-    };
 
   checkPrebuilt =
     let

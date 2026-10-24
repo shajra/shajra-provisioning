@@ -49,6 +49,25 @@ let
     homeModules.vscode-server = inputs.vscode-server.homeModules.default;
   };
 
+  # REVISIT: 2026-10-24: Drop when fixed later
+  # nix --refresh build nixpkgs/nixpkgs-unstable#python314Packages.diff-cover
+  fixes.diff-cover = _final: prev: {
+    pythonPackagesExtensions = (prev.pythonPackagesExtensions or [ ]) ++ [
+      (_pythonFinal: pythonPrev: {
+        diff-cover = pythonPrev.diff-cover.overridePythonAttrs (old: {
+          disabledTests = (old.disabledTests or [ ]) ++ [
+            "test_added_file_pycodestyle_html"
+            "test_all_reports"
+            "test_added_file_pyflakes_html"
+            "test_added_file_pylint_html"
+            "test_fail_under_html"
+            "test_fail_under_pass_html"
+          ];
+        });
+      })
+    ];
+  };
+
   internal.sources =
     _final: prev:
     let
@@ -92,6 +111,7 @@ in
   external.sources
   external.modules
   external.packages
+  fixes.diff-cover
 ]
 ++ internal.overlays
 ++ [

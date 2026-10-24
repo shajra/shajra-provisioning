@@ -76,7 +76,7 @@
       flake = false;
     };
     sf-symbols = {
-      url = "https://devimages-cdn.apple.com/design/resources/download/SF-Symbols-7.dmg";
+      url = "https://devimages-cdn.apple.com/design/resources/download/SF-Symbols-27.dmg";
       flake = false;
     };
     sketchybar = {
@@ -84,7 +84,7 @@
       flake = false;
     };
     sketchybar-font-dist = {
-      url = "https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.86/sketchybar-app-font.ttf";
+      url = "https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v3.0.12/sketchybar-app-font.ttf";
       flake = false;
     };
     sketchybar-font-src = {
@@ -194,7 +194,7 @@
               {
                 commands = [
                   {
-                    # REVISIT: 2026-09-09: FIXABLE? Bootstrap is incomplete
+                    # REVISIT: 2026-10-24: FIXABLE? Bootstrap is incomplete
                     # For secrets, /var/root/.ssh/config should define access to cake.
                     name = "project-bootstrap";
                     help = "partial root config to run installers (missing SSH config)";

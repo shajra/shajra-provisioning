@@ -10,7 +10,7 @@ config:
       savePathFixed = false;
       startupLaunch = false;
 
-      # REVISIT: 2026-09-09: BLOCKED: Workaround below
+      # REVISIT: 2026-10-24: BLOCKED: Workaround below
       # See https://github.com/nix-community/home-manager/issues/9201
       useX11LegacyScreenshot = true;
     };

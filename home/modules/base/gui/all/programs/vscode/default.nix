@@ -9,6 +9,11 @@ in
     enableExtensionUpdateCheck = false;
     enableUpdateCheck = false;
     extensions = [
+      pkgs.open-vsx.google.geminicodeassist
+      pkgs.open-vsx.googlecloudtools.datacloud
+      pkgs.open-vsx.mermaidchart.vscode-mermaid-chart
+      pkgs.open-vsx.opentofu.vscode-opentofu
+      pkgs.open-vsx.well-typed.haskell-debugger-extension
       pkgs.vscode-marketplace."4ops".terraform
       pkgs.vscode-marketplace.bbenoist.nix
       pkgs.vscode-marketplace.bierner.markdown-mermaid
@@ -19,17 +24,13 @@ in
       pkgs.vscode-marketplace.github.vscode-github-actions
       pkgs.vscode-marketplace.golang.go
       pkgs.vscode-marketplace.googlecloudtools.cloudcode
-      pkgs.vscode-marketplace.googlecloudtools.datacloud
-      pkgs.vscode-marketplace.google.geminicodeassist
       pkgs.vscode-marketplace.haskell.haskell
+      pkgs.vscode-marketplace.haskell.language-haskell
       pkgs.vscode-marketplace.jdinhlife.gruvbox
       pkgs.vscode-marketplace.jj-view.jj-view
       pkgs.vscode-marketplace.jnoortheen.nix-ide
-      # REVISIT: 2026-09-09: BLOCKED: Not found any more
-      #pkgs.vscode-marketplace.justusadam.language-haskell
       pkgs.vscode-marketplace.kahole.magit
       pkgs.vscode-marketplace.marp-team.marp-vscode
-      pkgs.vscode-marketplace.mermaidchart.vscode-mermaid-chart
       pkgs.vscode-marketplace.mkhl.direnv
       pkgs.vscode-marketplace.ms-azuretools.vscode-containers
       pkgs.vscode-marketplace.ms-azuretools.vscode-docker
@@ -37,16 +38,15 @@ in
       pkgs.vscode-marketplace.ms-python.debugpy
       pkgs.vscode-marketplace.ms-python.python
       pkgs.vscode-marketplace.ms-python.vscode-pylance
+      pkgs.vscode-marketplace.ms-toolsai.jupyter
+      pkgs.vscode-marketplace.ms-vscode-remote.remote-containers
+      pkgs.vscode-marketplace.ms-vscode-remote.remote-ssh
+      pkgs.vscode-marketplace.ms-vscode-remote.remote-ssh-edit
       pkgs.vscode-marketplace.ms-vscode.cmake-tools
       pkgs.vscode-marketplace.ms-vscode.extension-test-runner
       pkgs.vscode-marketplace.ms-vscode.makefile-tools
       pkgs.vscode-marketplace.ms-vscode.remote-explorer
-      pkgs.vscode-marketplace.ms-vscode-remote.remote-containers
-      pkgs.vscode-marketplace.ms-vscode-remote.remote-ssh
-      pkgs.vscode-marketplace.ms-vscode-remote.remote-ssh-edit
-      pkgs.vscode-marketplace.ms-toolsai.jupyter
       #pkgs.vscode-marketplace.ocamllabs.ocaml-platform
-      pkgs.vscode-marketplace.opentofu.vscode-opentofu
       pkgs.vscode-marketplace.redhat.java
       pkgs.vscode-marketplace.redhat.vscode-xml
       pkgs.vscode-marketplace.redhat.vscode-yaml
