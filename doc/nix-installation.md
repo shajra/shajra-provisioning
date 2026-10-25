@@ -43,12 +43,12 @@ Hopefully, this alleviates any worry about installing a complex program on your 
 
 > **<span class="underline">NOTE:</span>** You don't need this step if you're running NixOS, which comes with Nix baked in.
 
-Though the latest version of Nix is Nix 2.35.2, we'll be installing the version that the last release of NixOS (26.05) uses, specifically Nix 2.34.8. As discussed in the included [introduction to Nix](nix-introduction.md), this version is considered stable by the Nix community.
+Though the latest version of Nix is Nix 2.35.3, we'll be installing the version that the last release of NixOS (26.05) uses, specifically Nix 2.34.9. As discussed in the included [introduction to Nix](nix-introduction.md), this version is considered stable by the Nix community.
 
 The following command calls the official installation script for the recommended version of Nix. Note, this script will require `sudo` access.
 
 ```bash
-sh <(curl -L https://releases.nixos.org/nix/nix-2.34.8/install) --daemon
+sh <(curl -L https://releases.nixos.org/nix/nix-2.34.9/install) --daemon
 ```
 
 The `--daemon` option installs Nix in the multi-user mode, which is generally recommended (single-user installation with `--no-daemon` instead is recommended for WSL). The script reports everything it does and touches.

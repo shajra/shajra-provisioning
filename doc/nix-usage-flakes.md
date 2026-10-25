@@ -82,7 +82,7 @@ nix registry list
 ```
 
     …
-    global flake:nixpkgs/nixpkgs-26.05-darwin https://channels.nixos.org/nixpkgs-26.05-darwin/nixexprs.tar.xz
+    global flake:nixpkgs/nixpkgs-26.05-darwin https://channels.nixos.org/nixpkgs-26.05-darwin/nixexprs.tar.zst
     global flake:nixpkgs github:NixOS/nixpkgs/nixpkgs-unstable
     global flake:nixvim github:nix-community/nixvim
     global flake:nur github:nix-community/NUR
@@ -215,22 +215,22 @@ nix search nixpkgs 'gpu|opengl|accel' terminal
     * legacyPackages.x86_64-linux.darktile (0.0.11)
       GPU rendered terminal emulator designed for tiling window managers
     
-    * legacyPackages.x86_64-linux.kitty (0.48.2)
+    * legacyPackages.x86_64-linux.kitty (0.49.2)
       Fast, feature-rich, GPU based terminal emulator
     
-    * legacyPackages.x86_64-linux.kitty-bin (0.48.2)
+    * legacyPackages.x86_64-linux.kitty-bin (0.49.2)
       Fast, feature-rich, GPU based terminal emulator (prebuilt signed macOS app)
     
     * legacyPackages.x86_64-linux.leetgpu (1.2.0)
       Run CUDA kernels from your terminal
     
-    * legacyPackages.x86_64-linux.ratty (0.5.0)
+    * legacyPackages.x86_64-linux.ratty (0.6.0)
       GPU-rendered terminal emulator with inline 3D graphics
     
-    * legacyPackages.x86_64-linux.rio (0.5.27)
+    * legacyPackages.x86_64-linux.rio (0.5.28)
       Hardware-accelerated GPU terminal emulator powered by WebGPU
     
-    * legacyPackages.x86_64-linux.wezterm (0-unstable-2026-08-31)
+    * legacyPackages.x86_64-linux.wezterm (0-unstable-2026-10-10)
       GPU-accelerated cross-platform terminal emulator and multiplexer written by @wez and implemented in Rust
     
     * legacyPackages.x86_64-linux.zutty (0.16-unstable-2024-08-18)
@@ -285,7 +285,7 @@ After a successful call of `nix build`, you'll see one or more symlinks for each
 readlink result*
 ```
 
-    /nix/store/fs9lz2g5wssrk5d418ag5cjdssmid9qg-home-manager
+    /nix/store/ca77ss85k7c3bdj7bckgr4181vnss58f-home-manager
 
 Following these symlinks, we can see the files the project provides:
 
@@ -313,7 +313,7 @@ It's common to configure these “result” symlinks as ignored in source contro
 nix path-info .#home-manager
 ```
 
-    /nix/store/fs9lz2g5wssrk5d418ag5cjdssmid9qg-home-manager
+    /nix/store/ca77ss85k7c3bdj7bckgr4181vnss58f-home-manager
 
 ## Running commands in a shell<a id="sec-4-6"></a>
 
@@ -329,7 +329,7 @@ nix shell \
     --command home-manager --help
 ```
 
-    Usage: /nix/store/fs9lz2g5wssrk5d418ag5cjdssmid9qg-home-manager/bin/home-manager [OPTION] COMMAND
+    Usage: /nix/store/ca77ss85k7c3bdj7bckgr4181vnss58f-home-manager/bin/home-manager [OPTION] COMMAND
     
     Options
     
@@ -379,7 +379,7 @@ Here's the `nix run` equivalent of the `nix shell` invocation from the previous 
 nix run .#home-manager  -- --help
 ```
 
-    Usage: /nix/store/fs9lz2g5wssrk5d418ag5cjdssmid9qg-home-manager/bin/home-manager [OPTION] COMMAND
+    Usage: /nix/store/ca77ss85k7c3bdj7bckgr4181vnss58f-home-manager/bin/home-manager [OPTION] COMMAND
     
     Options
     
@@ -426,7 +426,7 @@ nix shell --ignore-environment \
     --command which home-manager
 ```
 
-    /nix/store/fs9lz2g5wssrk5d418ag5cjdssmid9qg-home-manager/bin/home-manager
+    /nix/store/ca77ss85k7c3bdj7bckgr4181vnss58f-home-manager/bin/home-manager
 
 What we do with local flake references can work just as well with remote flake references.
 
@@ -454,7 +454,7 @@ nix profile list
     Flake attribute:    packages.x86_64-linux.home-manager
     Original flake URL: git+file:///home/shajra/src/shajra-provisioning
     Locked flake URL:   git+file:///home/shajra/src/shajra-provisioning
-    Store paths:        /nix/store/fs9lz2g5wssrk5d418ag5cjdssmid9qg-home-manager
+    Store paths:        /nix/store/ca77ss85k7c3bdj7bckgr4181vnss58f-home-manager
 
 If we want to uninstall a program from our profile, we can reference it by name:
 

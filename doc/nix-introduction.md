@@ -194,13 +194,13 @@ However, if industrial users move to flakes to address these problems, we have t
 
 ### Nix quick releases compete with stability<a id="sec-4-2-3"></a>
 
-The latest major version of the Nix package manager is currently Nix 2.35.2. NixOS 26.05, the latest stable release of NixOS, is not guaranteed to use this latest Nix release.
+The latest major version of the Nix package manager is currently Nix 2.35.3. NixOS 26.05, the latest stable release of NixOS, is not guaranteed to use this latest Nix release.
 
-Currently, NixOS 26.05 defaults to using Nix 2.34.8. NixOS is the primary way the Nix package manager gets used in the field. Far fewer users install Nix as a package manager atop another operating system. From a community perspective it makes sense to consider the stable version of Nix whatever the stable release of NixOS defaults to. This version gets the most scrutiny and critical bug fixes.
+Currently, NixOS 26.05 defaults to using Nix 2.34.9. NixOS is the primary way the Nix package manager gets used in the field. Far fewer users install Nix as a package manager atop another operating system. From a community perspective it makes sense to consider the stable version of Nix whatever the stable release of NixOS defaults to. This version gets the most scrutiny and critical bug fixes.
 
-As mentioned above, there are strong reasons to use still-experimental features, particularly flakes. However, APIs and calculated hashes change too frequently in experimental features from version-to-version. By sticking with the version used in NixOS, we get less breaking changes. For example, the [flake.lock](../flake.lock) file included with this project has calculated hashes for dependencies. These hashes were computed with Nix 2.34.8, and could change with later versions.
+As mentioned above, there are strong reasons to use still-experimental features, particularly flakes. However, APIs and calculated hashes change too frequently in experimental features from version-to-version. By sticking with the version used in NixOS, we get less breaking changes. For example, the [flake.lock](../flake.lock) file included with this project has calculated hashes for dependencies. These hashes were computed with Nix 2.34.9, and could change with later versions.
 
-For these reasons, the [installation guide included with this project](nix-installation.md) recommends installing Nix 2.34.8, currently used by NixOS 26.05.
+For these reasons, the [installation guide included with this project](nix-installation.md) recommends installing Nix 2.34.9, currently used by NixOS 26.05.
 
 ## A few gaps in determinism<a id="sec-4-3"></a>
 
