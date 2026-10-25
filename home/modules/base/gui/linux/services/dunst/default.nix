@@ -5,7 +5,7 @@ let
   format = f: x: pkgs.lib.colors.format "#%R%G%B" (f x);
   id = x: x;
   colors = pkgs.lib.colors.transformColors (format id) config.theme.colors;
-  browser = "${config.programs.firefox.finalPackage}/bin/firefox-beta";
+  browser = "${config.programs.firefox.finalPackage}/bin/firefox";
 
 in
 

@@ -12,15 +12,15 @@ in
 
 {
   enable = true;
-  extraConfig = {
+  settings = {
     # DESIGN: unset bindings with Control+j/k, otherwise a conflict
     dpi = 0;
+    font = "${config.theme.fonts.monospaced.code.name} 12";
     kb-accept-entry = "Control+m,Return,KP_Enter";
     kb-remove-to-eol = "";
     kb-row-down = "Down,Control+j";
     kb-row-up = "Up,Control+k";
   };
-  font = "${config.theme.fonts.monospaced.code.name} 12";
   plugins = [
     pkgs.rofi-calc
     pkgs.rofi-emoji

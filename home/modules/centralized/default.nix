@@ -42,10 +42,10 @@ in
   programs.lieer.enable = true;
 
   programs.notmuch.enable = true;
-  programs.notmuch.extraConfig.index."header.List" = "List-Id";
-  programs.notmuch.extraConfig.index."header.SneakAddr" = "X-Sneakemail-Address";
-  programs.notmuch.extraConfig.index."header.SneakFrom" = "X-Sneakemail-From";
-  programs.notmuch.new.tags = [ "new" ];
+  programs.notmuch.settings.index."header.List" = "List-Id";
+  programs.notmuch.settings.index."header.SneakAddr" = "X-Sneakemail-Address";
+  programs.notmuch.settings.index."header.SneakFrom" = "X-Sneakemail-From";
+  programs.notmuch.settings.new.tags = [ "new" ];
 
   #services.lieer.enable = true;
 }

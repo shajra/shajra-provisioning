@@ -27,7 +27,7 @@ in
 {
   enable = true;
   nativeMessagingHosts = [ pkgs.tridactyl-native ];
-  package = pkgs.firefox-beta;
+  package = pkgs.firefox;
   profiles.default = {
     id = 0;
     isDefault = true;
