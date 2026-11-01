@@ -46,7 +46,7 @@
     #"microsoft-edge@beta"
 
     "cleanmymac"
-    # REVISIT: 2026-10-24: FIXABLE? May be able to build from source now.
+    # REVISIT: 2026-11-01: FIXABLE? May be able to build from source now.
     # What Nixpkgs does is just repackage a published binary release.
     # See https://github.com/NixOS/nixpkgs/issues/101229.
     "nikitabobko/tap/aerospace"
@@ -54,8 +54,9 @@
 
   # DESIGN: homebrew.masApps seems a bit too hacky
 
-  # REVISIT: 2026-10-24: DELAYED: installed manually; haven't figured out with either
-  # Homebrew or Nix
+  # NOTE: Optional applications historically installed manually.  Some now have
+  # Homebrew casks (chrome-remote-desktop-host, ddpm, jabra-direct,
+  # jump-desktop, wacom-tablet) if ever needed again.
   #
   # /Applications/'Chrome Remote Desktop Host Uninstaller.app'
   # /Applications/DDPM

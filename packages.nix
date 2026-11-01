@@ -7,7 +7,7 @@
 
 let
 
-  # REVISIT: 2026-10-24: BLOCKED: Can't build profiterole with 9.12.4
+  # REVISIT: 2026-11-01: BLOCKED: Can't build profiterole with 9.12.4
   # nix --refresh build nixpkgs/nixpkgs-unstable#haskell.packages.ghc9123.profiterole
   ghc = "ghc9103";
 
@@ -177,7 +177,7 @@ rec {
         "signal-desktop"
       ];
       linux = np.pick { linux = "home"; } [
-        "irccloud" # REVISIT: 2026-10-24: BLOCKED: Unsupported for Darwin
+        "irccloud" # REVISIT: 2026-11-01: BLOCKED: Unsupported for Darwin
       ];
     in
     every // linux;
@@ -284,6 +284,7 @@ rec {
         "postgresql"
         "schemaspy"
         "sqitchPg"
+        "sqlfluff"
         "sqlite"
       ];
       linux = np.pick { linux = "home"; } [
@@ -292,7 +293,6 @@ rec {
     every // linux;
 
   nixpkgs.build.programming.db = pickAll "home" [
-    "sqlfluff"
   ];
 
   nixpkgs.prebuilt.programming.general =
@@ -359,8 +359,7 @@ rec {
     "haskell.packages.${ghc}.haskdogs"
     "haskell.packages.${ghc}.haskell-language-server"
     "haskell.packages.${ghc}.hasktags"
-    # REVISIT: 2026-10-24: BLOCKED: HLint incompatible with 9.10; wait for 9.12
-    #"haskell.packages.${ghc}.hlint"
+    "haskell.packages.${ghc}.hlint"
     "haskell.packages.${ghc}.hoogle"
     "haskell.packages.${ghc}.hp2pretty"
     "haskell.packages.${ghc}.profiterole"

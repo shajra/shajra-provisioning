@@ -6,12 +6,12 @@ pkgs: {
       vterm
     ];
 
-  # REVISIT: 2026-10-24: BLOCKED: Note emacs-macport doesn't have native compilation
-  # https://github.com/railwaycat/homebrew-emacsmacport/issues/274
-  # DESIGN: emacs-macport at least now builds on for Apple silicon
-  # https://github.com/NixOS/nixpkgs/issues/127902
+  # REVISIT: 2026-11-01: BLOCKED: emacs-macport lags the Emacs version Doom recommends
+  # Nixpkgs now builds emacs-macport from jdtsmith/emacs-mac (with native
+  # compilation, cached for Apple silicon), but only at Emacs 30.
+  # https://github.com/jdtsmith/emacs-mac
 
-  # REVISIT: 2026-10-24: REPEATING: Periodically confirm matching the latest recommended
+  # REVISIT: 2026-11-01: REPEATING: Periodically confirm matching the latest recommended
   # version.  https://github.com/doomemacs/doomemacs#prerequisites
   package = pkgs.emacs31;
 }
