@@ -230,7 +230,7 @@ nix search nixpkgs 'gpu|opengl|accel' terminal
     * legacyPackages.x86_64-linux.rio (0.5.28)
       Hardware-accelerated GPU terminal emulator powered by WebGPU
     
-    * legacyPackages.x86_64-linux.wezterm (0-unstable-2026-10-10)
+    * legacyPackages.x86_64-linux.wezterm (0-unstable-2026-10-26)
       GPU-accelerated cross-platform terminal emulator and multiplexer written by @wez and implemented in Rust
     
     * legacyPackages.x86_64-linux.zutty (0.16-unstable-2024-08-18)
@@ -285,7 +285,7 @@ After a successful call of `nix build`, you'll see one or more symlinks for each
 readlink result*
 ```
 
-    /nix/store/ca77ss85k7c3bdj7bckgr4181vnss58f-home-manager
+    /nix/store/wvd94vl5x4ks1m4kfv2v9kkfiksqyx9h-home-manager
 
 Following these symlinks, we can see the files the project provides:
 
@@ -313,7 +313,7 @@ It's common to configure these “result” symlinks as ignored in source contro
 nix path-info .#home-manager
 ```
 
-    /nix/store/ca77ss85k7c3bdj7bckgr4181vnss58f-home-manager
+    /nix/store/wvd94vl5x4ks1m4kfv2v9kkfiksqyx9h-home-manager
 
 ## Running commands in a shell<a id="sec-4-6"></a>
 
@@ -329,7 +329,7 @@ nix shell \
     --command home-manager --help
 ```
 
-    Usage: /nix/store/ca77ss85k7c3bdj7bckgr4181vnss58f-home-manager/bin/home-manager [OPTION] COMMAND
+    Usage: /nix/store/wvd94vl5x4ks1m4kfv2v9kkfiksqyx9h-home-manager/bin/home-manager [OPTION] COMMAND
     
     Options
     
@@ -379,7 +379,7 @@ Here's the `nix run` equivalent of the `nix shell` invocation from the previous 
 nix run .#home-manager  -- --help
 ```
 
-    Usage: /nix/store/ca77ss85k7c3bdj7bckgr4181vnss58f-home-manager/bin/home-manager [OPTION] COMMAND
+    Usage: /nix/store/wvd94vl5x4ks1m4kfv2v9kkfiksqyx9h-home-manager/bin/home-manager [OPTION] COMMAND
     
     Options
     
@@ -426,7 +426,7 @@ nix shell --ignore-environment \
     --command which home-manager
 ```
 
-    /nix/store/ca77ss85k7c3bdj7bckgr4181vnss58f-home-manager/bin/home-manager
+    /nix/store/wvd94vl5x4ks1m4kfv2v9kkfiksqyx9h-home-manager/bin/home-manager
 
 What we do with local flake references can work just as well with remote flake references.
 
@@ -454,7 +454,7 @@ nix profile list
     Flake attribute:    packages.x86_64-linux.home-manager
     Original flake URL: git+file:///home/shajra/src/shajra-provisioning
     Locked flake URL:   git+file:///home/shajra/src/shajra-provisioning
-    Store paths:        /nix/store/ca77ss85k7c3bdj7bckgr4181vnss58f-home-manager
+    Store paths:        /nix/store/wvd94vl5x4ks1m4kfv2v9kkfiksqyx9h-home-manager
 
 If we want to uninstall a program from our profile, we can reference it by name:
 
