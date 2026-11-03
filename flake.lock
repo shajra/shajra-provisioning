@@ -947,22 +947,6 @@
         "type": "github"
       }
     },
-    "luaposix": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1793323715,
-        "narHash": "sha256-Wt/Yy6cztYX3wT3sOk6Gp7sm4JVynDqHuzeBptwcIsY=",
-        "owner": "luaposix",
-        "repo": "luaposix",
-        "rev": "267767411d0e382491cfd4a1a507752291d61493",
-        "type": "github"
-      },
-      "original": {
-        "owner": "luaposix",
-        "repo": "luaposix",
-        "type": "github"
-      }
-    },
     "moneydance": {
       "flake": false,
       "locked": {
@@ -1648,7 +1632,6 @@
         "kaleidoscope": "kaleidoscope",
         "kitty-scrollback-nvim": "kitty-scrollback-nvim",
         "lieer": "lieer",
-        "luaposix": "luaposix",
         "moneydance": "moneydance",
         "nix-darwin": "nix-darwin",
         "nix-project": "nix-project_2",

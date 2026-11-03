@@ -72,11 +72,10 @@ let
     ];
   };
 
-  # SbarLua links sketchybar.so against its bundled Lua (5.5 on main). Use the
-  # matching luaposix override from build/nixpkgs/packages/luaposix.
+  # SbarLua links sketchybar.so against its bundled Lua (5.5 on main).
   lua = pkgs-unstable.lua5_5.withPackages (ps: [
     ps.lua-cjson
-    pkgs-unstable.luaposix
+    ps.luaposix
   ]);
 
 in

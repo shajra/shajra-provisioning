@@ -59,10 +59,6 @@
       url = "github:mikesmithgh/kitty-scrollback.nvim";
       flake = false;
     };
-    luaposix = {
-      url = "github:luaposix/luaposix";
-      flake = false;
-    };
     lieer = {
       url = "github:gauteh/lieer";
       flake = false;
